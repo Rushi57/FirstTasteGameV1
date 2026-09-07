@@ -12,7 +12,7 @@ public class LoadingManager : MonoBehaviour
 
     [Header("Speed Settings")]
     [Tooltip("How fast the slider fills per second (e.g., 0.5 = 2 seconds for a full bar)")]
-    [SerializeField] private float fillSpeed = 0.10f;
+    [SerializeField] private float fillSpeed = 0.5f;
 
     private void Start()
     {
