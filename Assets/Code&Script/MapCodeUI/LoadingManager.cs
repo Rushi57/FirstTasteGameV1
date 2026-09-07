@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
 {
-    // Stores the target scene name globally across scene loads
     public static string targetScene;
 
     [Header("UI Components")]
     [SerializeField] private Slider progressBar;
 
+    [Header("Speed Settings")]
+    [Tooltip("How fast the slider fills per second (e.g., 0.5 = 2 seconds for a full bar)")]
+    [SerializeField] private float fillSpeed = 0.10f;
+
     private void Start()
     {
-        // Default fallback if no scene was specified
         if (string.IsNullOrEmpty(targetScene))
         {
             targetScene = "MainMenu";
@@ -25,23 +27,26 @@ public class LoadingManager : MonoBehaviour
     private IEnumerator LoadSceneAsync()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(targetScene);
+
+        // Prevent the scene from switching automatically as soon as loading finishes
         operation.allowSceneActivation = false;
+
+        float targetProgress = 0f;
 
         while (!operation.isDone)
         {
-            // operation.progress goes from 0.0 to 0.9 while loading
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            // Normalize progress (Unity reports 0.0 to 0.9 during load)
+            targetProgress = Mathf.Clamp01(operation.progress / 0.9f);
 
             if (progressBar != null)
             {
-                progressBar.value = progress;
+                // Gradually move current value toward targetProgress based on fillSpeed
+                progressBar.value = Mathf.MoveTowards(progressBar.value, targetProgress, fillSpeed * Time.deltaTime);
             }
 
-            // Once fully loaded ( progress == 1.0 ), allow the scene to activate
-            if (operation.progress >= 0.9f)
+            // Wait until both the scene is fully loaded AND the UI bar is visually full
+            if (operation.progress >= 0.9f && progressBar != null && progressBar.value >= 1f)
             {
-                // Optional brief delay so the bar fills completely before switching
-                yield return new WaitForSeconds(0.2f);
                 operation.allowSceneActivation = true;
             }
 
@@ -49,7 +54,6 @@ public class LoadingManager : MonoBehaviour
         }
     }
 
-    // Call this method from any script or button to switch scenes via LoadingScene
     public static void LoadNextScene(string sceneName)
     {
         targetScene = sceneName;
