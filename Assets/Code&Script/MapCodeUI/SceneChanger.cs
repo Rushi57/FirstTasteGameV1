@@ -1,13 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 public class SceneChanger : MonoBehaviour
 {
-   public void GoToMainMenuScene()
+    // Generic method to load any scene by name through the LoadingScene
+    public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("MainMenu");
-    }
-    public void GoToMapScene()
-    {
-        SceneManager.LoadScene("MapScene");
+        LoadingManager.LoadNextScene(sceneName);
     }
 }
