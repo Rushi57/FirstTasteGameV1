@@ -2,126 +2,110 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class OSUCircleMechanic : MonoBehaviour
+public class OSUTargetItem : MonoBehaviour
 {
-    [Header("UI Components")]
-    [SerializeField] private RectTransform targetCircle;
+    [Header("UI References")]
     [SerializeField] private RectTransform approachRing;
     [SerializeField] private Button targetButton;
     [SerializeField] private TextMeshProUGUI numberText;
-    [SerializeField] private RectTransform spawnArea; // Drag Pepper/SaltPanel here
 
-    [Header("Timing Settings")]
-    [SerializeField] private float shrinkDuration = 1.2f;
-    [SerializeField] private float perfectGraceWindow = 0.35f;
-
-    [Header("Randomization Settings")]
-    [SerializeField] private float minStartScale = 2.0f;
-    [SerializeField] private float maxStartScale = 3.5f;
-    [SerializeField] private int minNumber = 1;
-    [SerializeField] private int maxNumber = 10;
+    private float shrinkDuration;
+    private float graceWindow;
+    private float currentStartScale;
+    private float startDelay; // Delay before this specific ring starts shrinking
 
     private float timer = 0f;
-    private float currentStartScale = 2.5f;
-    private bool isActive = false;
+    private bool isActivated = false;
+    private bool isFinished = false;
+    private System.Action<OSUTargetItem, int> onCompleteCallback;
 
-    private void Awake()
+    public void SetupTarget(
+        int sequenceNumber,
+        float duration,
+        float grace,
+        float startScale,
+        float delay,
+        System.Action<OSUTargetItem, int> callback)
     {
-        if (targetButton == null && targetCircle != null)
-            targetButton = targetCircle.GetComponent<Button>();
+        shrinkDuration = duration;
+        graceWindow = grace;
+        currentStartScale = startScale;
+        startDelay = delay;
+        onCompleteCallback = callback;
 
-        if (targetButton != null)
-            targetButton.onClick.AddListener(OnTargetClicked);
-
-        if (spawnArea == null)
-            spawnArea = GetComponent<RectTransform>();
-    }
-
-    private void OnEnable()
-    {
-        RandomizeAndReset();
-    }
-
-    public void RandomizeAndReset()
-    {
-        timer = 0f;
-        isActive = true;
-
-        // 1. Set random number text
         if (numberText != null)
-        {
-            numberText.text = Random.Range(minNumber, maxNumber + 1).ToString();
-        }
+            numberText.text = sequenceNumber.ToString();
 
-        // 2. Set random approach ring starting scale
-        currentStartScale = Random.Range(minStartScale, maxStartScale);
         if (approachRing != null)
-        {
             approachRing.localScale = Vector3.one * currentStartScale;
-        }
 
-        // 3. Randomize Target Circle position within the Pepper/SaltPanel bounds
-        if (spawnArea != null && targetCircle != null)
-        {
-            float widthBoundary = (spawnArea.rect.width - targetCircle.rect.width) / 2f;
-            float heightBoundary = (spawnArea.rect.height - targetCircle.rect.height) / 2f;
+        if (targetButton == null)
+            targetButton = GetComponentInChildren<Button>();
 
-            float randomX = Random.Range(-widthBoundary, widthBoundary);
-            float randomY = Random.Range(-heightBoundary, heightBoundary);
+        targetButton.onClick.RemoveAllListeners();
+        targetButton.onClick.AddListener(OnTargetClicked);
 
-            targetCircle.anchoredPosition = new Vector2(randomX, randomY);
-
-            // Lock ApproachRing directly over TargetCircle
-            approachRing.anchoredPosition = targetCircle.anchoredPosition;
-        }
+        timer = 0f;
+        isActivated = false;
+        isFinished = false;
     }
 
     private void Update()
     {
-        if (!isActive) return;
+        if (isFinished) return;
 
         timer += Time.deltaTime;
 
+        // 1. Wait for sequence start delay
+        if (!isActivated)
+        {
+            if (timer >= startDelay)
+            {
+                isActivated = true;
+                timer = 0f; // Reset timer to start shrink duration from zero
+            }
+            return;
+        }
+
+        // 2. Shrink approach ring
         float progress = Mathf.Clamp01(timer / shrinkDuration);
         float scale = Mathf.Lerp(currentStartScale, 1.0f, progress);
 
         if (approachRing != null)
-        {
             approachRing.localScale = Vector3.one * scale;
-        }
 
-        // MISS: Player did not tap in time
-        if (timer >= shrinkDuration + perfectGraceWindow)
+        // 3. Auto-miss if timer runs out after grace window
+        if (timer >= shrinkDuration + graceWindow)
         {
-            isActive = false;
-            Debug.Log("MISS! (Too Late)");
-            OnResultProcessed(0);
+            isFinished = true;
+            Debug.Log($"Target {numberText.text} MISS! (Too Late)");
+            FinishTarget(0);
         }
     }
 
     private void OnTargetClicked()
     {
-        if (!isActive) return;
+        if (!isActivated || isFinished) return;
 
-        isActive = false;
+        isFinished = true;
 
         // PERFECT: Player tapped after ring fully covered target circle
-        if (timer >= shrinkDuration && timer < shrinkDuration + perfectGraceWindow)
+        if (timer >= shrinkDuration && timer < shrinkDuration + graceWindow)
         {
-            Debug.Log("PERFECT! (+300)");
-            OnResultProcessed(300);
+            Debug.Log($"Target {numberText.text} PERFECT! (+300)");
+            FinishTarget(300);
         }
-        // GOOD: Player tapped while ring was still shrinking
+        // GOOD: Player tapped early while ring was shrinking
         else if (timer < shrinkDuration)
         {
-            Debug.Log("GOOD! (+100)");
-            OnResultProcessed(100);
+            Debug.Log($"Target {numberText.text} GOOD! (+100)");
+            FinishTarget(100);
         }
     }
 
-    private void OnResultProcessed(int score)
+    private void FinishTarget(int score)
     {
-        targetCircle.gameObject.SetActive(false);
-        if (approachRing != null) approachRing.gameObject.SetActive(false);
+        onCompleteCallback?.Invoke(this, score);
+        Destroy(gameObject);
     }
 }
