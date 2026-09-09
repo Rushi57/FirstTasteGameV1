@@ -7,4 +7,10 @@ public class SceneChanger : MonoBehaviour
     {
         LoadingManager.LoadNextScene(sceneName);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("Exit Game");
+        Application.Quit();
+    }
 }
