@@ -16,7 +16,7 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI errorText;
 
     [Header("Mechanic Managers")]
-    public MixingGameManager mixingManager;
+  //  public MixingGameManager mixingManager;
     public SimmerAndBoilManager simmerManager;
 
     [Header("Tutorial Sequence")]
@@ -65,20 +65,20 @@ public class TutorialManager : MonoBehaviour
         {
             case GameMechanicType.DialogOnly:
                 nextButton.gameObject.SetActive(true);
-                if (mixingManager != null) mixingManager.gameObject.SetActive(false);
+            //    if (mixingManager != null) mixingManager.gameObject.SetActive(false);
                 if (simmerManager != null) simmerManager.gameObject.SetActive(false);
                 break;
 
-            case GameMechanicType.MixingSpatula:
-                nextButton.gameObject.SetActive(false); // Hide next, force mechanic completion
-                if (mixingManager != null)
-                {
-                    mixingManager.gameObject.SetActive(true);
-                    mixingManager.targetCirculations = step.targetStirsCount;
-                    mixingManager.StartMixingGame();
-                }
-                break;
-
+          //  case GameMechanicType.MixingSpatula:
+               // nextButton.gameObject.SetActive(false); // Hide next, force mechanic completion
+             //   if (mixingManager != null)
+              // {
+               //     mixingManager.gameObject.SetActive(true);
+                //    mixingManager.targetCirculations = step.targetStirsCount;
+                //    mixingManager.StartMixingGame();
+                //}
+               // break;
+            
             case GameMechanicType.SimmerAndBoil:
                 nextButton.gameObject.SetActive(false);
                 if (simmerManager != null)
