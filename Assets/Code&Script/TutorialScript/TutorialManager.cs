@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Mechanic Managers")]
   //  public MixingGameManager mixingManager;
-    public SimmerAndBoilManager simmerManager;
+    //public SimmerAndBoilManager simmerManager;
 
     [Header("Tutorial Sequence")]
     public List<TutorialStep> tutorialSteps = new List<TutorialStep>();
@@ -61,13 +61,13 @@ public class TutorialManager : MonoBehaviour
         dialogText.text = step.dialogText;
 
         // Configure step behavior
-        switch (step.requiredMechanic)
-        {
-            case GameMechanicType.DialogOnly:
-                nextButton.gameObject.SetActive(true);
+       // switch (step.requiredMechanic)
+        //{
+          //  case GameMechanicType.DialogOnly:
+               // nextButton.gameObject.SetActive(true);
             //    if (mixingManager != null) mixingManager.gameObject.SetActive(false);
-                if (simmerManager != null) simmerManager.gameObject.SetActive(false);
-                break;
+               // if (simmerManager != null) simmerManager.gameObject.SetActive(false);
+               // break;
 
           //  case GameMechanicType.MixingSpatula:
                // nextButton.gameObject.SetActive(false); // Hide next, force mechanic completion
@@ -79,15 +79,15 @@ public class TutorialManager : MonoBehaviour
                 //}
                // break;
             
-            case GameMechanicType.SimmerAndBoil:
-                nextButton.gameObject.SetActive(false);
-                if (simmerManager != null)
-                {
-                    simmerManager.gameObject.SetActive(true);
-                    simmerManager.StartSimmerAndBoilGame();
-                }
-                break;
-        }
+            //case GameMechanicType.SimmerAndBoil:
+               // nextButton.gameObject.SetActive(false);
+                //if (simmerManager != null)
+              //  {
+                //    simmerManager.gameObject.SetActive(true);
+               //     simmerManager.StartSimmerAndBoilGame();
+             //   }
+               // break;
+       // }
     }
 
     public void OnNextButtonClicked()
