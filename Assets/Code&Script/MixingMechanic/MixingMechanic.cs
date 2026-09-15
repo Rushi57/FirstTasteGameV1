@@ -192,14 +192,22 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     private void UpdateIndicator()
     {
-        float deviation = currentAngularSpeed - idealSpeed; // negative = too slow, positive = too fast
+        float targetVelocity = 0f;
 
-        // normalize so it reaches +/-1 once you're clearly in "bad" territory
-        float badThreshold = idealSpeed + yellowTolerance;
-        float normalized = Mathf.Clamp(deviation / badThreshold, -1f, 1f);
+        // If the player is actively dragging and moving the spatula in an orbit
+        if (isDragging && currentAngularSpeed > 10f)
+        {
+            // Active orbiting pushes the indicator UP (positive velocity)
+            // You can scale it by speed if you want faster stirring to fill it faster
+            targetVelocity = driftSpeed;
+        }
+        else
+        {
+            // When the player stops stirring or lets go, the indicator drifts back down
+            targetVelocity = -driftSpeed * 0.8f;
+        }
 
-        float velocity = normalized * driftSpeed;
-        indicatorY = Mathf.Clamp(indicatorY + velocity * Time.deltaTime, -trackHalfHeight, trackHalfHeight);
+        indicatorY = Mathf.Clamp(indicatorY + targetVelocity * Time.deltaTime, -trackHalfHeight, trackHalfHeight);
 
         Vector2 pos = indicator.anchoredPosition;
         pos.y = indicatorY;
