@@ -197,10 +197,17 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         dialogueBox.Hide();
-        if (inputBlocker != null) inputBlocker.SetActive(false);
+
+        if (inputBlocker != null)
+        {
+            inputBlocker.GetComponent<TutorialInputBlockerFilter>()?.ClearAllowedAreas();
+            inputBlocker.SetActive(false);
+        }
 
         PlayerPrefs.SetInt(CompletedKey, 1);
         PlayerPrefs.DeleteKey(ProgressKey);
         PlayerPrefs.Save();
+
+        Debug.Log("[TutorialManager] Tutorial ended, InputBlocker set inactive.");
     }
 }
