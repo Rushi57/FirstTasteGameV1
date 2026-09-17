@@ -2,8 +2,9 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Onion
   layers:
   - Default
   - TransparentFX
@@ -41,3 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: 50
+    uniqueID: 1576311449
+    locked: 0
+  - name: 60
+    uniqueID: 1494892713
+    locked: 0
+  m_RenderingLayers:
+  - Default
