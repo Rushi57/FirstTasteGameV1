@@ -1737,6 +1737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialTag1: {fileID: 1259153885}
   tutorialTag2: {fileID: 997897706}
+  pulseAnim: {fileID: 0}
 --- !u!1 &1353059508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,6 +2320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1760084543}
   - component: {fileID: 1760084544}
+  - component: {fileID: 1760084545}
   m_Layer: 0
   m_Name: TutorialSystem
   m_TagString: Untagged
@@ -2353,7 +2355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9674ddf2f33ed1e489ab0f1615d79feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialId: main_tutorial1
+  tutorialId: main_tutorial2
   steps:
   - {fileID: 11400000, guid: 03f3330a00a73c74597149b50fac39e7, type: 2}
   - {fileID: 11400000, guid: 31f9c9152657e5046ae87f2e7d0dbe50, type: 2}
@@ -2361,6 +2363,20 @@ MonoBehaviour:
   resumeFromLastStep: 1
   dialogueBox: {fileID: 513242427}
   inputBlocker: {fileID: 1812301318}
+--- !u!114 &1760084545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760084539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578fcfef139c46448b7be1bd05aefd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pulseSpeed: 3
+  pulseAmount: 0.1
 --- !u!1 &1782408593
 GameObject:
   m_ObjectHideFlags: 0
