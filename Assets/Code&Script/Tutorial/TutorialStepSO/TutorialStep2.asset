@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: TutorialStep1
+  m_Name: TutorialStep2
   m_EditorClassIdentifier: 
   npcName: Guide
   npcPortrait: {fileID: 6510040036876073796, guid: 96900062e433f7d49a3b0ac921c0dfa0, type: 3}
   dialogueLines:
-  - Hi my name is etc...
-  - Now lets start the Tutorial
-  - Tap the TestBtn1
+  - Great job now on to the next
+  - Lets Tap the Test Button 2
   actionType: 1
-  targetId: TestBtn1
+  targetId: TestBtn2
   blockOtherInput: 1

@@ -27,6 +27,9 @@ public class DialogueBoxUI : MonoBehaviour
 
     public event Action OnNextPressed;
 
+    /// <summary>The dialogue box's own rect, so it can be exempted from the input blocker.</summary>
+    public RectTransform RootRect => root != null ? root.transform as RectTransform : null;
+
     private void Awake()
     {
         if (nextButton != null)

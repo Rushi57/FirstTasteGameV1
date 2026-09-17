@@ -28,13 +28,13 @@ public class TutorialStep : ScriptableObject
     [Header("Required Player Action")]
     public TutorialActionType actionType = TutorialActionType.None;
 
-    [Tooltip("Must match the 'Interactable Id' on the TutorialInteractable this step targets. Leave empty if actionType is None.")]
+    [Tooltip("Must match the 'Interactable Id' on the TutorialInteractable this step targets (e.g. the drop zone for Drag steps). Leave empty if actionType is None.")]
     public string targetId;
 
-    [Header("Highlight")]
-    [Tooltip("If true, dim the screen and cut a spotlight hole around the target's RectTransform.")]
-    public bool highlightTarget = true;
+    [Tooltip("DRAG STEPS ONLY: must match the 'Interactable Id' on the TutorialInteractable attached to the draggable item itself, so it stays clickable/draggable while input is blocked. Leave empty for Tap steps.")]
+    public string dragSourceId;
 
-    [Tooltip("If true, block all input except the target while this step is active.")]
+    [Header("Input")]
+    [Tooltip("If true, block all input except the target and dialogue box while this step is active.")]
     public bool blockOtherInput = true;
 }

@@ -31,7 +31,25 @@ public class TutorialHighlight : MonoBehaviour
     private void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
+
+        // These panels are purely visual. InputBlockerFilter is solely
+        // responsible for deciding what can/can't be clicked - if these
+        // also block raycasts, they'll cover things (like the dialogue box)
+        // that the input blocker was told to leave open.
+        SetRaycastTarget(top, false);
+        SetRaycastTarget(bottom, false);
+        SetRaycastTarget(left, false);
+        SetRaycastTarget(right, false);
+        SetRaycastTarget(ringOutline, false);
+
         Hide();
+    }
+
+    private void SetRaycastTarget(RectTransform panel, bool value)
+    {
+        if (panel == null) return;
+        var graphic = panel.GetComponent<UnityEngine.UI.Graphic>();
+        if (graphic != null) graphic.raycastTarget = value;
     }
 
     public void Hide()

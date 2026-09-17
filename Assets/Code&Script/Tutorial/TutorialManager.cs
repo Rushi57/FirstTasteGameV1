@@ -25,7 +25,6 @@ public class TutorialManager : MonoBehaviour
 
     [Header("UI Refs")]
     public DialogueBoxUI dialogueBox;
-    public TutorialHighlight highlight;
 
     [Tooltip("A full-screen raycast blocker placed above gameplay but below the current target/dialogue box.")]
     public GameObject inputBlocker;
@@ -124,13 +123,29 @@ public class TutorialManager : MonoBehaviour
     {
         TutorialStep step = steps[stepIndex];
 
-        if (inputBlocker != null)
-            inputBlocker.SetActive(step.blockOtherInput);
+        RectTransform targetRect = null;
+        if (!string.IsNullOrEmpty(step.targetId) && registry.TryGetValue(step.targetId, out var target))
+            targetRect = target.RectTransform;
 
-        if (step.highlightTarget && !string.IsNullOrEmpty(step.targetId) && registry.TryGetValue(step.targetId, out var target))
-            highlight.ShowAround(target.RectTransform);
-        else
-            highlight.Hide();
+        RectTransform sourceRect = null;
+        if (!string.IsNullOrEmpty(step.dragSourceId) && registry.TryGetValue(step.dragSourceId, out var source))
+            sourceRect = source.RectTransform;
+
+        Debug.Log($"[TutorialManager] Step '{step.name}' - targetId='{step.targetId}' resolved={(targetRect != null ? targetRect.name : "NULL")}, dragSourceId='{step.dragSourceId}' resolved={(sourceRect != null ? sourceRect.name : "NULL")}, registry has {registry.Count} entries: {string.Join(", ", registry.Keys)}");
+
+        if (inputBlocker != null)
+        {
+            inputBlocker.SetActive(step.blockOtherInput);
+            if (step.blockOtherInput)
+            {
+                var filter = inputBlocker.GetComponent<TutorialInputBlockerFilter>();
+                if (filter == null)
+                    Debug.LogWarning("[TutorialManager] InputBlocker has no TutorialInputBlockerFilter component attached! Blocking will not exempt anything.");
+                // Exempt: the dialogue box (Next keeps working), the target
+                // (drop zone or tap button), and the drag source item if any.
+                filter?.SetAllowedAreas(targetRect, sourceRect, dialogueBox.RootRect);
+            }
+        }
 
         dialogueBox.Show(step.npcName, step.npcPortrait);
         PlayCurrentLine();
@@ -182,7 +197,6 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         dialogueBox.Hide();
-        highlight.Hide();
         if (inputBlocker != null) inputBlocker.SetActive(false);
 
         PlayerPrefs.SetInt(CompletedKey, 1);
