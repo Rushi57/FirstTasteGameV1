@@ -12,22 +12,51 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class TutorialInteractable : MonoBehaviour
 {
-    [Tooltip("Must match TutorialStep.targetId for the step that references this object.")]
+    [Tooltip("Used if Source Data is not assigned. Must match TutorialStep.targetId for the step that references this object.")]
     public string interactableId;
 
+    [Tooltip("OPTIONAL: assign the IngredientData/UtensilData (or any ScriptableObject implementing ITutorialIdentifiable) this object represents. If set, the id is pulled from there automatically instead of typed by hand here, so it can never drift out of sync with your TutorialStep assets.")]
+    public ScriptableObject sourceData;
+
+    /// <summary>The id actually used for matching - from sourceData if assigned, otherwise the manual interactableId field.</summary>
+    public string ResolvedId => (sourceData is ITutorialIdentifiable identifiable) ? identifiable.TutorialId : interactableId;
+
     public RectTransform RectTransform => transform as RectTransform;
+
+    private void OnEnable()
+    {
+        // Self-register regardless of when/how this object was created -
+        // handles both scene-placed objects AND ones spawned at runtime
+        // (e.g. from an ingredient/utensil prefab pool).
+        TutorialManager.Instance?.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        TutorialManager.Instance?.Unregister(this);
+    }
 
     /// <summary>Call this when the object is tapped/clicked.</summary>
     public void ReportTap()
     {
-        TutorialManager.Instance?.NotifyAction(interactableId, TutorialActionType.Tap);
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Tap);
     }
 
     /// <summary>Call this when the object is successfully dropped on its target.</summary>
     public void ReportDrop()
     {
-        TutorialManager.Instance?.NotifyAction(interactableId, TutorialActionType.Drag);
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Drag);
     }
+}
+
+/// <summary>
+/// Implement this on any ScriptableObject (IngredientData, UtensilData, etc.)
+/// that should be referenceable by the tutorial system as a single source
+/// of truth for its id - instead of retyping the same string in multiple places.
+/// </summary>
+public interface ITutorialIdentifiable
+{
+    string TutorialId { get; }
 }
 
 /*

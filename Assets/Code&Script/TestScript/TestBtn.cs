@@ -7,6 +7,8 @@ public class TestBtn : MonoBehaviour
     [Tooltip("Optional ")]
     public TutorialInteractable tutorialTag1;
     public TutorialInteractable tutorialTag2;
+
+    
     public void TapBnt1()
     {
         tutorialTag1?.ReportTap();

@@ -38,6 +38,15 @@ public class TutorialManager : MonoBehaviour
     private bool waitingForAction = false;
     private bool tutorialActive = false;
 
+    private RectTransform currentTargetRect;
+    private List<RectTransform> currentSourceRects = new List<RectTransform>();
+
+    [Header("Pulse Animation")]
+    [Tooltip("Automatically pulse the current target/drag item to draw the player's attention.")]
+    public bool pulseTargets = true;
+
+    private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -60,14 +69,18 @@ public class TutorialManager : MonoBehaviour
 
     public void Register(TutorialInteractable interactable)
     {
-        if (interactable == null || string.IsNullOrEmpty(interactable.interactableId)) return;
-        registry[interactable.interactableId] = interactable;
+        if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
+        registry[interactable.ResolvedId] = interactable;
+        RefreshDragSourcesIfNeeded();
     }
 
     public void Unregister(TutorialInteractable interactable)
     {
-        if (interactable == null) return;
-        registry.Remove(interactable.interactableId);
+        if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
+        // Only remove if it's still the one currently registered under that id
+        // (avoids a late-destroying old object wiping out a newer registration).
+        if (registry.TryGetValue(interactable.ResolvedId, out var current) && current == interactable)
+            registry.Remove(interactable.ResolvedId);
     }
 
     /// <summary>
@@ -127,11 +140,10 @@ public class TutorialManager : MonoBehaviour
         if (!string.IsNullOrEmpty(step.targetId) && registry.TryGetValue(step.targetId, out var target))
             targetRect = target.RectTransform;
 
-        RectTransform sourceRect = null;
-        if (!string.IsNullOrEmpty(step.dragSourceId) && registry.TryGetValue(step.dragSourceId, out var source))
-            sourceRect = source.RectTransform;
+        currentTargetRect = targetRect;
+        currentSourceRects = ResolveDragSources(step);
 
-        Debug.Log($"[TutorialManager] Step '{step.name}' - targetId='{step.targetId}' resolved={(targetRect != null ? targetRect.name : "NULL")}, dragSourceId='{step.dragSourceId}' resolved={(sourceRect != null ? sourceRect.name : "NULL")}, registry has {registry.Count} entries: {string.Join(", ", registry.Keys)}");
+        Debug.Log($"[TutorialManager] Step '{step.name}' - targetId='{step.targetId}' resolved={(targetRect != null ? targetRect.name : "NULL")}, dragSourceId='{step.dragSourceId}' resolved {currentSourceRects.Count} source(s), registry has {registry.Count} entries: {string.Join(", ", registry.Keys)}");
 
         if (inputBlocker != null)
         {
@@ -141,14 +153,101 @@ public class TutorialManager : MonoBehaviour
                 var filter = inputBlocker.GetComponent<TutorialInputBlockerFilter>();
                 if (filter == null)
                     Debug.LogWarning("[TutorialManager] InputBlocker has no TutorialInputBlockerFilter component attached! Blocking will not exempt anything.");
+
                 // Exempt: the dialogue box (Next keeps working), the target
-                // (drop zone or tap button), and the drag source item if any.
-                filter?.SetAllowedAreas(targetRect, sourceRect, dialogueBox.RootRect);
+                // (drop zone or tap button), and every resolved drag source.
+                var allowed = new List<RectTransform> { targetRect, dialogueBox.RootRect };
+                allowed.AddRange(currentSourceRects);
+                filter?.SetAllowedAreas(allowed.ToArray());
             }
         }
 
         dialogueBox.Show(step.npcName, step.npcPortrait);
+        ClearPulses(); // no pulsing until PlayCurrentLine decides we're actually waiting for the action
         PlayCurrentLine();
+    }
+
+    /// <summary>
+    /// Resolves which object(s) should be exempted from the input blocker as
+    /// the "drag source" for this step. If step.dragSourceId is set, resolves
+    /// that one specific object. If it's left blank on a Drag-type step,
+    /// resolves EVERY currently-registered object that has a TestDrag
+    /// component - letting the player pick up whichever draggable item
+    /// exists, without needing to know its exact id ahead of time (useful
+    /// when items are spawned dynamically from ScriptableObject data).
+    /// </summary>
+    private List<RectTransform> ResolveDragSources(TutorialStep step)
+    {
+        var result = new List<RectTransform>();
+        if (step.actionType != TutorialActionType.Drag) return result;
+
+        if (!string.IsNullOrEmpty(step.dragSourceId))
+        {
+            if (registry.TryGetValue(step.dragSourceId, out var source))
+                result.Add(source.RectTransform);
+            return result;
+        }
+
+        // Wildcard: exempt every registered interactable that's actually draggable.
+        foreach (var interactable in registry.Values)
+        {
+            if (interactable != null && interactable.GetComponent<TestDrag>() != null)
+                result.Add(interactable.RectTransform);
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Called whenever something new registers (e.g. a dynamically spawned
+    /// ingredient). If we're currently on a wildcard Drag step (dragSourceId
+    /// left blank) and already waiting for the action, this re-resolves the
+    /// source list and immediately exempts/pulses the newly spawned item -
+    /// without this, an item spawned mid-step would be invisible to the
+    /// blocker/pulse until the NEXT step began.
+    /// </summary>
+    private void RefreshDragSourcesIfNeeded()
+    {
+        if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
+
+        TutorialStep step = steps[stepIndex];
+        if (step.actionType != TutorialActionType.Drag) return;
+        if (!string.IsNullOrEmpty(step.dragSourceId)) return; // only relevant in wildcard mode
+
+        currentSourceRects = ResolveDragSources(step);
+
+        if (inputBlocker != null && step.blockOtherInput)
+        {
+            var filter = inputBlocker.GetComponent<TutorialInputBlockerFilter>();
+            var allowed = new List<RectTransform> { currentTargetRect, dialogueBox.RootRect };
+            allowed.AddRange(currentSourceRects);
+            filter?.SetAllowedAreas(allowed.ToArray());
+        }
+
+        if (waitingForAction && pulseTargets)
+        {
+            foreach (var rect in currentSourceRects)
+                AddPulse(rect);
+        }
+    }
+
+    private void AddPulse(RectTransform rect)
+    {
+        if (rect == null) return;
+        // Avoid double-pulsing if target and source happen to be the same object.
+        if (activePulses.Exists(p => p != null && p.transform == rect)) return;
+
+        var pulse = rect.gameObject.AddComponent<TutorialPulse>();
+        activePulses.Add(pulse);
+    }
+
+    private void ClearPulses()
+    {
+        foreach (var pulse in activePulses)
+        {
+            if (pulse != null)
+                Destroy(pulse);
+        }
+        activePulses.Clear();
     }
 
     private void PlayCurrentLine()
@@ -162,6 +261,19 @@ public class TutorialManager : MonoBehaviour
         dialogueBox.PlayLine(step.dialogueLines[lineIndex], showNext);
 
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
+
+        // Only pulse once the player actually needs to perform the action
+        // (Next button gone) - not while they're still reading buildup lines.
+        if (waitingForAction && pulseTargets)
+        {
+            AddPulse(currentTargetRect);
+            foreach (var sourceRect in currentSourceRects)
+                AddPulse(sourceRect);
+        }
+        else
+        {
+            ClearPulses();
+        }
     }
 
     private void HandleNextPressed()
@@ -197,6 +309,7 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         dialogueBox.Hide();
+        ClearPulses();
 
         if (inputBlocker != null)
         {
