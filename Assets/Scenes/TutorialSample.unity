@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 997897703}
   - component: {fileID: 997897706}
   m_Layer: 5
-  m_Name: TestBtn 2
+  m_Name: GarlicTestBtn 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1450,7 +1450,7 @@ GameObject:
   - component: {fileID: 1259153882}
   - component: {fileID: 1259153885}
   m_Layer: 5
-  m_Name: TestBtn
+  m_Name: OnionTestBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,10 +1535,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1760084545}
         m_TargetAssemblyTypeName: IngredientSpawner, Assembly-CSharp
         m_MethodName: SpawnIngredient
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 10787500063637d4a8f04c3be3fe3228, type: 2}
+          m_ObjectArgumentAssemblyTypeName: IngredientData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2449,7 +2449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9674ddf2f33ed1e489ab0f1615d79feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialId: main_tutorial13
+  tutorialId: main_tutorial14
   steps:
   - {fileID: 11400000, guid: 03f3330a00a73c74597149b50fac39e7, type: 2}
   - {fileID: 11400000, guid: 31f9c9152657e5046ae87f2e7d0dbe50, type: 2}
@@ -2470,13 +2470,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7045ee25b57f87d42a91fe7c5cc4c20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientToSpawn: {fileID: 0}
   ingredientSmallPrefab: {fileID: 2820288423322160270, guid: 4deb36eedbc851546ad8506f679d7cb6, type: 3}
   ingredientLargePrefab: {fileID: 2820288423322160270, guid: 38c3eb99dcacc754b9198521d501760c, type: 3}
   utensilSmallPrefab: {fileID: 2820288423322160270, guid: e72ddee93d965de489145b911f5bc505, type: 3}
   utensilLargePrefab: {fileID: 2820288423322160270, guid: d3e00e4baac4a78488ab480983984f4f, type: 3}
   spawnParent: {fileID: 1348476525}
   spawnPosition: {x: 0, y: 0}
+  spawnSpacing: {x: 140, y: 0}
 --- !u!1 &1782408593
 GameObject:
   m_ObjectHideFlags: 0
