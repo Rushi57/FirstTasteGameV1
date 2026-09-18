@@ -992,6 +992,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1760084545}
+        m_TargetAssemblyTypeName: IngredientSpawner, Assembly-CSharp
+        m_MethodName: SpawnIngredient
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
+          m_ObjectArgumentAssemblyTypeName: IngredientData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &997897704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2449,7 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9674ddf2f33ed1e489ab0f1615d79feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialId: main_tutorial14
+  tutorialId: main_tutorial15
   steps:
   - {fileID: 11400000, guid: 03f3330a00a73c74597149b50fac39e7, type: 2}
   - {fileID: 11400000, guid: 31f9c9152657e5046ae87f2e7d0dbe50, type: 2}
