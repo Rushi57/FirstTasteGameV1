@@ -2388,7 +2388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269189664e7ba2d4087eb896c095b15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceptedData: {fileID: 0}
+  acceptedData: {fileID: 11400000, guid: 10787500063637d4a8f04c3be3fe3228, type: 2}
   acceptedItemId: Pan
 --- !u!114 &1699479483
 MonoBehaviour:
@@ -2454,7 +2454,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 03f3330a00a73c74597149b50fac39e7, type: 2}
   - {fileID: 11400000, guid: 31f9c9152657e5046ae87f2e7d0dbe50, type: 2}
   - {fileID: 11400000, guid: 307a03198a0823744a575b99e0758a2c, type: 2}
-  resumeFromLastStep: 1
+  resumeFromLastStep: 0
   dialogueBox: {fileID: 513242427}
   inputBlocker: {fileID: 1812301318}
   pulseTargets: 1
