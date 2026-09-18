@@ -19,5 +19,5 @@ MonoBehaviour:
   - 'drag and drop the Item in the DropZone2 '
   actionType: 2
   targetId: Pan
-  dragSourceId: PanItem
+  dragSourceId: OnionItem
   blockOtherInput: 1
