@@ -38,6 +38,15 @@ public class TutorialManager : MonoBehaviour
     private bool waitingForAction = false;
     private bool tutorialActive = false;
 
+    private RectTransform currentTargetRect;
+    private RectTransform currentSourceRect;
+
+    [Header("Pulse Animation")]
+    [Tooltip("Automatically pulse the current target/drag item to draw the player's attention.")]
+    public bool pulseTargets = true;
+
+    private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -131,6 +140,9 @@ public class TutorialManager : MonoBehaviour
         if (!string.IsNullOrEmpty(step.dragSourceId) && registry.TryGetValue(step.dragSourceId, out var source))
             sourceRect = source.RectTransform;
 
+        currentTargetRect = targetRect;
+        currentSourceRect = sourceRect;
+
         Debug.Log($"[TutorialManager] Step '{step.name}' - targetId='{step.targetId}' resolved={(targetRect != null ? targetRect.name : "NULL")}, dragSourceId='{step.dragSourceId}' resolved={(sourceRect != null ? sourceRect.name : "NULL")}, registry has {registry.Count} entries: {string.Join(", ", registry.Keys)}");
 
         if (inputBlocker != null)
@@ -148,7 +160,28 @@ public class TutorialManager : MonoBehaviour
         }
 
         dialogueBox.Show(step.npcName, step.npcPortrait);
+        ClearPulses(); // no pulsing until PlayCurrentLine decides we're actually waiting for the action
         PlayCurrentLine();
+    }
+
+    private void AddPulse(RectTransform rect)
+    {
+        if (rect == null) return;
+        // Avoid double-pulsing if target and source happen to be the same object.
+        if (activePulses.Exists(p => p != null && p.transform == rect)) return;
+
+        var pulse = rect.gameObject.AddComponent<TutorialPulse>();
+        activePulses.Add(pulse);
+    }
+
+    private void ClearPulses()
+    {
+        foreach (var pulse in activePulses)
+        {
+            if (pulse != null)
+                Destroy(pulse);
+        }
+        activePulses.Clear();
     }
 
     private void PlayCurrentLine()
@@ -162,6 +195,18 @@ public class TutorialManager : MonoBehaviour
         dialogueBox.PlayLine(step.dialogueLines[lineIndex], showNext);
 
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
+
+        // Only pulse once the player actually needs to perform the action
+        // (Next button gone) - not while they're still reading buildup lines.
+        if (waitingForAction && pulseTargets)
+        {
+            AddPulse(currentTargetRect);
+            AddPulse(currentSourceRect);
+        }
+        else
+        {
+            ClearPulses();
+        }
     }
 
     private void HandleNextPressed()
@@ -197,6 +242,7 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialActive = false;
         dialogueBox.Hide();
+        ClearPulses();
 
         if (inputBlocker != null)
         {
