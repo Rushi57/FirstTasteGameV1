@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Onion
+  - DropZone2
   layers:
   - Default
   - TransparentFX
