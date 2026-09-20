@@ -162,6 +162,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
+        dialogueBox.SetPosition(step.dialoguePosition, targetRect, step.customPosition);
         dialogueBox.Show(step.npcName, step.npcPortrait);
         ClearPulses(); // no pulsing until PlayCurrentLine decides we're actually waiting for the action
         PlayCurrentLine();
@@ -298,8 +299,16 @@ public class TutorialManager : MonoBehaviour
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
 
         TutorialStep step = steps[stepIndex];
-        if (!waitingForAction) return;
-        if (step.targetId != id || step.actionType != type) return;
+        if (!waitingForAction)
+        {
+            Debug.Log($"[TutorialManager] NotifyAction('{id}', {type}) received but not currently waiting for an action - ignored.");
+            return;
+        }
+        if (step.targetId != id || step.actionType != type)
+        {
+            Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match current step's expected targetId='{step.targetId}', actionType={step.actionType} - action rejected. Check for an empty/mismatched Interactable Id.");
+            return;
+        }
 
         waitingForAction = false;
         AdvanceStep();
