@@ -18,8 +18,8 @@ public class TutorialInteractable : MonoBehaviour
     [Tooltip("OPTIONAL: assign the IngredientData/UtensilData (or any ScriptableObject implementing ITutorialIdentifiable) this object represents. If set, the id is pulled from there automatically instead of typed by hand here, so it can never drift out of sync with your TutorialStep assets.")]
     public ScriptableObject sourceData;
 
-    /// <summary>The id actually used for matching - from sourceData if assigned, otherwise the manual interactableId field.</summary>
-    public string ResolvedId => (sourceData is ITutorialIdentifiable identifiable) ? identifiable.TutorialId : interactableId;
+    /// <summary>The id actually used for matching - from sourceData if assigned, otherwise the manual interactableId field. Trimmed so a stray leading/trailing space typed in the Inspector can't silently break matching.</summary>
+    public string ResolvedId => ((sourceData is ITutorialIdentifiable identifiable) ? identifiable.TutorialId : interactableId)?.Trim();
 
     public RectTransform RectTransform => transform as RectTransform;
 

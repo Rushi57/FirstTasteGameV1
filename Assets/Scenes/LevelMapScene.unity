@@ -14053,7 +14053,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1196578809}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: QuitInGame
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

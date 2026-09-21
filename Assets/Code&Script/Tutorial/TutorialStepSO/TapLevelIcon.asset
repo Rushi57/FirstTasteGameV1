@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: MapTutorialStep
+  m_Name: TapLevelIcon
   m_EditorClassIdentifier: 
   npcName: Kris
   npcPortrait: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   dialogueLines:
-  - 'Welcome to First Taste! I''m Kris, '
-  - and I'm thrilled to help you get started in the kitchen.
-  - Every great chef starts with a simple step learning to select the right
-  - ingredients, follow recipes, and master the stove
-  - "Grab your apron and take a breath\u2014let's prepare your very first dish together"
+  - Lets start the game
+  - Tap the Level Icon
   dialoguePosition: 1
   customPosition: {x: 0, y: 142}
-  actionType: 0
-  targetId: 
+  actionType: 1
+  targetId: 'Level 1 '
   dragSourceId: 
   blockOtherInput: 1
