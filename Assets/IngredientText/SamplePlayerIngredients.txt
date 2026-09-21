@@ -1,0 +1,24 @@
+Player need to prepare the Ingredient Need to get from the Fridge and Basket 
+*Garlick(Basket)
+*Pork(Fridge)
+*Water in Pitcher or Jug(Fridge)
+
+Prep and Instructions
+*Pork(To trigger drag and drop the Garlick in the Chopping board and drag and drop the Knife to trigger the ChoppingMechanics)
+*Garlick 12 cloves(To trigger drag and drop the Garlick in the Chopping board and drag and drop the Knife to trigger the ChoppingMechanics)
+*Turn on the Stove to high heat(Tap the Stove button and Pick the Hight heat)
+*Put the Pan in the Stove(Drag and Drop)
+*Add 1 tablespoon of  Cooking(PouringMechanics)
+*Add the 12 Cloves of Garlick(Drag and Drop)
+*Add 1/2 of tablespoon of Crush pepperCorn(Tap the Bottle of the Pepper corn to Trigger the SeasoningMechanics)
+*Sauté the Garlick and peppercorn using Spatula Until brown(Drag and Drop the Spatula to Trigger the MixingMechanic)
+*Add the Pork(Chop version drag and Drop)
+*Saute it unitl brown(Drag and Drop Trigger the MixingMechanic)
+*Add 1/2 Cup of Vinegar(trigger by tapping the Vinegar Icon from the Shelf trigger the PourMechanics)
+*Add 1/4 Cup of Soy Sauce(trigger by tapping the Vinegar Icon from the Shelf trigger the PourMechanics)
+*Add 1 cup of water(To trigger drag the Image of Pitcher or Jug To the pan To trigger and use the PourMechanics) 
+*Reduce the Heat(Tap the Stove Icon Button and pick the low heat)
+*Put the Pan Lid(Drag and drop the Lid icon to the Pan to Trigger the Simmer/Boil Mechanics)
+*Then Finish
+
+
