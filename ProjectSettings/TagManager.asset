@@ -7,6 +7,8 @@ TagManager:
   - Onion
   - DropZone2
   - MapTutorialGameObjectTag
+  - TableZoneTag
+  - KnifeObj
   layers:
   - Default
   - TransparentFX

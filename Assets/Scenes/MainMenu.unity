@@ -778,7 +778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &569876005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1627,7 +1627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1566162555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2490,7 +2490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialTagLevel1: {fileID: 0}
-  tutorialTagPlay: {fileID: 0}
+  tutorialTagLevelPlay: {fileID: 0}
+  tutorialTapDelay: 1.5
 --- !u!114 &2078351716
 MonoBehaviour:
   m_ObjectHideFlags: 0

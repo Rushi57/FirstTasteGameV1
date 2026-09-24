@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: IngStepIntro
+  m_Script: {fileID: 11500000, guid: 851964bd56e7cb84488b84b8b6271eed, type: 3}
+  m_Name: Level2
   m_EditorClassIdentifier: 
-  npcName: Guide
-  npcPortrait: {fileID: 0}
-  dialogueLines: []
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 144}
-  actionType: 0
-  targetId: 
-  dragSourceId: 
-  blockOtherInput: 1
+  levelNumber: 2
+  levelName: Adobo
+  recipe: {fileID: 11400000, guid: a74539e9cdf18684a9cba6faea59cf1b, type: 2}
+  levelPreviewImage: {fileID: 0}
