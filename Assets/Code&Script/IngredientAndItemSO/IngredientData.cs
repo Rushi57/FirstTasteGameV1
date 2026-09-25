@@ -14,6 +14,19 @@ public enum ItemSize
     Large
 }
 
+public enum IngredientPrepState
+{
+    Whole,
+    Sliced,
+    Minced
+}
+
+public class PrepStateSprite
+{
+    public IngredientPrepState state;
+    public Sprite sprite;
+}
+
 /// <summary>
 /// Data-only definition of an ingredient (or utensil - reuse/rename as needed).
 /// Create instances: right-click in Project window -> Create -> Game -> Ingredient Data.
