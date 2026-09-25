@@ -65,8 +65,15 @@ public class RecipeIngredientListUI : MonoBehaviour
 
     private void Clear()
     {
-        foreach (var row in activeRows)
-            if (row != null) Destroy(row.gameObject);
+        // Destroy EVERY child, not just ones we tracked ourselves - protects
+        // against a leftover template/prefab-source object accidentally left
+        // in the scene under contentContainer.
+        if (contentContainer != null)
+        {
+            for (int i = contentContainer.childCount - 1; i >= 0; i--)
+                Destroy(contentContainer.GetChild(i).gameObject);
+        }
+
         activeRows.Clear();
         collectedIds.Clear();
     }

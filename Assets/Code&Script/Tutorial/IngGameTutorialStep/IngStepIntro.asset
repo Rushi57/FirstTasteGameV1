@@ -22,7 +22,7 @@ MonoBehaviour:
   - lets try to prepare the ingredient first
   - before procceding
   dialoguePosition: 0
-  customPosition: {x: 0, y: -203}
+  customPosition: {x: 0, y: -178}
   actionType: 0
   targetId: 
   dragSourceId: 
