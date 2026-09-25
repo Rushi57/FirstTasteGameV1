@@ -9,6 +9,11 @@ TagManager:
   - MapTutorialGameObjectTag
   - TableZoneTag
   - KnifeObj
+  - MixingPanel
+  - PouringPanel
+  - Boil/SimmerPanel
+  - ChoppingPanel
+  - SeasoningPanel
   layers:
   - Default
   - TransparentFX

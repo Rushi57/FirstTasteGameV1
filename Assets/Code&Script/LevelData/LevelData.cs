@@ -17,4 +17,8 @@ public class LevelData : ScriptableObject
 
     [Header("Optional")]
     public Sprite levelPreviewImage;
+
+    [Header("Optional")]
+    public Sprite ScoreStar;
+
 }
