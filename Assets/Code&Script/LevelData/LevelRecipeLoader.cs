@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Put this anywhere in LevelMapScene (e.g. on the same object as your
@@ -12,6 +13,7 @@ public class LevelRecipeLoader : MonoBehaviour
 {
     public RecipeIngredientListUI ingredientList;
     public TableItemSlotManager tableSlotManager;
+    public Image dishImage;
 
     [Tooltip("Optional: shows the dish's name, e.g. on a 'Now Cooking: Adobo' label.")]
     public TMP_Text dishNameLabel;
@@ -41,5 +43,6 @@ public class LevelRecipeLoader : MonoBehaviour
 
         if (dishNameLabel != null)
             dishNameLabel.text = selected.levelName;
+        
     }
 }
