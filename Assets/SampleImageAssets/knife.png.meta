@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d92ff6dad99267f41983907f73fdd14e
+guid: bba21658780e18b42b87b394e7ff0239
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8882125550268030016
-    second: Chop_Pork_Belly-removebg-preview_0
+      213: 761100573506273824
+    second: knife_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Chop_Pork_Belly-removebg-preview_0
+      name: knife_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 166
-        width: 368
-        height: 169
+        x: 1096
+        y: 14
+        width: 174
+        height: 255
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0c36add1fd95cb480800000000000000
-      internalID: -8882125550268030016
+      spriteID: 022003a60f8ff8a00800000000000000
+      internalID: 761100573506273824
       vertices: []
       indices: 
       edges: []

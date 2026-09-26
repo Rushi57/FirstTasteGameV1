@@ -13,35 +13,14 @@ MonoBehaviour:
   m_Name: Adobo
   m_EditorClassIdentifier: 
   recipeName: Adobo
-  recipeIcon: {fileID: 0}
+  recipeIcon: {fileID: 4694169007334928847, guid: 6c86e246b21320745b38bf44057d9073, type: 3}
   ingredients:
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
+  - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
+    quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6bb7169174b88d242ad2a25d05b44cf9, type: 2}
-    quantity: 12
+  - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
+    quantity: 0
     unit: 

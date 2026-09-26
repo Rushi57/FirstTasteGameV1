@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>Whether this is a cooking ingredient or a utensil/tool.</summary>
@@ -54,5 +55,19 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Header("Visual")]
     public Sprite icon;
 
+    [Header("Prep States (optional)")]
+    [Tooltip("Sprite to show for each prep stage, e.g. a different look for Whole vs Sliced vs Minced garlic. Leave empty if this ingredient never changes appearance (e.g. water, a utensil).")]
+    public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
+
     public string TutorialId => id;
+
+    public Sprite GetSpriteForState(IngredientPrepState state)
+    {
+        foreach (var entry in stateSprites)
+        {
+            if (entry.state == state)
+                return entry.sprite != null ? entry.sprite : icon;
+        }
+        return icon;
+    }
 }

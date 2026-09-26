@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f1e6bf84c1d2b7b45aff3e8d90ba3dbc
+guid: 3bc09c22532e60642a72aa1b94e2c440
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3091953410683627637
-    second: PorkBelly-removebg-preview_0
+      213: -4364034832326165938
+    second: bg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PorkBelly-removebg-preview_0
+      name: bg_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
-        width: 564
-        height: 387
+        x: 0
+        y: 0
+        width: 1600
+        height: 720
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 578ead1ce33d8ea20800000000000000
-      internalID: 3091953410683627637
+      spriteID: e4a74cf0175df63c0800000000000000
+      internalID: -4364034832326165938
       vertices: []
       indices: 
       edges: []
