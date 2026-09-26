@@ -6,6 +6,9 @@ using UnityEngine.UI;
 /// matching prefab (small/large, ingredient/utensil), then wires up its
 /// Image, TestDrag, and TutorialInteractable so it's immediately usable -
 /// no manual Hierarchy setup, no matter which of the 4 prefabs gets picked.
+///
+/// If Slot Manager is assigned, spawns into the first EMPTY table slot
+/// instead of a fixed position - see TableItemSlotManager.
 /// </summary>
 public class IngredientSpawner : MonoBehaviour
 {
@@ -15,7 +18,11 @@ public class IngredientSpawner : MonoBehaviour
     public GameObject utensilSmallPrefab;    // e.g. UtenTestPrefabSmall
     public GameObject utensilLargePrefab;    // e.g. UtenTestPrefabLarge
 
-    [Header("Where to spawn it")]
+    [Header("Table Slots (preferred)")]
+    [Tooltip("If assigned, ingredients spawn into the first empty ItemContainerDropZone slot instead of a fixed spawnParent/spawnPosition.")]
+    public TableItemSlotManager slotManager;
+
+    [Header("Fallback: fixed position (used only if Slot Manager is NOT assigned)")]
     [Tooltip("Parent RectTransform the spawned item will be placed under (usually a Canvas or a container inside one).")]
     public RectTransform spawnParent;
 
@@ -38,11 +45,25 @@ public class IngredientSpawner : MonoBehaviour
             Debug.LogWarning("[IngredientSpawner] No IngredientData passed to SpawnIngredient - nothing to spawn.");
             return;
         }
-        if (spawnParent == null)
+
+        RectTransform targetSlot = null;
+
+        if (slotManager != null)
         {
-            Debug.LogWarning("[IngredientSpawner] No Spawn Parent assigned.");
+            targetSlot = slotManager.GetEmptySlot();
+            if (targetSlot == null)
+            {
+                Debug.LogWarning("[IngredientSpawner] All table slots are full - can't spawn right now.");
+                return;
+            }
+        }
+        else if (spawnParent == null)
+        {
+            Debug.LogWarning("[IngredientSpawner] Neither Slot Manager nor Spawn Parent assigned.");
             return;
         }
+
+        RectTransform parent = targetSlot != null ? targetSlot : spawnParent;
 
         GameObject prefab = SelectPrefab(data);
         if (prefab == null)
@@ -51,16 +72,34 @@ public class IngredientSpawner : MonoBehaviour
             return;
         }
 
-        GameObject go = Instantiate(prefab, spawnParent);
+        GameObject go = Instantiate(prefab, parent);
         go.name = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
 
         RectTransform rect = go.transform as RectTransform;
-        if (rect != null && spawnParent.GetComponent<UnityEngine.UI.LayoutGroup>() == null)
+        if (rect != null)
         {
-            rect.anchoredPosition = spawnPosition + spawnSpacing * spawnCount;
+            if (targetSlot != null)
+            {
+                // Slot-based spawning: center inside the slot.
+                rect.anchoredPosition = Vector2.zero;
+            }
+            else if (spawnParent.GetComponent<LayoutGroup>() == null)
+            {
+                // Fallback fixed-position spawning with manual offset.
+                rect.anchoredPosition = spawnPosition + spawnSpacing * spawnCount;
+            }
+            // If spawnParent has a Layout Group, leave positioning to it.
         }
 
         spawnCount++;
+
+        if (targetSlot != null)
+        {
+            slotManager.OccupySlot(targetSlot, go);
+            TableSlotOccupant occupant = go.AddComponent<TableSlotOccupant>();
+            occupant.slotManager = slotManager;
+            occupant.slot = targetSlot;
+        }
 
         // Get-or-add required UI and drag components
         Image image = go.GetComponent<Image>();
@@ -83,7 +122,7 @@ public class IngredientSpawner : MonoBehaviour
         // Re-register with TutorialManager now that sourceData is assigned
         TutorialManager.Instance?.Register(interactable);
 
-        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) under {spawnParent.name}");
+        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) into {parent.name}");
     }
 
     private GameObject SelectPrefab(IngredientData data)

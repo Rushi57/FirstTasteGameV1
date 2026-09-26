@@ -41,4 +41,7 @@ public class RecipeData : ScriptableObject
 
     [Header("Ingredients")]
     public List<RecipeIngredientEntry> ingredients = new List<RecipeIngredientEntry>();
+
+    [Header("Prep Instruction")]
+    public List<RecipeIngredientEntry> instruction= new List<RecipeIngredientEntry>();
 }

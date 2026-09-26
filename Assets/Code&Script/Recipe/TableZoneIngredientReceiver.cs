@@ -49,6 +49,9 @@ public class TableZoneIngredientReceiver : MonoBehaviour, IDropHandler
         Debug.Log($"[TableZoneIngredientReceiver] '{droppedIngredient.displayName}' accepted and marked collected.");
         ingredientList?.MarkCollected(droppedIngredient);
 
+        // This item permanently leaves its table slot now - free it so a new ingredient can spawn there.
+        droppedObj.GetComponent<TableSlotOccupant>()?.FreeMySlot();
+
         if (snapAcceptedItemIntoZone)
         {
             drag.SnapTo(transform as RectTransform);
