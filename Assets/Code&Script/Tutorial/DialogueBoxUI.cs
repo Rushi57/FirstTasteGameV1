@@ -21,6 +21,16 @@ public class DialogueBoxUI : MonoBehaviour
     [Header("Typewriter")]
     public float charsPerSecond = 40f;
 
+    [Header("Adaptive Positioning")]
+    [Tooltip("If true, the box automatically moves between Top Anchored Position and Bottom Anchored Position to avoid covering the current tutorial target.")]
+    public bool adaptivePositioning = true;
+
+    [Tooltip("anchoredPosition to use when placed at the top of the screen.")]
+    public Vector2 topAnchoredPosition = new Vector2(0f, -100f);
+
+    [Tooltip("anchoredPosition to use when placed at the bottom of the screen.")]
+    public Vector2 bottomAnchoredPosition = new Vector2(0f, 100f);
+
     private Coroutine typingRoutine;
     private string currentFullLine;
     private bool isTyping;
@@ -104,5 +114,59 @@ public class DialogueBoxUI : MonoBehaviour
     private void HandleNextClicked()
     {
         OnNextPressed?.Invoke();
+    }
+
+    /// <summary>
+    /// Positions the dialogue box according to the given DialoguePosition.
+    /// Auto picks whichever preset (Top/Bottom) doesn't overlap target -
+    /// Custom places it at the exact customPosition given, ignoring overlap.
+    /// Safe to call with target == null under Auto (box just stays put).
+    /// </summary>
+    public void SetPosition(DialoguePosition position, RectTransform target, Vector2 customPosition)
+    {
+        if (!adaptivePositioning || RootRect == null) return;
+
+        switch (position)
+        {
+            case DialoguePosition.Custom:
+                RootRect.anchoredPosition = customPosition;
+                break;
+            case DialoguePosition.Auto:
+            default:
+                PositionAwayFrom(target);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Moves the dialogue box to whichever preset position (top or bottom)
+    /// does NOT overlap the given target - so the box never covers the
+    /// button/item the player actually needs to tap or drag. Call this
+    /// before showing a step's dialogue, once the target is known.
+    /// Safe to call with target == null (just leaves the box where it is).
+    /// </summary>
+    public void PositionAwayFrom(RectTransform target)
+    {
+        if (!adaptivePositioning || target == null || RootRect == null) return;
+
+        // Try top first - if it overlaps, fall back to bottom.
+        RootRect.anchoredPosition = topAnchoredPosition;
+        if (Overlaps(RootRect, target))
+            RootRect.anchoredPosition = bottomAnchoredPosition;
+    }
+
+    private static bool Overlaps(RectTransform a, RectTransform b)
+    {
+        Rect rectA = GetScreenRect(a);
+        Rect rectB = GetScreenRect(b);
+        return rectA.Overlaps(rectB);
+    }
+
+    private static Rect GetScreenRect(RectTransform rt)
+    {
+        Vector3[] corners = new Vector3[4];
+        rt.GetWorldCorners(corners);
+        // corners[0] = bottom-left, corners[2] = top-right
+        return new Rect(corners[0].x, corners[0].y, corners[2].x - corners[0].x, corners[2].y - corners[0].y);
     }
 }

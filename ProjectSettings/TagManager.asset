@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 3
   tags:
   - Onion
+  - DropZone2
+  - MapTutorialGameObjectTag
+  - TableZoneTag
+  - KnifeObj
+  - MixingPanel
+  - PouringPanel
+  - Boil/SimmerPanel
+  - ChoppingPanel
+  - SeasoningPanel
   layers:
   - Default
   - TransparentFX

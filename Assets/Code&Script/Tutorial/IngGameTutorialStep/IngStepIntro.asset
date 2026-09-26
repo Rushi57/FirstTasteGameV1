@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
+  m_Name: IngStepIntro
+  m_EditorClassIdentifier: 
+  npcName: Guide
+  npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
+  dialogueLines:
+  - This is your kitchen
+  - 'This is where you will cook the dish '
+  - In the right side you will see the title dish
+  - and the ingredients that need
+  - lets try to prepare the ingredient first
+  - before procceding
+  dialoguePosition: 0
+  customPosition: {x: 0, y: -178}
+  actionType: 0
+  targetId: 
+  dragSourceId: 
+  blockOtherInput: 1

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: Adobo
+  m_EditorClassIdentifier: 
+  recipeName: Adobo
+  recipeIcon: {fileID: 4694169007334928847, guid: 6c86e246b21320745b38bf44057d9073, type: 3}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
+    quantity: 0
+    unit: 
