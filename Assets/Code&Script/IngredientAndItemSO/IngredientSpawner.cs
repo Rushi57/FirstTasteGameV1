@@ -22,6 +22,9 @@ public class IngredientSpawner : MonoBehaviour
     [Tooltip("If assigned, ingredients spawn into the first empty ItemContainerDropZone slot instead of a fixed spawnParent/spawnPosition.")]
     public TableItemSlotManager slotManager;
 
+    [Tooltip("Optional: if assigned, the matching row in the recipe checklist grays out the moment this ingredient is spawned.")]
+    public RecipeIngredientListUI ingredientList;
+
     [Header("Fallback: fixed position (used only if Slot Manager is NOT assigned)")]
     [Tooltip("Parent RectTransform the spawned item will be placed under (usually a Canvas or a container inside one).")]
     public RectTransform spawnParent;
@@ -121,6 +124,8 @@ public class IngredientSpawner : MonoBehaviour
 
         // Re-register with TutorialManager now that sourceData is assigned
         TutorialManager.Instance?.Register(interactable);
+
+        ingredientList?.MarkSpawned(data);
 
         Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) into {parent.name}");
     }

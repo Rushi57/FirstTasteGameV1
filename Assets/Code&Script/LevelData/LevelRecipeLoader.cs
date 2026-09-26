@@ -5,13 +5,13 @@ using TMPro;
 /// Put this anywhere in LevelMapScene (e.g. on the same object as your
 /// RecipeIngredientListUI, or a dedicated manager object). On Start(), reads
 /// LevelSelectionManager.SelectedLevel and wires its recipe into the
-/// ingredients list and TableZone automatically - so the player sees the
+/// ingredients list and table slots automatically - so the player sees the
 /// right dish's ingredients the moment the level loads.
 /// </summary>
 public class LevelRecipeLoader : MonoBehaviour
 {
     public RecipeIngredientListUI ingredientList;
-    public TableZoneIngredientReceiver tableZoneReceiver;
+    public TableItemSlotManager tableSlotManager;
 
     [Tooltip("Optional: shows the dish's name, e.g. on a 'Now Cooking: Adobo' label.")]
     public TMP_Text dishNameLabel;
@@ -36,8 +36,8 @@ public class LevelRecipeLoader : MonoBehaviour
 
         ingredientList?.DisplayRecipe(selected.recipe);
 
-        if (tableZoneReceiver != null)
-            tableZoneReceiver.currentRecipe = selected.recipe;
+        if (tableSlotManager != null)
+            tableSlotManager.currentRecipe = selected.recipe;
 
         if (dishNameLabel != null)
             dishNameLabel.text = selected.levelName;

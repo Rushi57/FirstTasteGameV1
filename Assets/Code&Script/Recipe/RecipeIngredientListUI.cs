@@ -54,6 +54,19 @@ public class RecipeIngredientListUI : MonoBehaviour
             }
         }
     }
+    public void MarkSpawned(IngredientData ingredient)
+    {
+        collectedIds.Add(ingredient);
+
+        foreach (var row in activeRows)
+        {
+            if (row.Matches(ingredient))
+            {
+                row.SetCollected(true);
+                return;
+            }
+        }
+    }
 
     /// <summary>True once every ingredient in the current recipe has been marked collected.</summary>
     public bool AllCollected()
