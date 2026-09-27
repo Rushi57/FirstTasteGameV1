@@ -17,6 +17,8 @@ public enum CutQuality
 ///    which zone it landed in, reporting it straight to ScoreManager
 ///  - Each cut colors the current "history" circle; tapping "Tap To Cut
 ///    Again" adds a fresh gray placeholder circle and restarts the bounce
+///  - Capped at maxCuts (2): Slice = 1st cut, Minced = 2nd cut. After the
+///    2nd cut lands, "Tap To Cut Again" stays inactive - the mini-game is done.
 /// </summary>
 public class CuttingMechanic : MonoBehaviour
 {
@@ -43,11 +45,25 @@ public class CuttingMechanic : MonoBehaviour
     [Tooltip("Prefab for each history circle - needs an Image component")]
     public GameObject circleHistoryPrefab;
 
+    [Header("Cut Limit")]
+    [Tooltip("How many cuts this mini-game allows before locking out further cuts. 1st cut = Sliced, 2nd cut = Minced.")]
+    public int maxCuts = 2;
+
+    /// <summary>Raised once the player has used up all their cuts (cutCount reaches maxCuts).</summary>
+    public event System.Action OnCuttingFinished;
+
     private readonly List<Image> activeHistoryCircles = new List<Image>();
 
     private bool isIndicatorMoving;
     private int movingDirection = 1; // 1 = right, -1 = left
     private float minX, maxX;
+    private int cutCount;
+
+    /// <summary>How many cuts have landed so far this session (0, 1, or maxCuts).</summary>
+    public int CutCount => cutCount;
+
+    /// <summary>True once cutCount has reached maxCuts and no more cuts are allowed.</summary>
+    public bool IsFinished => cutCount >= maxCuts;
 
     void Awake()
     {
@@ -83,6 +99,8 @@ public class CuttingMechanic : MonoBehaviour
     /// <summary>Call this when the cutting panel opens (e.g. knife dropped on an ingredient).</summary>
     public void StartCuttingMinigame()
     {
+        cutCount = 0;
+
         isIndicatorMoving = true;
         tapToCutButton.gameObject.SetActive(true);
         tapToCutAgainButton.gameObject.SetActive(false);
@@ -93,6 +111,8 @@ public class CuttingMechanic : MonoBehaviour
     // LINK TO "TapToCut" BUTTON
     public void OnTapToCutClicked()
     {
+        if (IsFinished) return; // safety net - shouldn't be clickable anyway once finished
+
         isIndicatorMoving = false; // freeze indicator
 
         CutQuality quality = EvaluateCutQuality();
@@ -108,13 +128,27 @@ public class CuttingMechanic : MonoBehaviour
 
         ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
 
+        cutCount++;
+
         tapToCutButton.gameObject.SetActive(false);
-        tapToCutAgainButton.gameObject.SetActive(true);
+
+        if (cutCount >= maxCuts)
+        {
+            // Used up both cuts (Sliced then Minced) - lock out further cutting entirely
+            tapToCutAgainButton.gameObject.SetActive(false);
+            OnCuttingFinished?.Invoke();
+        }
+        else
+        {
+            tapToCutAgainButton.gameObject.SetActive(true);
+        }
     }
 
     // LINK TO "TapToCutAgain" BUTTON
     public void OnTapToCutAgainClicked()
     {
+        if (IsFinished) return; // safety net - button should already be inactive
+
         SpawnNewPlaceholderCircle();
 
         isIndicatorMoving = true;
