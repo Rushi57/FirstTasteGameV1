@@ -18,6 +18,7 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Transform originalParent;
     private bool wasDroppedSuccessfully;
 
+
     private void Awake()
     {
         rectTransform = transform as RectTransform;

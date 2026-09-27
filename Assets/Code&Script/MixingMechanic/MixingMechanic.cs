@@ -33,6 +33,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [Tooltip("If greater than 0, the spatula orbits at this fixed distance from the pivot instead of whatever distance it was placed at in the editor. Lower this to shrink the circle it traces.")]
     public float orbitRadiusOverride = -1f;
 
+    [Header("Smoothing")]
+    [Tooltip("How long (seconds) the spatula's VISUAL position takes to catch up to the raw input angle. 0 = no smoothing (old snap-to-input behavior). Higher = smoother but laggier.")]
+    public float rotationSmoothTime = 0.06f;
+
     [Header("Speed Zones (degrees / second)")]
     [Tooltip("The stirring speed that counts as perfect")]
     public float idealSpeed = 200f;
@@ -79,6 +83,12 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private Image spatulaImage;
     private Color spatulaOriginalColor;
 
+    // Smoothing state - kept separate from the raw angle used for speed measurement,
+    // so smoothing the visuals never distorts how stirring speed is actually judged.
+    private float targetAngle;      // raw angle from the pointer, updated every OnDrag
+    private float visualAngle;      // smoothed angle actually used to position the spatula
+    private float angleVelocity;    // SmoothDampAngle's internal velocity state
+
     void Start()
     {
         trackHalfHeight = meterTrack.rect.height / 2f;
@@ -110,6 +120,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             currentAngularSpeed = Mathf.MoveTowards(currentAngularSpeed, 0f, idleDecay * Time.deltaTime);
 
         UpdateIndicator();
+        UpdateSpatulaVisual();
 
         elapsedTime += Time.deltaTime;
         UpdateTimerVisual();
@@ -142,6 +153,12 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         // distance the spatula was placed at in the editor.
         if (spatula != null)
             orbitRadius = orbitRadiusOverride > 0f ? orbitRadiusOverride : spatula.anchoredPosition.magnitude;
+
+        // Snap the smoothed visual angle to the current position angle on grab,
+        // so it doesn't visibly swing in from wherever it last settled.
+        targetAngle = clampAngle ? Mathf.Clamp(NormalizeAngle(lastAngle), minAngle, maxAngle) : lastAngle;
+        visualAngle = targetAngle;
+        angleVelocity = 0f;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -157,22 +174,29 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         float instSpeed = Mathf.Abs(delta) / dt; // deg/sec
         currentAngularSpeed = Mathf.Lerp(currentAngularSpeed, instSpeed, speedSmoothing);
 
-        if (spatula != null)
-        {
-            float positionAngle = angle;
-            if (clampAngle)
-                positionAngle = Mathf.Clamp(NormalizeAngle(angle), minAngle, maxAngle);
-
-            float rad = positionAngle * Mathf.Deg2Rad;
-            // Orbit the spatula's position around the pivot at a fixed radius -
-            // its rotation is intentionally left untouched so it doesn't spin, only circles.
-            spatula.anchoredPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * orbitRadius;
-        }
+        // Only update the TARGET angle here - the actual spatula position is
+        // set once per frame in UpdateSpatulaVisual(), smoothed toward this.
+        float positionAngle = angle;
+        if (clampAngle)
+            positionAngle = Mathf.Clamp(NormalizeAngle(angle), minAngle, maxAngle);
+        targetAngle = positionAngle;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isDragging = false;
+    }
+
+    private void UpdateSpatulaVisual()
+    {
+        if (spatula == null) return;
+
+        visualAngle = rotationSmoothTime > 0f
+            ? Mathf.SmoothDampAngle(visualAngle, targetAngle, ref angleVelocity, rotationSmoothTime)
+            : targetAngle;
+
+        float rad = visualAngle * Mathf.Deg2Rad;
+        spatula.anchoredPosition = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * orbitRadius;
     }
 
     private float GetAngleFromPivot(PointerEventData eventData)

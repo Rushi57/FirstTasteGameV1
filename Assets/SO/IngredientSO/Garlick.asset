@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Garlick
+  m_EditorClassIdentifier: 
+  id: GarlickItem
+  displayName: Garlick
+  category: 0
+  size: 0
+  icon: {fileID: -5371142981456057837, guid: aa1ef0aaacaad7443aff4eafc1477bd2, type: 3}
