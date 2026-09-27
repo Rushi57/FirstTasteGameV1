@@ -22,7 +22,7 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the Pork into slice
+  - Chop the Pork Belly into slice
   - Chop the Garlic into slice
   - Turn on the Stove to high heat
   - Put the Pan in the Stove

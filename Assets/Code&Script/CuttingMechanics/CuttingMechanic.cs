@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 /// <summary>How well-timed a single cut was.</summary>
 public enum CutQuality
@@ -15,12 +14,9 @@ public enum CutQuality
 /// Standalone cutting/chopping mini-game, extracted from KitchenManager:
 ///  - indicatorArrow bounces left/right within a Red/Yellow/Green meter
 ///  - Tapping "Tap To Cut" freezes it and records a CutQuality based on
-///    which zone it landed in
+///    which zone it landed in, reporting it straight to ScoreManager
 ///  - Each cut colors the current "history" circle; tapping "Tap To Cut
 ///    Again" adds a fresh gray placeholder circle and restarts the bounce
-///  - Only the FINAL required cut is scored (see requiredCuts) and each cut
-///    can advance the target ingredient's visual prep state (see
-///    targetIngredient + cutStageProgression)
 /// </summary>
 public class CuttingMechanic : MonoBehaviour
 {
@@ -47,26 +43,11 @@ public class CuttingMechanic : MonoBehaviour
     [Tooltip("Prefab for each history circle - needs an Image component")]
     public GameObject circleHistoryPrefab;
 
-    [Header("Multi-Stage Cutting (whole / sliced / minced)")]
-    [Tooltip("How many taps this ingredient needs to reach its required prep stage. 1 = single cut, 2 = sliced, 3 = minced. Only the FINAL cut's quality is scored - earlier cuts are practice/visual only, so an ingredient needing 3 cuts doesn't cost 3x the score.")]
-    public int requiredCuts = 1;
-
-    [Tooltip("Fired once the ingredient reaches its required cut count (the final, scored cut). Wire this to whatever should happen next (e.g. close the cutting panel, move to the next prep step).")]
-    public UnityEvent onCuttingComplete;
-
-    [Header("Ingredient Visual State")]
-    [Tooltip("The spawned ingredient instance actually being cut right now - its sprite updates to match cut progress. Assign this whenever the cutting panel opens for a specific ingredient (e.g. when the knife is dropped on it).")]
-    public IngredientStateController targetIngredient;
-
-    [Tooltip("Which prep state each cut reaches, in order. E.g. [Sliced, Minced] means cut #1 -> Sliced, cut #2 -> Minced. Should have at least Required Cuts entries.")]
-    public List<IngredientPrepState> cutStageProgression = new List<IngredientPrepState> { IngredientPrepState.Sliced };
-
     private readonly List<Image> activeHistoryCircles = new List<Image>();
 
     private bool isIndicatorMoving;
     private int movingDirection = 1; // 1 = right, -1 = left
     private float minX, maxX;
-    private int cutsPerformed = 0;
 
     void Awake()
     {
@@ -105,7 +86,6 @@ public class CuttingMechanic : MonoBehaviour
         isIndicatorMoving = true;
         tapToCutButton.gameObject.SetActive(true);
         tapToCutAgainButton.gameObject.SetActive(false);
-        cutsPerformed = 0;
 
         ClearAndInitializeHistoryUI();
     }
@@ -114,7 +94,6 @@ public class CuttingMechanic : MonoBehaviour
     public void OnTapToCutClicked()
     {
         isIndicatorMoving = false; // freeze indicator
-        cutsPerformed++;
 
         CutQuality quality = EvaluateCutQuality();
         UpdateQualityDisplay(quality);
@@ -127,27 +106,10 @@ public class CuttingMechanic : MonoBehaviour
                 currentCircle.color = ColorForQuality(quality);
         }
 
-        // Advance the ingredient's visual prep state for THIS cut, if a
-        // stage is defined for it (cutsPerformed is 1-based, list is 0-based).
-        int stageIndex = cutsPerformed - 1;
-        if (targetIngredient != null && stageIndex >= 0 && stageIndex < cutStageProgression.Count)
-        {
-            targetIngredient.SetState(cutStageProgression[stageIndex]);
-        }
-
-        bool isFinalCut = cutsPerformed >= requiredCuts;
-
-        if (isFinalCut)
-        {
-            // Only the cut that actually reaches the required prep stage
-            // (whole/sliced/minced) counts toward score - earlier cuts were
-            // just getting there and shouldn't be penalized/rewarded again.
-            ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
-            onCuttingComplete?.Invoke();
-        }
+        ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
 
         tapToCutButton.gameObject.SetActive(false);
-        tapToCutAgainButton.gameObject.SetActive(!isFinalCut);
+        tapToCutAgainButton.gameObject.SetActive(true);
     }
 
     // LINK TO "TapToCutAgain" BUTTON

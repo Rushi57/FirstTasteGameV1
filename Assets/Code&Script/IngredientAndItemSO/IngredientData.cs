@@ -22,20 +22,13 @@ public enum IngredientPrepState
     Minced
 }
 
+[System.Serializable]
 public class PrepStateSprite
 {
     public IngredientPrepState state;
     public Sprite sprite;
 }
 
-/// <summary>
-/// Data-only definition of an ingredient (or utensil - reuse/rename as needed).
-/// Create instances: right-click in Project window -> Create -> Game -> Ingredient Data.
-///
-/// Implements ITutorialIdentifiable so TutorialInteractable.sourceData can
-/// pull its tutorial id straight from here - one source of truth, no more
-/// retyping the same string in multiple places.
-/// </summary>
 [CreateAssetMenu(fileName = "IngredientData", menuName = "Game/Ingredient Data")]
 public class IngredientData : ScriptableObject, ITutorialIdentifiable
 {
