@@ -126,6 +126,7 @@ public class IngredientSpawner : MonoBehaviour
         TutorialManager.Instance?.Register(interactable);
 
         ingredientList?.MarkSpawned(data);
+        
 
         Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) into {parent.name}");
     }

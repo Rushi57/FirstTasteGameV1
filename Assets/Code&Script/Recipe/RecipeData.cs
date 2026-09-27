@@ -42,6 +42,8 @@ public class RecipeData : ScriptableObject
     [Header("Ingredients")]
     public List<RecipeIngredientEntry> ingredients = new List<RecipeIngredientEntry>();
 
-    [Header("Prep Instruction")]
-    public List<RecipeIngredientEntry> instruction= new List<RecipeIngredientEntry>();
+    [Header("Prep & Cooking Instructions")]
+    [Tooltip("Each entry is one bullet-point step, shown in order in the Cooking Prep panel once all ingredients are on the table. Plain text - no ScriptableObject needed per line.")]
+    public List<string> cookingInstructions = new List<string>();
+
 }

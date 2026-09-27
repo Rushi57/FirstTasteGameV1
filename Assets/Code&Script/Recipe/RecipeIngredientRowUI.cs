@@ -18,7 +18,19 @@ public class RecipeIngredientRowUI : MonoBehaviour
     [Tooltip("Optional checkmark/highlight shown once this ingredient has been placed on the table. Leave unassigned if you don't want this visual.")]
     public GameObject collectedCheckmark;
 
+    [Tooltip("Controls the row's dim/grayed-out look once its ingredient has been spawned. Auto-added if left unassigned.")]
+    public CanvasGroup canvasGroup;
+
+    [Range(0.1f, 1f)]
+    [Tooltip("Alpha applied to the whole row once its ingredient has been spawned (grayed out).")]
+    public float spawnedAlpha = 0.5f;
+
     private RecipeIngredientEntry entry;
+
+    private void Awake()
+    {
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+    }
 
     public void SetData(RecipeIngredientEntry ingredientEntry)
     {
@@ -34,6 +46,7 @@ public class RecipeIngredientRowUI : MonoBehaviour
         }
 
         SetCollected(false);
+        SetSpawned(false);
     }
 
     /// <summary>Does this row represent the given ingredient?</summary>
@@ -49,5 +62,17 @@ public class RecipeIngredientRowUI : MonoBehaviour
 
         if (label != null)
             label.fontStyle = collected ? FontStyles.Strikethrough : FontStyles.Normal;
+    }
+
+    /// <summary>
+    /// Dims the row to show its ingredient has already been spawned/pulled
+    /// out (e.g. from the Fridge/Basket) - distinct from SetCollected, which
+    /// is for "correctly placed on the table". A row can be spawned but not
+    /// yet collected, or spawned AND collected at the same time.
+    /// </summary>
+    public void SetSpawned(bool spawned)
+    {
+        if (canvasGroup != null)
+            canvasGroup.alpha = spawned ? spawnedAlpha : 1f;
     }
 }
