@@ -82,7 +82,7 @@ public class TableItemSlotManager : MonoBehaviour
             return; // TestDrag.OnEndDrag snaps it back automatically
         }
 
-        if (currentRecipe == null || !RecipeNeeds(droppedIngredient))
+        if (!TryCollect(droppedIngredient))
         {
             Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' is not needed right now - rejecting drop.");
             return; // TestDrag.OnEndDrag snaps it back automatically
@@ -93,7 +93,6 @@ public class TableItemSlotManager : MonoBehaviour
             FreeSlot(occupantComp.slot);
 
         Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' accepted into '{targetSlot.name}' and marked collected.");
-        ingredientList?.MarkCollected(droppedIngredient);
 
         drag.SnapTo(targetSlot);
         OccupySlot(targetSlot, droppedObj);
@@ -103,6 +102,21 @@ public class TableItemSlotManager : MonoBehaviour
             occupantComp.slotManager = this;
             occupantComp.slot = targetSlot;
         }
+    }
+
+    /// <summary>
+    /// Checks whether the current recipe needs this ingredient, and if so
+    /// marks it collected on the checklist (which may fire
+    /// OnAllIngredientsCollected). Returns true if it was needed/accepted.
+    /// Call this from anywhere an ingredient effectively "arrives" on the
+    /// table - a manual drag-drop (see HandleDrop above) or a direct spawn
+    /// straight into a table slot (see IngredientSpawner).
+    /// </summary>
+    public bool TryCollect(IngredientData ingredient)
+    {
+        if (!RecipeNeeds(ingredient)) return false;
+        ingredientList?.MarkCollected(ingredient);
+        return true;
     }
 
     private bool RecipeNeeds(IngredientData ingredient)

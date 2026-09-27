@@ -55,13 +55,15 @@ public class RecipeIngredientRowUI : MonoBehaviour
         return entry != null && entry.ingredient == ingredient;
     }
 
+    /// <summary>
+    /// Marks the row as collected. No longer applies a strikethrough to the
+    /// label - toggles collectedCheckmark only. If you don't want any visual
+    /// at all here, leave collectedCheckmark unassigned in the Inspector.
+    /// </summary>
     public void SetCollected(bool collected)
     {
         if (collectedCheckmark != null)
             collectedCheckmark.SetActive(collected);
-
-        if (label != null)
-            label.fontStyle = collected ? FontStyles.Strikethrough : FontStyles.Normal;
     }
 
     /// <summary>

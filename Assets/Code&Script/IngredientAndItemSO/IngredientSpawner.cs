@@ -8,7 +8,10 @@ using UnityEngine.UI;
 /// no manual Hierarchy setup, no matter which of the 4 prefabs gets picked.
 ///
 /// If Slot Manager is assigned, spawns into the first EMPTY table slot
-/// instead of a fixed position - see TableItemSlotManager.
+/// instead of a fixed position - see TableItemSlotManager. Because that
+/// counts as the ingredient effectively "arriving" on the table already,
+/// this also runs the recipe check right away (TableItemSlotManager.TryCollect)
+/// rather than waiting for a drag-drop that will never happen for it.
 /// </summary>
 public class IngredientSpawner : MonoBehaviour
 {
@@ -102,6 +105,13 @@ public class IngredientSpawner : MonoBehaviour
             TableSlotOccupant occupant = go.AddComponent<TableSlotOccupant>();
             occupant.slotManager = slotManager;
             occupant.slot = targetSlot;
+
+            // Spawning straight into a table slot IS the ingredient arriving
+            // on the table - run the same recipe check a manual drag-drop
+            // would have triggered, so the checklist/panel switch still works.
+            bool wasNeeded = slotManager.TryCollect(data);
+            if (!wasNeeded)
+                Debug.Log($"[IngredientSpawner] '{data.displayName}' spawned onto the table but isn't needed by the current recipe.");
         }
 
         // Get-or-add required UI and drag components
@@ -126,7 +136,7 @@ public class IngredientSpawner : MonoBehaviour
         TutorialManager.Instance?.Register(interactable);
 
         ingredientList?.MarkSpawned(data);
-        
+
 
         Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) into {parent.name}");
     }
