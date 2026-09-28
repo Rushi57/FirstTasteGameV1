@@ -189,4 +189,22 @@ public class RecipeData : ScriptableObject
             if (IsStoveHeatLine(s)) n++;
         return n;
     }
+
+    /// Returns the quantity + unit for an ingredient id (case-insensitive).
+    public bool TryGetAmount(string ingredientId, out RecipeAmount amount)
+    {
+        foreach (var entry in ingredients)
+        {
+            var ing = entry.ingredient;
+            if (ing == null) continue;
+
+            if (string.Equals(ing.id, ingredientId, System.StringComparison.OrdinalIgnoreCase))
+            {
+                amount = new RecipeAmount(entry.quantity, entry.unit);
+                return true;
+            }
+        }
+        amount = default;
+        return false;
+    }
 }

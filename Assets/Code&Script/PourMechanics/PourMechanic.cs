@@ -1,146 +1,131 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using Unity.VisualScripting;
-using System.Data;
 
+/// Put this on the PourButton (it needs a raycast-able Image).
+/// The target amount now comes from the measurement the player picked (in ml).
 public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public enum MeasurementUnit { USTablespoon, MetricTablespoon}
-    public enum PourResult { Perfect, Good ,Overflow, TooLittle}
+    public enum PourResult { Perfect, Good, Overflow, TooLittle }
 
-    [Header("Recipe Settings")]
-    [Tooltip("How many tablespoon the recipe calls for")]
-    public float targetTablespoons = 2f;
-    public MeasurementUnit unit = MeasurementUnit.USTablespoon;
-
-    [Header("Zone Tolerance (as % target, 1.0 = 100%")]
+    [Header("Zone Tolerance (as % of target, 0.1 = 10%)")]
     [Range(0f, 1f)] public float greenZoneWidth = 0.10f;
     [Range(0f, 1f)] public float yellowZoneWidth = 0.25f;
-    [Tooltip("Multiplier of target that represents the very top of the meter (max overflow)")]
-
-    public float meterTopMultiplyer = 1.6f;
+    [Tooltip("Top of the meter as a multiplier of the target (max overflow)")]
+    public float meterTopMultiplier = 1.6f;
 
     [Header("Pouring")]
-    [Tooltip("Tablespoons poured per second while holding the button")]
-    public float pourRatePerSecond = 0.6f;
+    [Tooltip("Seconds of holding needed to reach 100% of the target, so big and small measures feel the same")]
+    public float secondsToFillTarget = 3f;
 
     [Header("References")]
     public ParticleSystem pourParticles;
-    public RectTransform indicator;
-    public RectTransform meterTrack;
-    public Image spoonFillImage;
+    public RectTransform indicator;      // the black bar on the meter
+    public RectTransform meterTrack;     // MeterImage
+    public Image spoonFillImage;         // optional
+    public TMP_Text amountLabel;         // optional
+    public TMP_Text resultLabel;         // optional
 
-    public TMP_Text amountLabel;
-    public TMP_Text resultLabel;
+    /// Fired when the player lets go. (result, poured ml, target ml)
+    public event Action<PourResult, float, float> OnPourFinished;
 
-    private float currentTablespoons = 0f;
-    private bool isPouring = false;
-    private float trackHalfHeight;
-
-    private const float ML_PER_US_TBSP = 14.7868f;
-    private const float ML_PER_METRIC_TBSP = 15f;
+    private float targetMl;
+    private float currentMl;
+    private string measureLabel = "";
+    private bool isPouring;
+    private bool canPour;
 
     void Start()
     {
-        trackHalfHeight = meterTrack.rect.height / 2f;
+        UpdateVisuals();
+    }
+
+    /// Called by SeasoningPourController when the player taps a measurement button.
+    public void SetTarget(float ml, string label)
+    {
+        targetMl = ml;
+        measureLabel = label;
+        canPour = ml > 0f;
+        ResetPour();
+    }
+
+    public void ResetPour()
+    {
+        isPouring = false;
+        currentMl = 0f;
+        if (pourParticles != null) pourParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        if (resultLabel != null) resultLabel.text = "";
         UpdateVisuals();
     }
 
     void Update()
     {
-        if (!isPouring) return;
+        if (!isPouring || !canPour) return;
 
-        currentTablespoons += pourRatePerSecond * Time.deltaTime;
-
-        float maxAmount = targetTablespoons * meterTopMultiplyer;
-        currentTablespoons = Mathf.Clamp(currentTablespoons, 0f, maxAmount);
-
+        float ratePerSecond = targetMl / Mathf.Max(0.1f, secondsToFillTarget);
+        currentMl += ratePerSecond * Time.deltaTime;
+        currentMl = Mathf.Clamp(currentMl, 0f, targetMl * meterTopMultiplier);
         UpdateVisuals();
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!canPour) return;
         isPouring = true;
         if (pourParticles != null) pourParticles.Play();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        isPouring=false;
+        if (!canPour || !isPouring) return;
+        isPouring = false;
         if (pourParticles != null) pourParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-
         EvaluateResult();
     }
 
     private void UpdateVisuals()
     {
-        float percentOfTarget = currentTablespoons / targetTablespoons;
+        if (meterTrack == null || indicator == null) return;
 
-        float maxPercent = meterTopMultiplyer;
-        float t = Mathf.InverseLerp(0f, maxPercent, percentOfTarget);
+        float percent = targetMl > 0f ? currentMl / targetMl : 0f;
+        float t = Mathf.InverseLerp(0f, meterTopMultiplier, percent);
 
-        float yPos = Mathf.Lerp(-trackHalfHeight, trackHalfHeight, t);
-
+        // Works with any pivot: use the track's rect edges
+        float half = meterTrack.rect.height / 2f;
         Vector2 pos = indicator.anchoredPosition;
-        pos.y = yPos;
+        pos.y = Mathf.Lerp(-half, half, t);
         indicator.anchoredPosition = pos;
 
-        if(spoonFillImage != null)
-            spoonFillImage.fillAmount = Mathf.Clamp01(percentOfTarget);
+        if (spoonFillImage != null) spoonFillImage.fillAmount = Mathf.Clamp01(percent);
 
-        if(amountLabel != null)
-        {
-            string unitLabel = unit == MeasurementUnit.USTablespoon ? "tbsp (US)" : "tbsp (Metric)";
-            amountLabel.text = $"{currentTablespoons:0.0} / {targetTablespoons:0.0} {unitLabel}";
-        }
+        if (amountLabel != null)
+            amountLabel.text = $"{currentMl:0.0} / {targetMl:0.0} ml  ({measureLabel})";
     }
 
     private void EvaluateResult()
     {
-        float percentOfTarget = currentTablespoons / targetTablespoons;
-        float lowerGreen = 1f - greenZoneWidth;
-        float upperGreen = 1f + greenZoneWidth;
-        float lowerYellow = 1f - yellowZoneWidth;
-        float upperYellow = 1f + yellowZoneWidth;
-
+        float percent = currentMl / targetMl;
         PourResult result;
 
-        if (percentOfTarget >= lowerGreen && percentOfTarget <= upperGreen)
-            result = PourResult.Perfect;
-        else if (percentOfTarget > upperGreen && percentOfTarget <= upperYellow)
-            result = PourResult.Good;
-        else if (percentOfTarget > upperYellow)
-            result = PourResult.Overflow;
-        else
-            result = PourResult.TooLittle;
+        if (percent >= 1f - greenZoneWidth && percent <= 1f + greenZoneWidth) result = PourResult.Perfect;
+        else if (percent > 1f + greenZoneWidth && percent <= 1f + yellowZoneWidth) result = PourResult.Good;
+        else if (percent > 1f + yellowZoneWidth) result = PourResult.Overflow;
+        else result = PourResult.TooLittle;
 
-
-        if(resultLabel != null)
+        if (resultLabel != null)
         {
-            switch(result)
+            switch (result)
             {
                 case PourResult.Perfect: resultLabel.text = "Perfect!"; break;
                 case PourResult.Good: resultLabel.text = "Good!"; break;
-                case PourResult.Overflow: resultLabel.text = "To much! Overflow"; break;
-                case PourResult.TooLittle: resultLabel.text = "Not Enough!"; break;
+                case PourResult.Overflow: resultLabel.text = "Too much! Overflow"; break;
+                case PourResult.TooLittle: resultLabel.text = "Not enough!"; break;
             }
         }
-        Debug.Log($"Pour result: {result} ({currentTablespoons:0.00} tbsp poured, target {targetTablespoons} tbsp)");
-    }
 
-    public float ToMilliliters(float tablespoons)
-    {
-        return unit == MeasurementUnit.USTablespoon
-            ? tablespoons * ML_PER_US_TBSP
-            : tablespoons * ML_PER_METRIC_TBSP;
-    }
-
-    // Call this to reset the meter (e.g., when a new recipe step starts)
-    public void ResetPour()
-    {
-        currentTablespoons = 0f;
-        UpdateVisuals();
-        if (resultLabel != null) resultLabel.text = "";
+        Debug.Log($"Pour result: {result} ({currentMl:0.00} ml poured, target {targetMl} ml)");
+        OnPourFinished?.Invoke(result, currentMl, targetMl);
     }
 }
