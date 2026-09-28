@@ -24,7 +24,6 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
-  cookingStepIds: []
   cookingInstructions:
   - Chop the Pork Belly into slice
   - Chop the Garlic into slice
@@ -40,5 +39,10 @@ MonoBehaviour:
   - Add 1/2 Cup of Vinegar
   - Add 1/4 Cup of Soy Sauce
   - Add 1 cup of water
-  - 'Reduce the Heat of the stove '
+  - Reduce the stove to low
   - Put the Pan Lid
+  cookingStepIds:
+  - 
+  - 
+  - 
+  - Pan:OnStove

@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 65275160}
   - component: {fileID: 65275162}
   - component: {fileID: 65275161}
+  - component: {fileID: 65275163}
   m_Layer: 5
   m_Name: Pan
   m_TagString: Untagged
@@ -725,6 +726,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65275159}
   m_CullTransparentMesh: 1
+--- !u!114 &65275163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65275159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b94fd87a2b58b4cb2726d1388b6f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: Pan
 --- !u!1 &77813784
 GameObject:
   m_ObjectHideFlags: 0
@@ -9754,7 +9768,8 @@ MonoBehaviour:
   mediumSprite: {fileID: -1531367611056824636, guid: 6d168112b80a4094b83fbd7dc1671384, type: 3}
   highSprite: {fileID: -1531367611056824636, guid: 6d168112b80a4094b83fbd7dc1671384, type: 3}
   heatLabel: {fileID: 0}
-  highHeatStepId: Stove:HighHeat
+  recipe: {fileID: 0}
+  confirmDelay: 1
 --- !u!1 &875827926
 GameObject:
   m_ObjectHideFlags: 0
@@ -15770,6 +15785,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 947460798}
+  - component: {fileID: 947460799}
+  - component: {fileID: 947460801}
+  - component: {fileID: 947460800}
   m_Layer: 5
   m_Name: StoveDropObj
   m_TagString: Untagged
@@ -15796,6 +15814,58 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -37.89}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &947460799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947460797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04426f8682723b141bbd4a50ad7b368f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panId: Pan
+  panStepId: Pan:OnStove
+--- !u!114 &947460800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947460797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6792453, g: 0.6760413, b: 0.6760413, a: 0.6745098}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &947460801
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947460797}
+  m_CullTransparentMesh: 1
 --- !u!1 &947900737
 GameObject:
   m_ObjectHideFlags: 0
@@ -22735,9 +22805,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1901381493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 27}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 44.12}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769867817
@@ -22768,7 +22838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.12156863}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23607,6 +23677,7 @@ MonoBehaviour:
   ingredientList: {fileID: 881317335}
   tableSlotManager: {fileID: 833414239}
   cookingPrepPanel: {fileID: 881317336}
+  stoveController: {fileID: 864441038}
   dishNameLabel: {fileID: 636979532}
 --- !u!114 &1853911555
 MonoBehaviour:

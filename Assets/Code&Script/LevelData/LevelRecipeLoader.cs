@@ -1,20 +1,15 @@
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// Put this anywhere in LevelMapScene (e.g. on the same object as your
-/// RecipeIngredientListUI, or a dedicated manager object). On Start(), reads
-/// LevelSelectionManager.SelectedLevel and wires its recipe into the
-/// ingredients list, table slot manager, and cooking prep panel automatically
-/// - so the player sees the right dish's ingredients the moment the level
-/// loads, drops validate against the right recipe, and the Cooking Prep
-/// panel shows the right instructions once everything's collected.
-/// </summary>
 public class LevelRecipeLoader : MonoBehaviour
 {
     public RecipeIngredientListUI ingredientList;
     public TableItemSlotManager tableSlotManager;
-    public CookingPrepPanelController cookingPrepPanel; // NEW
+    public CookingPrepPanelController cookingPrepPanel;
+
+    [Header("Stove")]
+    [Tooltip("Drag StoveDropZone here (the object with StoveHeatController).")]
+    public StoveHeatController stoveController;
 
     [Tooltip("Optional: shows the dish's name, e.g. on a 'Now Cooking: Adobo' label.")]
     public TMP_Text dishNameLabel;
@@ -43,7 +38,15 @@ public class LevelRecipeLoader : MonoBehaviour
             tableSlotManager.currentRecipe = selected.recipe;
 
         if (cookingPrepPanel != null)
-            cookingPrepPanel.currentRecipe = selected.recipe; // NEW - so DisplaySteps() has data when the switch fires
+            cookingPrepPanel.currentRecipe = selected.recipe;
+
+        // Fresh progress for this level, then give the stove its recipe
+        CookingPrepListUI.Instance?.ResetProgress();
+
+        if (stoveController != null)
+            stoveController.SetRecipe(selected.recipe);
+        else
+            Debug.LogWarning("[LevelRecipeLoader] stoveController is not assigned - stove steps won't complete.");
 
         if (dishNameLabel != null)
             dishNameLabel.text = selected.levelName;
