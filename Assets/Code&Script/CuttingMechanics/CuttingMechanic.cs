@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +49,18 @@ public class CuttingMechanic : MonoBehaviour
     [Header("Cut Limit")]
     [Tooltip("How many cuts this mini-game allows before locking out further cuts. 1st cut = Sliced, 2nd cut = Minced.")]
     public int maxCuts = 2;
+
+    [Header("Ingredient Display")]
+    [Tooltip("Drag ChoppingBoard/IngredientImage here")]
+    public Image ingredientImage;
+    [Tooltip("Optional: shows 'Whole' / 'Sliced' / 'Minced'")]
+    public TMP_Text stateLabel;
+
+    private IngredientData currentIngredient;
+    public IngredientPrepState CurrentState { get; private set; } = IngredientPrepState.Whole;
+
+    /// <summary>Raised whenever the ingredient changes prep state (Whole -> Sliced -> Minced).</summary>
+    public event System.Action<IngredientData, IngredientPrepState> OnStateChanged;
 
     /// <summary>Raised once the player has used up all their cuts (cutCount reaches maxCuts).</summary>
     public event System.Action OnCuttingFinished;
@@ -100,7 +113,7 @@ public class CuttingMechanic : MonoBehaviour
     public void StartCuttingMinigame()
     {
         cutCount = 0;
-
+        ApplyState(IngredientPrepState.Whole);
         isIndicatorMoving = true;
         tapToCutButton.gameObject.SetActive(true);
         tapToCutAgainButton.gameObject.SetActive(false);
@@ -129,7 +142,7 @@ public class CuttingMechanic : MonoBehaviour
         ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
 
         cutCount++;
-
+        ApplyState(cutCount == 1 ? IngredientPrepState.Sliced : IngredientPrepState.Minced);
         tapToCutButton.gameObject.SetActive(false);
 
         if (cutCount >= maxCuts)
@@ -230,5 +243,28 @@ public class CuttingMechanic : MonoBehaviour
         {
             Debug.LogError("[CuttingMechanic] circleHistoryPrefab is missing an Image component.");
         }
+    }
+
+    /// <summary>Call this when the knife is dropped on an ingredient.</summary>
+    public void SetIngredient(IngredientData data)
+    {
+        currentIngredient = data;
+        ApplyState(IngredientPrepState.Whole);
+    }
+
+    private void ApplyState(IngredientPrepState state)
+    {
+        CurrentState = state;
+
+        if (stateLabel != null) stateLabel.text = state.ToString();
+        Debug.Log("the cut is "+ CurrentState);
+        if (currentIngredient != null && ingredientImage != null)
+        {
+            ingredientImage.sprite = currentIngredient.GetSpriteForState(state);
+            ingredientImage.preserveAspect = true;
+            ingredientImage.color = Color.white;
+        }
+
+        OnStateChanged?.Invoke(currentIngredient, state);
     }
 }

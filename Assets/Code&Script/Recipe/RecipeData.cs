@@ -32,6 +32,10 @@ public class RecipeData : ScriptableObject
     [Header("Ingredients")]
     public List<RecipeIngredientEntry> ingredients = new List<RecipeIngredientEntry>();
 
+    [Tooltip("Optional. Same order as Cooking Instructions. Only needed for steps that aren't auto-detected (stove, pan, etc.). Leave entries empty otherwise.")]
+    public List<string> cookingStepIds = new List<string>();
+
+
     [Header("Prep & Cooking Instructions")]
     [Tooltip("Each entry is one bullet-point step, shown in order in the Cooking Prep panel once all ingredients are on the table. Plain text - no ScriptableObject needed per line.")]
     public List<string> cookingInstructions = new List<string>();
@@ -78,5 +82,32 @@ public class RecipeData : ScriptableObject
                 return GetRequiredPrepState(entry.ingredient);
         }
         return IngredientPrepState.Whole;
+    }
+    /// <summary>
+    /// Manual id from cookingStepIds if set; otherwise, for chop/mince lines that
+    /// mention one of this recipe's ingredients, returns "IngredientId:State".
+    /// Returns null if the step has no auto-completion.
+    /// </summary>
+    public string GetStepId(int index)
+    {
+        if (index < 0 || index >= cookingInstructions.Count) return null;
+
+        if (index < cookingStepIds.Count && !string.IsNullOrEmpty(cookingStepIds[index]))
+            return cookingStepIds[index];
+
+        string line = cookingInstructions[index];
+        if (string.IsNullOrEmpty(line)) return null;
+        line = line.ToLowerInvariant();
+
+        foreach (var entry in ingredients)
+        {
+            var ing = entry.ingredient;
+            if (ing == null || string.IsNullOrEmpty(ing.displayName)) continue;
+            if (!line.Contains(ing.displayName.ToLowerInvariant())) continue;
+
+            if (line.Contains("mince")) return $"{ing.id}:{IngredientPrepState.Minced}";
+            if (line.Contains("slice")) return $"{ing.id}:{IngredientPrepState.Sliced}";
+        }
+        return null;
     }
 }

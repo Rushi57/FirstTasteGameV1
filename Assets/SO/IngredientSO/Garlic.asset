@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Pork Belly
+  m_Name: Garlic
   m_EditorClassIdentifier: 
-  id: Pork Belly
-  displayName: Pork Belly
+  id: Garlic
+  displayName: Garlic
   category: 0
-  size: 1
-  icon: {fileID: 2397899725440589209, guid: 2756d8362ac1cfd45ae753948475c77f, type: 3}
+  size: 0
+  icon: {fileID: 2327581469994071983, guid: 608a03d4e60f4394594ab030f1d8d9ad, type: 3}
   stateSprites:
   - state: 0
-    sprite: {fileID: 2397899725440589209, guid: 2756d8362ac1cfd45ae753948475c77f, type: 3}
+    sprite: {fileID: -3874554171473503179, guid: 608a03d4e60f4394594ab030f1d8d9ad, type: 3}
   - state: 1
-    sprite: {fileID: -6237445509998130909, guid: a80fa3d926c9dfc4a91ed31bc5d9f0fa, type: 3}
+    sprite: {fileID: 6597228492964986121, guid: 608a03d4e60f4394594ab030f1d8d9ad, type: 3}
   - state: 2
-    sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
+    sprite: {fileID: 4929228063200620584, guid: fd94dd2735dc4894d939dc24ac8367f6, type: 3}

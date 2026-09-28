@@ -71,8 +71,14 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        StartNewDish();
     }
 
     /// <summary>Call this when a new dish/level begins, to reset score and hearts.</summary>
