@@ -31262,16 +31262,17 @@ MonoBehaviour:
   maxAngle: 70
   orbitRadiusOverride: 60
   rotationSmoothTime: 0.06
-  idealSpeed: 150
+  idealSpeed: 141.6
   greenTolerance: 40
   yellowTolerance: 90
   speedSmoothing: 0.3
-  idleDecay: 598.9
+  idleDecay: 662
   requiredDirection: 0
-  invertDirection: 0
+  invertDirection: 1
   directionConfidence: 0.3
-  pivotSpots: []
-  pivotRandomRadius: 0
+  pivotSpots:
+  - {fileID: 303793562}
+  pivotRandomRadius: 60
   indicator: {fileID: 801765468}
   meterTrack: {fileID: 1152338650}
   driftSpeed: 80
