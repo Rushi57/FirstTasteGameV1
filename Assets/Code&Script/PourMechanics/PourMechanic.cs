@@ -4,128 +4,158 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-/// Put this on the PourButton (it needs a raycast-able Image).
-/// The target amount now comes from the measurement the player picked (in ml).
+/// <summary>
+/// Put this on PourButton. Hold to pour, release to grade.
+/// The target amount is set by PourSeasoningController from the
+/// measurement the player picked.
+/// </summary>
 public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public enum PourResult { Perfect, Good, Overflow, TooLittle }
 
-    [Header("Zone Tolerance (as % of target, 0.1 = 10%)")]
+    [Header("Zone Tolerance (as % of target, 0.10 = 10%)")]
     [Range(0f, 1f)] public float greenZoneWidth = 0.10f;
     [Range(0f, 1f)] public float yellowZoneWidth = 0.25f;
-    [Tooltip("Top of the meter as a multiplier of the target (max overflow)")]
-    public float meterTopMultiplier = 1.6f;
+    [Tooltip("Multiplier of target that represents the very top of the meter (max overflow)")]
+    public float meterTopMultiplyer = 1.6f;
 
     [Header("Pouring")]
-    [Tooltip("Seconds of holding needed to reach 100% of the target, so big and small measures feel the same")]
-    public float secondsToFillTarget = 3f;
+    [Tooltip("Holding the button this many seconds fills exactly to the target.")]
+    public float secondsToReachTarget = 4f;
 
     [Header("References")]
     public ParticleSystem pourParticles;
-    public RectTransform indicator;      // the black bar on the meter
-    public RectTransform meterTrack;     // MeterImage
-    public Image spoonFillImage;         // optional
-    public TMP_Text amountLabel;         // optional
-    public TMP_Text resultLabel;         // optional
+    public RectTransform indicator;
+    public RectTransform meterTrack;
+    public Image spoonFillImage;
+    public TMP_Text amountLabel;
+    public TMP_Text resultLabel;
 
-    /// Fired when the player lets go. (result, poured ml, target ml)
-    public event Action<PourResult, float, float> OnPourFinished;
+    /// <summary>Raised on release: meter result and the amount poured in ml.</summary>
+    public event Action<PourResult, float> OnPourFinished;
 
     private float targetMl;
     private float currentMl;
-    private string measureLabel = "";
     private bool isPouring;
-    private bool canPour;
+    private bool hasResult;
+    private float trackHalfHeight;
 
     void Start()
     {
+        if (meterTrack != null) trackHalfHeight = meterTrack.rect.height / 2f;
         UpdateVisuals();
     }
 
-    /// Called by SeasoningPourController when the player taps a measurement button.
-    public void SetTarget(float ml, string label)
+    /// <summary>Called when the player picks a measurement.</summary>
+    public void SetTarget(float ml)
     {
         targetMl = ml;
-        measureLabel = label;
-        canPour = ml > 0f;
         ResetPour();
+        Debug.Log($"[PourMeter] Target set to {ml:0.##} ml");
     }
 
-    public void ResetPour()
+    public void ClearTarget()
     {
-        isPouring = false;
-        currentMl = 0f;
-        if (pourParticles != null) pourParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        if (resultLabel != null) resultLabel.text = "";
-        UpdateVisuals();
+        targetMl = 0f;
+        ResetPour();
     }
 
     void Update()
     {
-        if (!isPouring || !canPour) return;
+        if (!isPouring || targetMl <= 0f) return;
 
-        float ratePerSecond = targetMl / Mathf.Max(0.1f, secondsToFillTarget);
-        currentMl += ratePerSecond * Time.deltaTime;
-        currentMl = Mathf.Clamp(currentMl, 0f, targetMl * meterTopMultiplier);
+        currentMl += (targetMl / Mathf.Max(0.1f, secondsToReachTarget)) * Time.deltaTime;
+        currentMl = Mathf.Clamp(currentMl, 0f, targetMl * meterTopMultiplyer);
         UpdateVisuals();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!canPour) return;
+        if (targetMl <= 0f)
+        {
+            Debug.Log("[PourMeter] Pick a measurement first.");
+            return;
+        }
+
+        if (hasResult) ResetPour();   // a new attempt starts from empty
+
         isPouring = true;
         if (pourParticles != null) pourParticles.Play();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!canPour || !isPouring) return;
+        if (!isPouring) return;
+
         isPouring = false;
         if (pourParticles != null) pourParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
         EvaluateResult();
     }
 
     private void UpdateVisuals()
     {
-        if (meterTrack == null || indicator == null) return;
-
         float percent = targetMl > 0f ? currentMl / targetMl : 0f;
-        float t = Mathf.InverseLerp(0f, meterTopMultiplier, percent);
+        float t = Mathf.InverseLerp(0f, meterTopMultiplyer, percent);
 
-        // Works with any pivot: use the track's rect edges
-        float half = meterTrack.rect.height / 2f;
-        Vector2 pos = indicator.anchoredPosition;
-        pos.y = Mathf.Lerp(-half, half, t);
-        indicator.anchoredPosition = pos;
+        if (indicator != null)
+        {
+            Vector2 pos = indicator.anchoredPosition;
+            pos.y = Mathf.Lerp(-trackHalfHeight, trackHalfHeight, t);
+            indicator.anchoredPosition = pos;
+        }
 
-        if (spoonFillImage != null) spoonFillImage.fillAmount = Mathf.Clamp01(percent);
+        if (spoonFillImage != null)
+            spoonFillImage.fillAmount = Mathf.Clamp01(percent);
 
         if (amountLabel != null)
-            amountLabel.text = $"{currentMl:0.0} / {targetMl:0.0} ml  ({measureLabel})";
+            amountLabel.text = targetMl > 0f ? $"{currentMl:0.#} / {targetMl:0.#} ml" : "";
     }
 
     private void EvaluateResult()
     {
         float percent = currentMl / targetMl;
-        PourResult result;
 
-        if (percent >= 1f - greenZoneWidth && percent <= 1f + greenZoneWidth) result = PourResult.Perfect;
-        else if (percent > 1f + greenZoneWidth && percent <= 1f + yellowZoneWidth) result = PourResult.Good;
-        else if (percent > 1f + yellowZoneWidth) result = PourResult.Overflow;
-        else result = PourResult.TooLittle;
+        PourResult result;
+        if (Mathf.Abs(percent - 1f) <= greenZoneWidth)
+            result = PourResult.Perfect;
+        else if (Mathf.Abs(percent - 1f) <= yellowZoneWidth)
+            result = PourResult.Good;
+        else if (percent > 1f)
+            result = PourResult.Overflow;
+        else
+            result = PourResult.TooLittle;
+
+        hasResult = true;
 
         if (resultLabel != null)
         {
-            switch (result)
+            resultLabel.text = result switch
             {
-                case PourResult.Perfect: resultLabel.text = "Perfect!"; break;
-                case PourResult.Good: resultLabel.text = "Good!"; break;
-                case PourResult.Overflow: resultLabel.text = "Too much! Overflow"; break;
-                case PourResult.TooLittle: resultLabel.text = "Not enough!"; break;
-            }
+                PourResult.Perfect => "Perfect!",
+                PourResult.Good => "Good!",
+                PourResult.Overflow => "Too much! Overflow",
+                _ => "Not enough!"
+            };
         }
 
-        Debug.Log($"Pour result: {result} ({currentMl:0.00} ml poured, target {targetMl} ml)");
-        OnPourFinished?.Invoke(result, currentMl, targetMl);
+        Debug.Log($"[PourMeter] {result} ({currentMl:0.##} ml poured, target {targetMl:0.##} ml)");
+        OnPourFinished?.Invoke(result, currentMl);
+    }
+
+    public void ResetPour()
+    {
+        currentMl = 0f;
+        isPouring = false;
+        hasResult = false;
+        if (resultLabel != null) resultLabel.text = "";
+        if (meterTrack != null) trackHalfHeight = meterTrack.rect.height / 2f;
+        UpdateVisuals();
+    }
+    public void SetParticleColor(Color color)
+    {
+        if (pourParticles == null) return;
+        var main = pourParticles.main;
+        main.startColor = color;
     }
 }

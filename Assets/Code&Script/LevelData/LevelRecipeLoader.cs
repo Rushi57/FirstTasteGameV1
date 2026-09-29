@@ -14,8 +14,7 @@ public class LevelRecipeLoader : MonoBehaviour
     [Tooltip("Optional: shows the dish's name, e.g. on a 'Now Cooking: Adobo' label.")]
     public TMP_Text dishNameLabel;
 
-    [Header("Seasoning Pour")]
-    public SeasoningPourController seasoningController;   // drag PourSeasoningPanel here
+    
 
     void Start()
     {
@@ -54,13 +53,6 @@ public class LevelRecipeLoader : MonoBehaviour
         if (dishNameLabel != null)
             dishNameLabel.text = selected.levelName;
 
-        if (seasoningController != null)
-        {
-            RecipeData recipe = selected.recipe;
-            seasoningController.RecipeLookup = id =>
-                recipe.TryGetAmount(id, out RecipeAmount a) ? a : (RecipeAmount?)null;
-        }
-        else
-            Debug.LogWarning("[LevelRecipeLoader] seasoningController is not assigned - pouring will use the picked measure only.");
+       
     }
 }

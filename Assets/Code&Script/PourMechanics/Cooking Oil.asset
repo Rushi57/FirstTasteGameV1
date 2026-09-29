@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cooking Oil
   m_EditorClassIdentifier: 
   id: CookingOil
-  displayName: Water
+  displayName: Cooking Oil
   category: 0
   size: 0
   icon: {fileID: 312855514268800688, guid: 6e9418897920fb64ba92554c9cc472a9, type: 3}

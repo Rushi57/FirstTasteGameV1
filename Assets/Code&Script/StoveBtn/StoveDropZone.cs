@@ -1,50 +1,55 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// Put this on StoveDropObj. It needs an Image with Raycast Target ON
-/// (alpha can be 0) so it can receive drops.
-/// Accepts only the pan. Once the pan is on the stove, it completes the
-/// "Put the Pan in the Stove" prep step.
-/// </summary>
 public class StoveDropZone : MonoBehaviour, IDropHandler
 {
     [Header("Pan identification")]
-    [Tooltip("The Id field on the pan's IngredientData asset, e.g. 'Pan'.")]
     public string panId = "Pan";
 
     [Header("Cooking Prep")]
-    [Tooltip("Must match the Cooking Step Ids entry for the pan row in your RecipeData.")]
     public string panStepId = "Pan:OnStove";
+
+    [Header("References")]
+    [Tooltip("This object's own Image. Its Raycast Target is turned off once the pan is placed, so future drops go straight to the pan instead of being caught here.")]
+    public Image myImage;
 
     public GameObject CurrentPan { get; private set; }
     public bool HasPan => CurrentPan != null;
 
     public event System.Action<GameObject> OnPanPlaced;
 
+    private void Awake()
+    {
+        if (myImage == null) myImage = GetComponent<Image>();
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
+        // Once the pan is here, StoveDropZone shouldn't even be catching drops
+        // anymore (its raycasting gets turned off in PlacePan below), but this
+        // is a safety net in case it's still active for some reason.
+        if (HasPan) return;
+
         GameObject dropped = eventData.pointerDrag;
         if (dropped == null) return;
 
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null) return;
 
-        // Utensils have no TutorialInteractable, so identify by TestDrag.itemId
         string droppedId = drag.itemId;
 
         if (droppedId != panId)
         {
             Debug.Log($"[StoveDrop] '{droppedId}' dropped on stove - only the pan ('{panId}') is accepted. Bouncing back.");
-            return; // never call SnapTo, so it returns to its origin
-        }
-
-        if (HasPan)
-        {
-            Debug.Log("[StoveDrop] The pan is already on the stove.");
             return;
         }
 
+        PlacePan(dropped, drag);
+    }
+
+    private void PlacePan(GameObject dropped, TestDrag drag)
+    {
         drag.SnapTo(transform as RectTransform);
         CurrentPan = dropped;
 
@@ -52,11 +57,19 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
+
+        // Stop catching drops entirely - let PanDropZone receive them directly from now on
+        if (myImage != null)
+        {
+            myImage.raycastTarget = false;
+            Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
+        }
     }
 
     /// <summary>Call on Retry / new dish.</summary>
     public void ResetStove()
     {
         CurrentPan = null;
+        if (myImage != null) myImage.raycastTarget = true; // re-enable so a new pan can be dropped
     }
 }
