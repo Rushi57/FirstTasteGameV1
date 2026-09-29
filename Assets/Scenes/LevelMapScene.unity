@@ -2537,6 +2537,7 @@ MonoBehaviour:
   greenZone: {fileID: 828303558}
   yellowZone: {fileID: 947900738}
   minZoneHalfHeight: 0.02
+  zoneWidth: 30
 --- !u!1 &236381070
 GameObject:
   m_ObjectHideFlags: 0
@@ -5615,7 +5616,7 @@ RectTransform:
   m_Father: {fileID: 1940480735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26020,7 +26021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1568067039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27375,7 +27376,7 @@ RectTransform:
   m_Father: {fileID: 732383205}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -27635,7 +27636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1742064956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27961,6 +27962,7 @@ MonoBehaviour:
   fastSpeed: 220
   cookingPrepPanel: {fileID: 881317336}
   minimumSuccess: 1
+  randomizeDirection: 1
 --- !u!1 &1766936336
 GameObject:
   m_ObjectHideFlags: 0
@@ -31363,6 +31365,7 @@ MonoBehaviour:
   mixDuration: 8
   resultLabel: {fileID: 0}
   speedDebugLabel: {fileID: 0}
+  directionLabel: {fileID: 1742064957}
   debugIndicator: 1
 --- !u!1 &2027673461
 GameObject:

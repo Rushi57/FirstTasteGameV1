@@ -31,6 +31,10 @@ public class MixingSeasoningController : MonoBehaviour
     private int pendingLineIndex = -1;
     private bool challengeActive;
 
+    [Header("Direction")]
+    public bool randomizeDirection = true;
+    private MixingMechanic.MixDirection lastDirection = MixingMechanic.MixDirection.Any;
+
     private void Start()
     {
         if (closeButton != null) closeButton.onClick.AddListener(Close);
@@ -57,6 +61,8 @@ public class MixingSeasoningController : MonoBehaviour
             Debug.Log("[Mixing] Recipe has no (remaining) sauté/stir step - nothing to do.");
             return;
         }
+        if (randomizeDirection)
+            direction = PickDirection();
 
         pendingLineIndex = lineIndex;
         challengeActive = true;
@@ -139,5 +145,24 @@ public class MixingSeasoningController : MonoBehaviour
         challengeActive = false;
         mixingPanel.SetActive(false);
         mixingMechanic?.ResetForNewRound();
+        lastDirection = MixingMechanic.MixDirection.Any;
+    }
+
+    private MixingMechanic.MixDirection PickDirection()
+    {
+        // First round: random. After that: always the opposite of last time.
+        if (lastDirection == MixingMechanic.MixDirection.Any)
+        {
+            lastDirection = UnityEngine.Random.value < 0.5f
+                ? MixingMechanic.MixDirection.Clockwise
+                : MixingMechanic.MixDirection.CounterClockwise;
+        }
+        else
+        {
+            lastDirection = lastDirection == MixingMechanic.MixDirection.Clockwise
+                ? MixingMechanic.MixDirection.CounterClockwise
+                : MixingMechanic.MixDirection.Clockwise;
+        }
+        return lastDirection;
     }
 }

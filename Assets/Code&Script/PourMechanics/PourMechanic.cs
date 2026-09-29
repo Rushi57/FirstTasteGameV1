@@ -36,6 +36,8 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public RectTransform yellowZone;
     [Tooltip("Smallest half-height of a zone as a fraction of the meter, so tiny targets stay hittable.")]
     [Range(0f, 0.1f)] public float minZoneHalfHeight = 0.02f;
+    [Tooltip("Width of the green/yellow bands in pixels. Match RedZone's width.")]
+    public float zoneWidth = 30f;
 
 
     private float meterMaxMl;   // biggest measurement of the chosen tool
@@ -193,9 +195,12 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private void SetBand(RectTransform zone, float lo, float hi)
     {
         if (zone == null) return;
-        zone.anchorMin = new Vector2(0f, Mathf.Clamp01(lo));
-        zone.anchorMax = new Vector2(1f, Mathf.Clamp01(hi));
-        zone.offsetMin = new Vector2(zone.offsetMin.x, 0f);
-        zone.offsetMax = new Vector2(zone.offsetMax.x, 0f);
+
+        // X: centered with a fixed width (same as RedZone). Y: stretched between lo..hi of the meter.
+        zone.anchorMin = new Vector2(0.5f, Mathf.Clamp01(lo));
+        zone.anchorMax = new Vector2(0.5f, Mathf.Clamp01(hi));
+        zone.pivot = new Vector2(0.5f, 0.5f);
+        zone.offsetMin = new Vector2(-zoneWidth * 0.5f, 0f);
+        zone.offsetMax = new Vector2(zoneWidth * 0.5f, 0f);
     }
 }
