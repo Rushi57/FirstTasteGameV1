@@ -14,6 +14,11 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("Where accepted ingredients snap to. Leave empty to use this object's own RectTransform.")]
     public RectTransform ingredientAnchor;
 
+    [Header("Spatula (mixing)")]
+    public string spatulaId = "Spatula";
+    public MixingSeasoningController mixingController;
+
+
     public event System.Action<IngredientData> OnIngredientAdded;
 
     public void OnDrop(PointerEventData eventData)
@@ -23,6 +28,22 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null) return;
+
+        // Spatula: opens the mixing mini-game instead of being added as an ingredient
+        if (drag.itemId == spatulaId)
+        {
+            StoveHeatController spatulaStove = GetComponentInParent<StoveHeatController>();
+            if (requireHeat && (spatulaStove == null || spatulaStove.CurrentHeat == StoveHeat.Off))
+            {
+                Debug.Log("[PanDrop] Spatula dropped but the stove isn't heated - rejecting.");
+                ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
+                return;
+            }
+
+            Debug.Log("[PanDrop] Spatula dropped on pan - opening mixing mini-game.");
+            mixingController?.OpenAndConfigure();
+            return; // don't SnapTo - the spatula bounces back to its rack via TestDrag
+        }
 
         var interactable = dropped.GetComponent<TutorialInteractable>();
         IngredientData data = interactable != null ? interactable.sourceData as IngredientData : null;

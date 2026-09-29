@@ -31,8 +31,7 @@ MonoBehaviour:
   - Put the Pan in the Stove
   - Add 1 tbsp of cooking oil
   - Add the chop Garlick
-  - Add 1/2 of tablespoon of pepperCorn
-  - "Saut\xE9 the Garlick and peppercorn using Spatula Until brown"
+  - Add 1/2 of tbsp of Peppercorn
   - "Saut\xE9 the Garlick and peppercorn using Spatula Until brown"
   - Add the Chop Pork
   - Saute it until brown
@@ -48,10 +47,10 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOil
   - Pan:Garlic
+  - Pepper:Tbsp_1_2
+  - Mix:7
   - 
-  - 
-  - 
-  - 
+  - Mix:7
   - 
   - Pour:Vinegar
   - Pour:Soy
