@@ -45,7 +45,6 @@ public class PourAnimationController : MonoBehaviour
     public void PlayPourAnimation(Color color, Action onComplete, bool hideAfter = true)
     {
         gameObject.SetActive(true);
-        SetColor(color);
         SetAngle(idleAngle);
 
         if (running != null) StopCoroutine(running);
