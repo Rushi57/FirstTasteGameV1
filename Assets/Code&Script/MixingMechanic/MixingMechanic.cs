@@ -60,6 +60,12 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [Header("UI Feedback")]
     public TMP_Text resultLabel;
     public TMP_Text speedDebugLabel;
+    public TMP_Text directionLabel;
+
+
+    [Header("Debug")]
+    public bool debugIndicator = true;
+    private float nextDebugTime;
 
     /// <summary>Raised once the timer runs out and a result has been decided.</summary>
     public event Action<MixResult> OnMixFinished;
@@ -102,6 +108,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         requiredDirection = direction;
         idealSpeed = targetIdealSpeed;
+        UpdateDirectionLabel();  
         RandomizePivot();
         Debug.Log($"[Mixing] Challenge configured: direction={direction}, idealSpeed={targetIdealSpeed}");
     }
@@ -138,8 +145,9 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     void Update()
     {
         if (!mixingActive) return;
+        bool stalled = isDragging && (Time.time - lastDragTime) > 0.08f;
 
-        if (!isDragging)
+        if (!isDragging || stalled)
             currentAngularSpeed = Mathf.MoveTowards(currentAngularSpeed, 0f, idleDecay * Time.deltaTime);
 
         UpdateIndicator();
@@ -256,29 +264,29 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         {
             if (!IsDirectionOk())
             {
-                // Wrong direction - push toward the bad end regardless of speed
+                // Wrong direction - push up toward the bad end
                 targetVelocity = driftSpeed;
             }
             else
             {
                 float speedError = currentAngularSpeed - idealSpeed; // + too fast, - too slow
-                float absErr = Mathf.Abs(speedError);
 
-                if (absErr <= greenTolerance)
+                if (Mathf.Abs(speedError) <= greenTolerance)
                 {
                     // Correct speed - ease back toward center
                     targetVelocity = Mathf.Abs(indicatorY) < 1f ? 0f : -Mathf.Sign(indicatorY) * driftSpeed;
                 }
                 else
                 {
-                    // Push toward the edge matching the direction of the speed error
+                    // Too fast pushes up, too slow pushes down
                     targetVelocity = Mathf.Sign(speedError) * driftSpeed;
                 }
             }
         }
         else
         {
-            targetVelocity = Mathf.Abs(indicatorY) < 1f ? 0f : -Mathf.Sign(indicatorY) * driftSpeed * 0.8f;
+            // Not rotating = too slow, drift to the bottom
+            targetVelocity = -driftSpeed;
         }
 
         indicatorY = Mathf.Clamp(indicatorY + targetVelocity * Time.deltaTime, -trackHalfHeight, trackHalfHeight);
@@ -286,6 +294,17 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         Vector2 pos = indicator.anchoredPosition;
         pos.y = indicatorY;
         indicator.anchoredPosition = pos;
+
+        if (debugIndicator && Time.time >= nextDebugTime)
+        {
+            nextDebugTime = Time.time + 0.25f;
+
+            string state = targetVelocity > 0f ? "RISING"
+                         : targetVelocity < 0f ? "DRIFTING DOWN"
+                         : "HOLDING";
+
+            Debug.Log($"[Indicator] {state} | y={indicatorY:0.0} / -{trackHalfHeight:0.0}..{trackHalfHeight:0.0} | vel={targetVelocity:0.0} | speed={currentAngularSpeed:0} | dragging={isDragging}");
+        }
     }
 
     private void UpdateTimerVisual()
@@ -337,5 +356,17 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         Debug.Log($"[Mixing] Finished. Indicator at {fraction:0.00} of track -> {result}");
         OnMixFinished?.Invoke(result);
+    }
+
+    private void UpdateDirectionLabel()
+    {
+        if (directionLabel == null) return;
+
+        directionLabel.text = requiredDirection switch
+        {
+            MixDirection.Clockwise => "Rotate Clockwise",
+            MixDirection.CounterClockwise => "Rote Counter-Clockwise",
+            _=>"Rotate in Any Direction"
+        };
     }
 }

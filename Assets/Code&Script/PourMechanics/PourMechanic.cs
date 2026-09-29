@@ -31,6 +31,17 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public TMP_Text amountLabel;
     public TMP_Text resultLabel;
 
+    [Header("Meter zones (children of MeterImage; RedZone stays as the full background)")]
+    public RectTransform greenZone;
+    public RectTransform yellowZone;
+    [Tooltip("Smallest half-height of a zone as a fraction of the meter, so tiny targets stay hittable.")]
+    [Range(0f, 0.1f)] public float minZoneHalfHeight = 0.02f;
+
+
+    private float meterMaxMl;   // biggest measurement of the chosen tool
+    private float TopMl => (meterMaxMl > 0f ? meterMaxMl : targetMl) * meterTopMultiplyer;
+    private float GreenHalfMl => Mathf.Max(targetMl * greenZoneWidth, TopMl * minZoneHalfHeight);
+    private float YellowHalfMl => Mathf.Max(targetMl * yellowZoneWidth, TopMl * minZoneHalfHeight);
     /// <summary>Raised on release: meter result and the amount poured in ml.</summary>
     public event Action<PourResult, float> OnPourFinished;
 
@@ -51,6 +62,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         targetMl = ml;
         ResetPour();
+        LayoutZones();
         Debug.Log($"[PourMeter] Target set to {ml:0.##} ml");
     }
 
@@ -58,6 +70,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         targetMl = 0f;
         ResetPour();
+        LayoutZones();
     }
 
     void Update()
@@ -65,7 +78,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (!isPouring || targetMl <= 0f) return;
 
         currentMl += (targetMl / Mathf.Max(0.1f, secondsToReachTarget)) * Time.deltaTime;
-        currentMl = Mathf.Clamp(currentMl, 0f, targetMl * meterTopMultiplyer);
+        currentMl = Mathf.Clamp(currentMl, 0f, TopMl);
         UpdateVisuals();
     }
 
@@ -96,7 +109,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private void UpdateVisuals()
     {
         float percent = targetMl > 0f ? currentMl / targetMl : 0f;
-        float t = Mathf.InverseLerp(0f, meterTopMultiplyer, percent);
+        float t = TopMl > 0f ? Mathf.Clamp01(currentMl / TopMl) : 0f;
 
         if (indicator != null)
         {
@@ -114,14 +127,14 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private void EvaluateResult()
     {
-        float percent = currentMl / targetMl;
+        float diff = Mathf.Abs(currentMl - targetMl);
 
         PourResult result;
-        if (Mathf.Abs(percent - 1f) <= greenZoneWidth)
+        if (diff <= GreenHalfMl)
             result = PourResult.Perfect;
-        else if (Mathf.Abs(percent - 1f) <= yellowZoneWidth)
+        else if (diff <= YellowHalfMl)
             result = PourResult.Good;
-        else if (percent > 1f)
+        else if (currentMl > targetMl)
             result = PourResult.Overflow;
         else
             result = PourResult.TooLittle;
@@ -157,5 +170,32 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (pourParticles == null) return;
         var main = pourParticles.main;
         main.startColor = color;
+    }
+    public void SetMeterMax(float maxMl)
+    {
+        meterMaxMl = maxMl;
+        LayoutZones();
+        UpdateVisuals();
+    }
+
+    private void LayoutZones()
+    {
+        bool has = targetMl > 0f;
+        if (greenZone != null) greenZone.gameObject.SetActive(has);
+        if (yellowZone != null) yellowZone.gameObject.SetActive(has);
+        if (!has) return;
+
+        float top = TopMl;
+        SetBand(yellowZone, (targetMl - YellowHalfMl) / top, (targetMl + YellowHalfMl) / top);
+        SetBand(greenZone, (targetMl - GreenHalfMl) / top, (targetMl + GreenHalfMl) / top);
+    }
+
+    private void SetBand(RectTransform zone, float lo, float hi)
+    {
+        if (zone == null) return;
+        zone.anchorMin = new Vector2(0f, Mathf.Clamp01(lo));
+        zone.anchorMax = new Vector2(1f, Mathf.Clamp01(hi));
+        zone.offsetMin = new Vector2(zone.offsetMin.x, 0f);
+        zone.offsetMax = new Vector2(zone.offsetMax.x, 0f);
     }
 }

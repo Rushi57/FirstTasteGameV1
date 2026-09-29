@@ -35,7 +35,7 @@ public class SaltPepperController : MonoBehaviour
     [Tooltip("PourAnimationController on the teaspoon animation object under AnimationGameObject.")]
     public PourAnimationController tspAnimation;
     public Color saltColor = Color.white;
-    public Color pepperColor = new Color(0.15f, 0.1f, 0.05f, 1f);
+    public Color pepperColor = Color.white;
 
     [Header("Recipe check")]
     public CookingPrepPanelController cookingPrepPanel;

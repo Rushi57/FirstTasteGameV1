@@ -132,7 +132,7 @@ public class PourSeasoningController : MonoBehaviour
                 _ => cookingOilGlassSprite
             };
             if (sprite != null) glassImage.sprite = sprite;
-            glassImage.color = color;
+            glassImage.color = Color.white;
         }
 
         seasoningPanel.SetActive(true);
@@ -153,8 +153,15 @@ public class PourSeasoningController : MonoBehaviour
         spoonScroll.SetActive(tool == MeasureTool.Spoon);
         cupScroll.SetActive(tool == MeasureTool.Cup);
 
+        // Meter scale = biggest measurement of the chosen tool
+        GameObject scroll = tool == MeasureTool.Spoon ? spoonScroll : cupScroll;
+        float max = 0f;
+        foreach (var b in scroll.GetComponentsInChildren<MeasurementButton>(true))
+            max = Mathf.Max(max, b.Ml);
+        pourMechanic?.SetMeterMax(max);
+
         ClearSelection();
-        Debug.Log($"[Pour] Tool chosen: {tool}");
+        Debug.Log($"[Pour] Tool chosen: {tool} (meter max {max:0.##} ml)");
     }
 
     /// <summary>Hooked to CloseBtn.</summary>

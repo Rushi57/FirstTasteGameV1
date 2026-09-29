@@ -36,8 +36,8 @@ public static class MeasurementTable
         MeasurementOption.Tsp_1 => 5f,
         MeasurementOption.Tbsp_1_2 => 7.5f,
         MeasurementOption.Tbsp_1 => 15f,
-        MeasurementOption.Cup_1_4 => 60f,
-        MeasurementOption.Cup_1_3 => 85f,
+        MeasurementOption.Cup_1_4 => 62f,
+        MeasurementOption.Cup_1_3 => 83f,
         MeasurementOption.Cup_1_2 => 125f,
         _ => 250f
     };
