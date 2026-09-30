@@ -1669,6 +1669,7 @@ GameObject:
   - component: {fileID: 123284104}
   - component: {fileID: 123284103}
   - component: {fileID: 123284102}
+  - component: {fileID: 123284105}
   m_Layer: 5
   m_Name: IngItem (2)
   m_TagString: Untagged
@@ -1789,6 +1790,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123284100}
   m_CullTransparentMesh: 1
+--- !u!114 &123284105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123284100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Water
+  sourceData: {fileID: 0}
 --- !u!1 &134545244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2305,7 @@ RectTransform:
   m_Father: {fileID: 1568000256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6169,6 +6184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459867254}
+  - component: {fileID: 459867255}
   m_Layer: 5
   m_Name: ChoppingBoardObj
   m_TagString: Untagged
@@ -6196,6 +6212,20 @@ RectTransform:
   m_AnchoredPosition: {x: 172, y: -117}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &459867255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459867253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: ChoppingBoard
+  sourceData: {fileID: 0}
 --- !u!1 &460092985
 GameObject:
   m_ObjectHideFlags: 0
@@ -10719,7 +10749,7 @@ RectTransform:
   m_Father: {fileID: 861685386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -19018,7 +19048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 182}
+  m_AnchoredPosition: {x: 0, y: 140}
   m_SizeDelta: {x: 600, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909886214
@@ -21864,7 +21894,7 @@ RectTransform:
   m_Father: {fileID: 1501678740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -22825,7 +22855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1163599450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23597,6 +23627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1207282395}
   - component: {fileID: 1207282396}
+  - component: {fileID: 1207282397}
   m_Layer: 0
   m_Name: TutorialSystemInGame
   m_TagString: Untagged
@@ -23638,6 +23669,19 @@ MonoBehaviour:
   dialogueBox: {fileID: 909886216}
   inputBlocker: {fileID: 789347064}
   pulseTargets: 1
+--- !u!114 &1207282397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207282394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4dc10fd2acb954f98d07f7cf038586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingGameTag: {fileID: 0}
 --- !u!1 &1207805196
 GameObject:
   m_ObjectHideFlags: 0
@@ -23898,7 +23942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b94fd87a2b58b4cb2726d1388b6f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 
+  itemId: KnifeObj
 --- !u!1 &1237723692
 GameObject:
   m_ObjectHideFlags: 0
@@ -24188,6 +24232,7 @@ GameObject:
   - component: {fileID: 1244105820}
   - component: {fileID: 1244105819}
   - component: {fileID: 1244105818}
+  - component: {fileID: 1244105821}
   m_Layer: 5
   m_Name: IngItem
   m_TagString: Untagged
@@ -24308,6 +24353,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244105816}
   m_CullTransparentMesh: 1
+--- !u!114 &1244105821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244105816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Pork Belly
+  sourceData: {fileID: 0}
 --- !u!1 &1244263322
 GameObject:
   m_ObjectHideFlags: 0
@@ -29834,7 +29893,7 @@ RectTransform:
   m_Father: {fileID: 1172925069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30907,6 +30966,7 @@ GameObject:
   - component: {fileID: 1871182805}
   - component: {fileID: 1871182804}
   - component: {fileID: 1871182803}
+  - component: {fileID: 1871182806}
   m_Layer: 5
   m_Name: IngItem (1)
   m_TagString: Untagged
@@ -31027,6 +31087,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871182801}
   m_CullTransparentMesh: 1
+--- !u!114 &1871182806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871182801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Garlic
+  sourceData: {fileID: 0}
 --- !u!1 &1893461268
 GameObject:
   m_ObjectHideFlags: 0
