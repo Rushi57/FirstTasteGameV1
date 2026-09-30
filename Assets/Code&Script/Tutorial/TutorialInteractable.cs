@@ -47,6 +47,10 @@ public class TutorialInteractable : MonoBehaviour
     {
         TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Drag);
     }
+    public void ReportScroll()
+    {
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Scroll);
+    }
 }
 
 /// <summary>
@@ -58,44 +62,3 @@ public interface ITutorialIdentifiable
 {
     string TutorialId { get; }
 }
-
-/*
-========================== USAGE EXAMPLES ==========================
-
-1) On a UI Button (tap example):
-   Add TutorialInteractable to the button, set interactableId = "StartButton".
-   In the Button's OnClick() list (Inspector), drag the same GameObject and
-   pick TutorialInteractable -> ReportTap.
-
-   Or from code, after your normal click logic runs:
-
-   public class MyButton : MonoBehaviour, IPointerClickHandler
-   {
-       private TutorialInteractable tutorialTag;
-       void Awake() => tutorialTag = GetComponent<TutorialInteractable>();
-
-       public void OnPointerClick(PointerEventData eventData)
-       {
-           // ... your existing click logic ...
-           tutorialTag?.ReportTap();
-       }
-   }
-
-2) On a drag-and-drop item, call ReportDrop() once it lands on the CORRECT
-   target (i.e. where your game logic says the drop was valid):
-
-   public class DraggableItem : MonoBehaviour, IEndDragHandler
-   {
-       private TutorialInteractable tutorialTag;
-       void Awake() => tutorialTag = GetComponent<TutorialInteractable>();
-
-       public void OnEndDrag(PointerEventData eventData)
-       {
-           bool droppedCorrectly = CheckDropTarget(eventData);
-           // ... your existing drop logic ...
-           if (droppedCorrectly)
-               tutorialTag?.ReportDrop();
-       }
-   }
-=======================================================================
-*/

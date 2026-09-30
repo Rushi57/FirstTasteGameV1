@@ -17,9 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - lets try do it
   - drag the Pork belly in the chopping board
-  dialoguePosition: 0
+  dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 2
-  targetId: PorkBelly
-  dragSourceId: ChoppingBoard
+  targetId: ChoppingBoard
+  dragSourceId: Pork Belly
   blockOtherInput: 1

@@ -568,6 +568,9 @@ MonoBehaviour:
   nextButton: {fileID: 1386769796}
   tapToContinueHint: {fileID: 0}
   charsPerSecond: 40
+  adaptivePositioning: 1
+  topAnchoredPosition: {x: 0, y: -100}
+  bottomAnchoredPosition: {x: 0, y: 100}
 --- !u!1 &552555123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,7 +2464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9674ddf2f33ed1e489ab0f1615d79feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialId: main_tutorial19
+  tutorialId: main_tutorial30
   steps:
   - {fileID: 11400000, guid: 03f3330a00a73c74597149b50fac39e7, type: 2}
   - {fileID: 11400000, guid: 31f9c9152657e5046ae87f2e7d0dbe50, type: 2}
@@ -2486,6 +2489,8 @@ MonoBehaviour:
   ingredientLargePrefab: {fileID: 2820288423322160270, guid: 38c3eb99dcacc754b9198521d501760c, type: 3}
   utensilSmallPrefab: {fileID: 2820288423322160270, guid: e72ddee93d965de489145b911f5bc505, type: 3}
   utensilLargePrefab: {fileID: 2820288423322160270, guid: d3e00e4baac4a78488ab480983984f4f, type: 3}
+  slotManager: {fileID: 0}
+  ingredientList: {fileID: 0}
   spawnParent: {fileID: 1348476525}
   spawnPosition: {x: 0, y: 0}
   spawnSpacing: {x: 140, y: 0}

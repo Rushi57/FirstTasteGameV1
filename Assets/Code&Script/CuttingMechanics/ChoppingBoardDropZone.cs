@@ -15,6 +15,13 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
     private IngredientData currentIngredientData;
     private Image currentIngredientImage;
 
+    private TutorialInteractable tutorialTag;
+
+
+    private void Awake()
+    {
+        tutorialTag = GetComponent<TutorialInteractable>();
+    }
     private void OnEnable()
     {
         if (cuttingMechanic != null)
@@ -58,6 +65,8 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
 
         drag.SnapTo(transform as RectTransform);
         Debug.Log($"[ChoppingBoardDropZone] Ingredient placed on board: {obj.name}");
+
+        tutorialTag?.ReportDrop();
     }
 
     private void HandleKnifeDropped()

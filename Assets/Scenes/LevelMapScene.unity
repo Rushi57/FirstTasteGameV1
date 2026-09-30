@@ -2868,6 +2868,7 @@ GameObject:
   - component: {fileID: 260044850}
   - component: {fileID: 260044849}
   - component: {fileID: 260044848}
+  - component: {fileID: 260044851}
   m_Layer: 5
   m_Name: SoyBtn
   m_TagString: Untagged
@@ -2976,6 +2977,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260044846}
   m_CullTransparentMesh: 1
+--- !u!114 &260044851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260044846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Soy
+  sourceData: {fileID: 0}
 --- !u!1 &274483134
 GameObject:
   m_ObjectHideFlags: 0
@@ -4820,6 +4835,7 @@ GameObject:
   - component: {fileID: 387139335}
   - component: {fileID: 387139334}
   - component: {fileID: 387139333}
+  - component: {fileID: 387139336}
   m_Layer: 5
   m_Name: PepperBtn
   m_TagString: Untagged
@@ -4928,6 +4944,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387139331}
   m_CullTransparentMesh: 1
+--- !u!114 &387139336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387139331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: PepperBtn
+  sourceData: {fileID: 0}
 --- !u!1 &390856048
 GameObject:
   m_ObjectHideFlags: 0
@@ -6184,7 +6214,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 459867254}
-  - component: {fileID: 459867255}
   m_Layer: 5
   m_Name: ChoppingBoardObj
   m_TagString: Untagged
@@ -6212,20 +6241,6 @@ RectTransform:
   m_AnchoredPosition: {x: 172, y: -117}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &459867255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459867253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactableId: ChoppingBoard
-  sourceData: {fileID: 0}
 --- !u!1 &460092985
 GameObject:
   m_ObjectHideFlags: 0
@@ -6729,6 +6744,7 @@ GameObject:
   - component: {fileID: 487761824}
   - component: {fileID: 487761823}
   - component: {fileID: 487761822}
+  - component: {fileID: 487761825}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -6849,6 +6865,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487761820}
   m_CullTransparentMesh: 1
+--- !u!114 &487761825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487761820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: ClosePour
+  sourceData: {fileID: 0}
 --- !u!1 &494584325
 GameObject:
   m_ObjectHideFlags: 0
@@ -8710,6 +8740,7 @@ GameObject:
   - component: {fileID: 589164094}
   - component: {fileID: 589164093}
   - component: {fileID: 589164092}
+  - component: {fileID: 589164095}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -8819,6 +8850,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589164090}
   m_CullTransparentMesh: 1
+--- !u!114 &589164095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589164090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CloseSaltandPepper
+  sourceData: {fileID: 0}
 --- !u!1 &595737987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9303,7 +9348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &632570435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11450,6 +11495,7 @@ GameObject:
   - component: {fileID: 758290481}
   - component: {fileID: 758290480}
   - component: {fileID: 758290479}
+  - component: {fileID: 758290482}
   m_Layer: 5
   m_Name: TableSoonMeasurmentBtn
   m_TagString: Untagged
@@ -11559,6 +11605,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758290477}
   m_CullTransparentMesh: 1
+--- !u!114 &758290482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758290477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: TbpsandTsp
+  sourceData: {fileID: 0}
 --- !u!1 &761112622
 GameObject:
   m_ObjectHideFlags: 0
@@ -12658,6 +12718,7 @@ GameObject:
   - component: {fileID: 855815278}
   - component: {fileID: 855815277}
   - component: {fileID: 855815276}
+  - component: {fileID: 855815279}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -12778,6 +12839,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855815274}
   m_CullTransparentMesh: 1
+--- !u!114 &855815279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855815274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CloseMixing
+  sourceData: {fileID: 0}
 --- !u!1 &861224344
 GameObject:
   m_ObjectHideFlags: 0
@@ -13142,6 +13217,7 @@ GameObject:
   - component: {fileID: 875827930}
   - component: {fileID: 875827929}
   - component: {fileID: 875827928}
+  - component: {fileID: 875827931}
   m_Layer: 5
   m_Name: CupMeasurementBtn
   m_TagString: Untagged
@@ -13251,6 +13327,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875827926}
   m_CullTransparentMesh: 1
+--- !u!114 &875827931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875827926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CupBtn
+  sourceData: {fileID: 0}
 --- !u!1 &878492706
 GameObject:
   m_ObjectHideFlags: 0
@@ -19531,6 +19621,7 @@ GameObject:
   - component: {fileID: 927912595}
   - component: {fileID: 927912594}
   - component: {fileID: 927912593}
+  - component: {fileID: 927912596}
   m_Layer: 5
   m_Name: SaltBtn
   m_TagString: Untagged
@@ -19639,6 +19730,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927912591}
   m_CullTransparentMesh: 1
+--- !u!114 &927912596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927912591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: SaltBtn
+  sourceData: {fileID: 0}
 --- !u!1 &941711725
 GameObject:
   m_ObjectHideFlags: 0
@@ -19719,7 +19824,7 @@ GameObject:
   - component: {fileID: 946288675}
   - component: {fileID: 946288674}
   m_Layer: 5
-  m_Name: TapToCutBtn
+  m_Name: TapToCutAgainBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21948,6 +22053,7 @@ GameObject:
   - component: {fileID: 1098676828}
   - component: {fileID: 1098676827}
   - component: {fileID: 1098676826}
+  - component: {fileID: 1098676829}
   m_Layer: 5
   m_Name: CookingOilBtn
   m_TagString: Untagged
@@ -22056,6 +22162,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098676824}
   m_CullTransparentMesh: 1
+--- !u!114 &1098676829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098676824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CookingOil
+  sourceData: {fileID: 0}
 --- !u!1 &1104934815
 GameObject:
   m_ObjectHideFlags: 0
@@ -22286,7 +22406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1109228275
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23665,6 +23785,16 @@ MonoBehaviour:
   tutorialId: main_tutorial_InGame11
   steps:
   - {fileID: 11400000, guid: a637bec80cecd9748806fd3c74badf94, type: 2}
+  - {fileID: 11400000, guid: 19354130c0d8d834dbac88e3f493834f, type: 2}
+  - {fileID: 11400000, guid: 0a0119763d21cff4a9bdfd03ec02d8c9, type: 2}
+  - {fileID: 11400000, guid: 89563688d896737448af204b812a6c66, type: 2}
+  - {fileID: 11400000, guid: c3490e409be23ea4693dc6f34d98c460, type: 2}
+  - {fileID: 11400000, guid: 061d9987d5971a64b9f4fb495cc75a81, type: 2}
+  - {fileID: 11400000, guid: d4993773913a70d479ea65757a662c9b, type: 2}
+  - {fileID: 11400000, guid: bc1a8a20a2d9f7c439f75850c2848264, type: 2}
+  - {fileID: 11400000, guid: 7605a031174cd594d8f7ac83c70891c5, type: 2}
+  - {fileID: 11400000, guid: 6fbda2c29ed1ddb4fabaf82ee27013c1, type: 2}
+  - {fileID: 11400000, guid: 2631500b26efa7a488cdbe5d480ad9a4, type: 2}
   resumeFromLastStep: 1
   dialogueBox: {fileID: 909886216}
   inputBlocker: {fileID: 789347064}
@@ -23681,7 +23811,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4dc10fd2acb954f98d07f7cf038586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingGameTag: {fileID: 0}
+  buttons:
+  - {fileID: 1244105818}
+  - {fileID: 1871182803}
+  - {fileID: 123284102}
+  - {fileID: 1893494041}
+  - {fileID: 1893494041}
+  - {fileID: 875827928}
+  - {fileID: 758290479}
+  - {fileID: 1839686195}
+  - {fileID: 1839686195}
 --- !u!1 &1207805196
 GameObject:
   m_ObjectHideFlags: 0
@@ -23866,6 +24005,7 @@ GameObject:
   - component: {fileID: 1225212752}
   - component: {fileID: 1225212751}
   - component: {fileID: 1225212753}
+  - component: {fileID: 1225212754}
   m_Layer: 5
   m_Name: Knife
   m_TagString: KnifeObj
@@ -23943,6 +24083,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: KnifeObj
+--- !u!114 &1225212754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225212749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: KnifeObj
+  sourceData: {fileID: 0}
 --- !u!1 &1237723692
 GameObject:
   m_ObjectHideFlags: 0
@@ -25040,6 +25194,7 @@ GameObject:
   - component: {fileID: 1296183217}
   - component: {fileID: 1296183216}
   - component: {fileID: 1296183215}
+  - component: {fileID: 1296183218}
   m_Layer: 5
   m_Name: VinegarBtn
   m_TagString: Untagged
@@ -25148,6 +25303,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296183213}
   m_CullTransparentMesh: 1
+--- !u!114 &1296183218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296183213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Vinegar
+  sourceData: {fileID: 0}
 --- !u!1 &1310531075
 GameObject:
   m_ObjectHideFlags: 0
@@ -29947,6 +30116,7 @@ GameObject:
   - component: {fileID: 1769867819}
   - component: {fileID: 1769867818}
   - component: {fileID: 1769867817}
+  - component: {fileID: 1769867820}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -30026,6 +30196,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769867815}
   m_CullTransparentMesh: 1
+--- !u!114 &1769867820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769867815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: ChoppingBoard
+  sourceData: {fileID: 0}
 --- !u!1 &1771503954
 GameObject:
   m_ObjectHideFlags: 0
@@ -30672,6 +30856,7 @@ GameObject:
   - component: {fileID: 1839686197}
   - component: {fileID: 1839686196}
   - component: {fileID: 1839686195}
+  - component: {fileID: 1839686198}
   m_Layer: 5
   m_Name: CloseBtn
   m_TagString: Untagged
@@ -30792,6 +30977,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839686193}
   m_CullTransparentMesh: 1
+--- !u!114 &1839686198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839686193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CloseChopping
+  sourceData: {fileID: 0}
 --- !u!1 &1849879552
 GameObject:
   m_ObjectHideFlags: 0
@@ -31191,6 +31390,7 @@ GameObject:
   - component: {fileID: 1893494043}
   - component: {fileID: 1893494042}
   - component: {fileID: 1893494041}
+  - component: {fileID: 1893494044}
   m_Layer: 5
   m_Name: TapToCutBtn
   m_TagString: Untagged
@@ -31312,6 +31512,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893494039}
   m_CullTransparentMesh: 1
+--- !u!114 &1893494044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893494039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: TapToCutBtn
+  sourceData: {fileID: 0}
 --- !u!1 &1897925530
 GameObject:
   m_ObjectHideFlags: 0

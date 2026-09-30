@@ -17,9 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - greate now the pork belly is in the chopping board
   - now drag the knife in the chopping board
-  dialoguePosition: 0
+  dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 2
-  targetId: KnifeObj
-  dragSourceId: ChoppingBoard
+  actionType: 0
+  targetId: 
+  dragSourceId: 
   blockOtherInput: 1

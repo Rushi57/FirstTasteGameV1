@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: IngStepFlow5
+  m_Name: IngStepFlow13
   m_EditorClassIdentifier: 
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - greate now all the ingredient is set
-  - 'take a look from your right this is all the Instrucion you need to do for  cooking '
-  - remember always get the ingredient first to show the cooking preparation
+  - greate now look at the Cooking Prep you
+  - 'you can see the that the  the 1st step is gray out '
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 0
-  targetId: 
+  actionType: 1
+  targetId: CloseChopping
   dragSourceId: 
   blockOtherInput: 1

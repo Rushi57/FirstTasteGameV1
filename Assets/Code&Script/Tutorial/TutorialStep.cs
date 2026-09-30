@@ -8,7 +8,8 @@ public enum TutorialActionType
 {
     None,
     Tap,
-    Drag
+    Drag,
+    Scroll
 }
 
 /// <summary>Where the dialogue box should sit for this step.</summary>
