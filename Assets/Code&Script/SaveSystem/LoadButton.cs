@@ -16,7 +16,9 @@ public class LoadGameButton : MonoBehaviour
     // Wire these in the Inspector via each Button's OnClick() list.
     public void OnLoadClicked()
     {
+        float t = Time.realtimeSinceStartup;
         SaveData data = SaveSystem.Load();
+        Debug.Log($"[Load] File read took {(Time.realtimeSinceStartup - t) * 1000f:0.0} ms");
 
         if (data == null)
         {

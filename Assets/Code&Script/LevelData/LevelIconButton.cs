@@ -11,6 +11,8 @@ public class LevelIconButton : MonoBehaviour
     [Tooltip("Which level this specific icon represents. Level 1 icon gets the Adobo LevelData, Level 2 icon gets Dinuguan, etc.")]
     public LevelData levelData;
 
+    public DashboardStarDisplay dashboardStars;
+
     /// <summary>Wire this into the icon's OnClick(), before/alongside SceneChanger.OnClickPlay.</summary>
     public void SelectLevel()
     {
@@ -21,6 +23,7 @@ public class LevelIconButton : MonoBehaviour
         }
 
         LevelSelectionManager.SelectLevel(levelData);
+        dashboardStars?.Refresh(levelData);
         Debug.Log($"[LevelIconButton] Selected Level {levelData.levelNumber}: {levelData.levelName}");
     }
 }

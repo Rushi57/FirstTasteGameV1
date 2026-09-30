@@ -39,7 +39,7 @@ MonoBehaviour:
   - Add 1/4 Cup of Soy
   - Add 1 cup of water
   - Reduce the stove to low
-  - Put the Pan Lid
+  - Put the Pan Lid and simmer
   cookingStepIds:
   - 
   - 
@@ -53,6 +53,6 @@ MonoBehaviour:
   - Mix:9
   - Pour:Vinegar
   - Pour:Soy
+  - Pan:Water
   - 
-  - 
-  - PanLid:OnPan
+  - Pan:PanLid

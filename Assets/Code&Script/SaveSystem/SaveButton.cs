@@ -14,13 +14,14 @@ public class SaveButton : MonoBehaviour
 
     public void OnSaveClicked()
     {
-        SaveData data = new SaveData();
+        // Reuse the current session data so levelScores (the stars) are kept
+        SaveData data = GameSession.GetOrCreateData();
 
         // TODO: replace these with YOUR real game values
-        data.coins = 0;               // e.g. PlayerStats.Instance.coins
-        data.currentLevel = 1;        // e.g. LevelManager.Instance.currentLevel
-        data.unlockedLevels.Add(1);   // e.g. copy your unlocked list here
-        data.tutorialDone = true;     // e.g. TutorialManager.IsFinished
+        data.coins = 0;
+        data.currentLevel = 1;
+        if (!data.unlockedLevels.Contains(1)) data.unlockedLevels.Add(1);   // avoids duplicates on every save
+        data.tutorialDone = true;
 
         SaveSystem.Save(data);
 
