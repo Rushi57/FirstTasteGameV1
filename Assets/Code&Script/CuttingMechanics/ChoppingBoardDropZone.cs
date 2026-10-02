@@ -81,9 +81,10 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
 
         if (choppingCuttingPanel != null)
             choppingCuttingPanel.SetActive(true);   // OnEnable resets the minigame
-
+       
         // AFTER SetActive, so it isn't wiped by OnEnable's reset
         cuttingMechanic.SetIngredient(currentIngredientData);
+        tutorialTag?.ReportDrop();
     }
 
     // Keeps the ingredient sitting on the board in sync with the cutting panel

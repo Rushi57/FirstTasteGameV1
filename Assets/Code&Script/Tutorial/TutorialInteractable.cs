@@ -51,6 +51,14 @@ public class TutorialInteractable : MonoBehaviour
     {
         TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Scroll);
     }
+    public void ReportTimerComplete()
+    {
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.TimerComplete);
+    }
+    public void ReportHold()
+    {
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Hold);
+    }
 }
 
 /// <summary>

@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - greate now look at the Cooking Prep you
-  - 'you can see the that the  the 1st step is gray out '
+  - now lets try to follow the second step
+  - drag the Garlic  to the chopping board
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 1
-  targetId: CloseChopping
-  dragSourceId: 
+  actionType: 2
+  targetId: ChoppingBoard
+  dragSourceId: Garlic
   blockOtherInput: 1

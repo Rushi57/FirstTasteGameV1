@@ -8,7 +8,12 @@ using UnityEngine.EventSystems;
 public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
 {
     public SaltPepperController controller;
+    private TutorialInteractable tutorialTag;
 
+    private void Awake()
+    {
+        tutorialTag = GetComponent<TutorialInteractable>();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
@@ -19,5 +24,6 @@ public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
         if (spoon == null || drag == null) return; // not a spoon - bounces back on its own
 
         controller?.HandleSpoonDropped(spoon, drag, dropped);
+        tutorialTag?.ReportDrop();
     }
 }

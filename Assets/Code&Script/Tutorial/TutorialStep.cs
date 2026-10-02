@@ -9,7 +9,9 @@ public enum TutorialActionType
     None,
     Tap,
     Drag,
-    Scroll
+    Scroll,
+    TimerComplete,
+    Hold
 }
 
 /// <summary>Where the dialogue box should sit for this step.</summary>

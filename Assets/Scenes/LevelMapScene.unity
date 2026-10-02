@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 20809504}
   - component: {fileID: 20809503}
   - component: {fileID: 20809506}
+  - component: {fileID: 20809507}
   m_Layer: 5
   m_Name: Cup
   m_TagString: Untagged
@@ -684,6 +685,20 @@ MonoBehaviour:
   background: {fileID: 635038780}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 1, g: 0.9, b: 0.5, a: 1}
+--- !u!114 &20809507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20809501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Cup1/4
+  sourceData: {fileID: 0}
 --- !u!1 &51468088
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +922,7 @@ GameObject:
   - component: {fileID: 65275162}
   - component: {fileID: 65275161}
   - component: {fileID: 65275163}
+  - component: {fileID: 65275164}
   m_Layer: 5
   m_Name: Pan
   m_TagString: Untagged
@@ -927,8 +943,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 897526500}
-  - {fileID: 1058682816}
   - {fileID: 1390483736}
+  - {fileID: 1058682816}
   m_Father: {fileID: 1908031174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -987,6 +1003,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: Pan
+--- !u!114 &65275164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65275159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Pan
+  sourceData: {fileID: 0}
 --- !u!1 &74635355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &114135030
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2496,6 +2526,7 @@ GameObject:
   - component: {fileID: 228303553}
   - component: {fileID: 228303552}
   - component: {fileID: 228303555}
+  - component: {fileID: 228303556}
   m_Layer: 5
   m_Name: PourButton
   m_TagString: Untagged
@@ -2631,6 +2662,20 @@ MonoBehaviour:
   yellowZone: {fileID: 947900738}
   minZoneHalfHeight: 0.02
   zoneWidth: 30
+--- !u!114 &228303556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228303550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: PourBtn
+  sourceData: {fileID: 0}
 --- !u!1 &236381070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,7 +3034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: Soy
+  interactableId: SoyBtn
   sourceData: {fileID: 0}
 --- !u!1 &274483134
 GameObject:
@@ -3667,6 +3712,7 @@ GameObject:
   - component: {fileID: 317572894}
   - component: {fileID: 317572893}
   - component: {fileID: 317572892}
+  - component: {fileID: 317572895}
   m_Layer: 5
   m_Name: ContinueBtn
   m_TagString: Untagged
@@ -3776,6 +3822,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317572890}
   m_CullTransparentMesh: 1
+--- !u!114 &317572895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317572890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: ContinueBtn
+  sourceData: {fileID: 0}
 --- !u!1 &322323557
 GameObject:
   m_ObjectHideFlags: 0
@@ -4271,8 +4331,9 @@ GameObject:
   - component: {fileID: 332395953}
   - component: {fileID: 332395952}
   - component: {fileID: 332395951}
+  - component: {fileID: 332395954}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: CloseBoil/SimmerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4391,6 +4452,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332395949}
   m_CullTransparentMesh: 1
+--- !u!114 &332395954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332395949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CloseSimmer/Boil
+  sourceData: {fileID: 0}
 --- !u!1 &338230375
 GameObject:
   m_ObjectHideFlags: 0
@@ -4404,6 +4479,7 @@ GameObject:
   - component: {fileID: 338230379}
   - component: {fileID: 338230378}
   - component: {fileID: 338230377}
+  - component: {fileID: 338230381}
   m_Layer: 5
   m_Name: Cup (2)
   m_TagString: Untagged
@@ -4532,6 +4608,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338230375}
   m_CullTransparentMesh: 1
+--- !u!114 &338230381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338230375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Cup1/2
+  sourceData: {fileID: 0}
 --- !u!1 &367667784
 GameObject:
   m_ObjectHideFlags: 0
@@ -6746,7 +6836,7 @@ GameObject:
   - component: {fileID: 487761822}
   - component: {fileID: 487761825}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: ClosePourBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8742,7 +8832,7 @@ GameObject:
   - component: {fileID: 589164092}
   - component: {fileID: 589164095}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: CloseSalt/PepperBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9348,7 +9438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &632570435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11006,6 +11096,7 @@ GameObject:
   - component: {fileID: 736399429}
   - component: {fileID: 736399428}
   - component: {fileID: 736399427}
+  - component: {fileID: 736399431}
   m_Layer: 5
   m_Name: Tbps (5)
   m_TagString: Untagged
@@ -11134,6 +11225,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736399425}
   m_CullTransparentMesh: 1
+--- !u!114 &736399431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736399425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Tbsp1
+  sourceData: {fileID: 0}
 --- !u!1 &746007315
 GameObject:
   m_ObjectHideFlags: 0
@@ -11617,7 +11722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: TbpsandTsp
+  interactableId: pickTbsp
   sourceData: {fileID: 0}
 --- !u!1 &761112622
 GameObject:
@@ -12720,7 +12825,7 @@ GameObject:
   - component: {fileID: 855815276}
   - component: {fileID: 855815279}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: CloseMixingBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13034,6 +13139,7 @@ GameObject:
   - component: {fileID: 864441035}
   - component: {fileID: 864441037}
   - component: {fileID: 864441038}
+  - component: {fileID: 864441039}
   m_Layer: 5
   m_Name: StoveDropZone
   m_TagString: Untagged
@@ -13167,6 +13273,20 @@ MonoBehaviour:
   heatLabel: {fileID: 0}
   recipe: {fileID: 0}
   confirmDelay: 0.5
+--- !u!114 &864441039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864441033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Stove
+  sourceData: {fileID: 0}
 --- !u!1 &871459363
 GameObject:
   m_ObjectHideFlags: 0
@@ -18751,6 +18871,7 @@ GameObject:
   - component: {fileID: 897203956}
   - component: {fileID: 897203955}
   - component: {fileID: 897203957}
+  - component: {fileID: 897203958}
   m_Layer: 5
   m_Name: PanLid
   m_TagString: Untagged
@@ -18828,6 +18949,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: PanLid
+--- !u!114 &897203958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897203953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: PanLid
+  sourceData: {fileID: 0}
 --- !u!1 &897526499
 GameObject:
   m_ObjectHideFlags: 0
@@ -18840,6 +18975,7 @@ GameObject:
   - component: {fileID: 897526502}
   - component: {fileID: 897526501}
   - component: {fileID: 897526503}
+  - component: {fileID: 897526504}
   m_Layer: 5
   m_Name: PanDropZone
   m_TagString: Untagged
@@ -18925,7 +19061,21 @@ MonoBehaviour:
   lidId: PanLid
   boilSimmerController: {fileID: 1764943758}
   pourPlayer: {fileID: 1205991024}
-  stoveController: {fileID: 0}
+  stoveController: {fileID: 864441038}
+--- !u!114 &897526504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897526499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: InsidePan
+  sourceData: {fileID: 0}
 --- !u!1 &900164822
 GameObject:
   m_ObjectHideFlags: 0
@@ -19197,7 +19347,7 @@ MonoBehaviour:
   bodyText: {fileID: 61034940}
   nextButton: {fileID: 2139367236}
   tapToContinueHint: {fileID: 0}
-  charsPerSecond: 40
+  charsPerSecond: 35
   adaptivePositioning: 1
   topAnchoredPosition: {x: 0, y: -100}
   bottomAnchoredPosition: {x: 0, y: 100}
@@ -19944,6 +20094,7 @@ GameObject:
   - component: {fileID: 947460799}
   - component: {fileID: 947460801}
   - component: {fileID: 947460800}
+  - component: {fileID: 947460802}
   m_Layer: 5
   m_Name: StoveDropObj
   m_TagString: Untagged
@@ -20023,6 +20174,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947460797}
   m_CullTransparentMesh: 1
+--- !u!114 &947460802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947460797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: StoveDropZone
+  sourceData: {fileID: 0}
 --- !u!1 &947900737
 GameObject:
   m_ObjectHideFlags: 0
@@ -20289,6 +20454,7 @@ GameObject:
   - component: {fileID: 961804227}
   - component: {fileID: 961804228}
   - component: {fileID: 961804226}
+  - component: {fileID: 961804229}
   m_Layer: 5
   m_Name: JarImageSalt/Pepper
   m_TagString: Untagged
@@ -20366,6 +20532,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1764943756}
+--- !u!114 &961804229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961804224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: PepperJar
+  sourceData: {fileID: 0}
 --- !u!1 &973146769
 GameObject:
   m_ObjectHideFlags: 0
@@ -21590,6 +21770,7 @@ GameObject:
   - component: {fileID: 1059088777}
   - component: {fileID: 1059088776}
   - component: {fileID: 1059088775}
+  - component: {fileID: 1059088778}
   m_Layer: 5
   m_Name: TapToStopHandClock
   m_TagString: Untagged
@@ -21711,6 +21892,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059088773}
   m_CullTransparentMesh: 1
+--- !u!114 &1059088778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059088773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Simmer/BoilStopBtn
+  sourceData: {fileID: 0}
 --- !u!1 &1065002818
 GameObject:
   m_ObjectHideFlags: 0
@@ -22406,7 +22601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1109228275
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23795,7 +23990,51 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7605a031174cd594d8f7ac83c70891c5, type: 2}
   - {fileID: 11400000, guid: 6fbda2c29ed1ddb4fabaf82ee27013c1, type: 2}
   - {fileID: 11400000, guid: 2631500b26efa7a488cdbe5d480ad9a4, type: 2}
-  resumeFromLastStep: 1
+  - {fileID: 11400000, guid: 653cf96656d68114c88b65f602a1c086, type: 2}
+  - {fileID: 11400000, guid: db07b9cdea72d88439f6f9e561bf5746, type: 2}
+  - {fileID: 11400000, guid: 40a3bf771a646b1418181baafd8ae900, type: 2}
+  - {fileID: 11400000, guid: ecf253ae3a7f5064fa2d3f5ead499a8f, type: 2}
+  - {fileID: 11400000, guid: 6a9598128e830dd4cb22213594a1542a, type: 2}
+  - {fileID: 11400000, guid: 80b89435ade4c0246af793631ec10384, type: 2}
+  - {fileID: 11400000, guid: 7ab20dc07cadf3443ba7c0affd8fbd3b, type: 2}
+  - {fileID: 11400000, guid: 002a7dec69f6a7344a2b5fc4e54876db, type: 2}
+  - {fileID: 11400000, guid: 2fa1607ca9bcd8f4d8e60450f75d5559, type: 2}
+  - {fileID: 11400000, guid: 36a62d75db4cc5d428b93bf760543478, type: 2}
+  - {fileID: 11400000, guid: aa2f80a028ca6d04ea2c0016f3dc1eb1, type: 2}
+  - {fileID: 11400000, guid: 81d67b2ca4e9ba147adf6099b1cbcdbc, type: 2}
+  - {fileID: 11400000, guid: d691fc0867c9a5d43879fe496e1ad08f, type: 2}
+  - {fileID: 11400000, guid: 5d5a5064c0b2e854f96cb0e1241636ea, type: 2}
+  - {fileID: 11400000, guid: 57be47f43afe01f42accc6f58b7b6f8a, type: 2}
+  - {fileID: 11400000, guid: 405f7aa9197ca8a46bd713492f8cb1fd, type: 2}
+  - {fileID: 11400000, guid: e72e374ea3218444e978f3cc7235cea9, type: 2}
+  - {fileID: 11400000, guid: b30e178c7c3bb554abd0631f2b3ea580, type: 2}
+  - {fileID: 11400000, guid: 83f79cb73e54c544ab45575dafb1928c, type: 2}
+  - {fileID: 11400000, guid: 4ba5af612bf98a642a92b0f1de75d881, type: 2}
+  - {fileID: 11400000, guid: 8810bd2ab6d71e74981a4678b399efed, type: 2}
+  - {fileID: 11400000, guid: bf5e0adb26c07cc4893a916b75125a9b, type: 2}
+  - {fileID: 11400000, guid: 853ef850e3c43a740a6c57cfcac01fb7, type: 2}
+  - {fileID: 11400000, guid: 1321e437c18f17b4b8542ff25b160ecc, type: 2}
+  - {fileID: 11400000, guid: 9d10b48100c91a44b866f20e197e5bca, type: 2}
+  - {fileID: 11400000, guid: 375072f7552bcfd468896a420725e173, type: 2}
+  - {fileID: 11400000, guid: 6c35a93c91305cc4eb968cc352ce8858, type: 2}
+  - {fileID: 11400000, guid: b9ab53145939c1f4183ea5bae0fc4152, type: 2}
+  - {fileID: 11400000, guid: 12c8e0048e9235e4898fa34e80e6d31e, type: 2}
+  - {fileID: 11400000, guid: ab912587e9b82ae489c7c2c8ee77082c, type: 2}
+  - {fileID: 11400000, guid: 4d5723364d09b1148b32dc4d6f2e3f36, type: 2}
+  - {fileID: 11400000, guid: 0b6109047c8548145a9f702f92240aff, type: 2}
+  - {fileID: 11400000, guid: af5e3d7a187fc23498c71e33a04b2101, type: 2}
+  - {fileID: 11400000, guid: eddf5bbf01bcd6245b0499b48469508f, type: 2}
+  - {fileID: 11400000, guid: 4610de454ce882f49844f5539bef0c6c, type: 2}
+  - {fileID: 11400000, guid: b958f677a46bd384cb93e7a3dad1cf24, type: 2}
+  - {fileID: 11400000, guid: 41e47a671fcda2d48a69d7e788f75c7a, type: 2}
+  - {fileID: 11400000, guid: aa8cd19214f622043a65cd9c58df975f, type: 2}
+  - {fileID: 11400000, guid: 32bb932a6c525e144ae52754a9ecde64, type: 2}
+  - {fileID: 11400000, guid: db2e1a286b4a73c429e3bcce9872e8c8, type: 2}
+  - {fileID: 11400000, guid: 924f1f93978fd6149a4d91d7f60b930d, type: 2}
+  - {fileID: 11400000, guid: 53f3ce4873801cc438b84a7387c51427, type: 2}
+  - {fileID: 11400000, guid: 6ebdeaf9a5436f24a980864216637054, type: 2}
+  - {fileID: 11400000, guid: 598a70965e51e4c4aa2feae2b907c95b, type: 2}
+  resumeFromLastStep: 0
   dialogueBox: {fileID: 909886216}
   inputBlocker: {fileID: 789347064}
   pulseTargets: 1
@@ -23817,10 +24056,27 @@ MonoBehaviour:
   - {fileID: 123284102}
   - {fileID: 1893494041}
   - {fileID: 1893494041}
-  - {fileID: 875827928}
+  - {fileID: 864441037}
+  - {fileID: 1098676826}
+  - {fileID: 1839686195}
   - {fileID: 758290479}
-  - {fileID: 1839686195}
-  - {fileID: 1839686195}
+  - {fileID: 736399428}
+  - {fileID: 487761822}
+  - {fileID: 387139333}
+  - {fileID: 589164092}
+  - {fileID: 855815276}
+  - {fileID: 1296183215}
+  - {fileID: 338230378}
+  - {fileID: 875827928}
+  - {fileID: 260044848}
+  - {fileID: 20809503}
+  - {fileID: 1059088775}
+  - {fileID: 332395951}
+  - {fileID: 317572892}
+  holdButtons:
+  - {fileID: 228303552}
+  - {fileID: 864441037}
+  minHoldSeconds: 0.5
 --- !u!1 &1207805196
 GameObject:
   m_ObjectHideFlags: 0
@@ -30858,7 +31114,7 @@ GameObject:
   - component: {fileID: 1839686195}
   - component: {fileID: 1839686198}
   m_Layer: 5
-  m_Name: CloseBtn
+  m_Name: CloseChoppingBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32760,6 +33016,7 @@ GameObject:
   - component: {fileID: 1975472191}
   - component: {fileID: 1975472193}
   - component: {fileID: 1975472194}
+  - component: {fileID: 1975472195}
   m_Layer: 5
   m_Name: ItemContainerDropZone
   m_TagString: Untagged
@@ -32851,6 +33108,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotManager: {fileID: 833414239}
+--- !u!114 &1975472195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975472189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: TableZoneDrop
+  sourceData: {fileID: 0}
 --- !u!1 &1977712134
 GameObject:
   m_ObjectHideFlags: 0
@@ -33193,6 +33464,7 @@ GameObject:
   - component: {fileID: 1984763639}
   - component: {fileID: 1984763638}
   - component: {fileID: 1984763637}
+  - component: {fileID: 1984763640}
   m_Layer: 5
   m_Name: Spatula
   m_TagString: Untagged
@@ -33270,6 +33542,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1984763635}
   m_CullTransparentMesh: 1
+--- !u!114 &1984763640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984763635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: Spatula
+  sourceData: {fileID: 0}
 --- !u!1 &1993158469
 GameObject:
   m_ObjectHideFlags: 0
@@ -33523,6 +33809,7 @@ GameObject:
   - component: {fileID: 2021232939}
   - component: {fileID: 2021232938}
   - component: {fileID: 2021232940}
+  - component: {fileID: 2021232941}
   m_Layer: 5
   m_Name: Spatula
   m_TagString: Untagged
@@ -33630,6 +33917,21 @@ MonoBehaviour:
   speedDebugLabel: {fileID: 0}
   directionLabel: {fileID: 1742064957}
   debugIndicator: 1
+  tutorialInteractable: {fileID: 2021232941}
+--- !u!114 &2021232941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021232936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: MiniGameSpatula
+  sourceData: {fileID: 0}
 --- !u!1 &2027673461
 GameObject:
   m_ObjectHideFlags: 0
@@ -34821,6 +35123,7 @@ GameObject:
   - component: {fileID: 2080742250}
   - component: {fileID: 2080742249}
   - component: {fileID: 2080742248}
+  - component: {fileID: 2080742252}
   m_Layer: 5
   m_Name: Tbsp/tsp
   m_TagString: Untagged
@@ -34912,6 +35215,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080742246}
   m_CullTransparentMesh: 1
+--- !u!114 &2080742252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080742246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: 1/2Tbsp
+  sourceData: {fileID: 0}
 --- !u!1 &2088479426
 GameObject:
   m_ObjectHideFlags: 0

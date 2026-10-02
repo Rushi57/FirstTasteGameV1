@@ -31,6 +31,13 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
     public event System.Action<IngredientData> OnIngredientAdded;
 
+    private TutorialInteractable tutorialTag;
+
+    private void Awake()
+    {
+        tutorialTag = GetComponent<TutorialInteractable>();
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         GameObject dropped = eventData.pointerDrag;
@@ -52,6 +59,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             Debug.Log("[PanDrop] Spatula dropped on pan - opening mixing mini-game.");
             mixingController?.OpenAndConfigure();
+            tutorialTag?.ReportDrop();
             return; // spatula bounces back to its rack via TestDrag
         }
         //PanLid
@@ -67,6 +75,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             Debug.Log("[PanDrop] Lid dropped on pan - opening Boil/Simmer mini-game.");
             CookingPrepListUI.Instance?.CompleteStep("Pan:PanLid");
             boilSimmerController?.OpenAndConfigure();
+            tutorialTag?.ReportDrop();
             return; // lid bounces back to its spot via TestDrag
         }
         var interactable = dropped.GetComponent<TutorialInteractable>();
@@ -113,6 +122,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             drag.SnapTo(target);
         }
+        tutorialTag?.ReportDrop();
     }
 
     private void HandlePour(TestDrag drag, IngredientData data, string stepId)
@@ -133,6 +143,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
             CookingPrepListUI.Instance?.CompleteStep(stepId);
             OnIngredientAdded?.Invoke(data);
+            tutorialTag?.ReportDrop();
         });
 
         if (started)

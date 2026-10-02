@@ -67,6 +67,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     public bool debugIndicator = true;
     private float nextDebugTime;
 
+    [Header("Tutorial(Optioanal)")]
+    [Tooltip("If assigned, the tutorial is told when the mix timer fills up.")]
+    public TutorialInteractable tutorialInteractable;
+
     /// <summary>Raised once the timer runs out and a result has been decided.</summary>
     public event Action<MixResult> OnMixFinished;
 
@@ -356,6 +360,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         Debug.Log($"[Mixing] Finished. Indicator at {fraction:0.00} of track -> {result}");
         OnMixFinished?.Invoke(result);
+        tutorialInteractable?.ReportTimerComplete();
     }
 
     private void UpdateDirectionLabel()

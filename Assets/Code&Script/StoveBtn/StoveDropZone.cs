@@ -14,6 +14,8 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     [Tooltip("This object's own Image. Its Raycast Target is turned off once the pan is placed, so future drops go straight to the pan instead of being caught here.")]
     public Image myImage;
 
+
+    private TutorialInteractable tutorialTag;
     public GameObject CurrentPan { get; private set; }
     public bool HasPan => CurrentPan != null;
 
@@ -22,6 +24,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     private void Awake()
     {
         if (myImage == null) myImage = GetComponent<Image>();
+        tutorialTag = GetComponent<TutorialInteractable>();
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -38,7 +41,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         if (drag == null) return;
 
         string droppedId = drag.itemId;
-
+        
         if (droppedId != panId)
         {
             Debug.Log($"[StoveDrop] '{droppedId}' dropped on stove - only the pan ('{panId}') is accepted. Bouncing back.");
@@ -46,6 +49,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         }
 
         PlacePan(dropped, drag);
+        
     }
 
     private void PlacePan(GameObject dropped, TestDrag drag)
@@ -57,7 +61,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
-
+        tutorialTag?.ReportDrop();
         // Stop catching drops entirely - let PanDropZone receive them directly from now on
         if (myImage != null)
         {

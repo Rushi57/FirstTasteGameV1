@@ -15,11 +15,16 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - at the bottom you will see a button to cut the ingredient
-  - Tap the Cut button
+  - in the top you will see that there is a circle
+  - 'this circle will save the state of the color '
+  - you landed if the recipe need a minced
+  - taptocut again button to trigger the next state of the ingredient
+  - Every ingredient have a 2 state slice and Minced
+  - greate now lets close the chopping mini-game
+  - Tap the close button
   dialoguePosition: 1
-  customPosition: {x: 258, y: 400}
+  customPosition: {x: 258, y: 168.29}
   actionType: 1
-  targetId: TapToCutBtn
+  targetId: CloseChopping
   dragSourceId: 
   blockOtherInput: 1

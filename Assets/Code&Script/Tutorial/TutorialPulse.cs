@@ -6,7 +6,7 @@ public class TutorialPulse : MonoBehaviour
     public float minScale = 1f;
 
     [Tooltip("Large Scale multiplyer")]
-    public float maxScale = 1.5f;
+    public float maxScale = 0.5f;
 
     [Tooltip("How fast the pulsing")]
     public float speed = 2.5f;
