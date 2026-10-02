@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <summary>
-/// Attach to any draggable UI item (e.g. ItemDrag). Handles the actual
-/// dragging motion. Reporting to the tutorial system happens in TestDrop,
-/// once a valid drop is confirmed - this script only moves things around.
+/// Attach to any draggable UI item. Handles the dragging motion.
+/// Also supports LockAndReturn(): send the item back to its origin and hide it
+/// (used while the pour animation plays), then SetLocked(false) to bring it back.
 /// </summary>
 public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -17,7 +17,9 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Vector2 originalAnchoredPosition;
     private Transform originalParent;
     private bool wasDroppedSuccessfully;
+    private bool isLocked;
 
+    public bool IsLocked => isLocked;
 
     private void Awake()
     {
@@ -31,7 +33,8 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        
+        if (isLocked) return;
+
         wasDroppedSuccessfully = false;
         originalAnchoredPosition = rectTransform.anchoredPosition;
         originalParent = transform.parent;
@@ -40,29 +43,23 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         transform.SetParent(canvas.transform, true);
         transform.SetAsLastSibling();
 
-        // Let raycasts pass through this item while dragging, so OnDrop on
-        // the zone underneath can actually detect the pointer/drop.
+        // Let raycasts pass through while dragging so OnDrop on the zone underneath works.
         canvasGroup.blocksRaycasts = false;
-        Debug.Log("BeginDrag");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (isLocked) return;
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        Debug.Log("Dragging");
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
+        // Stay non-blocking if the item was locked during the drop.
+        canvasGroup.blocksRaycasts = !isLocked;
 
-        // If TestDrop.OnDrop() never called SnapTo() (wrong zone, or dropped
-        // on nothing), send it back to where it started.
         if (!wasDroppedSuccessfully)
             ReturnToOrigin();
-
-
-        Debug.Log("EndDrag");
     }
 
     public void ReturnToOrigin()
@@ -71,11 +68,31 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         rectTransform.anchoredPosition = originalAnchoredPosition;
     }
 
-    /// <summary>Called by TestDrop when this item is dropped on the correct zone.</summary>
+    /// <summary>Called by a drop zone when this item is dropped on the correct zone.</summary>
     public void SnapTo(RectTransform target)
     {
         wasDroppedSuccessfully = true;
         transform.SetParent(target, true);
         rectTransform.anchoredPosition = Vector2.zero;
+    }
+
+    /// <summary>
+    /// Sends the item straight back to its table slot and hides/locks it
+    /// until SetLocked(false) is called (e.g. when the pour animation ends).
+    /// </summary>
+    public void LockAndReturn()
+    {
+        ReturnToOrigin();
+        wasDroppedSuccessfully = true; // OnEndDrag must not move it again
+        SetLocked(true);
+    }
+
+    /// <summary>Hides + blocks the item (true) or shows + enables it again (false).</summary>
+    public void SetLocked(bool locked)
+    {
+        isLocked = locked;
+        canvasGroup.alpha = locked ? 0f : 1f;
+        canvasGroup.blocksRaycasts = !locked;
+        canvasGroup.interactable = !locked;
     }
 }

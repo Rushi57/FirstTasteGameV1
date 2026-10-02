@@ -10,12 +10,21 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class TableSlotDropHandler : MonoBehaviour, IDropHandler
 {
+   
     [Tooltip("The shared manager for all table slots.")]
     public TableItemSlotManager slotManager;
+
+    private TutorialInteractable tutorialTag;
+
+    private void Awake()
+    {
+        tutorialTag = GetComponent<TutorialInteractable>();
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
         slotManager?.HandleDrop(transform as RectTransform, eventData.pointerDrag);
         Debug.Log("The item is dropped in here");
+        tutorialTag?.ReportDrop();
     }
 }

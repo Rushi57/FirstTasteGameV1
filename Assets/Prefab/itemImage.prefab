@@ -230,6 +230,8 @@ MonoBehaviour:
   label: {fileID: 6753042577290601954}
   icon: {fileID: 7752315492847955320}
   collectedCheckmark: {fileID: 3890952041826312178}
+  canvasGroup: {fileID: 0}
+  spawnedAlpha: 0.5
 --- !u!1 &4758748529513372562
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +395,7 @@ RectTransform:
   m_GameObject: {fileID: 9190513960029776236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7424825641768686185}
@@ -401,7 +403,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 26.800003, y: 0}
-  m_SizeDelta: {x: 45, y: 45}
+  m_SizeDelta: {x: 60, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8297706316925129839
 CanvasRenderer:

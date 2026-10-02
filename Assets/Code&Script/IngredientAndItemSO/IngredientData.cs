@@ -52,6 +52,10 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Tooltip("Sprite to show for each prep stage, e.g. a different look for Whole vs Sliced vs Minced garlic. Leave empty if this ingredient never changes appearance (e.g. water, a utensil).")]
     public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
 
+    [Header("Pour Animation (optional)")]
+    [Tooltip("If true, dropping this item on the pan plays the pitcher pour animation instead of just consuming the item.")]
+    public bool playsPourAnimation = false;
+
     public string TutorialId => id;
 
     public Sprite GetSpriteForState(IngredientPrepState state)

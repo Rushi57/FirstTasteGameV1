@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  id: WaterItem
+  id: Water
   displayName: Water
-  category: 0
-  size: 0
+  category: 1
+  size: 1
   icon: {fileID: -5371142981456057837, guid: aa1ef0aaacaad7443aff4eafc1477bd2, type: 3}
+  stateSprites: []
+  playsPourAnimation: 1

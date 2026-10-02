@@ -93,6 +93,7 @@ public class TutorialManager : MonoBehaviour
         if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
         registry[interactable.ResolvedId] = interactable;
         RefreshDragSourcesIfNeeded();
+       
     }
 
     public void Unregister(TutorialInteractable interactable)
@@ -329,6 +330,20 @@ public class TutorialManager : MonoBehaviour
         activePulses.Clear();
     }
 
+    private void RefreshTargetIfNeed(TutorialInteractable justRegistered)
+    {
+        if(!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
+
+        TutorialStep step = steps[stepIndex];
+        if (string.IsNullOrEmpty(step.targetId)) return;
+        if(justRegistered.ResolvedId != step.targetId.Trim()) return;
+
+        currentTargetRect = justRegistered.RectTransform;
+        Debug.Log($"[TutorialManager] Late-registered target '{justRegistered.ResolvedId}' for step '{step.name}'.");
+
+       
+    }
+
     private void PlayCurrentLine()
     {
         TutorialStep step = steps[stepIndex];
@@ -409,5 +424,21 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log("[TutorialManager] Tutorial ended, InputBlocker set inactive.");
+    }
+
+    public void AbortTutorial()
+    {
+        if (!tutorialActive) return;
+
+        tutorialActive = false;
+        waitingForAction = false;
+        dialogueBox.Hide();
+        ClearPulses();
+
+        if (inputBlocker != null)
+        {
+            inputBlocker.GetComponent<TutorialInputBlockerFilter>().ClearAllowedAreas();
+            inputBlocker.SetActive(false);
+        }
     }
 }

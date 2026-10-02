@@ -53,6 +53,11 @@ public class SaveData
     {
         return levelScores.Find(e => e.levelNumber == levelNumber);
     }
+    public int GetLevelStars(int levelNumber)
+    {
+        LevelScoreEntry entry = GetLevelResult(levelNumber);
+        return entry != null ? entry.stars : 0;
+    }
 }
 
 // Holds the loaded data while switching from MainMenu to MapScene.
