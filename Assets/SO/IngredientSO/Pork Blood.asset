@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851964bd56e7cb84488b84b8b6271eed, type: 3}
-  m_Name: Level2
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Pork Blood
   m_EditorClassIdentifier: 
-  levelNumber: 2
-  levelName: Dinuguan
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  id: Pork Blood
+  displayName: Pork Blood
+  category: 0
+  size: 0
+  icon: {fileID: 0}
+  stateSprites: []
+  playsPourAnimation: 1

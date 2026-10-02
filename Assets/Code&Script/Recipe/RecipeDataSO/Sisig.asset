@@ -9,10 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851964bd56e7cb84488b84b8b6271eed, type: 3}
-  m_Name: Level2
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: Sisig
   m_EditorClassIdentifier: 
-  levelNumber: 2
-  levelName: Dinuguan
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  recipeName: Sisig
+  recipeIcon: {fileID: 0}
+  ingredients: []
+  cookingInstructions:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  cookingStepIds: []

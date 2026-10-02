@@ -14,4 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Dinuguan
   recipeIcon: {fileID: 0}
-  ingredients: []
+  ingredients:
+  - ingredient: {fileID: 0}
+    quantity: 0
+    unit: 
+  cookingInstructions:
+  - Chop the Pork Belly into slice
+  - Chop the Chili onto slice
+  - Turn the on the stove to high heat
+  - Put the Pan in the Stove
+  - Add the Pork Belly
+  - Add 2 Cups of water
+  - Put the pan lid and boil
+  - stir using spatula
+  - Add 1 tbsp of cooking oil
+  - Add the chop garlic
+  - Saute using the spatula
+  - Add the chop chili
+  - Add 1/2 tbsp of peppercorn
+  - 'Add pigs blood '
+  - Add 1/2 of vinegar
+  - Put the pan lid and simmer
+  cookingStepIds: []

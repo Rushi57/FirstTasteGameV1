@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
+public enum DirectionMode { UseConfigured, Alternate, Random }
+
 public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     public enum MixResult { VeryGood, Good, Bad }
@@ -39,11 +41,12 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [Tooltip("Minimum smoothed direction confidence (0-1) before a direction is considered 'locked in'.")]
     [Range(0f, 1f)] public float directionConfidence = 0.3f;
 
-    [Header("Pivot Randomization")]
-    [Tooltip("Preset spots (RectTransforms) the pivot can jump to each round. Leave empty to use Pivot Random Radius instead.")]
-    public RectTransform[] pivotSpots;
-    [Tooltip("If no pivot spots are assigned, the pivot moves to a random point within this radius of its starting position.")]
-    public float pivotRandomRadius = 0f;
+    [Tooltip("UseConfigured = ConfigureChallenge decides. Alternate = flips CW/CCW every round. Random = random CW/CCW every round.")]
+    public DirectionMode directionMode = DirectionMode.Alternate;
+    public MixDirection firstDirection = MixDirection.Clockwise;
+
+    private MixDirection lastPickedDirection;
+    private bool hasPickedDirection = false;
 
     [Header("Indicator")]
     public RectTransform indicator;
@@ -86,7 +89,6 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private float lastDragTime;
     private Image spatulaImage;
     private Color spatulaOriginalColor;
-    private Vector2 pivotHomePosition;
     private float directionSign; // smoothed -1..1 (raw, before invertDirection is applied)
 
     private float targetAngle;
@@ -97,7 +99,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         trackHalfHeight = meterTrack.rect.height / 2f;
 
-        if (pivot != null) pivotHomePosition = pivot.anchoredPosition;
+        
 
         if (spatula != null)
         {
@@ -105,6 +107,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             if (spatulaImage != null)
                 spatulaOriginalColor = spatulaImage.color;
         }
+        PickNextDirection();
     }
 
     /// <summary>Call before the player grabs the spatula: sets this round's required direction/speed and moves the pivot.</summary>
@@ -112,29 +115,13 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         requiredDirection = direction;
         idealSpeed = targetIdealSpeed;
-        UpdateDirectionLabel();  
-        RandomizePivot();
+        UpdateDirectionLabel();
+
         Debug.Log($"[Mixing] Challenge configured: direction={direction}, idealSpeed={targetIdealSpeed}");
     }
 
     /// <summary>Moves the pivot (and therefore the spatula, which orbits it) to a new spot.</summary>
-    public void RandomizePivot()
-    {
-        if (pivot == null) return;
-
-        if (pivotSpots != null && pivotSpots.Length > 0)
-        {
-            var chosen = pivotSpots[UnityEngine.Random.Range(0, pivotSpots.Length)];
-            pivot.anchoredPosition = chosen.anchoredPosition;
-        }
-        else if (pivotRandomRadius > 0f)
-        {
-            Vector2 offset = UnityEngine.Random.insideUnitCircle * pivotRandomRadius;
-            pivot.anchoredPosition = pivotHomePosition + offset;
-        }
-
-        Debug.Log($"[Mixing] Pivot moved to {pivot.anchoredPosition}");
-    }
+   
 
     public void BeginMixing()
     {
@@ -206,17 +193,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         float instSpeed = Mathf.Abs(delta) / dt;
         currentAngularSpeed = Mathf.Lerp(currentAngularSpeed, instSpeed, speedSmoothing);
 
-        // Track rotation direction only on meaningfully fast movement, to avoid noise
         if (instSpeed > 15f)
-        {
-            float deltaSign = Mathf.Sign(delta); // positive = counter-clockwise (standard math convention)
-            directionSign = Mathf.Lerp(directionSign, deltaSign, 0.4f);
-        }
+            directionSign = Mathf.Lerp(directionSign, Mathf.Sign(delta), 0.4f);
 
-        float positionAngle = angle;
-        if (clampAngle)
-            positionAngle = Mathf.Clamp(NormalizeAngle(angle), minAngle, maxAngle);
-        targetAngle = positionAngle;
+        targetAngle = clampAngle ? Mathf.Clamp(NormalizeAngle(angle), minAngle, maxAngle) : angle;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -329,6 +309,33 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             spatulaImage.raycastTarget = true;
             spatulaImage.color = spatulaOriginalColor;
         }
+        PickNextDirection();
+    }
+
+    private void PickNextDirection()
+    {
+        if (directionMode == DirectionMode.UseConfigured) return;
+
+        MixDirection next;
+        if(directionMode == DirectionMode.Random)
+        {
+            next = UnityEngine.Random.value < 0.5f
+                ? MixDirection.Clockwise
+                :MixDirection.CounterClockwise;
+        }
+        else
+        {
+            if (!hasPickedDirection)
+                next = firstDirection;
+            else
+                next = lastPickedDirection == MixDirection.Clockwise
+                    ? MixDirection.CounterClockwise
+                    : MixDirection.CounterClockwise;
+        }
+        lastPickedDirection = next;
+        hasPickedDirection = true;
+        requiredDirection = next;
+        UpdateDirectionLabel();
     }
 
     private void EvaluateResult()
@@ -370,8 +377,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         directionLabel.text = requiredDirection switch
         {
             MixDirection.Clockwise => "Rotate Clockwise",
-            MixDirection.CounterClockwise => "Rote Counter-Clockwise",
+            MixDirection.CounterClockwise => "Rotate Counter-Clockwise",
             _=>"Rotate in Any Direction"
         };
     }
+
+    
 }

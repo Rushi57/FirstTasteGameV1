@@ -53,9 +53,16 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         var interactable = obj.GetComponent<TutorialInteractable>();
         IngredientData data = interactable != null ? interactable.sourceData as IngredientData : null;
 
+
         if (data == null)
         {
             Debug.LogWarning($"[ChoppingBoardDropZone] {obj.name} has no IngredientData (TutorialInteractable.sourceData) - can't be chopped.");
+            return;
+        }
+
+        //Wrong Ingredient or item
+        if(CookingPrepListUI.Instance !=  null && !CookingPrepListUI.Instance.TryAcceptIngredientForCutting(data.id))
+        {
             return;
         }
 

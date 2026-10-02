@@ -41,8 +41,8 @@ MonoBehaviour:
   - Reduce the stove to low
   - Put the Pan Lid and simmer
   cookingStepIds:
-  - 
-  - 
+  - Pork Belly:Sliced
+  - Garlic:Sliced
   - 
   - Pan:OnStove
   - Pour:CookingOil

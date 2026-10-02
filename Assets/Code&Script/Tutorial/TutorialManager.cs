@@ -425,4 +425,20 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log("[TutorialManager] Tutorial ended, InputBlocker set inactive.");
     }
+
+    public void AbortTutorial()
+    {
+        if (!tutorialActive) return;
+
+        tutorialActive = false;
+        waitingForAction = false;
+        dialogueBox.Hide();
+        ClearPulses();
+
+        if (inputBlocker != null)
+        {
+            inputBlocker.GetComponent<TutorialInputBlockerFilter>().ClearAllowedAreas();
+            inputBlocker.SetActive(false);
+        }
+    }
 }

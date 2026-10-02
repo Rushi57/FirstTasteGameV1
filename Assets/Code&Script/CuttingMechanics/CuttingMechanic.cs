@@ -126,6 +126,23 @@ public class CuttingMechanic : MonoBehaviour
     {
         if (IsFinished) return; // safety net - shouldn't be clickable anyway once finished
 
+
+        // NEW: work out which state this cut WOULD produce, and ask the prep list first
+        IngredientPrepState targetState = (cutCount == 0)
+            ? IngredientPrepState.Sliced
+            : IngredientPrepState.Minced;
+
+        if (currentIngredient != null && CookingPrepListUI.Instance != null)
+        {
+            string id = $"{currentIngredient.id}:{targetState}";
+            if (!CookingPrepListUI.Instance.TryAccept(id))
+            {
+                // Wrong ingredient, wrong order, or wrong cut type:
+                // popup + heart loss already happened. Nothing is applied or graded.
+                return;
+            }
+        }
+
         isIndicatorMoving = false; // freeze indicator
 
         CutQuality quality = EvaluateCutQuality();
@@ -161,6 +178,18 @@ public class CuttingMechanic : MonoBehaviour
     public void OnTapToCutAgainClicked()
     {
         if (IsFinished) return; // safety net - button should already be inactive
+
+        // NEW: the next cut would produce Minced, so ask the prep list first
+        if (currentIngredient != null && CookingPrepListUI.Instance != null)
+        {
+            string id = $"{currentIngredient.id}:{IngredientPrepState.Minced}";
+            if (!CookingPrepListUI.Instance.TryAccept(id))
+            {
+                // Popup + heart loss already happened.
+                // No new circle, indicator stays frozen, state is unchanged.
+                return;
+            }
+        }
 
         SpawnNewPlaceholderCircle();
 
