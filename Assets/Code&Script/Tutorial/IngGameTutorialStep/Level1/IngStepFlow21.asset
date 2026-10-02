@@ -17,7 +17,6 @@ MonoBehaviour:
   dialogueLines:
   - in your right side you can see all the measurement
   - scroll it and find the 1 tbps
-  - needed for tablespoon and teaspoon
   dialoguePosition: 1
   customPosition: {x: -317, y: 153}
   actionType: 1

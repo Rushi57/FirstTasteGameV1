@@ -50,6 +50,11 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
 
     private void HandleIngredientDropped(GameObject obj, TestDrag drag)
     {
+        if(IsBoardOccupide() && currentIngredientObj != obj)
+        {
+            return;
+        }
+
         var interactable = obj.GetComponent<TutorialInteractable>();
         IngredientData data = interactable != null ? interactable.sourceData as IngredientData : null;
 
@@ -106,6 +111,28 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         if (choppingCuttingPanel != null)
             choppingCuttingPanel.SetActive(false);
 
+        currentIngredientObj = null;
+        currentIngredientData = null;
+        currentIngredientImage = null;
+    }
+
+    private bool IsBoardOccupide()
+    {
+        if(currentIngredientObj == null) { ClearCurrent(); return false; }
+
+        RectTransform board =transform as RectTransform;
+        RectTransform ing = currentIngredientObj.transform as RectTransform;
+
+        Vector3 worldCenter = ing.TransformPoint(ing.rect.center);
+        Vector2 local = board.InverseTransformPoint(worldCenter);
+        bool stillOnBoard = board.rect.Contains(local);
+
+        if (!stillOnBoard) ClearCurrent();
+        return stillOnBoard;
+    }
+
+    private void ClearCurrent()
+    {
         currentIngredientObj = null;
         currentIngredientData = null;
         currentIngredientImage = null;

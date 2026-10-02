@@ -15,7 +15,6 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - great now let reduce the heat of the stove but first turn the stove off
   - press and hold the stove to turn off
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}

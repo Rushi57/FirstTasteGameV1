@@ -45,6 +45,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         if (droppedId != panId)
         {
             Debug.Log($"[StoveDrop] '{droppedId}' dropped on stove - only the pan ('{panId}') is accepted. Bouncing back.");
+            ScoreManager.Instance?.ReportMistake("Wrong Step");
             return;
         }
 

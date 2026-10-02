@@ -73,6 +73,8 @@ public class PanDropZone : MonoBehaviour, IDropHandler
                 return;
             }
             Debug.Log("[PanDrop] Lid dropped on pan - opening Boil/Simmer mini-game.");
+            if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept("Pan:PanLid"))
+                return;
             CookingPrepListUI.Instance?.CompleteStep("Pan:PanLid");
             boilSimmerController?.OpenAndConfigure();
             tutorialTag?.ReportDrop();
@@ -97,6 +99,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         }
 
         string stepId = $"Pan:{data.id}";
+
+        if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(stepId))
+            return;
 
         // ---------- Pour items (e.g. the water pitcher) ----------
         if (data.playsPourAnimation)
@@ -141,6 +146,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             // ...and gray out "Add 1 cup of water" in the Cooking Prep list.
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
+
             CookingPrepListUI.Instance?.CompleteStep(stepId);
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();

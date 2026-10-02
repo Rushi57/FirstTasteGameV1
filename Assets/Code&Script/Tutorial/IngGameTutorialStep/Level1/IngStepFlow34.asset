@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - 'just like in the previus saute you need to hold the spatula and keep  stirring '
+  - 'just like in the previous saute you need to hold the spatula and keep  stirring '
   - drag and drop the spatula
   dialoguePosition: 1
   customPosition: {x: -276, y: 349}

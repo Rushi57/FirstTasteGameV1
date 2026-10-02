@@ -17,7 +17,7 @@ public class SaveButton : MonoBehaviour
         // Reuse the current session data so levelScores (the stars) are kept
         SaveData data = GameSession.GetOrCreateData();
 
-        // TODO: replace these with YOUR real game values
+        // TODO: 
         data.coins = 0;
         data.currentLevel = 1;
         if (!data.unlockedLevels.Contains(1)) data.unlockedLevels.Add(1);   // avoids duplicates on every save

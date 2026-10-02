@@ -16,6 +16,14 @@ public class StarRatingDisplay : MonoBehaviour
     public bool animateReveal = true;
     public float stepDelay = 0.4f;
 
+    private void Awake()
+    {
+        if(starImage != null)
+        {
+            starImage.preserveAspect = true;
+        }
+    }
+
     private void OnEnable()
     {
         int stars = ScoreManager.Instance != null ? ScoreManager.Instance.GetStarRating() : 0;

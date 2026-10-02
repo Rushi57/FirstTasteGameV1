@@ -43,7 +43,7 @@ MonoBehaviour:
   cookingStepIds:
   - Pork Belly:Sliced
   - Garlic:Sliced
-  - 
+  - Stove:0:High
   - Pan:OnStove
   - Pour:CookingOil
   - Pan:Garlic

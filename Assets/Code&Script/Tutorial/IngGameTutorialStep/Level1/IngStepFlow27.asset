@@ -19,8 +19,8 @@ MonoBehaviour:
   - grab and drag the tbsp to the jar of pepper
   - drag and drop the tbsp to the jar of pepper
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 0, y: 122.6}
   actionType: 2
   targetId: PepperJar
   dragSourceId: 1/2Tbsp
-  blockOtherInput: 0
+  blockOtherInput: 1

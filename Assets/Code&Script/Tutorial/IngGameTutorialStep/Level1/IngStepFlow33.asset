@@ -15,7 +15,6 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - you can scroll the Cooking prep to see the next step
   - now lets add the pork
   - drag and drop the pork
   dialoguePosition: 1

@@ -106,6 +106,13 @@ public class CookingPrepListUI : MonoBehaviour
     /// </summary>
     public bool TryAccept(string id)
     {
+        if(orderedIds.Count > 0 && !rows.ContainsKey(id))
+        {
+            Debug.Log($"[PrepList] REJECTED '{id}' - not in this recipe's prep list");
+            ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
+            return false;
+        }
+
         if (IsExpected(id)) return true;
 
         Debug.Log($"[PrepList] REJECTED '{id}' - current step is '{CurrentStepId}'");
