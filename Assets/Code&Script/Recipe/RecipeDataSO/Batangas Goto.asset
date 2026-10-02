@@ -15,5 +15,23 @@ MonoBehaviour:
   recipeName: 
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
+  cookingInstructions:
+  - Slice the ginger
+  - ' Slice the onion'
+  - Slice the garlic
+  - ' Put the pot on the stove'
+  - ' Put the pot on the stove'
+  - Add 1 Tbsp cooking oil
+  - Add the garlic
+  - Add the onion
+  - Add the ginger
+  - "Saut\xE9 using the spatula"
+  - Add the beef
+  - Add the beef tripe
+  - Add 1 Tbsp soy sauce
+  - ' Add 1 tsp salt'
+  - ' Add 1/2 tsp pepper'
+  - ' Mix using the spatula'
+  - Put the pot lid and simmer
+  - Put the pot lid and simmer
   cookingStepIds: []

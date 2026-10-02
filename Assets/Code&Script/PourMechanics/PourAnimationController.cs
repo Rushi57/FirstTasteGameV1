@@ -19,6 +19,7 @@ public class PourAnimationController : MonoBehaviour
     public float holdDuration = 0.4f;   // pause at full tilt before returning
     public float returnDuration = 0.35f;
 
+
     [Header("Easing")]
     [Tooltip("Evaluated 0->1 over each phase. Default (linear-ish ease) works for most pours.")]
     public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);

@@ -16,7 +16,7 @@ public class DashboardStarDisplay : MonoBehaviour
 
         SaveData data = GameSession.GetOrCreateData();
         int stars = data.GetLevelStars(level.levelNumber);
-
+        starImage.preserveAspect = true;
         starImage.sprite = stars switch
         {
             1 => oneStar,

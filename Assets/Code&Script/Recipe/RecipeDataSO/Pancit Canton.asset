@@ -15,5 +15,26 @@ MonoBehaviour:
   recipeName: 
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
+  cookingInstructions:
+  - Slice the pork
+  - Slice the chicken
+  - Slice the cabbage
+  - Slice the carrot
+  - Slice the onion
+  - Slice the garlic
+  - Put the wok on the stove
+  - Add cooking oil
+  - Add garlic
+  - Add onion
+  - "Saut\xE9"
+  - ' Add pork'
+  - Add chicken
+  - Add cabbage
+  - Add carrot
+  - Add soy sauce
+  - Add oyster sauce
+  - Add water
+  - Add canton noodles
+  - Add pepper
+  - Mix using the spatula
   cookingStepIds: []

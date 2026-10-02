@@ -15,5 +15,28 @@ MonoBehaviour:
   recipeName: 
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
+  cookingInstructions:
+  - Slice the pork
+  - Slice the chicken
+  - Slice the pork liver
+  - Slice the kikiam
+  - Slice the onion
+  - Slice the garlic
+  - Put the wok on the stove
+  - Add 1 Tbsp cooking oil
+  - Add the garlic
+  - Add the onion
+  - "Saut\xE9 using the spatula"
+  - Add the pork
+  - Add the chicken
+  - Add the liver
+  - Add the kikiam
+  - Add 3 cups water
+  - Add 2 Tbsp soy sauce
+  - Add 1 tsp salt
+  - Add 1/2 tsp pepper
+  - Add the lomi noodles
+  - Mix using the spatula
+  - Add the cornstarch mixture
+  - Mix until thick
   cookingStepIds: []

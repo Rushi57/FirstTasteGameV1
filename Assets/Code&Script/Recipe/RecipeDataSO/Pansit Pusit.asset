@@ -15,5 +15,24 @@ MonoBehaviour:
   recipeName: Pansit Pusit
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
+  cookingInstructions:
+  - Slice the squid
+  - Slice the onion
+  - Slice the tomato
+  - Slice the garlic
+  - Put the pan on the stove
+  - Add cooking oil
+  - Add garlic
+  - Add onion
+  - "Saut\xE9"
+  - Add tomato
+  - Add squid
+  - Add squid ink
+  - Add soy sauce
+  - Add vinegar
+  - Add water
+  - Add salt
+  - Add pepper
+  - Add canton noodles
+  - Mix using the spatula
   cookingStepIds: []

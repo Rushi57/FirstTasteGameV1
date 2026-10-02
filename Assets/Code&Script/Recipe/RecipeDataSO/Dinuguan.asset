@@ -21,10 +21,11 @@ MonoBehaviour:
   cookingInstructions:
   - Chop the Pork Belly into slice
   - Chop the Chili onto slice
+  - Chop the Garlic into slice
   - Turn the on the stove to high heat
   - Put the Pan in the Stove
   - Add the Pork Belly
-  - Add 2 Cups of water
+  - 'Add Water '
   - Put the pan lid and boil
   - stir using spatula
   - Add 1 tbsp of cooking oil
@@ -33,6 +34,27 @@ MonoBehaviour:
   - Add the chop chili
   - Add 1/2 tbsp of peppercorn
   - 'Add pigs blood '
+  - Add 1/8  tsp of salt
   - Add 1/2 of vinegar
-  - Put the pan lid and simmer
-  cookingStepIds: []
+  - Mix it using Spatula
+  - Put the Pan Lid to simmer
+  cookingStepIds:
+  - Pork Belly:Sliced
+  - Chili:Minced
+  - Garlic:Slice
+  - 
+  - Pan:OnStove
+  - Pan:Pork Belly
+  - Pan:Water
+  - Pan:PanLid
+  - Mix:7
+  - Pour:CookingOil
+  - Pan:Garlic
+  - Mix:11
+  - Pan:Chili
+  - Pepper:Tbsp_1_2
+  - Pan:PigsBlood
+  - Salt:Tps_1_8
+  - Pour:Vinegar
+  - Mix:17
+  - Pan:PanLid

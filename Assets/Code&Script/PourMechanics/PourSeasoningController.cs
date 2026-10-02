@@ -49,6 +49,12 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarGlassSprite;
     public Sprite cookingOilGlassSprite;
 
+    [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
+    public Image fillSpoonImage;
+    public Sprite soySpoonFillSprite;        // optional
+    public Sprite vinegarSpoonFillSprite;    // optional
+    public Sprite cookingOilSpoonFillSprite; // optional
+
     [Header("Colors (particles + glass + stove animation)")]
     public Color soyColor = new Color(0.25f, 0.12f, 0.02f, 1f);      // dark brown
     public Color vinegarColor = new Color(0.85f, 0.85f, 0.6f, 1f);   // pale yellow
@@ -68,6 +74,11 @@ public class PourSeasoningController : MonoBehaviour
     [Range(0f, 1f)] public float matchTolerance = 0.03f;
     public bool penalizeWrongMeasurement = true;
 
+    [Header("Pan Liquid")]
+    public PanLiquidFill panLiquid;
+
+    private float pendingMl;
+
     /// <summary>seasoning, chosen ml, was it fully correct (right amount + good pour).</summary>
     public event Action<SeasoningType, float, bool> OnPourConfirmed;
 
@@ -76,6 +87,8 @@ public class PourSeasoningController : MonoBehaviour
     private MeasurementButton selected;
     private readonly List<MeasurementButton> allButtons = new List<MeasurementButton>();
     private readonly HashSet<int> completedLines = new HashSet<int>();
+
+ 
 
     // Set once a correct pour lands; consumed when the panel is closed
     private bool pendingSuccess;
@@ -119,6 +132,7 @@ public class PourSeasoningController : MonoBehaviour
         ClearSelection();
         pendingSuccess = false;
         pendingLineIndex = -1;
+        pendingMl = 0f;
 
         Color color = GetColor(seasoning);
         pourMechanic?.SetParticleColor(color);
@@ -133,6 +147,21 @@ public class PourSeasoningController : MonoBehaviour
             };
             if (sprite != null) glassImage.sprite = sprite;
             glassImage.color = Color.white;
+        }
+
+        if(fillSpoonImage != null)
+        {
+            Sprite fillSprite = seasoning switch
+            {
+                SeasoningType.Soy => soySpoonFillSprite,
+                SeasoningType.Vinegar => vinegarSpoonFillSprite,
+                _ => cookingOilSpoonFillSprite
+            };
+            if(fillSprite != null) fillSpoonImage.sprite = fillSprite;
+
+            Color c = color;
+            c.a = fillSpoonImage.color.a;
+            fillSpoonImage.color = c;
         }
 
         seasoningPanel.SetActive(true);
@@ -175,6 +204,8 @@ public class PourSeasoningController : MonoBehaviour
             string stepId = $"Pour:{currentSeasoning}";
             int lineIndex = pendingLineIndex;
             Color color = GetColor(currentSeasoning);
+            SeasoningType seasoning = currentSeasoning;
+            float ml = pendingMl;
 
             if (anim != null)
             {
@@ -184,6 +215,8 @@ public class PourSeasoningController : MonoBehaviour
                 {
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
+                    panLiquid.AddLiquid(seasoning, color, ml);
+                    if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
                 });
             }
@@ -192,6 +225,8 @@ public class PourSeasoningController : MonoBehaviour
                 Debug.LogWarning($"[Pour] No animation assigned for {chosenTool} - completing step without animation.");
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
+                panLiquid.AddLiquid(seasoning, color, ml);
+                if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
             }
         }
 
@@ -268,6 +303,7 @@ public class PourSeasoningController : MonoBehaviour
         {
             pendingSuccess = true;
             pendingLineIndex = lineIndex;
+            pendingMl = selected.Ml;
         }
 
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
@@ -341,7 +377,9 @@ public class PourSeasoningController : MonoBehaviour
         seasoningPanel.SetActive(false);
         cupAnimation?.Hide();
         tbspAnimation?.Hide();
+        panLiquid.Clear();
         ClearSelection();
+       
     }
 
 

@@ -15,5 +15,17 @@ MonoBehaviour:
   recipeName: 
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
+  cookingInstructions:
+  - Slice the ginger
+  - Slice the garlic
+  - Minced the lemongrass
+  - Put the pot on the stove
+  - 1tbps chicken with salt
+  - 1tbps chicken with pepper
+  - Add the garlic
+  - Add the ginger
+  - Add the lemongrass
+  - Put the chicken in the pot
+  - ' Add 1 cup water'
+  - Put the pot lid on
   cookingStepIds: []

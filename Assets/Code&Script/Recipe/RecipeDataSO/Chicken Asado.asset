@@ -15,5 +15,36 @@ MonoBehaviour:
   recipeName: Chicken Asado
   recipeIcon: {fileID: 0}
   ingredients: []
-  cookingInstructions: []
-  cookingStepIds: []
+  cookingInstructions:
+  - 'Chop the Onion into slice '
+  - 'Chop the Garlic into slice '
+  - 'Chop the Tomato into slice '
+  - turn on the stove to high heat
+  - put the pan in the stove
+  - Add 2tbsp of Cooking Oil
+  - Add chicken Leg
+  - sear using Spatula
+  - Add the chop Onion
+  - 'Add the chop Garlic '
+  - 'Add the chop Tomato '
+  - Saute using Spatula
+  - Add 1 tbsp of Soy
+  - Add 1 tbsp of Soy
+  - Add 1 tbsp of Soy
+  - 'Add Calamansi Juice '
+  - Add Water
+  - Reduce the stove to low
+  - Put the pan Lid and simmer
+  cookingStepIds:
+  - Onion:Sliced
+  - Garlic:Sliced
+  - Tomato:Sliced
+  - Tomato:Sliced
+  - Pan:OnStove
+  - Pour:CookingOil
+  - Pan:ChickenLeg
+  - Mix:7
+  - Pan:Onion
+  - 'Pan:Garlic '
+  - Pan:Tomato
+  - Pan:Tomato
