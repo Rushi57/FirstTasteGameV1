@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   dialogueLines:
-  - greate the pork belly is in the table
+  - Great! The pork belly is in the table.
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 0

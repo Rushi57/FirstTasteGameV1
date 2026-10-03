@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: IngStepFlow5
+  m_Name: IngStepFlow19 TapOil
   m_EditorClassIdentifier: 
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Great! Now all the ingredients are set.
-  - Take a look at the right side, this is all the instructions you need to do for
-    cooking Adobo
-  - Remember to always get the ingredients first shown on the cooking preparation.
-  - Let's try to cook it!
+  - Now let's add 1 tbsp of cooking oil.
+  - The cooking oil is on the Shelf.
+  - tap the cooking oil
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 0
-  targetId: 
+  actionType: 1
+  targetId: CookingOil
   dragSourceId: 
   blockOtherInput: 1

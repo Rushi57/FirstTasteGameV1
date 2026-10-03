@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   dialogueLines:
-  - now lets try for the garlic
+  - Now let's get the other ingredient.
   dialoguePosition: 1
   customPosition: {x: -200, y: 360}
   actionType: 1

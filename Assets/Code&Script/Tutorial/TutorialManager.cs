@@ -28,6 +28,10 @@ public class TutorialManager : MonoBehaviour
     private string CompletedKey => $"tutorial_{tutorialId}_completed";
     private string ProgressKey => $"tutorial_{tutorialId}_step";
 
+    [Header("Start")]
+    [Tooltip("ON: tutorial starts when the scene loads (Map scene). OFF: something else, like StoryTeller, calls StartTutorial().")]
+    public bool autoStart = true;
+
     // A persisted, comma-separated list of every tutorialId that has ever
     // run in this game - lets ResetAllTutorials() find and clear every
     // tutorial's progress from a single static call, even from a scene
@@ -81,16 +85,13 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        // Auto-register any TutorialInteractable already in the scene.
-        foreach (var interactable in FindObjectsOfType<TutorialInteractable>())
-            Register(interactable);
+        RegisterAllInteractables();
 
         if (dialogueBox != null)
             dialogueBox.OnNextPressed += HandleNextPressed;
 
-        // TEMP TEST HOOK - remove/replace once you trigger StartTutorial()
-        // from proper game logic (e.g. first-launch check, level-start event).
-        StartTutorial();
+        if (autoStart)
+            StartTutorial();
     }
 
     public void Register(TutorialInteractable interactable)
@@ -121,14 +122,17 @@ public class TutorialManager : MonoBehaviour
     public void StartTutorial()
     {
         if (steps.Count == 0) return;
+        if (steps.Count == 0) return;
         if (HasCompletedTutorial()) return;
+
+        RegisterAllInteractables();   // pick up everything inside BackGroundImage now that it's active
 
         tutorialActive = true;
 
         int resumeIndex = resumeFromLastStep ? PlayerPrefs.GetInt(ProgressKey, 0) : 0;
-        stepIndex = Mathf.Clamp(resumeIndex, 0, steps.Count - 1) - 1; // -1 because AdvanceStep() increments first
+        stepIndex = Mathf.Clamp(resumeIndex, 0, steps.Count - 1) - 1;
         AdvanceStep();
-        Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()} list=[{string.Join(",", GameSession.GetOrCreateData().completedTutorials)}]");
+        Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()}");
     }
 
     /// <summary>Force-start regardless of saved progress (e.g. a "Replay Tutorial" button).</summary>
@@ -176,7 +180,12 @@ public class TutorialManager : MonoBehaviour
     /// might use - only this system's own completed/progress keys.
     /// </summary>
     /// 
-
+    private void RegisterAllInteractables()
+    {
+        // 'true' includes inactive objects (the old call skipped them)
+        foreach (var interactable in FindObjectsByType<TutorialInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            Register(interactable);
+    }
     private void MarkCompleted()
     {
         SaveData data = GameSession.GetOrCreateData();

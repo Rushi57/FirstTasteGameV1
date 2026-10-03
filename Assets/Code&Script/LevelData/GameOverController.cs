@@ -20,7 +20,7 @@ public class GameOverController : MonoBehaviour
     private void OnDestroy()
     {
         if (ScoreManager.Instance != null)
-            ScoreManager.Instance.OnGameOver -= HandleGameOver;
+            ScoreManager.Instance.OnGameOver += HandleGameOver;
     }
     private void HandleGameOver()
     {
@@ -28,6 +28,7 @@ public class GameOverController : MonoBehaviour
     }
     private void OnReplay()
     {
+        Time.timeScale = 1f;   // reset before reloading
         var tutorial = TutorialManager.Instance;
 
         if (tutorial != null && !tutorial.HasCompletedTutorial())
@@ -37,6 +38,7 @@ public class GameOverController : MonoBehaviour
     }
     private void OnQuit()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(quitSceneName);
     }
 }

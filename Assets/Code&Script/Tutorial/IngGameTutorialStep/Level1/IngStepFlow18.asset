@@ -15,9 +15,7 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - ' scroll down the Cooking Prep to see the other step'
-  - now lets try to do the next step
-  - drag the pan to the stove
+  - Drag the pan to the stove.
   dialoguePosition: 1
   customPosition: {x: -268, y: 342}
   actionType: 2

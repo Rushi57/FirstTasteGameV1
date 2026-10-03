@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - As for the color the Green represent Very Good
+  - As for the color, Green represents Very Good.
   - and the color the Yellow represent Good
-  - 'and finaly the color Red represent Bad '
-  - be sure to timing it when tapping the cut button
+  - The color Yellow represents Good.
+  - And the color Red represents Bad.
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 0

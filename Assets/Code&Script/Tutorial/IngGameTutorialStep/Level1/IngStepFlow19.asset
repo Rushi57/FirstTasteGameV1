@@ -15,8 +15,8 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - now lest add the 1 tbsp of cooking oil
-  - you need to tap the cooking oil in the shelf
+  - Now let's add 1 tbsp of cooking oil.
+  - The cooking oil is on the Shelf.
   - tap the cooking oil
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}

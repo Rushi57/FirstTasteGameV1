@@ -17,13 +17,10 @@ MonoBehaviour:
   dialogueLines:
   - This is your kitchen
   - 'This is where you will cook the dish '
-  - and always remember to follow the Cooking instruction
-  - 'at the top is the heart you can only make 5 mistake '
-  - 'if the heart reach to 0 Game Over '
-  - 'lets try to prepare the ingredient first
-
-    before proceding to the actual
-    steps'
+  - And always remember to follow the Cooking Instructions.
+  - At the top is where you can see the Hearts, you can only make 5 mistakes.
+  - If the heart reaches to 0. It is Game Over.
+  - Let's try to prepare the ingredients first before proceeding to the actual steps.
   dialoguePosition: 0
   customPosition: {x: 0, y: 140}
   actionType: 0

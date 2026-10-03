@@ -21,7 +21,8 @@ public class StoryTeller : MonoBehaviour
 
     [Header("Enable after story")]
     public GameObject[] enableAfterStory;   // TutorialSystemInGame, etc.
-
+    [Header("After story")]
+    public TutorialManager tutorialManager;
     int index;
     bool isTyping;
     Coroutine typingRoutine;
@@ -35,12 +36,14 @@ public class StoryTeller : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1f;
         // Story first, mini-games hidden so nothing runs behind it
         if (storyPanel != null) storyPanel.SetActive(true);
         if (gamePanel != null) gamePanel.SetActive(false);
 
         if (characterImage != null) characterImage.preserveAspect = true;
         if (dishImage != null) dishImage.preserveAspect = true;
+        
     }
 
     void Start()
@@ -88,7 +91,7 @@ public class StoryTeller : MonoBehaviour
         for (int i = 0; i <= full.Length; i++)
         {
             storyText.maxVisibleCharacters = i;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSecondsRealtime(typeSpeed);   // was WaitForSeconds
         }
         isTyping = false;
     }
@@ -110,9 +113,8 @@ public class StoryTeller : MonoBehaviour
     void EndStory()
     {
         if (storyPanel != null) storyPanel.SetActive(false);
-        if (gamePanel != null) gamePanel.SetActive(true);   // mini-games start now
-                                                            // Then the systems that depend on it
-        foreach (var go in enableAfterStory)
-            if (go != null) go.SetActive(true);
+        if (gamePanel != null) gamePanel.SetActive(true);   // MessageBox now exists
+
+        if (tutorialManager != null) tutorialManager.StartTutorial();
     }
 }

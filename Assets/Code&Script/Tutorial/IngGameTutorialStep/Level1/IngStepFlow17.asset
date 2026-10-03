@@ -17,14 +17,12 @@ MonoBehaviour:
   dialogueLines:
   - 'Lets turn on the stove '
   - 'You can turn it on by tapping '
-  - single tap is Low heat
-  - two tap is Medium heat
-  - Three tap is High heat
-  - 'You can turn of the stove by pressing the stove long '
-  - for now lets try to turn the stove to high heat
-  - 'for now lets try to turn the stove to high heat tap the
-
-    stove 3 times'
+  - Single tap is Low heat.
+  - Two taps is Medium heat.
+  - Three taps is High heat.
+  - You can turn off the stove by long pressing the stove.
+  - For now, let's try to turn the stove to high heat.
+  - ' Tap the stove 3 times.'
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 7
