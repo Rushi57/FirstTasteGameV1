@@ -16,9 +16,7 @@ public class RecipeIngredientEntry
     {
         get
         {
-            string name = ingredient != null ? ingredient.displayName : "(missing ingredient)";
-            string qty = quantity == Mathf.Floor(quantity) ? quantity.ToString("0") : quantity.ToString("0.##");
-            return string.IsNullOrEmpty(unit) ? $"{name} - {qty}" : $"{name} - {qty} {unit}";
+            return ingredient != null ? ingredient.displayName : "(missing ingredient)";
         }
     }
 }

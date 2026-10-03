@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Calamansi Juice
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
+  id: Calamansi Juice
+  displayName: Calamansi Juice
   category: 0
   size: 0
   icon: {fileID: 0}

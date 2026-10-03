@@ -22,5 +22,5 @@ MonoBehaviour:
   customPosition: {x: 0, y: 122.6}
   actionType: 2
   targetId: PepperJar
-  dragSourceId: 1/2Tbsp
-  blockOtherInput: 1
+  dragSourceId: Tbsp_1_2
+  blockOtherInput: 0

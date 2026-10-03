@@ -59,8 +59,6 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
     private void PlacePan(GameObject dropped, TestDrag drag)
     {
-
-
         drag.SnapTo(transform as RectTransform);
         CurrentPan = dropped;
 
@@ -69,20 +67,13 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
         tutorialTag?.ReportDrop();
-        // Stop catching drops entirely - let PanDropZone receive them directly from now on
+
+        // Stop catching drops - let PanDropZone receive them directly from now on
         if (myImage != null)
         {
             myImage.raycastTarget = false;
             Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
         }
-
-        if(CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(panStepId))
-        {
-            
-                Debug.Log($"[StoveDrop] Pan dropped too early (current step is '{CookingPrepListUI.Instance.CurrentStepId}'). Bouncing back.");
-                return; // don't SnapTo - TestDrag returns the pan to its original position
-        }
-        PlacePan(dropped, drag);
     }
 
     /// <summary>Call on Retry / new dish.</summary>

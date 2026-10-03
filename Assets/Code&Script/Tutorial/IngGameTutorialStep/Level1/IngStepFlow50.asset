@@ -21,4 +21,4 @@ MonoBehaviour:
   actionType: 2
   targetId: InsidePan
   dragSourceId: PanLid
-  blockOtherInput: 1
+  blockOtherInput: 0

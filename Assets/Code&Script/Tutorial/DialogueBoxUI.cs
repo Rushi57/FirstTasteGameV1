@@ -12,7 +12,8 @@ public class DialogueBoxUI : MonoBehaviour
 {
     [Header("Refs")]
     public GameObject root;              // whole dialogue box, enable/disable this
-    public Image portraitImage;
+    public Image portraitImage;           // NPC image
+    public Image messageBorderImage;      // message board border
     public TMP_Text nameText;
     public TMP_Text bodyText;
     public Button nextButton;
@@ -42,6 +43,8 @@ public class DialogueBoxUI : MonoBehaviour
 
     private void Awake()
     {
+        if (portraitImage != null) portraitImage.preserveAspect = true;
+        if (messageBorderImage != null) messageBorderImage.preserveAspect = true;
         if (nextButton != null)
             nextButton.onClick.AddListener(HandleNextClicked);
         Hide();

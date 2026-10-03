@@ -37,7 +37,7 @@ public class RecipeIngredientRowUI : MonoBehaviour
         entry = ingredientEntry;
 
         if (label != null)
-            label.text = entry.DisplayText;
+            label.text = entry.ingredient != null ? entry.ingredient.name : "";
 
         if (icon != null && entry.ingredient != null)
         {

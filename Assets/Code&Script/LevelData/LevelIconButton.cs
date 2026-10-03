@@ -11,6 +11,8 @@ public class LevelIconButton : MonoBehaviour
     [Tooltip("Level that must be completed (1+ star) to unlock this one. Leave EMPTY for Level 1.")]
     public LevelData requiredLevel;
 
+    private int requiredStars = 2;
+
     private Button button;
     private Image iconImage;
 
@@ -27,7 +29,7 @@ public class LevelIconButton : MonoBehaviour
 
     public void RefreshLock()
     {
-        bool unlocked = requiredLevel == null || GetStars(requiredLevel) > 0;
+        bool unlocked = requiredLevel == null || GetStars(requiredLevel) >= requiredStars;
 
         if (button != null) button.interactable = unlocked;
         if (iconImage != null)
@@ -36,8 +38,12 @@ public class LevelIconButton : MonoBehaviour
 
     private int GetStars(LevelData level)
     {
-        // >>> REPLACE this line with however your game reads saved stars <<<
-        return PlayerPrefs.GetInt($"Stars_Level{level.levelNumber}", 0);
+        if (level == null)
+            return 0;
+
+        SaveData data = GameSession.GetOrCreateData();
+
+        return data.GetLevelStars(level.levelNumber);
     }
 
     public void SelectLevel()

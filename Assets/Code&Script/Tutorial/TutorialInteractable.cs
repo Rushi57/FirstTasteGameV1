@@ -59,6 +59,12 @@ public class TutorialInteractable : MonoBehaviour
     {
         TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.Hold);
     }
+    public void ReportTripleTap()
+    {
+        TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.TripleTap);
+    }
+
+   
 }
 
 /// <summary>

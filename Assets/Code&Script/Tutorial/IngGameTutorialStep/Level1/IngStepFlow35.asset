@@ -15,8 +15,8 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - 'now hold the spatula '
-  - grab the spatula to start the mini game
+  - grab the spatula to start the mini game rotate it according to the instruction
+    below
   dialoguePosition: 1
   customPosition: {x: 263.51, y: 580.9}
   actionType: 4

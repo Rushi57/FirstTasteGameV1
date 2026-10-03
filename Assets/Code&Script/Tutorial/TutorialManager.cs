@@ -20,6 +20,8 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("If true, StartTutorial() resumes from the last step the player reached instead of restarting at 0.")]
     public bool resumeFromLastStep = true;
 
+    [Tooltip("Write savegame.json as soon as the tutorial finishes/skips, instead of waiting for the Save button.")]
+    public bool saveImmediately = false;
 
     private int tapCount;
     private float lastTapTime;
@@ -93,10 +95,13 @@ public class TutorialManager : MonoBehaviour
 
     public void Register(TutorialInteractable interactable)
     {
-        if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
+        if (interactable == null) return;
+        Debug.Log($"[TutorialManager] Register('{interactable.ResolvedId}') on '{interactable.name}'");
+        if (string.IsNullOrEmpty(interactable.ResolvedId)) return;
         registry[interactable.ResolvedId] = interactable;
         RefreshDragSourcesIfNeeded();
-       
+        RefreshTargetIfNeed(interactable);
+
     }
 
     public void Unregister(TutorialInteractable interactable)
@@ -123,6 +128,7 @@ public class TutorialManager : MonoBehaviour
         int resumeIndex = resumeFromLastStep ? PlayerPrefs.GetInt(ProgressKey, 0) : 0;
         stepIndex = Mathf.Clamp(resumeIndex, 0, steps.Count - 1) - 1; // -1 because AdvanceStep() increments first
         AdvanceStep();
+        Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()} list=[{string.Join(",", GameSession.GetOrCreateData().completedTutorials)}]");
     }
 
     /// <summary>Force-start regardless of saved progress (e.g. a "Replay Tutorial" button).</summary>
@@ -134,12 +140,15 @@ public class TutorialManager : MonoBehaviour
         AdvanceStep();
     }
 
-    public bool HasCompletedTutorial() => PlayerPrefs.GetInt(CompletedKey, 0) == 1;
+    public bool HasCompletedTutorial()
+    {
+        return GameSession.GetOrCreateData().IsTutorialCompleted(tutorialId);
+    }
 
     /// <summary>Clears saved progress/completion for this tutorial id.</summary>
     public void ResetProgress()
     {
-        PlayerPrefs.DeleteKey(CompletedKey);
+        GameSession.GetOrCreateData().completedTutorials.Remove(tutorialId);
         PlayerPrefs.DeleteKey(ProgressKey);
     }
 
@@ -166,6 +175,15 @@ public class TutorialManager : MonoBehaviour
     /// tutorial. Does NOT touch unrelated PlayerPrefs keys your save system
     /// might use - only this system's own completed/progress keys.
     /// </summary>
+    /// 
+
+    private void MarkCompleted()
+    {
+        SaveData data = GameSession.GetOrCreateData();
+        data.MarkTutorialCompleted(tutorialId);
+        if (saveImmediately) SaveSystem.Save(data);
+    }
+
     public static void ResetAllTutorials()
     {
         string existing = PlayerPrefs.GetString(KnownTutorialIdsKey, "");
@@ -190,7 +208,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     public void SkipTutorial()
     {
-        PlayerPrefs.SetInt(CompletedKey, 1);
+        MarkCompleted();
         PlayerPrefs.DeleteKey(ProgressKey);
         PlayerPrefs.Save();
 
@@ -335,16 +353,28 @@ public class TutorialManager : MonoBehaviour
 
     private void RefreshTargetIfNeed(TutorialInteractable justRegistered)
     {
-        if(!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
+        if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
 
         TutorialStep step = steps[stepIndex];
         if (string.IsNullOrEmpty(step.targetId)) return;
-        if(justRegistered.ResolvedId != step.targetId.Trim()) return;
+        if (justRegistered.ResolvedId != step.targetId.Trim()) return;
 
         currentTargetRect = justRegistered.RectTransform;
         Debug.Log($"[TutorialManager] Late-registered target '{justRegistered.ResolvedId}' for step '{step.name}'.");
 
-       
+        // Let the player tap the target through the input blocker
+        if (inputBlocker != null && step.blockOtherInput)
+        {
+            var filter = inputBlocker.GetComponent<TutorialInputBlockerFilter>();
+            var allowed = new List<RectTransform> { currentTargetRect, dialogueBox.RootRect };
+            allowed.AddRange(currentSourceRects);
+            filter?.SetAllowedAreas(allowed.ToArray());
+        }
+
+        // If the player is already supposed to act, pulse now.
+        // Otherwise PlayCurrentLine pulses it when the last line shows.
+        if (waitingForAction && pulseTargets)
+            AddPulse(currentTargetRect);
     }
 
     private void PlayCurrentLine()
@@ -402,11 +432,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        bool isMultiTap = step.actionType == TutorialActionType.DoubleTap
-                   || step.actionType == TutorialActionType.TripleTap;
-
-        // A multi-tap step is fed by ordinary Tap notifications from the interactable.
-        bool typeMatches = step.actionType == type || (isMultiTap && type == TutorialActionType.Tap);
+        
 
         if (step.targetId?.Trim() != id || step.actionType != type)
         {
@@ -430,7 +456,7 @@ public class TutorialManager : MonoBehaviour
             inputBlocker.SetActive(false);
         }
 
-        PlayerPrefs.SetInt(CompletedKey, 1);
+        MarkCompleted();
         PlayerPrefs.DeleteKey(ProgressKey);
         PlayerPrefs.Save();
 

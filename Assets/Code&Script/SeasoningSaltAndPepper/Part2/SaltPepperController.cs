@@ -254,10 +254,10 @@ public class SaltPepperController : MonoBehaviour
     {
         if (valueBorder == null) return;
 
-        if(valueBorder != null) valueBorderText.text = message;
+        if (valueBorderText != null) valueBorderText.text = message;
         valueBorder.SetActive(true);
 
-        if (valueBorder != null) StopCoroutine(valueBorderRoutine);
+        if (valueBorderRoutine != null) StopCoroutine(valueBorderRoutine);
         valueBorderRoutine = StartCoroutine(HideValuePopupAfterDelay());
     }
 
@@ -276,6 +276,6 @@ public class SaltPepperController : MonoBehaviour
         saltPepperPanel.SetActive(false);
         tbspAnimation?.Hide();
         tspAnimation?.Hide();
-        if (valueBorder != null) valueBorder.SetActive(false);
+        if (valueBorderRoutine != null) { StopCoroutine(valueBorderRoutine); valueBorderRoutine = null; }
     }
 }

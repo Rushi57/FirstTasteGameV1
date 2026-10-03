@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - great now that tutorial is done you can press continue to see your score
-  - good luck in other level
+  - great now that tutorial is done you can press continue to see your score good
+    luck in other level
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 1
-  targetId: ContinueBtn
+  actionType: 0
+  targetId: 
   dragSourceId: 
   blockOtherInput: 0

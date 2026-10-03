@@ -17,5 +17,9 @@ MonoBehaviour:
   category: 0
   size: 0
   icon: {fileID: 0}
-  stateSprites: []
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 0}
+  - state: 0
+    sprite: {fileID: 0}
   playsPourAnimation: 0

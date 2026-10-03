@@ -14,6 +14,7 @@ TagManager:
   - Boil/SimmerPanel
   - ChoppingPanel
   - SeasoningPanel
+  - smallIng
   layers:
   - Default
   - TransparentFX

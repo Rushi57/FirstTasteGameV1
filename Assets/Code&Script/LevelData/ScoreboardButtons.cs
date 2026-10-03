@@ -7,6 +7,9 @@ public class ScoreboardButtons : MonoBehaviour
     
     public void GoToMap()
     {
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.SkipTutorial();
+
         LoadingManager.LoadNextScene(mapSceneName);
     }
 }

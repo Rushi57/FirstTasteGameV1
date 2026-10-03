@@ -33,6 +33,14 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
     [Tooltip("Heat must be held this long before the step counts, so tapping through Low -> Medium -> High doesn't complete a Medium step by accident. Set 0 for instant.")]
     public float confirmDelay = 1f;
 
+    [Header("Tutorial")]
+    [Tooltip("The TutorialInteractable on StoveDropZone (Id = Stove).")]
+    public TutorialInteractable tutorialInteractable;
+    [Tooltip("Max seconds between taps for them to count as one triple tap.")]
+    public float tripleTapWindow = 1.5f;
+
+    private int tapStreak;
+    private float lastTapTime;
     public StoveHeat CurrentHeat { get; private set; } = StoveHeat.Off;
     public event System.Action<StoveHeat> OnHeatChanged;
 
@@ -43,6 +51,12 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
     private int nextStoveStep = 0;
     private Coroutine confirmRoutine;
 
+
+    private void Awake()
+    {
+        if (tutorialInteractable == null)
+            tutorialInteractable = GetComponent<TutorialInteractable>();
+    }
     private void Start()
     {
         ApplyVisuals();
@@ -59,6 +73,7 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
             longPressFired = true;
             Debug.Log($"[Stove] Long press detected ({holdTimer:0.00}s)");
             SetHeat(StoveHeat.Off);
+            tutorialInteractable?.ReportHold();
         }
     }
 
@@ -90,6 +105,12 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
     {
         Debug.Log($"[Stove] Tap detected (current heat: {CurrentHeat})");
 
+        // Track consecutive taps for the tutorial
+        if (Time.unscaledTime - lastTapTime > tripleTapWindow)
+            tapStreak = 0;
+        lastTapTime = Time.unscaledTime;
+        tapStreak++;
+
         switch (CurrentHeat)
         {
             case StoveHeat.Off: SetHeat(StoveHeat.Low); break;
@@ -99,6 +120,18 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
                 if (wrapAroundAfterHigh) SetHeat(StoveHeat.Low);
                 else Debug.Log("[Stove] Already on High - long press to turn off.");
                 break;
+        }
+
+        if (tapStreak >= 3)
+        {
+            tapStreak = 0;
+            if (tutorialInteractable == null)
+                Debug.LogError("[Stove] tutorialInteractable is not assigned!", this);
+            else
+            {
+                Debug.Log("[Stove] Triple tap detected -> notifying tutorial");
+                tutorialInteractable.ReportTripleTap();
+            }
         }
     }
 
@@ -138,18 +171,31 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
             yield break;
         }
 
-        // Find the stove step whose order is the next expected one
+        CookingPrepListUI prepList = CookingPrepListUI.Instance;
+        if (prepList == null) yield break;
+
+        string currentId = prepList.CurrentStepId;
+        if (currentId == null)
+        {
+            Debug.Log("[Stove] All prep steps are already done.");
+            yield break;
+        }
+
+        // Find the recipe line that matches the prep list's current step
         for (int i = 0; i < recipe.cookingInstructions.Count; i++)
         {
-            if (!recipe.TryGetStoveStep(i, out int order, out StoveHeat required)) continue;
-            if (order != nextStoveStep) continue;
+            if (recipe.GetStepId(i) != currentId) continue;
+
+            if (!recipe.TryGetStoveStep(i, out int order, out StoveHeat required))
+            {
+                Debug.Log($"[Stove] Current step '{currentId}' isn't a stove step.");
+                yield break;
+            }
 
             if (required == heat)
             {
-                string id = RecipeData.StoveStepId(order, required);
-                Debug.Log($"[Stove] Step {order} done: {required} held for {confirmDelay}s -> '{id}'");
-                CookingPrepListUI.Instance?.CompleteStep(id);
-                nextStoveStep++;
+                Debug.Log($"[Stove] Step {order} done: {required} held for {confirmDelay}s -> '{currentId}'");
+                prepList.CompleteStep(currentId);
             }
             else
             {
@@ -157,8 +203,6 @@ public class StoveHeatController : MonoBehaviour, IPointerDownHandler, IPointerU
             }
             yield break;
         }
-
-        Debug.Log("[Stove] No more stove steps in this recipe.");
     }
 
     /// <summary>Call on Retry / new dish, next to CookingPrepListUI.ResetProgress().</summary>
