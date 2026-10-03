@@ -20,6 +20,9 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("If true, StartTutorial() resumes from the last step the player reached instead of restarting at 0.")]
     public bool resumeFromLastStep = true;
 
+
+    private int tapCount;
+    private float lastTapTime;
     private string CompletedKey => $"tutorial_{tutorialId}_completed";
     private string ProgressKey => $"tutorial_{tutorialId}_step";
 
@@ -355,6 +358,7 @@ public class TutorialManager : MonoBehaviour
         dialogueBox.PlayLine(step.dialogueLines[lineIndex], showNext);
 
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
+        tapCount = 0;
 
         // Only pulse once the player actually needs to perform the action
         // (Next button gone) - not while they're still reading buildup lines.
@@ -397,6 +401,13 @@ public class TutorialManager : MonoBehaviour
             Debug.Log($"[TutorialManager] NotifyAction('{id}', {type}) received but not currently waiting for an action - ignored.");
             return;
         }
+
+        bool isMultiTap = step.actionType == TutorialActionType.DoubleTap
+                   || step.actionType == TutorialActionType.TripleTap;
+
+        // A multi-tap step is fed by ordinary Tap notifications from the interactable.
+        bool typeMatches = step.actionType == type || (isMultiTap && type == TutorialActionType.Tap);
+
         if (step.targetId?.Trim() != id || step.actionType != type)
         {
             Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match current step's expected targetId='{step.targetId}', actionType={step.actionType} - action rejected. Check for an empty/mismatched Interactable Id.");
