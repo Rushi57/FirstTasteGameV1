@@ -21,7 +21,7 @@ MonoBehaviour:
     ingredients.
   - ow let's drag the pork out from the chopping board and drop it in the table area.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 242, y: 115}
   actionType: 2
   targetId: TableZoneDrop
   dragSourceId: Pork Belly

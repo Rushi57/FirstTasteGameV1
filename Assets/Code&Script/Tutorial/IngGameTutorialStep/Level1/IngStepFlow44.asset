@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - pick the right cup form the the left tap the 1/4 cup
+  - Pick the right cup form the the left tap the 1/4 cup
   dialoguePosition: 1
   customPosition: {x: -311, y: 185}
   actionType: 1

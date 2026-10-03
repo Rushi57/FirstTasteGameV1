@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the Cut button.
   dialoguePosition: 1
-  customPosition: {x: 258, y: 400}
+  customPosition: {x: 227, y: 452}
   actionType: 1
   targetId: TapToCutBtn
   dragSourceId: 

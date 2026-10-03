@@ -21,7 +21,7 @@ MonoBehaviour:
   - Every ingredient have a 2 state slice and Minced
   - Great! Now let's close the chopping mini-game tap the close button
   dialoguePosition: 1
-  customPosition: {x: 258, y: 168.29}
+  customPosition: {x: -293, y: 115}
   actionType: 1
   targetId: CloseChopping
   dragSourceId: 

@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the pork belly
   dialoguePosition: 1
-  customPosition: {x: -307, y: 348}
+  customPosition: {x: 48, y: 165}
   actionType: 1
   targetId: Pork Belly
   dragSourceId: 

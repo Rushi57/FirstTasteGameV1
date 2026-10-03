@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Chop the garlic into sliced garlic.
   dialoguePosition: 1
-  customPosition: {x: 254.24, y: 396}
+  customPosition: {x: 242, y: 392}
   actionType: 1
   targetId: TapToCutBtn
   dragSourceId: 

@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Drag the pan to the stove.
   dialoguePosition: 1
-  customPosition: {x: -268, y: 342}
+  customPosition: {x: 276, y: 452}
   actionType: 2
   targetId: StoveDropZone
   dragSourceId: Pan

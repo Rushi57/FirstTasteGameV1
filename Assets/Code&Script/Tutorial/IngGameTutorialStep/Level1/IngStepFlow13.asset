@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Drag the Garlic to the chopping board.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 242, y: 115}
   actionType: 2
   targetId: ChoppingBoard
   dragSourceId: Garlic

@@ -15,14 +15,10 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Great! Now all the ingredients are set.
-  - Take a look at the right side, this is all the instructions you need to do for
-    cooking Adobo
-  - Remember to always get the ingredients first shown on the cooking preparation.
-  - Let's try to cook it!
+  - Tap the close button to close the fridge.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
-  actionType: 0
-  targetId: 
+  customPosition: {x: 48, y: 165}
+  actionType: 1
+  targetId: CloseFridge
   dragSourceId: 
   blockOtherInput: 1

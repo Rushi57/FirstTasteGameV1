@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Now drag the knife to the chopping board.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: -326, y: 293}
   actionType: 2
   targetId: ChoppingBoard
   dragSourceId: KnifeObj

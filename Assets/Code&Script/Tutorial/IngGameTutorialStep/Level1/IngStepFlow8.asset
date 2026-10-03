@@ -19,7 +19,7 @@ MonoBehaviour:
   - The indicator will bounce from left to right.
   - The indicator will bounce from left to right.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 277, y: 452}
   actionType: 0
   targetId: 
   dragSourceId: 

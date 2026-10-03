@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b25690eb7493e5b4984595007bc049e1
+guid: fe924c7a02c8b234392f32eaf946d755
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3454234737633917292
-    second: Cups_0
+      213: 4429762312517956379
+    second: 1 tsp side_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cups_0
+      name: 1 tsp side_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1
-        width: 233
-        height: 89
+        x: 17
+        y: 40
+        width: 280
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4960484bec71010d0800000000000000
-      internalID: -3454234737633917292
+      spriteID: b13bb057a5da97d30800000000000000
+      internalID: 4429762312517956379
       vertices: []
       indices: 
       edges: []

@@ -15,9 +15,9 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - first you need to pick for the measurment you need
-  - in the cooking prep in need tbsp tablespoon
-  - tap the tablespoon button
+  - First, you need to pick for the measurements you need.
+  - In the cooking prep, you need a tablespoon or tbsp.
+  - Tap the tbsp(Tablespoon) button
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 1

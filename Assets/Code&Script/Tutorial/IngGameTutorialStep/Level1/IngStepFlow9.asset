@@ -20,7 +20,7 @@ MonoBehaviour:
   - The color Yellow represents Good.
   - And the color Red represents Bad.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 277, y: 452}
   actionType: 0
   targetId: 
   dragSourceId: 

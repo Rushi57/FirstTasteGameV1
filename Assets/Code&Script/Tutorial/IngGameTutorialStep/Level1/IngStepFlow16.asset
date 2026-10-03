@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the close button.
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 48, y: 165}
   actionType: 1
   targetId: CloseChopping
   dragSourceId: 

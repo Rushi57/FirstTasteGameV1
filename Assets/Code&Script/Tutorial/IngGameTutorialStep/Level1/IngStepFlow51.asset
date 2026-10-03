@@ -15,12 +15,12 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - in side the watch we have 3 color Green is Very Good, Yellow is Good and Red
+  - In side the watch we have 3 color Green is Very Good, Yellow is Good and Red
     is Bad
-  - 'in here you need to timing to stop the hand '
-  - 'if the Cooking prep Instruction have simmer the hand of the clock will move
+  - 'In here you need to timing to stop the hand '
+  - 'If the Cooking prep Instruction have simmer the hand of the clock will move
     fast and if boil it will move slow '
-  - and each time the simmer and boil is open the color will change its location
+  - And each time the simmer and boil is open the color will change its location
   dialoguePosition: 1
   customPosition: {x: 250, y: 358}
   actionType: 0

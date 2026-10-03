@@ -15,13 +15,13 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - in here you can see a timmer at the left side
-  - the color in the left side the color have Green is Very Good
-  - the color Yellow is Good and the Color Red is Bad
-  - grab and follow a couter clockwise or clockise rotation
-  - you will see that the indicator will go up and down if you release you need to
+  - In here you can see a timmer at the left side
+  - The color in the left side the color have Green is Very Good
+  - The color Yellow is Good and the Color Red is Bad
+  - Grab and follow a couter clockwise or clockise rotation
+  - You will see that the indicator will go up and down if you release you need to
     timing when rotating the saptula
-  - because the indicator will fall down fast
+  - Because the indicator will fall down fast
   dialoguePosition: 1
   customPosition: {x: 248, y: 608}
   actionType: 0

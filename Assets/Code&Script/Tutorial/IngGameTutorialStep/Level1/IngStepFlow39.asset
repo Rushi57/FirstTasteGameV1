@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - 'now scroll and find the 1/2 cup for the vinegar
+  - 'Now scroll and find the 1/2 cup for the vinegar
 
     tap the 1/2 Cup '
   dialoguePosition: 1

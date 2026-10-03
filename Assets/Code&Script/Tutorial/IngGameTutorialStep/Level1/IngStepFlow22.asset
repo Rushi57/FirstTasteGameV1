@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - now that you pick the 1 tbsp
-  - look at the color meter in the left each time you pick a teaspoon, tablespoon
+  - Now that you pick the 1 tbsp
+  - Look at the color meter in the left each time you pick a teaspoon, tablespoon
     and cup measurement
   - 'the color Green and yellow will change its position '
-  - 'the green is the Very Good spot of the measurment and the Yellow is the the
+  - 'The green is the Very Good spot of the measurment and the Yellow is the the
     acceptable spot of the measurment '
   dialoguePosition: 1
   customPosition: {x: 242, y: 371}

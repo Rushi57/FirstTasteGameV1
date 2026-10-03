@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the Water Pitcher.
   dialoguePosition: 1
-  customPosition: {x: -200, y: 360}
+  customPosition: {x: 48, y: 165}
   actionType: 1
   targetId: Water
   dragSourceId: 

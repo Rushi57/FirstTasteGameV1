@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - tap and hold the pour button
+  - Tap and hold the pour button
   dialoguePosition: 1
   customPosition: {x: 311.5, y: 539.8}
   actionType: 5
