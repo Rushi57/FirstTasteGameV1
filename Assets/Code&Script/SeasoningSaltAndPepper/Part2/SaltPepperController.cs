@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +47,19 @@ public class SaltPepperController : MonoBehaviour
     private int pendingLineIndex = -1;
     private bool pendingIsTbsp;
 
+    [Header("Wrong drop penalty")]
+    public int wrongDropPoints = 5;
+    public int wrongDropHearts = 1;
+
+
+    //Value Msg
+    [Header("Value popup (MessageBorder)")]
+    [Tooltip("The MessageBorder object. Leave it inactive in the scene.")]
+    public GameObject valueBorder;
+    [Tooltip("The TMP text inside MessageBorder.")]
+    public TMP_Text valueBorderText;
+    public float valueBorderDuration = 1.2f;
+
     [Header("Wrong-pick feedback")]
     [Tooltip("The panel that shows an error message (e.g. MechanicMessagePanel).")]
     public GameObject wrongMessagePanel;
@@ -54,6 +68,7 @@ public class SaltPepperController : MonoBehaviour
     [Tooltip("How long the message stays visible before auto-hiding.")]
     public float wrongMessageDuration = 1.5f;
 
+    private Coroutine valueBorderRoutine;
     private Coroutine wrongMessageRoutine;
 
     private void Start()
@@ -61,7 +76,7 @@ public class SaltPepperController : MonoBehaviour
         if (saltButton != null) saltButton.onClick.AddListener(() => OpenFor(SaltPepperType.Salt));
         if (pepperButton != null) pepperButton.onClick.AddListener(() => OpenFor(SaltPepperType.Pepper));
         if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
-
+        if (valueBorder != null) valueBorder.SetActive(false);
         tbspAnimation?.Hide();
         tspAnimation?.Hide();
     }
@@ -76,6 +91,7 @@ public class SaltPepperController : MonoBehaviour
             jarImage.sprite = type == SaltPepperType.Salt ? saltJarSprite : pepperJarSprite;
 
         saltPepperPanel.SetActive(true);
+        if (valueBorder != null) valueBorder.SetActive(false);
         Debug.Log($"[SaltPepper] Opened for {type}. Waiting for a spoon drop.");
     }
 
@@ -115,7 +131,9 @@ public class SaltPepperController : MonoBehaviour
 
     public void HandleSpoonDropped(SaltPepperSpoonItem spoon, TestDrag drag, GameObject dropped)
     {
+        ShowValuePopup($"{spoon.Label} of {currentType}");
         RecipeData recipe = cookingPrepPanel != null ? cookingPrepPanel.currentRecipe : null;
+
         if (recipe == null)
         {
             Debug.LogWarning("[SaltPepper] No recipe available (assign Cooking Prep Panel).");
@@ -126,9 +144,11 @@ public class SaltPepperController : MonoBehaviour
 
         if (!TryFindRequirement(recipe, keyword, out int lineIndex, out float requiredTsp))
         {
-            Debug.Log($"[SaltPepper] Recipe has no (remaining) '{currentType}' step - nothing to score. Bouncing spoon back.");
-            ShowWrongMessage($"No {currentType} needed right now!");
-            if (penalizeWrongAmount) ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
+            Debug.Log($"[SaltPepper] Recipe has no (remaining) '{currentType}' step - nothing to score.");
+            if (penalizeWrongAmount)
+                ScoreManager.Instance?.ReportMistake($"No {currentType} needed right now!", wrongDropPoints, wrongDropHearts);
+            else
+                ShowWrongMessage($"No {currentType} needed right now!");
             return;
         }
 
@@ -151,11 +171,13 @@ public class SaltPepperController : MonoBehaviour
         }
         else
         {
-            ShowWrongMessage($"Wrong amount! Recipe needs {FormatTsp(requiredTsp)} of {currentType}.");
+            string msg = $"Wrong amount! Recipe needs {FormatTsp(requiredTsp)} of {currentType}.";
 
             if (penalizeWrongAmount)
-                ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
-            // don't SnapTo - TestDrag bounces it back to its origin automatically
+                ScoreManager.Instance?.ReportMistake(msg, wrongDropPoints, wrongDropHearts);
+            else
+                ShowWrongMessage(msg);
+            // TestDrag bounces the spoon back automatically
         }
     }
 
@@ -228,6 +250,25 @@ public class SaltPepperController : MonoBehaviour
         return true;
     }
 
+    private void ShowValuePopup(string message)
+    {
+        if (valueBorder == null) return;
+
+        if(valueBorder != null) valueBorderText.text = message;
+        valueBorder.SetActive(true);
+
+        if (valueBorder != null) StopCoroutine(valueBorderRoutine);
+        valueBorderRoutine = StartCoroutine(HideValuePopupAfterDelay());
+    }
+
+
+    private IEnumerator HideValuePopupAfterDelay()
+    {
+        yield return new WaitForSeconds(valueBorderDuration);
+        valueBorder.SetActive(false);
+        valueBorderRoutine = null;
+    }
+
     public void ResetProgress()
     {
         pendingSuccess = false;
@@ -235,5 +276,6 @@ public class SaltPepperController : MonoBehaviour
         saltPepperPanel.SetActive(false);
         tbspAnimation?.Hide();
         tspAnimation?.Hide();
+        if (valueBorder != null) valueBorder.SetActive(false);
     }
 }

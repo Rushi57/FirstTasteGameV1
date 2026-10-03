@@ -45,6 +45,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     public DirectionMode directionMode = DirectionMode.Alternate;
     public MixDirection firstDirection = MixDirection.Clockwise;
 
+
+    [Tooltip("How much faster the indicator falls when the player rotates the wrong way.")]
+    public float wrongDirectionMultiplier = 3f;
+
     private MixDirection lastPickedDirection;
     private bool hasPickedDirection = false;
 
@@ -113,6 +117,17 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     /// <summary>Call before the player grabs the spatula: sets this round's required direction/speed and moves the pivot.</summary>
     public void ConfigureChallenge(MixDirection direction, float targetIdealSpeed)
     {
+        // If nobody asked for a specific direction, alternate CW / CCW every round
+        if (direction == MixDirection.Any)
+        {
+            direction = lastPickedDirection == MixDirection.Clockwise
+                ? MixDirection.CounterClockwise
+                : MixDirection.Clockwise;
+        }
+
+        lastPickedDirection = direction;
+        hasPickedDirection = true;
+
         requiredDirection = direction;
         idealSpeed = targetIdealSpeed;
         UpdateDirectionLabel();
@@ -249,7 +264,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             if (!IsDirectionOk())
             {
                 // Wrong direction - push up toward the bad end
-                targetVelocity = driftSpeed;
+                targetVelocity = -driftSpeed * wrongDirectionMultiplier;
             }
             else
             {
@@ -329,8 +344,8 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
                 next = firstDirection;
             else
                 next = lastPickedDirection == MixDirection.Clockwise
-                    ? MixDirection.CounterClockwise
-                    : MixDirection.CounterClockwise;
+                                 ? MixDirection.CounterClockwise
+                                  :MixDirection.Clockwise;
         }
         lastPickedDirection = next;
         hasPickedDirection = true;

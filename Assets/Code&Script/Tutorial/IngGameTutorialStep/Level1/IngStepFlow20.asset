@@ -23,4 +23,4 @@ MonoBehaviour:
   actionType: 1
   targetId: pickTbsp
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

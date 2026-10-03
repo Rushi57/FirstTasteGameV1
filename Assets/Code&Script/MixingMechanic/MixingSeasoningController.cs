@@ -61,8 +61,6 @@ public class MixingSeasoningController : MonoBehaviour
             Debug.Log("[Mixing] Recipe has no (remaining) sauté/stir step - nothing to do.");
             return;
         }
-        if (randomizeDirection)
-            direction = PickDirection();
 
         pendingLineIndex = lineIndex;
         challengeActive = true;

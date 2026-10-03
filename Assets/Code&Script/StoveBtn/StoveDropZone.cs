@@ -29,9 +29,6 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        // Once the pan is here, StoveDropZone shouldn't even be catching drops
-        // anymore (its raycasting gets turned off in PlacePan below), but this
-        // is a safety net in case it's still active for some reason.
         if (HasPan) return;
 
         GameObject dropped = eventData.pointerDrag;
@@ -40,21 +37,30 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null) return;
 
-        string droppedId = drag.itemId;
-        
-        if (droppedId != panId)
+        // 1) wrong item
+        if (drag.itemId != panId)
         {
-            Debug.Log($"[StoveDrop] '{droppedId}' dropped on stove - only the pan ('{panId}') is accepted. Bouncing back.");
             ScoreManager.Instance?.ReportMistake("Wrong Step");
+            return; // TestDrag bounces it back
+        }
+
+        // 2) right item, wrong time
+        if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(panStepId))
+        {
+            Debug.Log($"[StoveDrop] Pan dropped too early (current step is '{CookingPrepListUI.Instance.CurrentStepId}'). Bouncing back.");
+            drag.ReturnToOrigin(); // explicit, so it never depends on call order
             return;
         }
 
+        // 3) only now place it
         PlacePan(dropped, drag);
-        
+
     }
 
     private void PlacePan(GameObject dropped, TestDrag drag)
     {
+
+
         drag.SnapTo(transform as RectTransform);
         CurrentPan = dropped;
 
@@ -69,6 +75,14 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
             myImage.raycastTarget = false;
             Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
         }
+
+        if(CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(panStepId))
+        {
+            
+                Debug.Log($"[StoveDrop] Pan dropped too early (current step is '{CookingPrepListUI.Instance.CurrentStepId}'). Bouncing back.");
+                return; // don't SnapTo - TestDrag returns the pan to its original position
+        }
+        PlacePan(dropped, drag);
     }
 
     /// <summary>Call on Retry / new dish.</summary>

@@ -27,7 +27,7 @@ MonoBehaviour:
     stove 3 times'
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
-  actionType: 1
+  actionType: 7
   targetId: Stove
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1
