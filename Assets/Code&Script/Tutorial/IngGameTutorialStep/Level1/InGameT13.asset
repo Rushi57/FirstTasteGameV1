@@ -10,18 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: IngStepIntro
+  m_Name: InGameT13
   m_EditorClassIdentifier: 
   npcName: Kris
-  npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
+  npcPortrait: {fileID: 0}
   dialogueLines:
-  - Always follow the Cooking Instructions on the right side of the screen
-  - ' See the hearts at the top? You have five chances. If all hearts are lost, it''s
-    game over.'
-  - Let's start by preparing the ingredients before we move to the cooking steps.
+  - Tap the Close button to exit the chopping board
   dialoguePosition: 0
-  customPosition: {x: 0, y: 140}
-  actionType: 0
+  customPosition: {x: 0, y: 0}
+  actionType: 1
   targetId: 
   dragSourceId: 
   blockOtherInput: 1

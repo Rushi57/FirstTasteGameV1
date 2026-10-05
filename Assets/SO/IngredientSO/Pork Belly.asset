@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Pork Belly
   category: 0
   size: 1
-  icon: {fileID: 2397899725440589209, guid: 2756d8362ac1cfd45ae753948475c77f, type: 3}
+  icon: {fileID: 4216607565012934476, guid: 0c2186b39d46f8e47a9968460923a37f, type: 3}
   iconScale: 1
   stateSprites:
   - state: 0

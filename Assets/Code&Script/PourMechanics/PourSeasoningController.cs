@@ -128,6 +128,15 @@ public class PourSeasoningController : MonoBehaviour
 
     public void OpenFor(SeasoningType seasoning)
     {
+        //Wrong Step Gate
+        string stepId = $"Pour:{seasoning}";
+        var prep = CookingPrepListUI.Instance;
+        if(prep != null && prep.CurrentStepId != stepId)
+        {
+            ScoreManager.Instance?.ReportMistake("Wrong Step!\nMinus 1 heart", 0, 1);
+            return;
+        }
+
         currentSeasoning = seasoning;
         ClearSelection();
         pendingSuccess = false;
@@ -226,7 +235,7 @@ public class PourSeasoningController : MonoBehaviour
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
                 panLiquid.AddLiquid(seasoning, color, ml);
-                if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                
             }
         }
 
