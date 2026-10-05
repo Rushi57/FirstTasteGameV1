@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dialogue box border_0: 2246935009314596454
+      dialogue box border_1: -5197482672308640235
+      dialogue box border_2: 8148178681765100084
+      dialogue box border_3: 5545860614805030395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

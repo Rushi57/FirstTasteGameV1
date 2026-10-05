@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      question mark icon map (1)_0: -1492247306286396953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

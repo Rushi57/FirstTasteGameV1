@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      angled chopping board_0: -5163802397899106183
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

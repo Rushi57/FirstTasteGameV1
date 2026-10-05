@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// One instance lives on IngCutPrepScrollObj (chopping steps) and one on
+/// CookingPrepScrollingObj (stove/oil/etc). Only the instance on the ACTIVE
+/// panel is CookingPrepListUI.Instance, so existing mechanics that call
+/// Instance.TryAccept / CompleteStep keep working in each stage.
+/// </summary>
 public class CookingPrepListUI : MonoBehaviour
 {
     public static CookingPrepListUI Instance { get; private set; }
@@ -19,6 +25,7 @@ public class CookingPrepListUI : MonoBehaviour
     private float scrollTargetNorm = 1f;
 
     [Header("Auto-complete chopping steps")]
+    [Tooltip("Assign this on the CUT PREP list only. Leave empty on the Cooking Prep list.")]
     public CuttingMechanic cuttingMechanic;
 
     [Header("Step order rules")]
@@ -30,32 +37,43 @@ public class CookingPrepListUI : MonoBehaviour
     private readonly HashSet<string> completed = new HashSet<string>();
     private readonly List<string> orderedIds = new List<string>();
 
+    /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
     public event System.Action OnAllStepsComplete;
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
-    }
 
     private void OnEnable()
     {
+        Instance = this;
         if (cuttingMechanic != null) cuttingMechanic.OnStateChanged += HandleCutStateChanged;
     }
 
     private void OnDisable()
     {
+        if (Instance == this) Instance = null;
         if (cuttingMechanic != null) cuttingMechanic.OnStateChanged -= HandleCutStateChanged;
     }
 
+    /// <summary>Shows every instruction (old behaviour).</summary>
     public void DisplaySteps(RecipeData recipe)
     {
-        Debug.Log($"[PrepList] DisplaySteps called. Existing children: {contentContainer.childCount}", this);
-        Clear();
-        if (recipe == null || contentContainer == null || stepRowPrefab == null) return;
+        if (recipe == null) { Clear(); return; }
 
-        for (int i = 0; i < recipe.cookingInstructions.Count; i++)
+        var all = new List<int>();
+        for (int i = 0; i < recipe.cookingInstructions.Count; i++) all.Add(i);
+        DisplaySteps(recipe, all);
+    }
+
+    /// <summary>Shows only the instructions at the given indices (cut steps OR cooking steps).</summary>
+    public void DisplaySteps(RecipeData recipe, List<int> stepIndices)
+    {
+        Debug.Log($"[PrepList] DisplaySteps called on {name}. Existing children: {(contentContainer != null ? contentContainer.childCount : 0)}", this);
+        Clear();
+        completed.Clear();
+        if (recipe == null || stepIndices == null || contentContainer == null || stepRowPrefab == null) return;
+
+        foreach (int i in stepIndices)
         {
+            if (i < 0 || i >= recipe.cookingInstructions.Count) continue;
+
             GameObject rowGO = Instantiate(stepRowPrefab, contentContainer);
             CookingPrepStepRowUI row = rowGO.GetComponent<CookingPrepStepRowUI>();
             if (row == null)
@@ -66,18 +84,15 @@ public class CookingPrepListUI : MonoBehaviour
 
             row.SetText(recipe.cookingInstructions[i]);
 
+            // Id is built from the ORIGINAL index, so stove order etc. stays correct.
             string id = recipe.GetStepId(i);
             Debug.Log($"[PrepList] row {i} -> id = '{id}'");
             if (!string.IsNullOrEmpty(id))
             {
                 rows[id] = row;
                 if (!orderedIds.Contains(id)) orderedIds.Add(id);
-                row.SetCompleted(completed.Contains(id));
             }
-            else
-            {
-                row.SetCompleted(false);
-            }
+            row.SetCompleted(false);
         }
 
         ResetScrollToTop();
@@ -96,26 +111,20 @@ public class CookingPrepListUI : MonoBehaviour
         }
     }
 
-    /// <summary>True if this id is allowed to happen right now.</summary>
     public bool IsExpected(string id)
     {
         if (!strictOrder) return true;
-        if (orderedIds.Count == 0) return true;   // list not shown yet, don't gate
+        if (orderedIds.Count == 0) return true;
         string current = CurrentStepId;
-        if (current == null) return true;         // everything already done
+        if (current == null) return true;
         return current == id;
     }
 
-    /// <summary>
-    /// Call BEFORE a mini-game applies its result. If it returns false, the action
-    /// must be cancelled (return early, snap the item back, etc). The warning popup
-    /// and heart loss are already handled here.
-    /// </summary>
     public bool TryAccept(string id)
     {
         if (orderedIds.Count > 0 && !rows.ContainsKey(id))
         {
-            Debug.Log($"[PrepList] REJECTED '{id}' - not in this recipe's prep list");
+            Debug.Log($"[PrepList] REJECTED '{id}' - not in this panel's step list");
             ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
             return false;
         }
@@ -135,7 +144,7 @@ public class CookingPrepListUI : MonoBehaviour
         if (current == null) return true;
 
         bool isCutStep = current.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
-                   || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
+                      || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
         bool sameIngredient = current.StartsWith(ingredientId + ":", System.StringComparison.Ordinal);
 
         if (isCutStep && sameIngredient) return true;
@@ -174,17 +183,14 @@ public class CookingPrepListUI : MonoBehaviour
         }
 
         completed.Add(stepId);
-        Debug.Log($"[PrepList] row object = {row.name}, sibling index = {row.transform.GetSiblingIndex()}");
         row.SetCompleted(true);
 
-        // Scroll down by one row (distance between the finished row and the next one)
         string nextId = CurrentStepId;
         if (nextId != null && rows.TryGetValue(nextId, out var nextRow))
         {
             float step = Mathf.Abs(
                 ((RectTransform)nextRow.transform).anchoredPosition.y -
                 ((RectTransform)row.transform).anchoredPosition.y);
-            Debug.Log($"[PrepList] auto-scroll step distance = {step}");
             ScrollBy(step);
         }
 
@@ -216,7 +222,6 @@ public class CookingPrepListUI : MonoBehaviour
     {
         if (scrollRect == null || !isActiveAndEnabled) return;
 
-        // If nothing is animating (e.g. the player dragged the list), start from where it actually is
         if (scrollRoutine == null)
             scrollTargetNorm = scrollRect.verticalNormalizedPosition;
         else
@@ -227,7 +232,6 @@ public class CookingPrepListUI : MonoBehaviour
 
     private IEnumerator ScrollRoutine(float distance)
     {
-        // Let the layout update first
         yield return null;
         Canvas.ForceUpdateCanvases();
 
@@ -237,9 +241,9 @@ public class CookingPrepListUI : MonoBehaviour
             : (RectTransform)scrollRect.transform;
 
         float scrollable = content.rect.height - viewport.rect.height;
-        if (scrollable <= 0f) { scrollRoutine = null; yield break; }   // everything already fits
+        if (scrollable <= 0f) { scrollRoutine = null; yield break; }
 
-        scrollRect.velocity = Vector2.zero;   // stop inertia from fighting the animation
+        scrollRect.velocity = Vector2.zero;
 
         float start = scrollRect.verticalNormalizedPosition;
         scrollTargetNorm = Mathf.Clamp01(scrollTargetNorm - distance / scrollable);

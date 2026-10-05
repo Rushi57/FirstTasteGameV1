@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pitcher w water_0: -5026358191354816851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

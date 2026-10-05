@@ -1,9 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// Listens for RecipeIngredientListUI.OnAllIngredientsCollected and, when it
-/// fires, hides IngredientPrepScrollingObj and shows CookingPrepScrollingObj
-/// populated with the current recipe's instruction steps.
+/// Drives the three prep stages:
+///   1. Ingredient Prep     (IngredientPrepScrollingObj) - until every row is grayed out
+///   2. Ingredient Cut Prep (IngCutPrepScrollObj)        - chop/slice/mince steps
+///   3. Cooking Prep        (CookingPrepScrollingObj)    - stove, oil, pan, etc.
 /// </summary>
 public class CookingPrepPanelController : MonoBehaviour
 {
@@ -11,34 +12,69 @@ public class CookingPrepPanelController : MonoBehaviour
     public RecipeIngredientListUI ingredientList;
 
     [Header("Panels to swap")]
-    public GameObject ingredientPrepPanel; // IngredientPrepScrollingObj
-    public GameObject cookingPrepPanel;    // CookingPrepScrollingObj
+    public GameObject ingredientPrepPanel;    // IngredientPrepScrollingObj
+    public GameObject ingredientCutPrepPanel; // IngCutPrepScrollObj
+    public GameObject cookingPrepPanel;       // CookingPrepScrollingObj
 
-    [Header("Cooking Prep content")]
-    public CookingPrepListUI cookingPrepListUI;
+    [Header("List UIs (one per panel)")]
+    public CookingPrepListUI cutPrepListUI;     // on IngCutPrepScrollObj
+    public CookingPrepListUI cookingPrepListUI; // on CookingPrepScrollingObj
 
-    [Tooltip("The recipe currently being cooked - set this alongside RecipeIngredientListUI.DisplayRecipe() and TableItemSlotManager.currentRecipe.")]
+    [Tooltip("The recipe currently being cooked.")]
     public RecipeData currentRecipe;
 
     private void OnEnable()
     {
         if (ingredientList != null)
-            ingredientList.OnAllIngredientsCollected += HandleAllCollected;
+            ingredientList.OnAllIngredientsSpawned += HandleAllIngredientsSpawned;
+        if (cutPrepListUI != null)
+            cutPrepListUI.OnAllStepsComplete += HandleAllCutsDone;
     }
 
     private void OnDisable()
     {
         if (ingredientList != null)
-            ingredientList.OnAllIngredientsCollected -= HandleAllCollected;
+            ingredientList.OnAllIngredientsSpawned -= HandleAllIngredientsSpawned;
+        if (cutPrepListUI != null)
+            cutPrepListUI.OnAllStepsComplete -= HandleAllCutsDone;
     }
 
-    private void HandleAllCollected()
+    /// <summary>Call when a recipe starts so the player begins on Ingredient Prep.</summary>
+    public void ResetToIngredientStage()
     {
-        Debug.Log("[CookingPrepPanelController] All ingredients collected - switching to Cooking Prep panel.");
+        SetPanels(true, false, false);
+    }
 
-        if (ingredientPrepPanel != null) ingredientPrepPanel.SetActive(false);
-        if (cookingPrepPanel != null) cookingPrepPanel.SetActive(true);
+    // Stage 1 -> 2
+    private void HandleAllIngredientsSpawned()
+    {
+        SetPanels(false, true, false);
 
-        cookingPrepListUI?.DisplaySteps(currentRecipe);
+        if (currentRecipe == null) return;
+
+        var prepIndices = currentRecipe.GetPrepStepIndices();
+        if (prepIndices.Count == 0)
+        {
+            HandleAllCutsDone(); // nothing to cut
+            return;
+        }
+
+        cutPrepListUI?.DisplaySteps(currentRecipe, prepIndices);
+    }
+
+    // Stage 2 -> 3
+    private void HandleAllCutsDone()
+    {
+        SetPanels(false, false, true);
+
+        if (currentRecipe != null)
+            cookingPrepListUI?.DisplaySteps(currentRecipe, currentRecipe.GetCookingStepIndices());
+    }
+
+    private void SetPanels(bool ingredient, bool cut, bool cooking)
+    {
+        if (ingredientPrepPanel != null) ingredientPrepPanel.SetActive(ingredient);
+        if (ingredientCutPrepPanel != null) ingredientCutPrepPanel.SetActive(cut);
+        if (cookingPrepPanel != null) cookingPrepPanel.SetActive(cooking);
     }
 }

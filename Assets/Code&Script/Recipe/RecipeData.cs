@@ -187,4 +187,29 @@ public class RecipeData : ScriptableObject
             if (IsStoveHeatLine(s)) n++;
         return n;
     }
+
+    // A line is a "cutting prep" step if it STARTS with a prep verb
+    public static bool IsPrepLine(string raw)
+    {
+        if (string.IsNullOrEmpty(raw)) return false;
+        string t = raw.ToLowerInvariant().TrimStart();
+        return t.StartsWith("chop") || t.StartsWith("slice")
+            || t.StartsWith("mince") || t.StartsWith("cut");
+    }
+
+    public List<int> GetPrepStepIndices()
+    {
+        var list = new List<int>();
+        for (int i = 0; i < cookingInstructions.Count; i++)
+            if (IsPrepLine(cookingInstructions[i])) list.Add(i);
+        return list;
+    }
+
+    public List<int> GetCookingStepIndices()
+    {
+        var list = new List<int>();
+        for (int i = 0; i < cookingInstructions.Count; i++)
+            if (!IsPrepLine(cookingInstructions[i])) list.Add(i);
+        return list;
+    }
 }

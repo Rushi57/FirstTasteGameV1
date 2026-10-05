@@ -122,12 +122,34 @@ public class CuttingMechanic : MonoBehaviour
     }
 
     // LINK TO "TapToCut" BUTTON
+    // LINK TO "TapToCut" BUTTON
     public void OnTapToCutClicked()
     {
-        if (IsFinished) return; // safety net - shouldn't be clickable anyway once finished
+        if (IsFinished) return;
+        if (!isIndicatorMoving) return;
 
+        // 1. Grade the cut FIRST, while the indicator is still where the player tapped
+        CutQuality quality = EvaluateCutQuality();
 
-        // NEW: work out which state this cut WOULD produce, and ask the prep list first
+        // 2. RED: record it, but do NOT change the state. The indicator keeps bouncing.
+        if (quality == CutQuality.Bad)
+        {
+            UpdateQualityDisplay(quality);
+
+            // Color the current circle red, then add a fresh gray one for the retry
+            if (activeHistoryCircles.Count > 0)
+            {
+                Image currentCircle = activeHistoryCircles[activeHistoryCircles.Count - 1];
+                if (currentCircle != null)
+                    currentCircle.color = ColorForQuality(quality);
+            }
+          //  SpawnNewPlaceholderCircle();
+
+            ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // -15 pts, -1 heart
+            return; // cutCount, ApplyState, and buttons stay untouched
+        }
+
+        // 3. GREEN / YELLOW: check the recipe step is valid
         IngredientPrepState targetState = (cutCount == 0)
             ? IngredientPrepState.Sliced
             : IngredientPrepState.Minced;
@@ -136,19 +158,13 @@ public class CuttingMechanic : MonoBehaviour
         {
             string id = $"{currentIngredient.id}:{targetState}";
             if (!CookingPrepListUI.Instance.TryAccept(id))
-            {
-                // Wrong ingredient, wrong order, or wrong cut type:
-                // popup + heart loss already happened. Nothing is applied or graded.
-                return;
-            }
+                return; // wrong ingredient/order: popup + heart loss already handled
         }
 
-        isIndicatorMoving = false; // freeze indicator
-
-        CutQuality quality = EvaluateCutQuality();
+        // 4. Accept the cut
+        isIndicatorMoving = false;
         UpdateQualityDisplay(quality);
 
-        // Color the current gray placeholder circle instead of spawning a new one
         if (activeHistoryCircles.Count > 0)
         {
             Image currentCircle = activeHistoryCircles[activeHistoryCircles.Count - 1];
@@ -156,15 +172,14 @@ public class CuttingMechanic : MonoBehaviour
                 currentCircle.color = ColorForQuality(quality);
         }
 
-        ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
+        ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // green: 0, yellow: -5 pts
 
         cutCount++;
-        ApplyState(cutCount == 1 ? IngredientPrepState.Sliced : IngredientPrepState.Minced);
+        ApplyState(targetState);
         tapToCutButton.gameObject.SetActive(false);
 
         if (cutCount >= maxCuts)
         {
-            // Used up both cuts (Sliced then Minced) - lock out further cutting entirely
             tapToCutAgainButton.gameObject.SetActive(false);
             OnCuttingFinished?.Invoke();
         }

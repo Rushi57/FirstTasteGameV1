@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 41524c236021f9f4894cf6d21896aba9
+guid: 248fd63e1f5856841b3abc25845b2090
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2905549093005077656
-    second: adobo dish_0
+      213: 7101340964455217209
+    second: StoveDial 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: adobo dish_0
+      name: StoveDial 1_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 79
-        width: 397
-        height: 207
+        x: 0
+        y: 0
+        width: 1408
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 86359f18e7a6da7d0800000000000000
-      internalID: -2905549093005077656
+      spriteID: 938784f8bf70d8260800000000000000
+      internalID: 7101340964455217209
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      adobo dish_0: -2905549093005077656
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

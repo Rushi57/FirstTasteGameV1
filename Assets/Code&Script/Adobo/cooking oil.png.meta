@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cooking oil_0: 312855514268800688
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
