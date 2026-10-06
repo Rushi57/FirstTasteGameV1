@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Turn the dial to the high.
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  - Tap the close Button
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
+  actionType: 1
+  targetId: CloseChopping
   dragSourceId: 
   blockOtherInput: 1

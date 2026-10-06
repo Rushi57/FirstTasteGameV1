@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Hold the pour button
+  - Select the cup measurment
   dialoguePosition: 0
   customPosition: {x: 0, y: 0}
-  actionType: 5
-  targetId: 
+  actionType: 1
+  targetId: CupBtn
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

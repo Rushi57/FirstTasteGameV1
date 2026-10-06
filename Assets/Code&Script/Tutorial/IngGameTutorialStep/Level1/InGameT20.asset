@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Select the tbsp (tablespoon) measurement
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
+  - Turn the dial to the high the red line is the starting of the dial.
+  dialoguePosition: 1
+  customPosition: {x: -386.89, y: 140}
+  actionType: 2
+  targetId: StoveHigh
+  dragSourceId: StoveHigh
   blockOtherInput: 1

@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the Close button
-  dialoguePosition: 0
+  - Drag and drop the spatula in the pan
+  dialoguePosition: 1
   customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
-  blockOtherInput: 0
+  actionType: 2
+  targetId: InsidePan
+  dragSourceId: Spatula
+  blockOtherInput: 1

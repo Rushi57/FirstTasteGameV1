@@ -16,8 +16,8 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - 'One more: tap the water pitcher.'
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
   targetId: Water
   dragSourceId: 

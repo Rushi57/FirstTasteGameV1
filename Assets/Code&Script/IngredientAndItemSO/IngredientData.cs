@@ -1,75 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>Whether this is a cooking ingredient or a utensil/tool.</summary>
-public enum ItemCategory
+public class IngredientData : MonoBehaviour
 {
-    Ingredient,
-    Utensil
-}
-
-/// <summary>Which sized prefab this item should spawn as.</summary>
-public enum ItemSize
-{
-    Small,
-    Large
-}
-
-public enum IngredientPrepState
-{
-    Whole,
-    Sliced,
-    Minced
-}
-
-[System.Serializable]
-public class PrepStateSprite
-{
-    public IngredientPrepState state;
-    public Sprite sprite;
-}
-
-[CreateAssetMenu(fileName = "IngredientData", menuName = "Game/Ingredient Data")]
-public class IngredientData : ScriptableObject, ITutorialIdentifiable
-{
-    [Header("Identity")]
-    [Tooltip("Unique id for this ingredient. Used by TestDrop matching AND by the tutorial system.")]
-    public string id;
-
-    public string displayName;
-
-    [Header("Spawning")]
-    [Tooltip("Whether this is an ingredient or a cooking utensil/tool - determines which prefab IngredientSpawner uses.")]
-    public ItemCategory category = ItemCategory.Ingredient;
-
-    [Tooltip("Small or large sized prefab.")]
-    public ItemSize size = ItemSize.Small;
-
-    [Header("Visual")]
-    public Sprite icon;
-
-
-    [Tooltip("Multiplies the prefab's size for this item. 1 = full prefab size, 0.5 = half. Use it to make small things like garlic look smaller than pork or a pitcher.")]
-    [Range(0.2f, 1.5f)]
-    public float iconScale = 1f;
-
-    [Header("Prep States (optional)")]
-    [Tooltip("Sprite to show for each prep stage, e.g. a different look for Whole vs Sliced vs Minced garlic. Leave empty if this ingredient never changes appearance (e.g. water, a utensil).")]
-    public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
-
-    [Header("Pour Animation (optional)")]
-    [Tooltip("If true, dropping this item on the pan plays the pitcher pour animation instead of just consuming the item.")]
-    public bool playsPourAnimation = false;
-
-    public string TutorialId => id;
-
-    public Sprite GetSpriteForState(IngredientPrepState state)
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        foreach (var entry in stateSprites)
-        {
-            if (entry.state == state)
-                return entry.sprite != null ? entry.sprite : icon;
-        }
-        return icon;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

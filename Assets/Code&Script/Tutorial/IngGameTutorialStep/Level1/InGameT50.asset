@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the close button
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
+  - Tap and hold the pour button.
+  dialoguePosition: 1
+  customPosition: {x: 353.8, y: 140}
+  actionType: 5
+  targetId: PourBtn
   dragSourceId: 
   blockOtherInput: 1

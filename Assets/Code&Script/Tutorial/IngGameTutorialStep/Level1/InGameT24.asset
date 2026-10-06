@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Drag the garlic in the pan
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  - Scroll and tap the 1/2 tbsp to select
+  dialoguePosition: 1
+  customPosition: {x: 424.95, y: 140}
+  actionType: 1
+  targetId: Tbsp1
   dragSourceId: 
-  blockOtherInput: 1
+  blockOtherInput: 0

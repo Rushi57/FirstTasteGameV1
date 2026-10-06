@@ -41,6 +41,7 @@ public class IngInteractable : MonoBehaviour
 
     private void SetupHold(GameObject target, TutorialInteractable interactable)
     {
+        
         var trigger = target.GetComponent<EventTrigger>();
         if (trigger == null) trigger = target.AddComponent<EventTrigger>();
 
@@ -67,5 +68,11 @@ public class IngInteractable : MonoBehaviour
                 interactable.ReportHold();
         });
         trigger.triggers.Add(up);
+
+
+        if (Time.unscaledTime - pressStart >= minHoldSeconds)
+            interactable.ReportHold();
+        else
+            interactable.ReportWrong();   // released too early
     }
 }

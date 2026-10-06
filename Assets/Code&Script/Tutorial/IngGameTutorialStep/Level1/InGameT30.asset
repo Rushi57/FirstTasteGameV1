@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Drag and drop the spatula in the pan
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Add the garlic in the pan.
+  dialoguePosition: 1
+  customPosition: {x: 274, y: 444.71}
   actionType: 2
-  targetId: 
-  dragSourceId: 
+  targetId: InsidePan
+  dragSourceId: Garlic
   blockOtherInput: 1

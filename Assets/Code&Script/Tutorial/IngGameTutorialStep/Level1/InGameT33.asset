@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Add the pork belly
-  dialoguePosition: 0
+  - Grab and start mixing it follow the rotation of instruction below
+  dialoguePosition: 1
   customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  actionType: 4
+  targetId: MiniGameSpatula
   dragSourceId: 
   blockOtherInput: 0

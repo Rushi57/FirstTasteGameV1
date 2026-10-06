@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the cabinet button.
-  dialoguePosition: 0
+  - Add the water
+  dialoguePosition: 1
   customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
+  actionType: 2
+  targetId: InsidePan
+  dragSourceId: Water
   blockOtherInput: 1

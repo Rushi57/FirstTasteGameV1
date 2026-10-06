@@ -16,9 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - ' Good. Now tap the garlic.'
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 0
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
+  actionType: 1
   targetId: Garlic
   dragSourceId: 
   blockOtherInput: 1

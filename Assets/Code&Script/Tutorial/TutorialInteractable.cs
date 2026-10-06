@@ -12,6 +12,9 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class TutorialInteractable : MonoBehaviour
 {
+
+  
+
     [Tooltip("Used if Source Data is not assigned. Must match TutorialStep.targetId for the step that references this object.")]
     public string interactableId;
 
@@ -64,6 +67,10 @@ public class TutorialInteractable : MonoBehaviour
         TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.TripleTap);
     }
 
+    public void ReportWrong()
+    {
+        TutorialManager.Instance?.NotifyWrongAction();
+    }
    
 }
 

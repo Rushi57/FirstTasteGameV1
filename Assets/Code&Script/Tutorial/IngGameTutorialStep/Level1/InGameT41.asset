@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Scroll and find the 1/2 Cup
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Tap the cabinet button
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
-  targetId: 
+  targetId: CabinetId
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

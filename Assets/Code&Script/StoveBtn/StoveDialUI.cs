@@ -11,6 +11,8 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [Tooltip("Degrees to add if your knob art doesn't point straight up at rotation 0.")]
     public float angleOffset = 0f;
 
+    [SerializeField] private TutorialInteractable tutorialInteractable;
+
     private RectTransform knob;
     private Canvas canvas;
     private float currentAngle;   // clockwise from top, 0-360
@@ -62,4 +64,5 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         knob.localRotation = Quaternion.Euler(0f, 0f, -(clockwiseAngle + angleOffset));
     }
+
 }

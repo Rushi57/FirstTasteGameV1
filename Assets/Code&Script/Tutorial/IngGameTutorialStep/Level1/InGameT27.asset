@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Select drag and drop the 1/2 of table spoon in the pepper
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  - Scroll and tap the 1 tbsp
+  dialoguePosition: 1
+  customPosition: {x: -371.46, y: 140}
+  actionType: 1
+  targetId: Tbsp1
   dragSourceId: 
-  blockOtherInput: 1
+  blockOtherInput: 0

@@ -15,10 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - 'Add 1/2 tbsp of pepper tap the pepper in the shelf '
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
+  - Now hold and pour it dont let go until the indicator is on the right or acceptable
+    level
+  dialoguePosition: 1
+  customPosition: {x: 424.95, y: 140}
+  actionType: 5
+  targetId: PourBtn
   dragSourceId: 
   blockOtherInput: 1

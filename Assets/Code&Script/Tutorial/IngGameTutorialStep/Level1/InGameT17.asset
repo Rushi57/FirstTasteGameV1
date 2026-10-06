@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Let's turn on the stove tap the stove
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Tap the cut button
+  dialoguePosition: 1
+  customPosition: {x: 340, y: 494}
   actionType: 1
-  targetId: 
+  targetId: TapToCutBtn
   dragSourceId: 
   blockOtherInput: 1

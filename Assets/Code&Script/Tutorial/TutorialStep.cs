@@ -31,6 +31,11 @@ public enum DialoguePosition
 [CreateAssetMenu(fileName = "TutorialStep", menuName = "Tutorial/Step")]
 public class TutorialStep : ScriptableObject
 {
+
+    [Header("Mistakes")]
+    [Tooltip("Shown when the player does the wrong thing on this step. Falls back to the manager's default if empty.")]
+    [TextArea(1, 3)] public string retryMessage;
+
     [Header("NPC Dialogue")]
     public string npcName = "Guide";
     public Sprite npcPortrait;
@@ -56,4 +61,6 @@ public class TutorialStep : ScriptableObject
     [Header("Input")]
     [Tooltip("If true, block all input except the target and dialogue box while this step is active.")]
     public bool blockOtherInput = true;
+
+
 }

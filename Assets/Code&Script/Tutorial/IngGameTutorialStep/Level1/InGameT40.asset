@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Pick the Cup Measurment
+  - Tap the close button
   dialoguePosition: 0
   customPosition: {x: 0, y: 0}
   actionType: 1
-  targetId: 
+  targetId: CloseMixing
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - 'One more: tap the water pitcher.'
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Tap the close button to close the fridge
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
-  targetId: Water
+  targetId: CloseFridge
   dragSourceId: 
   blockOtherInput: 1

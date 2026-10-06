@@ -15,11 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - ' Now add one tablespoon of cooking oil. The oil is on the shelf.'
-  - ' Tap the cooking oil'
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  - Let's turn on the stove tap the stove
+  dialoguePosition: 1
+  customPosition: {x: -386.89, y: 140}
+  actionType: 1
+  targetId: Stove
   dragSourceId: 
   blockOtherInput: 1

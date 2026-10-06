@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851964bd56e7cb84488b84b8b6271eed, type: 3}
   m_Name: Level5
   m_EditorClassIdentifier: 
-  levelNumber: 5
-  levelName: Chiken Asado
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
+  levelNumber: 0
+  levelName: 
+  recipe: {fileID: 0}
   levelPreviewImage: {fileID: 0}

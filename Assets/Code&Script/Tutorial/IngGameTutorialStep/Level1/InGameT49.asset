@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the stove and reduce the heat to low.
+  - Hold the pour button
   dialoguePosition: 0
   customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
+  actionType: 5
+  targetId: PourBtn
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

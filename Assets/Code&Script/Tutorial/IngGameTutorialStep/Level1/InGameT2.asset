@@ -16,8 +16,8 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Tap the pork belly to place it on the table.
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
   targetId: Pork Belly
   dragSourceId: 

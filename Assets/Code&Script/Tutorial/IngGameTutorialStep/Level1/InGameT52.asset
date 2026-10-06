@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Drag and drop the Pan lid in the pan.
-  dialoguePosition: 0
+  - Tap the stove to open the stove dial.
+  dialoguePosition: 1
   customPosition: {x: 0, y: 0}
-  actionType: 2
-  targetId: 
+  actionType: 1
+  targetId: Stove
   dragSourceId: 
   blockOtherInput: 1

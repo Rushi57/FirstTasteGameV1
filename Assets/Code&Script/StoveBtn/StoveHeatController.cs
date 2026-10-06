@@ -27,6 +27,9 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
 
     [Header("Tutorial")]
     public TutorialInteractable tutorialInteractable;
+    public TutorialInteractable tutorialLow;
+    public TutorialInteractable tutorialMedium;
+    public TutorialInteractable tutorialHigh;
 
     public StoveHeat CurrentHeat { get; private set; } = StoveHeat.Off;
     public event System.Action<StoveHeat> OnHeatChanged;
@@ -83,6 +86,14 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
 
         ApplyVisuals();
         OnHeatChanged?.Invoke(newHeat);
+
+        // Tutorial reports
+        switch (newHeat)
+        {
+            case StoveHeat.Low: tutorialLow?.ReportDrop(); break;
+            case StoveHeat.Medium: tutorialMedium?.ReportDrop(); break;
+            case StoveHeat.High: tutorialHigh?.ReportDrop(); break;
+        }
 
         if (confirmRoutine != null)
         {

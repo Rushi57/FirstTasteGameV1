@@ -16,9 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Drag the knife to start cutting
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 2
-  targetId: 
-  dragSourceId: 
+  targetId: ChoppingBoard
+  dragSourceId: knifeObj
   blockOtherInput: 1

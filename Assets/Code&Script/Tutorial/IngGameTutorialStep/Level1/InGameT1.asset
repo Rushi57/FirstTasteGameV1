@@ -16,8 +16,8 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Tap the Fridge Icon
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 130}
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
   targetId: FridgeId
   dragSourceId: 

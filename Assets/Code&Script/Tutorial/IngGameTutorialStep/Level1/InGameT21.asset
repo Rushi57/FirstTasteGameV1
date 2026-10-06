@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the 1/2 tbsp to select
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Close the Dial
+  dialoguePosition: 1
+  customPosition: {x: -386.89, y: 140}
   actionType: 1
-  targetId: 
+  targetId: CloseStoveDial
   dragSourceId: 
   blockOtherInput: 1

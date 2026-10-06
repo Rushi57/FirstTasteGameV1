@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - 'Tap the cabinet icon '
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - 'Tap the close button '
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
-  targetId: 
+  targetId: CloseCabinet
   dragSourceId: 
-  blockOtherInput: 0
+  blockOtherInput: 1

@@ -18,9 +18,9 @@ MonoBehaviour:
   - 'Drag the cut pork belly back to the table to clear the board.
 
 '
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
+  actionType: 2
+  targetId: TableZoneDrop
+  dragSourceId: Pork Belly
   blockOtherInput: 1

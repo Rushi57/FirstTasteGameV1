@@ -16,9 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - See the circle at the top? It shows the current cut state
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
+  actionType: 0
   targetId: 
   dragSourceId: 
   blockOtherInput: 1

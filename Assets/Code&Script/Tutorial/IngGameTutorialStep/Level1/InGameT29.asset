@@ -15,10 +15,10 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Saute it using the spatula open the cabinet icon at the top
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
-  blockOtherInput: 1
+  - Drag the 1/2 tbsp in the pepper
+  dialoguePosition: 1
+  customPosition: {x: 390, y: 140}
+  actionType: 2
+  targetId: PepperJar
+  dragSourceId: Tbsp_1_2
+  blockOtherInput: 0
