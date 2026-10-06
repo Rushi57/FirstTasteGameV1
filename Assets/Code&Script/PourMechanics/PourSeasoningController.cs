@@ -55,6 +55,33 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarSpoonFillSprite;    // optional
     public Sprite cookingOilSpoonFillSprite; // optional
 
+    [Header("Measuring tool image (Tbps_Tsp_CupImage)")]
+    [Tooltip("The Image on Tbps_Tsp_CupImage. Its sprite changes to the picked measurement.")]
+    public Image toolImage;
+    [Serializable]
+    public class MeasurementSprite
+    {
+        public MeasureTool tool;
+        [Tooltip("Must match the MeasurementButton's Ml value (e.g. 15 for 1 tbsp, 250 for 1 cup).")]
+        public float ml;
+        [Tooltip("Sprite shown on Tbps_Tsp_CupImage for this measurement.")]
+        public Sprite toolSprite;
+        [Tooltip("Optional: sprite for FillSpoonImage shaped to this measurement. Leave empty to keep the current one.")]
+        public Sprite fillSprite;
+        [Tooltip("Position of FillSpoonImage inside Tbps_Tsp_CupImage (its Pos X / Pos Y), so the liquid sits in the bowl.")]
+        public Vector2 fillPosition;
+        [Tooltip("Width / Height of FillSpoonImage for this measurement. Leave (0,0) to keep the current size.")]
+        public Vector2 fillSize;
+        [Tooltip("Optional: sprite used by the stove-top pour animation (TbpsImage / CupImage). Leave empty to use Tool Sprite.")]
+        public Sprite animSprite;
+    }
+    [Tooltip("Tint the stove-top animation image with the seasoning color (multiplies the sprite).")]
+    public bool tintAnimation = false;
+    [Tooltip("One entry per measurement button (tool + ml -> sprite).")]
+    public List<MeasurementSprite> measurementSprites = new List<MeasurementSprite>();
+    [Tooltip("Resize the tool image to the sprite's native size (multiplied by this) when it changes. 0 = keep current size.")]
+    public float nativeSizeMultiplier = 0f;
+
     [Header("Colors (particles + glass + stove animation)")]
     public Color soyColor = new Color(0.25f, 0.12f, 0.02f, 1f);      // dark brown
     public Color vinegarColor = new Color(0.85f, 0.85f, 0.6f, 1f);   // pale yellow
@@ -88,9 +115,10 @@ public class PourSeasoningController : MonoBehaviour
     private readonly List<MeasurementButton> allButtons = new List<MeasurementButton>();
     private readonly HashSet<int> completedLines = new HashSet<int>();
 
- 
+
 
     // Set once a correct pour lands; consumed when the panel is closed
+    private MeasurementSprite pendingEntry;
     private bool pendingSuccess;
     private int pendingLineIndex = -1;
 
@@ -131,7 +159,7 @@ public class PourSeasoningController : MonoBehaviour
         //Wrong Step Gate
         string stepId = $"Pour:{seasoning}";
         var prep = CookingPrepListUI.Instance;
-        if(prep != null && prep.CurrentStepId != stepId)
+        if (prep != null && prep.CurrentStepId != stepId)
         {
             ScoreManager.Instance?.ReportMistake("Wrong Step!\nMinus 1 heart", 0, 1);
             return;
@@ -158,7 +186,7 @@ public class PourSeasoningController : MonoBehaviour
             glassImage.color = Color.white;
         }
 
-        if(fillSpoonImage != null)
+        if (fillSpoonImage != null)
         {
             Sprite fillSprite = seasoning switch
             {
@@ -166,7 +194,7 @@ public class PourSeasoningController : MonoBehaviour
                 SeasoningType.Vinegar => vinegarSpoonFillSprite,
                 _ => cookingOilSpoonFillSprite
             };
-            if(fillSprite != null) fillSpoonImage.sprite = fillSprite;
+            if (fillSprite != null) fillSpoonImage.sprite = fillSprite;
 
             Color c = color;
             c.a = fillSpoonImage.color.a;
@@ -218,6 +246,11 @@ public class PourSeasoningController : MonoBehaviour
 
             if (anim != null)
             {
+                // Show the same spoon/cup the player picked in the stove-top animation
+                if (pendingEntry != null)
+                    anim.SetSprite(pendingEntry.animSprite != null ? pendingEntry.animSprite : pendingEntry.toolSprite);
+                anim.SetColor(tintAnimation ? color : Color.white);
+
                 Debug.Log($"[Pour] Panel closed after a correct pour - playing {chosenTool} animation before completing '{stepId}'.");
 
                 anim.PlayPourAnimation(color, () =>
@@ -235,13 +268,14 @@ public class PourSeasoningController : MonoBehaviour
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
                 panLiquid.AddLiquid(seasoning, color, ml);
-                
+
             }
         }
 
         ClearSelection();
         pendingSuccess = false;
         pendingLineIndex = -1;
+        pendingEntry = null;
 
         Debug.Log("[Pour] Closed.");
     }
@@ -265,7 +299,57 @@ public class PourSeasoningController : MonoBehaviour
 
         if (pourMechanic != null) pourMechanic.SetTarget(btn.Ml);
 
+        ApplyToolVisual(btn.Ml);
+
         Debug.Log($"[Pour] Selected {btn.Label} = {btn.Ml:0.##} ml");
+    }
+
+    /// <summary>Swaps the cup/spoon sprite for the picked measurement and makes
+    /// FillSpoonImage match its size. FillSpoonImage's color is left untouched.</summary>
+    private MeasurementSprite FindEntry(float ml)
+    {
+        foreach (var e in measurementSprites)
+            if (e.tool == chosenTool && Mathf.Abs(e.ml - ml) < 0.01f) return e;
+        return null;
+    }
+
+    private void ApplyToolVisual(float ml)
+    {
+        if (toolImage == null) return;
+
+        MeasurementSprite entry = FindEntry(ml);
+        if (entry == null)
+        {
+            Debug.LogWarning($"[Pour] No sprite entry for {chosenTool} {ml:0.##} ml (add it to Measurement Sprites).");
+            return;
+        }
+
+        if (entry.toolSprite != null)
+        {
+            toolImage.sprite = entry.toolSprite;
+            toolImage.preserveAspect = true;
+            if (nativeSizeMultiplier > 0f)
+            {
+                toolImage.SetNativeSize();
+                RectTransform tr = toolImage.rectTransform;
+                tr.sizeDelta = tr.sizeDelta * nativeSizeMultiplier;
+            }
+        }
+
+        if (fillSpoonImage != null)
+        {
+            if (entry.fillSprite != null) fillSpoonImage.sprite = entry.fillSprite;
+
+            // Place/size the liquid circle inside the bowl of this spoon/cup.
+            RectTransform fr = fillSpoonImage.rectTransform;
+            if (fr.parent == toolImage.rectTransform)
+            {
+                fr.anchorMin = fr.anchorMax = new Vector2(0.5f, 0.5f);
+                fr.pivot = new Vector2(0.5f, 0.5f);
+                fr.anchoredPosition = entry.fillPosition;
+                if (entry.fillSize.sqrMagnitude > 0f) fr.sizeDelta = entry.fillSize;
+            }
+        }
     }
 
     private void ClearSelection()
@@ -313,6 +397,7 @@ public class PourSeasoningController : MonoBehaviour
             pendingSuccess = true;
             pendingLineIndex = lineIndex;
             pendingMl = selected.Ml;
+            pendingEntry = FindEntry(selected.Ml);
         }
 
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
@@ -388,7 +473,7 @@ public class PourSeasoningController : MonoBehaviour
         tbspAnimation?.Hide();
         panLiquid.Clear();
         ClearSelection();
-       
+
     }
 
 

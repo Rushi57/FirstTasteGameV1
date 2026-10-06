@@ -39,7 +39,16 @@ public class PourAnimationController : MonoBehaviour
 
     public void SetColor(Color color)
     {
+        if (image == null) image = GetComponent<Image>();
         if (image != null) image.color = color;
+    }
+
+    /// <summary>Swaps the sprite shown during the pour (e.g. 1 tsp / 1/2 tbsp / 1 cup).</summary>
+    public void SetSprite(Sprite sprite)
+    {
+        if (sprite == null) return;
+        if (image == null) image = GetComponent<Image>();
+        if (image != null) image.sprite = sprite;
     }
 
     /// <summary>Activates this object, resets to Idle, tints it, then tilts -> holds -> returns.</summary>

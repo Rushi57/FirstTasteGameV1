@@ -386,7 +386,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -118}
-  m_SizeDelta: {x: 475.1, y: 53.2}
+  m_SizeDelta: {x: 528.9, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &94644746
 MonoBehaviour:
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1394,7 +1394,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -111.20001, y: -60.52}
+  m_AnchoredPosition: {x: -84.2, y: -112.7}
   m_SizeDelta: {x: 85, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &364352392
@@ -1503,6 +1503,7 @@ GameObject:
   - component: {fileID: 368955910}
   - component: {fileID: 368955909}
   - component: {fileID: 368955908}
+  - component: {fileID: 368955911}
   m_Layer: 5
   m_Name: SettingPanel
   m_TagString: Untagged
@@ -1590,6 +1591,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368955906}
   m_CullTransparentMesh: 1
+--- !u!114 &368955911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368955906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b153e1c4d8b6244b995e3865c69a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 53c36353fd4c7a64d8f3620b1ebc3f7e, type: 2}
+  musicSlider: {fileID: 889807301}
+  sfxSlider: {fileID: 94644746}
 --- !u!1 &388414170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3622,7 +3638,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 59}
-  m_SizeDelta: {x: 475.1, y: 53.2}
+  m_SizeDelta: {x: 528.9, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &889807301
 MonoBehaviour:
@@ -5451,7 +5467,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 500}
+  m_SizeDelta: {x: 900, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795469786
 MonoBehaviour:
