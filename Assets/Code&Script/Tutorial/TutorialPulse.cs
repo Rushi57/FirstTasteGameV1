@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TutorialPulse : MonoBehaviour
 {
+
+
     [Tooltip("Smallest scale multiplier during the pulse.")]
     public float minScale = 1f;
 

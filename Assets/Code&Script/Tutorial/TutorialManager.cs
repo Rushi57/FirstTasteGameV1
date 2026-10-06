@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections;
 /// <summary>
 /// Drives the tutorial: shows dialogue lines in order, waits for the required
 /// player action (if any), highlights the target, blocks other input, then
@@ -32,6 +32,17 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("ON: tutorial starts when the scene loads (Map scene). OFF: something else, like StoryTeller, calls StartTutorial().")]
     public bool autoStart = true;
 
+    [Header("Mistakes")]
+    [Tooltip("Master switch for reverting when the player makes a mistake.")]
+    public bool revertOnMistake = true;
+
+
+    [Tooltip("How many steps to go back on a mistake. 0 = replay the current step, 1 = previous step.")]
+    [Min(0)] public int stepsToRevert = 1;
+
+
+    private string[] currentLines;          // lines actually being played (may include a mistake message)
+    private string pendingMistakeMessage;
     // A persisted, comma-separated list of every tutorialId that has ever
     // run in this game - lets ResetAllTutorials() find and clear every
     // tutorial's progress from a single static call, even from a scene
@@ -63,6 +74,12 @@ public class TutorialManager : MonoBehaviour
 
     private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
 
+
+    private Coroutine advanceRoutine;
+    private int busyCount;
+
+
+    public bool IsActive => tutorialActive;
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -245,6 +262,15 @@ public class TutorialManager : MonoBehaviour
     {
         TutorialStep step = steps[stepIndex];
 
+        currentLines = step.dialogueLines;
+        if (!string.IsNullOrEmpty(pendingMistakeMessage))
+        {
+            var list = new List<string> { pendingMistakeMessage };
+            list.AddRange(step.dialogueLines);
+            currentLines = list.ToArray();
+            pendingMistakeMessage = null;
+        }
+
         RectTransform targetRect = null;
         if (!string.IsNullOrEmpty(step.targetId) && registry.TryGetValue(step.targetId.Trim(), out var target))
             targetRect = target.RectTransform;
@@ -389,12 +415,12 @@ public class TutorialManager : MonoBehaviour
     private void PlayCurrentLine()
     {
         TutorialStep step = steps[stepIndex];
-        bool isLastLine = lineIndex >= step.dialogueLines.Length - 1;
+        bool isLastLine = lineIndex >= currentLines.Length - 1;
         // Show the "Next" button only if this line doesn't hand off to a
         // required game action, OR it's not yet the last line.
         bool showNext = !isLastLine || step.actionType == TutorialActionType.None;
 
-        dialogueBox.PlayLine(step.dialogueLines[lineIndex], showNext);
+        dialogueBox.PlayLine(currentLines[lineIndex], showNext);
 
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
         tapCount = 0;
@@ -415,10 +441,10 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleNextPressed()
     {
-        if (waitingForAction) return; // shouldn't happen, but guard anyway
+        if(waitingForAction || advanceRoutine != null) return; // shouldn't happen, but guard anyway
 
         TutorialStep step = steps[stepIndex];
-        if (lineIndex < step.dialogueLines.Length - 1)
+        if (lineIndex < currentLines.Length - 1)
         {
             lineIndex++;
             PlayCurrentLine();
@@ -441,16 +467,74 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        
+
 
         if (step.targetId?.Trim() != id || step.actionType != type)
         {
-            Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match current step's expected targetId='{step.targetId}', actionType={step.actionType} - action rejected. Check for an empty/mismatched Interactable Id.");
+            Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match step '{step.name}' (expected '{step.targetId}', {step.actionType}).");
+            HandleMistake(step);
             return;
         }
 
         waitingForAction = false;
+        ClearPulses();   // stop pulsing while the animation plays
+        CancelPendingAdvance();
+        advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
+    }
+
+    /// <summary>Call when a mechanic starts an animation the tutorial must wait for.</summary>
+    public void BeginBusy() => busyCount++;
+
+    /// <summary>Call when that animation finishes.</summary>
+    public void EndBusy() => busyCount = Mathf.Max(0, busyCount - 1);
+
+    private IEnumerator AdvanceWhenReady(TutorialStep step)
+    {
+        if (step.advanceDelay > 0f)
+            yield return new WaitForSecondsRealtime(step.advanceDelay);
+
+        // Also wait for any animation that registered itself as busy.
+        while (busyCount > 0)
+            yield return null;
+
+        advanceRoutine = null;
         AdvanceStep();
+    }
+
+    private void CancelPendingAdvance()
+    {
+        if (advanceRoutine != null)
+        {
+            StopCoroutine(advanceRoutine);
+            advanceRoutine = null;
+        }
+        busyCount = 0;
+    }
+
+    private void GoToStep(int index)
+    {
+        stepIndex = Mathf.Clamp(index, 0, steps.Count - 1);
+        lineIndex = 0;
+        waitingForAction = false;
+        PlayerPrefs.SetInt(ProgressKey, stepIndex);
+        PlayerPrefs.Save();
+        BeginCurrentStep();
+    }
+
+    public void ReportMistake()
+    {
+        if (!tutorialActive || !waitingForAction) return;
+        HandleMistake(steps[stepIndex]);
+    }
+
+    private void HandleMistake(TutorialStep failedStep)
+    {
+        if (!revertOnMistake || !failedStep.revertOnMistake) return;
+
+        waitingForAction = false;
+        pendingMistakeMessage = failedStep.mistakeMessage;
+        Debug.Log($"[TutorialManager] Mistake on step '{failedStep.name}' - reverting {stepsToRevert} step(s).");
+        GoToStep(stepIndex - stepsToRevert);
     }
 
     private void EndTutorial()

@@ -15,10 +15,13 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Select the tbsp (tablespoon) measurement
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 1
-  targetId: 
-  dragSourceId: 
+  - In rotate the dial pointing to high the red line is the arrow
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: -420.45, y: 145}
+  actionType: 2
+  targetId: StoveHigh
+  dragSourceId: StoveHigh
   blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

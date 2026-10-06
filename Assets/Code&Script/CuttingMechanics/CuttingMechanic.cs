@@ -56,6 +56,9 @@ public class CuttingMechanic : MonoBehaviour
     [Tooltip("Optional: shows 'Whole' / 'Sliced' / 'Minced'")]
     public TMP_Text stateLabel;
 
+    [Header("Tutorial")]
+    public TutorialInteractable tutorialInteractable;
+
     private IngredientData currentIngredient;
     public IngredientPrepState CurrentState { get; private set; } = IngredientPrepState.Whole;
 
@@ -80,6 +83,8 @@ public class CuttingMechanic : MonoBehaviour
 
     void Awake()
     {
+        if(tutorialInteractable ==  null)
+            tutorialInteractable =tapToCutButton.GetComponent<TutorialInteractable>();
         tapToCutAgainButton.gameObject.SetActive(false);
 
         // Travel bounds based on the meter's full background width
@@ -143,7 +148,12 @@ public class CuttingMechanic : MonoBehaviour
                 if (currentCircle != null)
                     currentCircle.color = ColorForQuality(quality);
             }
-          //  SpawnNewPlaceholderCircle();
+
+            bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+            if (inTutorial)
+                tutorialInteractable?.ReportMistake();
+            else
+            //  SpawnNewPlaceholderCircle();
 
             ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // -15 pts, -1 heart
             return; // cutCount, ApplyState, and buttons stay untouched
@@ -173,7 +183,7 @@ public class CuttingMechanic : MonoBehaviour
         }
 
         ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // green: 0, yellow: -5 pts
-
+        tutorialInteractable?.ReportTap();
         cutCount++;
         ApplyState(targetState);
         tapToCutButton.gameObject.SetActive(false);

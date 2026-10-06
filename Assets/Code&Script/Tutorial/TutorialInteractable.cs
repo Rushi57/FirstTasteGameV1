@@ -64,7 +64,11 @@ public class TutorialInteractable : MonoBehaviour
         TutorialManager.Instance?.NotifyAction(ResolvedId, TutorialActionType.TripleTap);
     }
 
-   
+    /// <summary>Call when the player does the wrong thing with this object.</summary>
+    public void ReportMistake()
+    {
+        TutorialManager.Instance?.ReportMistake();
+    }
 }
 
 /// <summary>

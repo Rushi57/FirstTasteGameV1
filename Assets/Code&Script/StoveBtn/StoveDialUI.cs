@@ -15,10 +15,13 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Canvas canvas;
     private float currentAngle;   // clockwise from top, 0-360
 
+    private TutorialInteractable[] interactables;
+
     private void Awake()
     {
         knob = (RectTransform)transform;
         canvas = GetComponentInParent<Canvas>();
+        interactables = GetComponents<TutorialInteractable>();
     }
 
     /// Called by the stove so the knob matches the current heat.
@@ -38,8 +41,11 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         currentAngle = step * 90f;
         ApplyRotation(currentAngle);
 
+        StoveHeat heat = (StoveHeat)step;
         if (stove != null)
-            stove.SetHeat((StoveHeat)step);
+            stove.SetHeat(heat);
+
+        ReportToTutorial(heat);
     }
 
     private void UpdateAngle(PointerEventData e)
@@ -61,5 +67,19 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private void ApplyRotation(float clockwiseAngle)
     {
         knob.localRotation = Quaternion.Euler(0f, 0f, -(clockwiseAngle + angleOffset));
+    }
+    private void ReportToTutorial(StoveHeat heat)
+    {
+        string wantedId = "Stove" + heat;   // StoveLow, StoveHigh, ...
+        foreach (var t in interactables)
+        {
+            if (t.ResolvedId == wantedId)
+            {
+                t.ReportDrop();
+                return;
+            }
+        }
+        // No interactable for this heat (Off/Medium) = wrong choice.
+        TutorialManager.Instance?.ReportMistake();
     }
 }

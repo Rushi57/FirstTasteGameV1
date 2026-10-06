@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
+  m_Name: SauteWithPork 1
+  m_EditorClassIdentifier: 
+  npcName: Kris
+  npcPortrait: {fileID: 0}
+  dialogueLines:
+  - Tap the cabinet button
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: -386.7, y: 403.83}
+  actionType: 1
+  targetId: CabinetId
+  dragSourceId: 
+  blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

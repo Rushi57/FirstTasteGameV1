@@ -15,11 +15,12 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - If the recipe required is simmer the hand in the clock will move fast.
-  - Tap the stop button.
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Tap the cabinet button.
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 140}
   actionType: 1
-  targetId: 
+  targetId: CabinetId
   dragSourceId: 
   blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

@@ -15,11 +15,13 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Now hold and pour it dont let go until the indicator is on the right or acceptable
-    level
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
-  actionType: 5
-  targetId: 
+  - 'Tap the cabinet button at the top '
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 145}
+  actionType: 1
+  targetId: CabinetId
   dragSourceId: 
   blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

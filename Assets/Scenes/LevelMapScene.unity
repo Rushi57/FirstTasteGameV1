@@ -2891,7 +2891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: SoySoy
+  interactableId: Soy
   sourceData: {fileID: 0}
 --- !u!1 &274483134
 GameObject:
@@ -6116,11 +6116,11 @@ RectTransform:
   - {fileID: 1346437103}
   - {fileID: 1908031174}
   - {fileID: 864441034}
-  - {fileID: 900164823}
   - {fileID: 1764943754}
   - {fileID: 663329906}
   - {fileID: 878492707}
   - {fileID: 1163599450}
+  - {fileID: 900164823}
   m_Father: {fileID: 1723323984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6945,6 +6945,8 @@ GameObject:
   - component: {fileID: 509532173}
   - component: {fileID: 509532172}
   - component: {fileID: 509532174}
+  - component: {fileID: 509532176}
+  - component: {fileID: 509532175}
   m_Layer: 5
   m_Name: DialImage
   m_TagString: Untagged
@@ -7024,6 +7026,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stove: {fileID: 864441038}
   angleOffset: 0
+--- !u!114 &509532175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509532170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: StoveLow
+  sourceData: {fileID: 0}
+--- !u!114 &509532176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509532170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: StoveHigh
+  sourceData: {fileID: 0}
 --- !u!1 &513707825
 GameObject:
   m_ObjectHideFlags: 0
@@ -20817,7 +20847,7 @@ GameObject:
   - component: {fileID: 1015027181}
   - component: {fileID: 1015027180}
   m_Layer: 5
-  m_Name: CookingOilBtn (1)
+  m_Name: AtsueteBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20854,7 +20884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: CookingOil
+  interactableId: Atsuete
   sourceData: {fileID: 0}
 --- !u!114 &1015027181
 MonoBehaviour:
@@ -23827,6 +23857,7 @@ GameObject:
   - component: {fileID: 1182531632}
   - component: {fileID: 1182531631}
   - component: {fileID: 1182531630}
+  - component: {fileID: 1182531633}
   m_Layer: 5
   m_Name: CloseStoveDial
   m_TagString: Untagged
@@ -23935,6 +23966,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182531628}
   m_CullTransparentMesh: 1
+--- !u!114 &1182531633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182531628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: CloseStoveDial
+  sourceData: {fileID: 0}
 --- !u!1 &1196578807
 GameObject:
   m_ObjectHideFlags: 0
@@ -24349,6 +24394,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e5ba1d04524a48240a8ce956cb2679e8, type: 2}
   - {fileID: 11400000, guid: 6b813e792074eb64ca7cfc41501b8d2b, type: 2}
   - {fileID: 11400000, guid: 47ec494ec63076a4b8e8bd67578f7525, type: 2}
+  - {fileID: 11400000, guid: a98954546cf75ac499f713af3f0443dc, type: 2}
   - {fileID: 11400000, guid: 2cbdc379a0e7e0e4babdef8b0d3f3e1e, type: 2}
   - {fileID: 11400000, guid: 8b494da7d54e86041a864aa8f009f8d6, type: 2}
   - {fileID: 11400000, guid: 3a7c290dc154bac45bc6e646193a8cdc, type: 2}
@@ -24369,12 +24415,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e44d428dc58709f44b8234719770df12, type: 2}
   - {fileID: 11400000, guid: cb36c8b6f250022488c8bbfc7123c223, type: 2}
   - {fileID: 11400000, guid: 0fc3bdb5c16cb184293098ecc3f65d80, type: 2}
+  - {fileID: 11400000, guid: 02f2ebcebf178654e868bdeb8244e56b, type: 2}
+  - {fileID: 11400000, guid: af08ae0b0c76f8049add228da7c73bf7, type: 2}
+  - {fileID: 11400000, guid: 7893fdbfe105c0249afec8e05713c807, type: 2}
+  - {fileID: 11400000, guid: ab64e090cff68ef40bc4a4baabffc36c, type: 2}
+  - {fileID: 11400000, guid: 6caefbf184e47c8458a3d360554f54b7, type: 2}
+  - {fileID: 11400000, guid: b54cf3e9e20312a45a43119f58bc05f1, type: 2}
   - {fileID: 11400000, guid: 82199180c574f254bbda706127c0df46, type: 2}
   - {fileID: 11400000, guid: ed8a5f7b6a72ef64d9b64d8f7e14eb67, type: 2}
   - {fileID: 11400000, guid: b4899d729000e4c48a0efa2472a889ba, type: 2}
   - {fileID: 11400000, guid: 47ba221577bf6b344b0dbebcf7069b43, type: 2}
   - {fileID: 11400000, guid: 12e09bf7f62778d4cab7e58613be1dba, type: 2}
-  - {fileID: 11400000, guid: 47ba221577bf6b344b0dbebcf7069b43, type: 2}
   - {fileID: 11400000, guid: b9c2ce91317683e45a861be8a58a7bba, type: 2}
   - {fileID: 11400000, guid: 143748083f6f3904a8851008cbf70f58, type: 2}
   - {fileID: 11400000, guid: 6e6b523ba2f29c04e9b6bfa6b6e54b7c, type: 2}
@@ -24391,6 +24442,8 @@ MonoBehaviour:
   resumeFromLastStep: 0
   saveImmediately: 1
   autoStart: 1
+  revertOnMistake: 1
+  stepsToRevert: 1
   dialogueBox: {fileID: 909886216}
   inputBlocker: {fileID: 789347064}
   pulseTargets: 1
@@ -24407,32 +24460,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons:
-  - {fileID: 861224346}
   - {fileID: 561000625}
-  - {fileID: 1846127376}
-  - {fileID: 1141680568}
-  - {fileID: 526979872}
-  - {fileID: 1196904757}
+  - {fileID: 861224346}
   - {fileID: 646874321}
-  - {fileID: 855815276}
-  - {fileID: 1839686195}
-  - {fileID: 487761822}
-  - {fileID: 332395951}
-  - {fileID: 589164092}
-  - {fileID: 864441037}
-  - {fileID: 864441037}
-  - {fileID: 927912593}
   - {fileID: 387139333}
   - {fileID: 260044848}
   - {fileID: 1296183215}
   - {fileID: 1098676826}
+  - {fileID: 1196904757}
+  - {fileID: 1182531630}
+  - {fileID: 1846127376}
+  - {fileID: 1141680568}
+  - {fileID: 526979872}
+  - {fileID: 855815276}
+  - {fileID: 1839686195}
   - {fileID: 875827928}
   - {fileID: 758290479}
-  - {fileID: 736399428}
+  - {fileID: 487761822}
+  - {fileID: 1059088775}
+  - {fileID: 332395951}
   - {fileID: 20809503}
   - {fileID: 338230378}
-  - {fileID: 1893494041}
-  - {fileID: 1059088775}
+  - {fileID: 736399428}
+  - {fileID: 589164092}
   holdButtons:
   - {fileID: 228303552}
   minHoldSeconds: 0.5
@@ -32851,6 +32901,7 @@ MonoBehaviour:
   maxCuts: 2
   ingredientImage: {fileID: 2061323928}
   stateLabel: {fileID: 1047500677}
+  tutorialInteractable: {fileID: 0}
 --- !u!1 &1980822838
 GameObject:
   m_ObjectHideFlags: 0
@@ -34119,7 +34170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: knifeObj
+  interactableId: KnifeObj
   sourceData: {fileID: 0}
 --- !u!114 &2053669191
 MonoBehaviour:

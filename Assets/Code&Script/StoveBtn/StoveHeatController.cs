@@ -63,7 +63,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         if (dialPanel == null) return;
         dialPanel.SetActive(true);
         dialUI?.SetVisual(CurrentHeat);
-        tutorialInteractable?.ReportTripleTap();   // see note below
+        tutorialInteractable?.ReportTap();   // see note below
     }
 
     public void CloseDial()
@@ -164,9 +164,11 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         }
     }
 
+
     public void SetRecipe(RecipeData newRecipe)
     {
         recipe = newRecipe;
         ResetStoveProgress();
     }
+
 }

@@ -59,7 +59,7 @@ public class PourAnimationPlayer : MonoBehaviour
     public bool Play(Action onFinished)
     {
         if (IsPlaying || pitcher == null) return false;
-
+        TutorialManager.Instance?.BeginBusy();
         StartCoroutine(Run(onFinished));
         return true;
     }
@@ -101,6 +101,7 @@ public class PourAnimationPlayer : MonoBehaviour
         pitcher.gameObject.SetActive(false);
 
         IsPlaying = false;
+        TutorialManager.Instance?.EndBusy();
         onFinished?.Invoke();
     }
 
@@ -116,5 +117,13 @@ public class PourAnimationPlayer : MonoBehaviour
             yield return null;
         }
         apply(1f);
+    }
+    void OnDisable()
+    {
+        if (IsPlaying)
+        {
+            IsPlaying = false;
+            TutorialManager.Instance?.EndBusy();
+        }
     }
 }

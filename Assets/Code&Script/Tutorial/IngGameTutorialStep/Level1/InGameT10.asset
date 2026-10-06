@@ -17,9 +17,12 @@ MonoBehaviour:
   dialogueLines:
   - 'Watch the meter: the indicator bounces from left to right.'
   - Green means very good timing. Yellow means good. Red means poor.
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 145}
   actionType: 0
   targetId: 
   dragSourceId: 
   blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

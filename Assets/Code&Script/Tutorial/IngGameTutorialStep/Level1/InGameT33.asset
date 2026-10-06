@@ -15,10 +15,13 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Add the pork belly
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  - Drag the 1/2 tbsp in the pepper container
+  advanceDelay: 1
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 145}
   actionType: 2
-  targetId: 
-  dragSourceId: 
-  blockOtherInput: 0
+  targetId: PepperJar
+  dragSourceId: Tbsp_1_2
+  blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

@@ -38,6 +38,10 @@ public class TutorialStep : ScriptableObject
     [TextArea(2, 5)]
     public string[] dialogueLines;
 
+    [Header("Timing")]
+    [Tooltip("Seconds to wait after the player completes the action before moving to the next step. Use this to let the mechanic's animation finish.")]
+    [Min(0)] public float advanceDelay = 0f;
+
     [Tooltip("Where the dialogue box should be placed for this step. Auto picks whichever of the box's two preset positions (Top/Bottom on DialogueBoxUI) doesn't overlap the target. Custom uses the exact Custom Position below instead.")]
     public DialoguePosition dialoguePosition = DialoguePosition.Auto;
 
@@ -56,4 +60,12 @@ public class TutorialStep : ScriptableObject
     [Header("Input")]
     [Tooltip("If true, block all input except the target and dialogue box while this step is active.")]
     public bool blockOtherInput = true;
+
+    [Header("Mistakes")]
+    [Tooltip("If the player does the wrong thing on this step, revert the tutorial to an earlier step.")]
+    public bool revertOnMistake = true;
+
+    [TextArea(1, 3)]
+    [Tooltip("Shown before the replayed dialogue after a mistake. Leave empty for none.")]
+    public string mistakeMessage = "Oops, that's not quite right. Let's go over it again!";
 }
