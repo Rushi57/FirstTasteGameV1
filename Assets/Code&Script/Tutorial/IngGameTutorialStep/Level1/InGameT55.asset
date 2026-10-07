@@ -18,6 +18,7 @@ MonoBehaviour:
   - If the recipe required is simmer the hand in the clock will move fast.
   - Tap the stop button.
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 298.3, y: 387}
   actionType: 1

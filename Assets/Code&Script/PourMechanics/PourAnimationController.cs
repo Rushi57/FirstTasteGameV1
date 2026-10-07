@@ -35,7 +35,9 @@ public class PourAnimationController : MonoBehaviour
     private RectTransform rect;
     private Coroutine running;
 
-  
+    [Tooltip("Stream disappears the moment the cup starts tilting back.")]
+    public bool hideStreamOnReturn = true;
+    private bool returning;
 
     private void Awake()
     {
@@ -60,6 +62,7 @@ public class PourAnimationController : MonoBehaviour
     /// <summary>Activates this object, resets to Idle, tints it, then tilts -> holds -> returns.</summary>
     public void PlayPourAnimation(Color color, Action onComplete, bool hideAfter = true)
     {
+        returning = false;  
         gameObject.SetActive(true);
         if (liquidImage != null)
         {
@@ -79,6 +82,14 @@ public class PourAnimationController : MonoBehaviour
 
         if (holdDuration > 0f)
             yield return new WaitForSeconds(holdDuration);
+
+        // Pour is over: stop the stream before the cup tilts back
+        returning = true;
+        if (liquidImage != null)
+        {
+            if (hideStreamOnReturn) liquidImage.gameObject.SetActive(false);
+            else liquidImage.fillAmount = 1f;
+        }
 
         Debug.Log($"[PourAnim] {name}: returning {tiltAngle}\u00b0 -> {idleAngle}\u00b0 over {returnDuration}s");
         yield return RotateOverTime(tiltAngle, idleAngle, returnDuration);
@@ -127,17 +138,19 @@ public class PourAnimationController : MonoBehaviour
 
         if (liquidImage != null)
         {
-            // Keep the stream vertical no matter how the cup is tilted
             liquidImage.rectTransform.rotation = Quaternion.identity;
 
-            // Optional: the stream grows as the cup tilts (your sprite is Filled / Vertical / Top)
-            float tiltProgress = Mathf.InverseLerp(idleAngle, tiltAngle, z);
-            liquidImage.fillAmount = Mathf.Clamp01((tiltProgress - 0.6f) / 0.4f);
+            if (!returning)   // only drive the fill while tilting in
+            {
+                float tiltProgress = Mathf.InverseLerp(idleAngle, tiltAngle, z);
+                liquidImage.fillAmount = Mathf.Clamp01((tiltProgress - 0.6f) / 0.4f);
+            }
         }
     }
 
     public void ReturnToIdle()
     {
+        returning = false;
         if (running != null) StopCoroutine(running);
         running = null;
         SetAngle(idleAngle);
@@ -145,6 +158,7 @@ public class PourAnimationController : MonoBehaviour
 
     public void Hide()
     {
+        returning = false;
         if (running != null) StopCoroutine(running);
         running = null;
         SetAngle(idleAngle);

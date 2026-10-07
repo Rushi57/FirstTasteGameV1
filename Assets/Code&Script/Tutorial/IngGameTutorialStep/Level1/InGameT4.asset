@@ -17,8 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - 'One more: tap the water pitcher.'
   advanceDelay: 0
+  revertSteps: -1
   dialoguePosition: 1
-  customPosition: {x: 0, y: 145}
+  customPosition: {x: 302.38, y: 145}
   actionType: 1
   targetId: Water
   dragSourceId: 
