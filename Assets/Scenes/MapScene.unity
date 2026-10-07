@@ -4190,6 +4190,8 @@ MonoBehaviour:
   resumeFromLastStep: 0
   saveImmediately: 1
   autoStart: 1
+  revertOnMistake: 1
+  stepsToRevert: 1
   dialogueBox: {fileID: 928322967}
   inputBlocker: {fileID: 2025803979}
   pulseTargets: 1
@@ -6361,7 +6363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.14117648}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

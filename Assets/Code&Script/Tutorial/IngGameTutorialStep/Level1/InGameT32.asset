@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the pepper in the shelf
   advanceDelay: 0
-  revertSteps: -1
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 145}
   actionType: 1

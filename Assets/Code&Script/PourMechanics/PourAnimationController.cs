@@ -19,17 +19,23 @@ public class PourAnimationController : MonoBehaviour
     public float holdDuration = 0.4f;   // pause at full tilt before returning
     public float returnDuration = 0.35f;
 
+    [Header("Liquid sprites")]
+    public Sprite seasoningStreamSprite;   // white version
+   
 
     [Header("Easing")]
     [Tooltip("Evaluated 0->1 over each phase. Default (linear-ish ease) works for most pours.")]
     public AnimationCurve easeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     [Header("Visual")]
-    [Tooltip("The Image on this object, tinted to match the seasoning.")]
     public Image image;
+    [Tooltip("Optional child Image that represents the liquid. Gets the seasoning color; the cup/spoon stays untouched.")]
+    public Image liquidImage;
 
     private RectTransform rect;
     private Coroutine running;
+
+  
 
     private void Awake()
     {
@@ -55,8 +61,13 @@ public class PourAnimationController : MonoBehaviour
     public void PlayPourAnimation(Color color, Action onComplete, bool hideAfter = true)
     {
         gameObject.SetActive(true);
+        if (liquidImage != null)
+        {
+            liquidImage.gameObject.SetActive(true);
+            if (seasoningStreamSprite != null) liquidImage.sprite = seasoningStreamSprite;
+        }
         SetAngle(idleAngle);
-
+        SetLiquidColor(color);
         if (running != null) StopCoroutine(running);
         running = StartCoroutine(PlaySequence(onComplete, hideAfter));
     }
@@ -75,7 +86,11 @@ public class PourAnimationController : MonoBehaviour
         Debug.Log($"[PourAnim] {name}: Tilt + Return finished.");
 
         running = null;
-        if (hideAfter) gameObject.SetActive(false);
+        if (hideAfter)
+        {
+            if (liquidImage != null) liquidImage.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
         onComplete?.Invoke();
     }
 
@@ -98,12 +113,27 @@ public class PourAnimationController : MonoBehaviour
         SetAngle(to);
     }
 
+    public void SetLiquidColor(Color color)
+    {
+        if (liquidImage != null) liquidImage.color = color;
+    }
+
     private void SetAngle(float z)
     {
         if (rect == null) rect = transform as RectTransform;
         Vector3 e = rect.localEulerAngles;
         e.z = z;
         rect.localEulerAngles = e;
+
+        if (liquidImage != null)
+        {
+            // Keep the stream vertical no matter how the cup is tilted
+            liquidImage.rectTransform.rotation = Quaternion.identity;
+
+            // Optional: the stream grows as the cup tilts (your sprite is Filled / Vertical / Top)
+            float tiltProgress = Mathf.InverseLerp(idleAngle, tiltAngle, z);
+            liquidImage.fillAmount = Mathf.Clamp01((tiltProgress - 0.6f) / 0.4f);
+        }
     }
 
     public void ReturnToIdle()
@@ -118,6 +148,7 @@ public class PourAnimationController : MonoBehaviour
         if (running != null) StopCoroutine(running);
         running = null;
         SetAngle(idleAngle);
+        if (liquidImage != null) liquidImage.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 }

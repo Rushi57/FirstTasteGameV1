@@ -16,6 +16,8 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Tap the cabinet button.
+  advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 1

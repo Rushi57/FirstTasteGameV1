@@ -262,7 +262,6 @@ public class PourSeasoningController : MonoBehaviour
                 {
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
-                    panLiquid.AddLiquid(seasoning, color, ml);
                     if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
                 });
@@ -272,7 +271,7 @@ public class PourSeasoningController : MonoBehaviour
                 Debug.LogWarning($"[Pour] No animation assigned for {chosenTool} - completing step without animation.");
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
-                panLiquid.AddLiquid(seasoning, color, ml);
+                if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
 
             }
         }
@@ -486,6 +485,7 @@ public class PourSeasoningController : MonoBehaviour
     /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
+        if (panLiquid != null) panLiquid.Clear();
         completedLines.Clear();
         pendingSuccess = false;
         pendingLineIndex = -1;

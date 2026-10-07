@@ -31,8 +31,11 @@ public class SaltPepperController : MonoBehaviour
     public Sprite pepperJarSprite;
 
     [Header("Stove-top spoon animation")]
-    [Tooltip("PourAnimationController on the tablespoon animation object under AnimationGameObject.")]
-    public PourAnimationController tbspAnimation;
+    [Tooltip("PourAnimationController on TbpsSalt&PepperImageSeasoning. Leave its Liquid Image EMPTY (no pour).")]
+    public PourAnimationController spoonAnimation;
+
+    private Sprite pendingSpoonSprite;
+
     [Tooltip("PourAnimationController on the teaspoon animation object under AnimationGameObject.")]
     public PourAnimationController tspAnimation;
     public Color saltColor = Color.white;
@@ -77,7 +80,7 @@ public class SaltPepperController : MonoBehaviour
         if (pepperButton != null) pepperButton.onClick.AddListener(() => OpenFor(SaltPepperType.Pepper));
         if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
         if (valueBorder != null) valueBorder.SetActive(false);
-        tbspAnimation?.Hide();
+        spoonAnimation?.Hide();
         tspAnimation?.Hide();
     }
 
@@ -101,23 +104,20 @@ public class SaltPepperController : MonoBehaviour
 
         if (pendingSuccess)
         {
-            PourAnimationController anim = pendingIsTbsp ? tbspAnimation : tspAnimation;
+
             string stepId = $"{currentType}:{PendingId}";
-            int lineIndex = pendingLineIndex;
             Color color = currentType == SaltPepperType.Salt ? saltColor : pepperColor;
 
-            if (anim != null)
+            if (spoonAnimation != null)
             {
-                Debug.Log($"[SaltPepper] Closed after a correct drop - playing {(pendingIsTbsp ? "Tbsp" : "Tsp")} animation before completing '{stepId}'.");
-                anim.PlayPourAnimation(color, () =>
+                spoonAnimation.SetSprite(pendingSpoonSprite);   // match the dropped spoon
+                spoonAnimation.PlayPourAnimation(color, () =>
                 {
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
-                    Debug.Log($"[SaltPepper] '{stepId}' completed after animation.");
                 });
             }
             else
             {
-                Debug.LogWarning("[SaltPepper] No animation assigned - completing step without animation.");
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
             }
         }
@@ -160,9 +160,13 @@ public class SaltPepperController : MonoBehaviour
         {
             ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
 
-            pendingSuccess = true;
+            pendingSuccess = true;   // <- add this back
+
+            Image spoonImg = dropped.GetComponent<Image>();
+            if (spoonImg == null) spoonImg = dropped.GetComponentInChildren<Image>();
+            pendingSpoonSprite = spoonImg != null ? spoonImg.sprite : null;
+
             pendingLineIndex = lineIndex;
-            pendingIsTbsp = spoon.measurement == SpoonMeasurement.Tbsp_1 || spoon.measurement == SpoonMeasurement.Tbsp_1_2;
             PendingId = spoon.measurement.ToString();
 
             drag.SnapTo(spoon.HomeParent);
@@ -274,7 +278,7 @@ public class SaltPepperController : MonoBehaviour
         pendingSuccess = false;
         pendingLineIndex = -1;
         saltPepperPanel.SetActive(false);
-        tbspAnimation?.Hide();
+         spoonAnimation?.Hide();
         tspAnimation?.Hide();
         if (valueBorderRoutine != null) { StopCoroutine(valueBorderRoutine); valueBorderRoutine = null; }
     }

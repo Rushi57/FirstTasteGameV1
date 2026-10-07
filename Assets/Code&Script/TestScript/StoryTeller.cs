@@ -16,8 +16,10 @@ public class StoryTeller : MonoBehaviour
     public GameObject gamePanel;   // BackGroundImage (all mini-games)
 
     [Header("Story")]
-    public StoryLine[] lines;
+    public DishStorySO fallbackStory;   // optional, for testing in the editor
     public float typeSpeed = 0.03f;
+
+    DishStorySO currentStory;
 
     [Header("Enable after story")]
     public GameObject[] enableAfterStory;   // TutorialSystemInGame, etc.
@@ -26,13 +28,6 @@ public class StoryTeller : MonoBehaviour
     int index;
     bool isTyping;
     Coroutine typingRoutine;
-
-    [System.Serializable]
-    public class StoryLine
-    {
-        [TextArea(2, 5)] public string text;
-        public Sprite characterSprite;
-    }
 
     void Awake()
     {
@@ -48,6 +43,14 @@ public class StoryTeller : MonoBehaviour
 
     void Start()
     {
+        LevelData level = LevelSelectionManager.SelectedLevel;
+        currentStory = (level != null && level.story != null) ? level.story : fallbackStory;
+
+        if (currentStory == null || currentStory.lines.Length == 0)
+        {
+            EndStory();
+            return;
+        }
         SetupDishImage();
         nextButton.onClick.AddListener(OnNext);
         ShowLine(0);
@@ -70,14 +73,13 @@ public class StoryTeller : MonoBehaviour
     void ShowLine(int i)
     {
         index = i;
-        var line = lines[index];
+        var line = currentStory.lines[index];
 
         if (characterImage != null && line.characterSprite != null)
         {
             characterImage.sprite = line.characterSprite;
             characterImage.preserveAspect = true;
         }
-
         if (typingRoutine != null) StopCoroutine(typingRoutine);
         typingRoutine = StartCoroutine(TypeText(line.text));
     }
@@ -106,7 +108,7 @@ public class StoryTeller : MonoBehaviour
             return;
         }
 
-        if (index + 1 < lines.Length) ShowLine(index + 1);
+        if (index + 1 < currentStory.lines.Length) ShowLine(index + 1);
         else EndStory();
     }
 

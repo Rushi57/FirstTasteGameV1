@@ -1,0 +1,37 @@
+Definition of Terms
+Achievement System - A reward mechanism that grants titles, badges, or recognition to players for completing tasks or mastering skills within the game.
+Alpha Test - The initial testing phase of a software or game conducted internally by developers to identify bugs, errors, and performance issues before public testing.
+Android Platform - A mobile operating system developed by Google, on which the proposed game “First Taste” is designed to run.
+Asset - Any digital resource used in game development, including models, textures, sounds, music, and animations that enhance the visual and audio experience.
+C# (C-Sharp) - A programming language commonly used in Unity game development to create scripts, systems, and interactions within the game.
+Conceptual Diagram - A visual representation that illustrates the flow of data, processes, or relationships between components in a system.
+Cookbook System - An in-game feature that stores recipes, cooking instructions, and cultural information for player reference and learning.
+Core Game Loop - The continuous cycle of player actions, system responses, and feedback that drives the gameplay experience.
+Cultural Awareness - The understanding and appreciation of cultural traditions, practices, and values; in this study, it pertains to Filipino cuisine and culinary heritage.
+Cultural Preservation - The act of protecting and promoting a community’s cultural identity through education, media, and digital platforms such as games.
+Cultural Storytelling - The inclusion of historical and cultural narratives within a game to educate players and enrich the learning experience.
+Culinary Heritage - Traditional cooking practices, recipes, and techniques passed down through generations that represent a culture’s food identity.
+Descriptive Research Design - A research method used to describe and analyze the characteristics of a population, event, or phenomenon without manipulating variables.
+Dish Rating System - A gameplay mechanic that evaluates and scores player performance based on cooking accuracy, timing, and execution.
+Free-to-Play Model - A game distribution model that allows users to download and play without payment, often supported by optional in-game content or features.
+Game Development - The process of designing, coding, testing, and deploying a video game, from concept creation to final release.
+Game Mechanics - The set of rules, systems, and interactions that define how players engage with and progress in the game.
+Gameplay - The overall experience of playing a game, encompassing controls, challenges, rewards, and player engagement.
+Gamification - The application of game-like elements such as points, levels, and achievements to non-game contexts, such as education, to increase motivation and participation.
+Ingredient Sourcing - A game feature that allows players to obtain ingredients through virtual farming or market-buying mechanics to complete recipes.
+ISO 25010 - An international standard for evaluating software quality based on characteristics such as functionality, usability, reliability, and performance.
+Low-Spec Device Optimization - The process of designing a game to perform efficiently on devices with lower hardware specifications or limited processing power.
+Progression System - A structured gameplay feature that allows players to advance levels, unlock new recipes, or improve skills through continuous play.
+Prototype - An early version of a system or game created to test core mechanics and design concepts before full-scale development.
+Qualitative Research - A research method focused on understanding user experiences, behaviors, and perceptions rather than relying on numerical data.
+Recipe System - A game component that provides step-by-step virtual cooking instructions simulating real-life culinary procedures.
+Scriptable Object - A Unity feature used to store game data independently from scenes, enabling efficient management of variables like recipes or items.
+Software Development Life Cycle (SDLC) - A structured framework that defines stages in software creation, including planning, designing, testing, and deployment.
+Sprite - A 2D image or animation that represents objects, characters, or visual effects within a game environment. Structured Game Development Process (SGDP) - A systematic approach to designing and developing games, emphasizing organization, documentation, and testing.
+Unity Assets - Pre-made or custom digital files such as characters, backgrounds, or animations imported into the Unity game engine to enhance gameplay visuals.
+Unity Game Engine - A cross-platform game development environment used to design, test, and deploy 2D and 3D video games.
+User Feedback - Data and opinions gathered from players to evaluate a game’s performance, usability, and overall effectiveness.
+User Interface (UI) - The visual layout and interactive elements of a game, such as menus, buttons, and icons, that allow users to interact with the system.
+Virtual Kitchen - A digital cooking environment where players simulate preparing and cooking dishes using interactive tools.
+Visual Design - The artistic style and graphical presentation of a game, including color schemes, characters, environments, and animations.
+Wireframe - A simplified blueprint of a game or application interface that outlines layout and navigation before visual design is finalized.

@@ -459,7 +459,7 @@ public class TutorialManager : MonoBehaviour
 
         waitingForAction = false;
         ClearPulses();   // stop pulsing while the animation plays
-        CancelPendingAdvance();
+        CancelPendingAdvance(false);
         advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
     }
 
