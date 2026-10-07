@@ -1,0 +1,285 @@
+using System;
+using System.Collections;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+
+public enum SaltPepperType { Salt, Pepper }
+
+/// <summary>
+/// Flow: tap Salt/Pepper -> Salt/PepperPanel opens, jar shows salt or pepper
+///       -> player drags a spoon (Tbsp/tsp) onto the jar -> scored against
+///       the recipe -> Close -> if correct, plays the stove-top spoon
+///       animation, then grays out the Cooking Prep row.
+/// </summary>
+public class SaltPepperController : MonoBehaviour
+{
+    [Header("Panel")]
+    public GameObject saltPepperPanel;   // Salt/PepperPanel
+
+    [Header("Open buttons")]
+    public Button saltButton;
+    public Button pepperButton;
+    public Button closeButton;
+
+    [Header("Jar visual")]
+    public Image jarImage;
+    public Sprite saltJarSprite;
+    public Sprite pepperJarSprite;
+
+    [Header("Stove-top spoon animation")]
+    [Tooltip("PourAnimationController on TbpsSalt&PepperImageSeasoning. Leave its Liquid Image EMPTY (no pour).")]
+    public PourAnimationController spoonAnimation;
+
+    private Sprite pendingSpoonSprite;
+
+    [Tooltip("PourAnimationController on the teaspoon animation object under AnimationGameObject.")]
+    public PourAnimationController tspAnimation;
+    public Color saltColor = Color.white;
+    public Color pepperColor = Color.white;
+
+    [Header("Recipe check")]
+    public CookingPrepPanelController cookingPrepPanel;
+    public bool penalizeWrongAmount = true;
+
+    private SaltPepperType currentType;
+    private bool pendingSuccess;
+    private int pendingLineIndex = -1;
+    private bool pendingIsTbsp;
+
+    [Header("Wrong drop penalty")]
+    public int wrongDropPoints = 5;
+    public int wrongDropHearts = 1;
+
+
+    //Value Msg
+    [Header("Value popup (MessageBorder)")]
+    [Tooltip("The MessageBorder object. Leave it inactive in the scene.")]
+    public GameObject valueBorder;
+    [Tooltip("The TMP text inside MessageBorder.")]
+    public TMP_Text valueBorderText;
+    public float valueBorderDuration = 1.2f;
+
+    [Header("Wrong-pick feedback")]
+    [Tooltip("The panel that shows an error message (e.g. MechanicMessagePanel).")]
+    public GameObject wrongMessagePanel;
+    [Tooltip("The TMP text inside it (e.g. MessageIfWrongText).")]
+    public TMP_Text wrongMessageText;
+    [Tooltip("How long the message stays visible before auto-hiding.")]
+    public float wrongMessageDuration = 1.5f;
+
+    private Coroutine valueBorderRoutine;
+    private Coroutine wrongMessageRoutine;
+
+    private void Start()
+    {
+        if (saltButton != null) saltButton.onClick.AddListener(() => OpenFor(SaltPepperType.Salt));
+        if (pepperButton != null) pepperButton.onClick.AddListener(() => OpenFor(SaltPepperType.Pepper));
+        if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
+        if (valueBorder != null) valueBorder.SetActive(false);
+        spoonAnimation?.Hide();
+        tspAnimation?.Hide();
+    }
+
+    public void OpenFor(SaltPepperType type)
+    {
+        currentType = type;
+        pendingSuccess = false;
+        pendingLineIndex = -1;
+
+        if (jarImage != null)
+            jarImage.sprite = type == SaltPepperType.Salt ? saltJarSprite : pepperJarSprite;
+
+        saltPepperPanel.SetActive(true);
+        if (valueBorder != null) valueBorder.SetActive(false);
+        Debug.Log($"[SaltPepper] Opened for {type}. Waiting for a spoon drop.");
+    }
+
+    public void RequestClose()
+    {
+        saltPepperPanel.SetActive(false);
+
+        if (pendingSuccess)
+        {
+
+            string stepId = $"{currentType}:{PendingId}";
+            Color color = currentType == SaltPepperType.Salt ? saltColor : pepperColor;
+
+            if (spoonAnimation != null)
+            {
+                spoonAnimation.SetSprite(pendingSpoonSprite);   // match the dropped spoon
+                spoonAnimation.PlayPourAnimation(color, () =>
+                {
+                    CookingPrepListUI.Instance?.CompleteStep(stepId);
+                });
+            }
+            else
+            {
+                CookingPrepListUI.Instance?.CompleteStep(stepId);
+            }
+        }
+
+        pendingSuccess = false;
+        pendingLineIndex = -1;
+        Debug.Log("[SaltPepper] Closed.");
+    }
+
+    private string PendingId; // set right before RequestClose reads it
+
+    public void HandleSpoonDropped(SaltPepperSpoonItem spoon, TestDrag drag, GameObject dropped)
+    {
+        ShowValuePopup($"{spoon.Label} of {currentType}");
+        RecipeData recipe = cookingPrepPanel != null ? cookingPrepPanel.currentRecipe : null;
+
+        if (recipe == null)
+        {
+            Debug.LogWarning("[SaltPepper] No recipe available (assign Cooking Prep Panel).");
+            return;
+        }
+
+        string keyword = currentType == SaltPepperType.Salt ? "salt" : "pepper";
+
+        if (!TryFindRequirement(recipe, keyword, out int lineIndex, out float requiredTsp))
+        {
+            Debug.Log($"[SaltPepper] Recipe has no (remaining) '{currentType}' step - nothing to score.");
+            if (penalizeWrongAmount)
+                ScoreManager.Instance?.ReportMistake($"No {currentType} needed right now!", wrongDropPoints, wrongDropHearts);
+            else
+                ShowWrongMessage($"No {currentType} needed right now!");
+            return;
+        }
+
+        bool correct = Mathf.Abs(spoon.TspValue - requiredTsp) <= 0.05f;
+
+        Debug.Log($"[SaltPepper] {currentType}: dropped {spoon.Label} ({spoon.TspValue} tsp), recipe wants {requiredTsp:0.###} tsp -> {(correct ? "CORRECT" : "WRONG")}");
+
+        if (correct)
+        {
+            ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
+
+            pendingSuccess = true;   // <- add this back
+
+            Image spoonImg = dropped.GetComponent<Image>();
+            if (spoonImg == null) spoonImg = dropped.GetComponentInChildren<Image>();
+            pendingSpoonSprite = spoonImg != null ? spoonImg.sprite : null;
+
+            pendingLineIndex = lineIndex;
+            PendingId = spoon.measurement.ToString();
+
+            drag.SnapTo(spoon.HomeParent);
+            dropped.transform.localRotation = Quaternion.identity;
+            dropped.transform.localScale = Vector3.one;
+        }
+        else
+        {
+            string msg = $"Wrong amount! Recipe needs {FormatTsp(requiredTsp)} of {currentType}.";
+
+            if (penalizeWrongAmount)
+                ScoreManager.Instance?.ReportMistake(msg, wrongDropPoints, wrongDropHearts);
+            else
+                ShowWrongMessage(msg);
+            // TestDrag bounces the spoon back automatically
+        }
+    }
+
+    private void ShowWrongMessage(string message)
+    {
+        if (wrongMessagePanel == null) return;
+
+        if (wrongMessageText != null) wrongMessageText.text = message;
+        wrongMessagePanel.SetActive(true);
+
+        Debug.Log($"[SaltPepper] Wrong pick: {message}");
+
+        if (wrongMessageRoutine != null) StopCoroutine(wrongMessageRoutine);
+        wrongMessageRoutine = StartCoroutine(HideMessageAfterDelay());
+    }
+
+    private IEnumerator HideMessageAfterDelay()
+    {
+        yield return new WaitForSeconds(wrongMessageDuration);
+        wrongMessagePanel.SetActive(false);
+        wrongMessageRoutine = null;
+    }
+
+    private static string FormatTsp(float tsp)
+    {
+        if (tsp >= 3f) return $"{tsp / 3f:0.##} tbsp";
+        return $"{tsp:0.##} tsp";
+    }
+
+    private bool TryFindRequirement(RecipeData recipe, string keyword, out int lineIndex, out float tsp)
+    {
+        for (int i = 0; i < recipe.cookingInstructions.Count; i++)
+        {
+            string line = recipe.cookingInstructions[i];
+            if (string.IsNullOrEmpty(line)) continue;
+
+            string lower = line.ToLowerInvariant().TrimStart();
+            if (!lower.StartsWith("add") || !lower.Contains(keyword)) continue;
+
+            if (TryParseAmountTsp(lower, out tsp))
+            {
+                lineIndex = i;
+                return true;
+            }
+        }
+        lineIndex = -1;
+        tsp = 0f;
+        return false;
+    }
+
+    private static readonly Regex AmountRegex = new Regex(
+        @"(\d+\s*/\s*\d+|\d+(?:\.\d+)?)\s*(?:of\s+)?(?:a\s+)?(tablespoons?|tbsp|tbps|teaspoons?|tsp)\b",
+        RegexOptions.IgnoreCase);
+
+    private static bool TryParseAmountTsp(string text, out float tsp)
+    {
+        tsp = 0f;
+        Match m = AmountRegex.Match(text);
+        if (!m.Success) return false;
+
+        string q = m.Groups[1].Value.Replace(" ", "");
+        float qty = q.Contains("/")
+            ? float.Parse(q.Split('/')[0], CultureInfo.InvariantCulture) / float.Parse(q.Split('/')[1], CultureInfo.InvariantCulture)
+            : float.Parse(q, CultureInfo.InvariantCulture);
+
+        string unit = m.Groups[2].Value.ToLowerInvariant();
+        float unitTsp = (unit.StartsWith("tb") || unit.StartsWith("table")) ? 3f : 1f;
+
+        tsp = qty * unitTsp;
+        return true;
+    }
+
+    private void ShowValuePopup(string message)
+    {
+        if (valueBorder == null) return;
+
+        if (valueBorderText != null) valueBorderText.text = message;
+        valueBorder.SetActive(true);
+
+        if (valueBorderRoutine != null) StopCoroutine(valueBorderRoutine);
+        valueBorderRoutine = StartCoroutine(HideValuePopupAfterDelay());
+    }
+
+
+    private IEnumerator HideValuePopupAfterDelay()
+    {
+        yield return new WaitForSeconds(valueBorderDuration);
+        valueBorder.SetActive(false);
+        valueBorderRoutine = null;
+    }
+
+    public void ResetProgress()
+    {
+        pendingSuccess = false;
+        pendingLineIndex = -1;
+        saltPepperPanel.SetActive(false);
+         spoonAnimation?.Hide();
+        tspAnimation?.Hide();
+        if (valueBorderRoutine != null) { StopCoroutine(valueBorderRoutine); valueBorderRoutine = null; }
+    }
+}

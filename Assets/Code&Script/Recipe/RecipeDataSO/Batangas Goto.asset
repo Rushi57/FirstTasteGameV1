@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: Batangas Goto
+  m_EditorClassIdentifier: 
+  recipeName: 
+  recipeIcon: {fileID: 0}
+  ingredients: []
+  cookingInstructions:
+  - Slice the ginger
+  - ' Slice the onion'
+  - Slice the garlic
+  - ' Put the pot on the stove'
+  - ' Put the pot on the stove'
+  - Add 1 Tbsp cooking oil
+  - Add the garlic
+  - Add the onion
+  - Add the ginger
+  - "Saut\xE9 using the spatula"
+  - Add the beef
+  - Add the beef tripe
+  - Add 1 Tbsp soy sauce
+  - ' Add 1 tsp salt'
+  - ' Add 1/2 tsp pepper'
+  - ' Mix using the spatula'
+  - Put the pot lid and simmer
+  - Put the pot lid and simmer
+  cookingStepIds: []

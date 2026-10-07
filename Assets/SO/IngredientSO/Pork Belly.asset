@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Pork Belly
   m_EditorClassIdentifier: 
-  id: PorkItem
+  id: Pork Belly
   displayName: Pork Belly
   category: 0
   size: 1
-  icon: {fileID: 2397899725440589209, guid: 2756d8362ac1cfd45ae753948475c77f, type: 3}
+  icon: {fileID: 4216607565012934476, guid: 0c2186b39d46f8e47a9968460923a37f, type: 3}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 2397899725440589209, guid: 2756d8362ac1cfd45ae753948475c77f, type: 3}
+    sprite: {fileID: 4216607565012934476, guid: 0c2186b39d46f8e47a9968460923a37f, type: 3}
   - state: 1
-    sprite: {fileID: -6237445509998130909, guid: a80fa3d926c9dfc4a91ed31bc5d9f0fa, type: 3}
+    sprite: {fileID: 4126698781704035214, guid: e44376bb023c1144190388df6a492ee5, type: 3}
   - state: 2
     sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
+  playsPourAnimation: 0

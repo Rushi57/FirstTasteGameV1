@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: Chicken Asado
+  m_EditorClassIdentifier: 
+  recipeName: Chicken Asado
+  recipeIcon: {fileID: 0}
+  ingredients: []
+  cookingInstructions:
+  - 'Chop the Onion into slice '
+  - 'Chop the Garlic into slice '
+  - 'Chop the Tomato into slice '
+  - turn on the stove to high heat
+  - put the pan in the stove
+  - Add 2tbsp of Cooking Oil
+  - Add chicken Leg
+  - sear using Spatula
+  - Add the chop Onion
+  - 'Add the chop Garlic '
+  - 'Add the chop Tomato '
+  - Saute using Spatula
+  - Add 1 tbsp of Soy
+  - Add 1 tbsp of Soy
+  - Add 1 tbsp of Soy
+  - 'Add Calamansi Juice '
+  - Add Water
+  - Reduce the stove to low
+  - Put the pan Lid and simmer
+  cookingStepIds:
+  - Onion:Sliced
+  - Garlic:Sliced
+  - Tomato:Sliced
+  - Tomato:Sliced
+  - Pan:OnStove
+  - Pour:CookingOil
+  - Pan:ChickenLeg
+  - Mix:7
+  - Pan:Onion
+  - 'Pan:Garlic '
+  - Pan:Tomato
+  - Pan:Tomato

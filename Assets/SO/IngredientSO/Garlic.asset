@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Garlic
+  m_EditorClassIdentifier: 
+  id: Garlic
+  displayName: Garlic
+  category: 0
+  size: 0
+  icon: {fileID: -8944997348610683000, guid: 05d80fd8370875b4d8956edbe9e87392, type: 3}
+  iconScale: 0.8
+  stateSprites:
+  - state: 0
+    sprite: {fileID: -8944997348610683000, guid: 05d80fd8370875b4d8956edbe9e87392, type: 3}
+  - state: 1
+    sprite: {fileID: -1015048517840907415, guid: 554c9695bcb7ec54bacf0040299eb5e7, type: 3}
+  - state: 2
+    sprite: {fileID: 4929228063200620584, guid: fd94dd2735dc4894d939dc24ac8367f6, type: 3}
+  playsPourAnimation: 0

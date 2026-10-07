@@ -15,11 +15,12 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   dialogueLines:
-  - 'Welcome to First Taste! I''m Kris, '
-  - and I'm thrilled to help you get started in the kitchen.
-  - Every great chef starts with a simple step learning to select the right
+  - "Welcome to First Taste! I\u2019m Kris!"
+  - "And I\u2019m thrilled to help you get started in the kitchen."
+  - 'Every great chef starts with a simple step learning to select the right '
   - ingredients, follow recipes, and master the stove
-  - "Grab your apron and take a breath\u2014let's prepare your very first dish together"
+  - Grab your apron and take a breath let's prepare your very first dish together
+  - Grab your apron and take a breath let's prepare your very first dish together
   dialoguePosition: 1
   customPosition: {x: 0, y: 142}
   actionType: 0

@@ -7,6 +7,10 @@ using UnityEngine.UI;
 /// Image, TestDrag, and TutorialInteractable so it's immediately usable -
 /// no manual Hierarchy setup, no matter which of the 4 prefabs gets picked.
 ///
+/// Each spawned item is sized as: (prefab's own size) x (IngredientData.iconScale),
+/// so small things like garlic can look smaller than pork or a pitcher while
+/// still using the same prefab.
+///
 /// If Slot Manager is assigned, spawns into the first EMPTY table slot
 /// instead of a fixed position - see TableItemSlotManager. Because that
 /// counts as the ingredient effectively "arriving" on the table already,
@@ -84,6 +88,18 @@ public class IngredientSpawner : MonoBehaviour
         RectTransform rect = go.transform as RectTransform;
         if (rect != null)
         {
+            // Size = the prefab's own size x this ingredient's iconScale.
+            // SetSizeWithCurrentAnchors works whether the anchors are a point or stretched.
+            RectTransform prefabRect = prefab.transform as RectTransform;
+            if (prefabRect != null)
+            {
+                Vector2 baseSize = prefabRect.rect.size;
+                float scale = data.iconScale > 0f ? data.iconScale : 1f;
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseSize.x * scale);
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, baseSize.y * scale);
+            }
+            rect.localScale = Vector3.one;
+
             if (targetSlot != null)
             {
                 // Slot-based spawning: center inside the slot.
@@ -137,8 +153,7 @@ public class IngredientSpawner : MonoBehaviour
 
         ingredientList?.MarkSpawned(data);
 
-
-        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}) into {parent.name}");
+        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}, iconScale={data.iconScale}) into {parent.name}");
     }
 
     private GameObject SelectPrefab(IngredientData data)

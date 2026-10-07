@@ -46,7 +46,7 @@ public class ScoreManager : MonoBehaviour
     public int startingScore = 100;
 
     [Header("Hearts")]
-    public int startingHearts = 3;
+    public int startingHearts = 5;
 
     [Header("Deduction Settings")]
     public ScoreDeductionSettings deductions = new ScoreDeductionSettings();
@@ -65,14 +65,24 @@ public class ScoreManager : MonoBehaviour
     public System.Action<int> OnHeartsChanged;
     public System.Action OnGameOver;
 
+    [Header("Wrong Step (Skipping Ahead)")]
+    public int wrongStepPointDeduction = 5;
+    public int wrongStepHeartLoss = 1;
+
     public int CurrentScore { get; private set; }
     public int CurrentHearts { get; private set; }
     public bool IsGameOver { get; private set; }
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        StartNewDish();
     }
 
     /// <summary>Call this when a new dish/level begins, to reset score and hearts.</summary>
@@ -92,6 +102,8 @@ public class ScoreManager : MonoBehaviour
     public void ReportResult(ResultQuality quality)
     {
         if (IsGameOver) return;
+
+      
 
         int pointLoss = quality switch
         {
@@ -118,6 +130,44 @@ public class ScoreManager : MonoBehaviour
         if (CurrentHearts <= 0)
             TriggerGameOver();
     }
+
+    /// <summary>Call when the player tries an action that isn't the current recipe step.</summary>
+    public void ReportWrongStep()
+    {
+        if (IsGameOver) return;
+
+        CurrentScore = Mathf.Max(0, CurrentScore - wrongStepPointDeduction);
+        CurrentHearts = Mathf.Max(0, CurrentHearts - wrongStepHeartLoss);
+
+        Debug.Log($"[ScoreManager] WRONG STEP | -{wrongStepPointDeduction} pts (score now {CurrentScore}) | -{wrongStepHeartLoss} hearts (hearts now {CurrentHearts})");
+
+        RefreshUI();
+        OnScoreChanged?.Invoke(CurrentScore);
+        OnHeartsChanged?.Invoke(CurrentHearts);
+
+        if (CurrentHearts <= 0)
+            TriggerGameOver();
+    }
+    
+
+    public void ReportMistake(string message, int points = 6, int hearts = 1 )
+    {
+        if(IsGameOver) return;
+
+        CurrentScore = Mathf.Max(0, CurrentScore -  points);
+        CurrentHearts = Mathf.Max(0, CurrentHearts - hearts);
+        Debug.Log($"[ScoreManager] MISTAKE '{message}' | -{points} pts (score now {CurrentScore}) | -{hearts} hearts (hearts now {CurrentHearts})");
+
+        WarningMessageUI.Instance?.Show(message);
+
+        RefreshUI();
+        OnScoreChanged?.Invoke(CurrentScore);
+        OnHeartsChanged?.Invoke(CurrentHearts);
+
+        if (CurrentHearts <= 0)
+            TriggerGameOver();
+    }
+
 
     private void TriggerGameOver()
     {

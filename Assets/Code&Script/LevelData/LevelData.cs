@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelData", menuName = "Game/Level Data")]
 public class LevelData : ScriptableObject
 {
+
     [Header("Identity")]
     public int levelNumber;
     public string levelName; // e.g. "Adobo", "Dinuguan"
@@ -18,7 +19,7 @@ public class LevelData : ScriptableObject
     [Header("Optional")]
     public Sprite levelPreviewImage;
 
-    [Header("Optional")]
-    public Sprite ScoreStar;
+    public DishStorySO story;
+
 
 }

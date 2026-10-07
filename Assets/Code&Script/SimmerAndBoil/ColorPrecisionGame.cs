@@ -91,14 +91,17 @@ public class ColorPrecisionGame : MonoBehaviour
         if (IsPointInSlice(point, greenStart, greenImage.fillAmount))
         {
             resultText.text = "<color=green>VERY GOOD!</color>";
+            ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
         }
         else if (IsPointInSlice(point, yellowStart, yellowImage.fillAmount))
         {
             resultText.text = "<color=yellow>GOOD</color>";
+            ScoreManager.Instance?.ReportResult(ResultQuality.Good);
         }
         else
         {
             resultText.text = "<color=red>BAD!</color>";
+            ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
         }
     }
 
@@ -108,5 +111,10 @@ public class ColorPrecisionGame : MonoBehaviour
         float end = (start + fill) % 1f;
         if (start < end) return point >= start && point <= end;
         else return point >= start || point <= end;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        rotateSpeed = speed;
     }
 }

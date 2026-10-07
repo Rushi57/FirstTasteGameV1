@@ -1,17 +1,51 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-/// <summary>
-/// Put this on each LevelIcon instance on the map (Level 1, Level 2, ... Level 10).
-/// Assign a different LevelData per icon. Wire its SelectLevel() into the
-/// icon's OnClick() ALONGSIDE your existing SceneChanger.OnClickPlay entry -
-/// same pattern as spawning multiple ingredients from one shared spawner.
-/// </summary>
 public class LevelIconButton : MonoBehaviour
 {
-    [Tooltip("Which level this specific icon represents. Level 1 icon gets the Adobo LevelData, Level 2 icon gets Dinuguan, etc.")]
     public LevelData levelData;
+    public DashboardStarDisplay dashboardStars;
+    public Image dishImage;
 
-    /// <summary>Wire this into the icon's OnClick(), before/alongside SceneChanger.OnClickPlay.</summary>
+    [Header("Locking")]
+    [Tooltip("Level that must be completed (1+ star) to unlock this one. Leave EMPTY for Level 1.")]
+    public LevelData requiredLevel;
+
+    private int requiredStars = 2;
+
+    private Button button;
+    private Image iconImage;
+
+    private void Awake()
+    {
+        button = GetComponent<Button>();
+        iconImage = GetComponent<Image>();
+    }
+
+    private void OnEnable()
+    {
+        RefreshLock();
+    }
+
+    public void RefreshLock()
+    {
+        bool unlocked = requiredLevel == null || GetStars(requiredLevel) >= requiredStars;
+
+        if (button != null) button.interactable = unlocked;
+        if (iconImage != null)
+            iconImage.color = unlocked ? Color.white : new Color(0.4f, 0.4f, 0.4f, 1f);
+    }
+
+    private int GetStars(LevelData level)
+    {
+        if (level == null)
+            return 0;
+
+        SaveData data = GameSession.GetOrCreateData();
+
+        return data.GetLevelStars(level.levelNumber);
+    }
+
     public void SelectLevel()
     {
         if (levelData == null)
@@ -21,6 +55,17 @@ public class LevelIconButton : MonoBehaviour
         }
 
         LevelSelectionManager.SelectLevel(levelData);
-        Debug.Log($"[LevelIconButton] Selected Level {levelData.levelNumber}: {levelData.levelName}");
+        dashboardStars?.Refresh(levelData);
+        ShowDishImage();
+    }
+
+    private void ShowDishImage()
+    {
+        if (dishImage == null) return;
+
+        Sprite preview = levelData.levelPreviewImage;
+        dishImage.sprite = preview;
+        dishImage.preserveAspect = true;
+        dishImage.enabled = preview != null;
     }
 }

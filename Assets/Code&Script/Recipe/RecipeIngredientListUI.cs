@@ -3,10 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Populates the scrolling "Ingredients :" list (your DishInformation panel)
-/// from a RecipeData, and tracks which ones have been spawned and/or placed
-/// on the table so far. Put this on the Content object of your ScrollView,
-/// or anywhere convenient, and assign contentContainer + ingredientRowPrefab.
+/// Populates the scrolling "Ingredients :" list from a RecipeData and tracks
+/// which ingredients have been spawned (grayed out) and/or collected (placed
+/// on the table).
 /// </summary>
 public class RecipeIngredientListUI : MonoBehaviour
 {
@@ -16,7 +15,7 @@ public class RecipeIngredientListUI : MonoBehaviour
     [Tooltip("Prefab with a RecipeIngredientRowUI component.")]
     public GameObject ingredientRowPrefab;
 
-    [Tooltip("Optional: shows the current recipe's icon (e.g. next to 'Title Dish').")]
+    [Tooltip("Optional: shows the current recipe's icon.")]
     public Image recipeImageDisplay;
 
     private RecipeData currentRecipe;
@@ -24,11 +23,14 @@ public class RecipeIngredientListUI : MonoBehaviour
     private readonly HashSet<IngredientData> collectedIds = new HashSet<IngredientData>();
     private readonly HashSet<IngredientData> spawnedIds = new HashSet<IngredientData>();
     private bool hasFiredAllCollected = false;
+    private bool hasFiredAllSpawned = false;
 
-    /// <summary>Fires exactly once, the moment every ingredient in the current recipe has been collected.</summary>
+    /// <summary>Fires once, when every ingredient has been placed on the table.</summary>
     public System.Action OnAllIngredientsCollected;
 
-    /// <summary>Call this when the player selects/opens a recipe ("SELECT A RECIPE AND LET'S COOK!").</summary>
+    /// <summary>Fires once, when every ingredient row has been grayed out (spawned).</summary>
+    public System.Action OnAllIngredientsSpawned;
+
     public void DisplayRecipe(RecipeData recipe)
     {
         currentRecipe = recipe;
@@ -57,11 +59,7 @@ public class RecipeIngredientListUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Grays out the row for this ingredient to show it's been spawned/pulled
-    /// out already. Call this right after IngredientSpawner spawns it - NOT
-    /// the same as MarkCollected, which is for "correctly placed on the table".
-    /// </summary>
+    /// <summary>Grays out the row for this ingredient. Call right after IngredientSpawner spawns it.</summary>
     public void MarkSpawned(IngredientData ingredient)
     {
         if (ingredient == null) return;
@@ -72,12 +70,18 @@ public class RecipeIngredientListUI : MonoBehaviour
             if (row.Matches(ingredient))
             {
                 row.SetSpawned(true);
-                return;
+                break;
             }
+        }
+
+        if (!hasFiredAllSpawned && AllSpawned())
+        {
+            hasFiredAllSpawned = true;
+            OnAllIngredientsSpawned?.Invoke();
         }
     }
 
-    /// <summary>Marks the row for this ingredient as collected (e.g. strikethrough/checkmark). Call this once it's correctly placed on the table.</summary>
+    /// <summary>Marks the row as collected. Call once it's correctly placed on the table.</summary>
     public void MarkCollected(IngredientData ingredient)
     {
         if (ingredient == null) return;
@@ -99,7 +103,11 @@ public class RecipeIngredientListUI : MonoBehaviour
         }
     }
 
-    /// <summary>True once every ingredient in the current recipe has been marked collected.</summary>
+    public bool AllSpawned()
+    {
+        return currentRecipe != null && spawnedIds.Count >= currentRecipe.ingredients.Count;
+    }
+
     public bool AllCollected()
     {
         return currentRecipe != null && collectedIds.Count >= currentRecipe.ingredients.Count;
@@ -107,9 +115,6 @@ public class RecipeIngredientListUI : MonoBehaviour
 
     private void Clear()
     {
-        // Destroy EVERY child, not just ones we tracked ourselves - protects
-        // against a leftover template/prefab-source object accidentally left
-        // in the scene under contentContainer.
         if (contentContainer != null)
         {
             for (int i = contentContainer.childCount - 1; i >= 0; i--)
@@ -120,5 +125,6 @@ public class RecipeIngredientListUI : MonoBehaviour
         collectedIds.Clear();
         spawnedIds.Clear();
         hasFiredAllCollected = false;
+        hasFiredAllSpawned = false;
     }
 }

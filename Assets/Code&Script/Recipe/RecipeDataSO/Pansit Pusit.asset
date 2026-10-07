@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: Pansit Pusit
+  m_EditorClassIdentifier: 
+  recipeName: Pansit Pusit
+  recipeIcon: {fileID: 0}
+  ingredients: []
+  cookingInstructions:
+  - Slice the squid
+  - Slice the onion
+  - Slice the tomato
+  - Slice the garlic
+  - Put the pan on the stove
+  - Add cooking oil
+  - Add garlic
+  - Add onion
+  - "Saut\xE9"
+  - Add tomato
+  - Add squid
+  - Add squid ink
+  - Add soy sauce
+  - Add vinegar
+  - Add water
+  - Add salt
+  - Add pepper
+  - Add canton noodles
+  - Mix using the spatula
+  cookingStepIds: []

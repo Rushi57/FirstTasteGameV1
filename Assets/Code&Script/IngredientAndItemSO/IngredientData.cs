@@ -48,9 +48,18 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Header("Visual")]
     public Sprite icon;
 
+
+    [Tooltip("Multiplies the prefab's size for this item. 1 = full prefab size, 0.5 = half. Use it to make small things like garlic look smaller than pork or a pitcher.")]
+    [Range(0.2f, 1.5f)]
+    public float iconScale = 1f;
+
     [Header("Prep States (optional)")]
     [Tooltip("Sprite to show for each prep stage, e.g. a different look for Whole vs Sliced vs Minced garlic. Leave empty if this ingredient never changes appearance (e.g. water, a utensil).")]
     public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
+
+    [Header("Pour Animation (optional)")]
+    [Tooltip("If true, dropping this item on the pan plays the pitcher pour animation instead of just consuming the item.")]
+    public bool playsPourAnimation = false;
 
     public string TutorialId => id;
 

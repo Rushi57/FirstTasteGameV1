@@ -24,7 +24,8 @@ public class SaveData
 
     [Tooltip("Per-level score/stars actually achieved by the player - NOT ScoreManager's startingScore, that's just the fresh-attempt default before any deductions.")]
     public List<LevelScoreEntry> levelScores = new List<LevelScoreEntry>();
-
+    public List<string> completedTutorials = new List<string>();
+    public bool IsTutorialCompleted(string id) => completedTutorials.Contains(id);
     /// <summary>
     /// Records a level's result. By default only overwrites if the new score
     /// is BETTER than any previous attempt (so retrying a level worse than
@@ -53,7 +54,19 @@ public class SaveData
     {
         return levelScores.Find(e => e.levelNumber == levelNumber);
     }
+    public int GetLevelStars(int levelNumber)
+    {
+        LevelScoreEntry entry = GetLevelResult(levelNumber);
+        return entry != null ? entry.stars : 0;
+    }
+    public void MarkTutorialCompleted(string id)
+    {
+        if (!string.IsNullOrEmpty(id) && !completedTutorials.Contains(id))
+            completedTutorials.Add(id);
+    }
 }
+
+
 
 // Holds the loaded data while switching from MainMenu to MapScene.
 public static class GameSession
