@@ -16,8 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Tap the close button
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: 0, y: 145}
   actionType: 1
   targetId: CloseSimmer/Boil
   dragSourceId: 

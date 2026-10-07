@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb854ee8d7a1c9547b9b8e01e2765b43, type: 3}
-  m_Name: InGameT48
+  m_Name: CloseDial
   m_EditorClassIdentifier: 
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap and hold the pour button
+  - 'Tap the close button '
   advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: 321.19, y: 140}
-  actionType: 5
-  targetId: PourBtn
+  customPosition: {x: -381.8, y: 140}
+  actionType: 1
+  targetId: CloseStoveDial
   dragSourceId: 
   blockOtherInput: 1
   revertOnMistake: 1

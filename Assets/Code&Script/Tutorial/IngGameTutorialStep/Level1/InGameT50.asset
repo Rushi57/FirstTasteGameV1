@@ -16,8 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Drag and drop the pitcher in the pan
+  advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 0, y: 456.72}
   actionType: 2
   targetId: InsidePan
   dragSourceId: Water

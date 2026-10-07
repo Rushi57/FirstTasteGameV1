@@ -18,7 +18,7 @@ MonoBehaviour:
   - Tap and hold the pour button until it reach yellow or green
   advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 145}
+  customPosition: {x: 278.4, y: 145}
   actionType: 5
   targetId: PourBtn
   dragSourceId: 

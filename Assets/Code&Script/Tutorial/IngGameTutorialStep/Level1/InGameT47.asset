@@ -16,8 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Scroll and tap the 1/4 cup
+  advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: -350.69, y: 140}
   actionType: 1
   targetId: Cup1/4
   dragSourceId: 

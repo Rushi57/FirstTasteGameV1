@@ -16,8 +16,9 @@ MonoBehaviour:
   npcPortrait: {fileID: 0}
   dialogueLines:
   - Tap the close button
+  advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 240}
+  customPosition: {x: 0, y: 140}
   actionType: 1
   targetId: ClosePour
   dragSourceId: 

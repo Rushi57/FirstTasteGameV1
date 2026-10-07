@@ -17,8 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - If the recipe required is simmer the hand in the clock will move fast.
   - Tap the stop button.
-  dialoguePosition: 0
-  customPosition: {x: 0, y: 0}
+  advanceDelay: 0
+  dialoguePosition: 1
+  customPosition: {x: 298.3, y: 387}
   actionType: 1
   targetId: Simmer/BoilStopBtn
   dragSourceId: 

@@ -18,7 +18,7 @@ MonoBehaviour:
   - Drag and drop the spatula in the pan
   advanceDelay: 0
   dialoguePosition: 1
-  customPosition: {x: -386.7, y: 403.83}
+  customPosition: {x: 99.2, y: 434.4}
   actionType: 2
   targetId: InsidePan
   dragSourceId: Spatula
