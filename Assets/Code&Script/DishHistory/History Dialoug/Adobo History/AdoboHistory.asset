@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28f310e05cc019a48855581da30b411e, type: 3}
-  m_Name: Adobo
+  m_Name: AdoboHistory
   m_EditorClassIdentifier: 
   lines:
   - text: ' Adobo is one of the oldest dishes in Philippine cuisine,'

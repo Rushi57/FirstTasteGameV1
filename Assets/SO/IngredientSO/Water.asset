@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Water
   category: 1
   size: 1
-  icon: {fileID: -5371142981456057837, guid: aa1ef0aaacaad7443aff4eafc1477bd2, type: 3}
+  icon: {fileID: -5026358191354816851, guid: 250396549c54b2c4b985500c11adad06, type: 3}
+  iconScale: 1
   stateSprites: []
   playsPourAnimation: 1

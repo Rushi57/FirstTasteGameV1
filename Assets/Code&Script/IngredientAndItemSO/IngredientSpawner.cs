@@ -44,6 +44,10 @@ public class IngredientSpawner : MonoBehaviour
 
     private int spawnCount = 0;
 
+    // Tracks the live spawned object for each IngredientData currently on the table.
+    private readonly System.Collections.Generic.Dictionary<IngredientData, GameObject> spawnedItems
+        = new System.Collections.Generic.Dictionary<IngredientData, GameObject>();
+
     /// <summary>
     /// Spawn a specific ingredient. Hook this up to a UI Button OnClick() 
     /// and drag your IngredientData ScriptableObject into the inspector slot!
@@ -55,6 +59,20 @@ public class IngredientSpawner : MonoBehaviour
             Debug.LogWarning("[IngredientSpawner] No IngredientData passed to SpawnIngredient - nothing to spawn.");
             return;
         }
+
+
+        // Already on the table? Warn, but do NOT deduct a heart and do NOT spawn a duplicate.
+        if (spawnedItems.TryGetValue(data, out GameObject existing))
+        {
+            if (existing != null)   // Unity-null check: false if it was destroyed
+            {
+                string itemName = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
+                WarningMessageUI.Instance?.Show($"{itemName} is already on the table");
+                return;
+            }
+            spawnedItems.Remove(data);   // stale entry, item was removed
+        }
+
 
         RectTransform targetSlot = null;
 
@@ -84,7 +102,7 @@ public class IngredientSpawner : MonoBehaviour
 
         GameObject go = Instantiate(prefab, parent);
         go.name = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
-
+        spawnedItems[data] = go;
         RectTransform rect = go.transform as RectTransform;
         if (rect != null)
         {
