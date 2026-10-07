@@ -17,8 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - Drag the 1/2 tbsp in the pepper container
   advanceDelay: 1
+  revertSteps: -1
   dialoguePosition: 1
-  customPosition: {x: 415.23, y: 145}
+  customPosition: {x: 415.23, y: 442}
   actionType: 2
   targetId: PepperJar
   dragSourceId: Tbsp_1_2

@@ -18,6 +18,7 @@ MonoBehaviour:
   - 'Watch the meter: the indicator bounces from left to right.'
   - Green means very good timing. Yellow means good. Red means poor.
   advanceDelay: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 0, y: 145}
   actionType: 0

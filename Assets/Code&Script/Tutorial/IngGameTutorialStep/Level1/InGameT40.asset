@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the vinegar in the shelf
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 1

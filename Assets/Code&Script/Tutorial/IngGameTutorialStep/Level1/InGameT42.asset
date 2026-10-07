@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - 'Scroll and find 1/2 cup '
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: -350.69, y: 140}
   actionType: 1

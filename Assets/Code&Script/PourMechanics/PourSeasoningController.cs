@@ -22,6 +22,9 @@ public enum MeasureTool { Spoon, Cup }
 /// </summary>
 public class PourSeasoningController : MonoBehaviour
 {
+    [Header("Tutorial")]
+    [Tooltip("The TutorialInteractable on PourButton (id 'PourBtn').")]
+    public TutorialInteractable pourTutorial;
     [Header("Panels")]
     public GameObject seasoningPanel;   // PourSeasoningPanel
     public GameObject pickPanel;        // PickPanel
@@ -136,6 +139,8 @@ public class PourSeasoningController : MonoBehaviour
         if (spoonScroll != null) allButtons.AddRange(spoonScroll.GetComponentsInChildren<MeasurementButton>(true));
         if (cupScroll != null) allButtons.AddRange(cupScroll.GetComponentsInChildren<MeasurementButton>(true));
         foreach (var b in allButtons) b.Clicked += OnMeasurementClicked;
+        if (pourTutorial == null && pourMechanic != null)
+            pourTutorial = pourMechanic.GetComponent<TutorialInteractable>();
 
         if (pourMechanic != null) pourMechanic.OnPourFinished += OnPourFinished;
 
@@ -364,6 +369,7 @@ public class PourSeasoningController : MonoBehaviour
 
     private void OnPourFinished(PourMechanic.PourResult meter, float pouredMl)
     {
+
         if (selected == null) return;
 
         RecipeData recipe = cookingPrepPanel != null ? cookingPrepPanel.currentRecipe : null;
@@ -382,15 +388,17 @@ public class PourSeasoningController : MonoBehaviour
         bool amountCorrect = Mathf.Abs(selected.Ml - requiredMl) <= Mathf.Max(0.05f, requiredMl * matchTolerance);
         bool meterOk = meter == PourMechanic.PourResult.Perfect || meter == PourMechanic.PourResult.Good;
         bool success = amountCorrect && meterOk;
-
+        bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
         ResultQuality quality = !success ? ResultQuality.Bad
                               : meter == PourMechanic.PourResult.Perfect ? ResultQuality.VeryGood
                               : ResultQuality.Good;
 
         Debug.Log($"[Pour] {currentSeasoning}: chose {selected.Ml:0.##} ml (recipe wants {requiredMl:0.##}), meter {meter} -> {quality}");
 
-        if (penalizeWrongMeasurement || success)
+        if (!inTutorial && (penalizeWrongMeasurement || success))
             ScoreManager.Instance?.ReportResult(quality);
+
+     
 
         if (success)
         {
@@ -401,6 +409,19 @@ public class PourSeasoningController : MonoBehaviour
         }
 
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
+        // Tell the tutorial LAST, once the result is known
+        if (inTutorial)
+        {
+            if (success)
+            {
+                pourTutorial?.ReportHold();
+            }
+            else
+            {
+                ClearSelection();                 // resets the meter and unselects the measurement
+                pourTutorial?.ReportMistake();    // revert to the previous step
+            }
+        }
     }
 
     private bool TryFindRequirement(RecipeData recipe, SeasoningType seasoning, out int lineIndex, out float ml)

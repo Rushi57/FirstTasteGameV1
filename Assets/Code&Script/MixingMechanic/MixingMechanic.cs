@@ -318,6 +318,17 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         hasStarted = false;
         mixingActive = false;
         isDragging = false;
+        elapsedTime = 0f;
+        indicatorY = 0f;
+        currentAngularSpeed = 0f;
+
+        if (indicator != null)
+        {
+            Vector2 p = indicator.anchoredPosition;
+            p.y = 0f;
+            indicator.anchoredPosition = p;
+        }
+        UpdateTimerVisual();
 
         if (spatulaImage != null)
         {
@@ -382,7 +393,14 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         Debug.Log($"[Mixing] Finished. Indicator at {fraction:0.00} of track -> {result}");
         OnMixFinished?.Invoke(result);
-        tutorialInteractable?.ReportTimerComplete();
+        if (tutorialInteractable != null)
+        {
+            bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+            if (inTutorial && result == MixResult.Bad)
+                tutorialInteractable.ReportMistake();        // red = mistake, revert
+            else
+                tutorialInteractable.ReportTimerComplete();  // green/yellow = advance
+        }
     }
 
     private void UpdateDirectionLabel()

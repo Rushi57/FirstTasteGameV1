@@ -41,7 +41,8 @@ public class TutorialStep : ScriptableObject
     [Header("Timing")]
     [Tooltip("Seconds to wait after the player completes the action before moving to the next step. Use this to let the mechanic's animation finish.")]
     [Min(0)] public float advanceDelay = 0f;
-
+    [Tooltip("How many steps to go back on a mistake. -1 = use the manager's default. 0 = replay this same step. 1 = previous step.")]
+    [Min(-1)] public int revertSteps = -1;
     [Tooltip("Where the dialogue box should be placed for this step. Auto picks whichever of the box's two preset positions (Top/Bottom on DialogueBoxUI) doesn't overlap the target. Custom uses the exact Custom Position below instead.")]
     public DialoguePosition dialoguePosition = DialoguePosition.Auto;
 

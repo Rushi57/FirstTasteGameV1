@@ -15,8 +15,9 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - In rotate the dial pointing to high the red line is the arrow
+  - Rotate the dial to high
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: -420.45, y: 145}
   actionType: 2

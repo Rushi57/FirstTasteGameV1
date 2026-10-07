@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - See the circle at the top? It shows the current cut state
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 145}
   actionType: 0

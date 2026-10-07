@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Drag and drop the pitcher in the pan
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 456.72}
   actionType: 2

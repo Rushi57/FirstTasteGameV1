@@ -18,7 +18,9 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Transform originalParent;
     private bool wasDroppedSuccessfully;
     private bool isLocked;
-
+    [Header("Tutorial")]
+    [Tooltip("If true, releasing this item anywhere except its correct drop zone counts as a tutorial mistake.")]
+    public bool reportMistakeOnBadDrop = true;
     public bool IsLocked => isLocked;
 
     private void Awake()
@@ -59,7 +61,12 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.blocksRaycasts = !isLocked;
 
         if (!wasDroppedSuccessfully)
-            ReturnToOrigin();
+        {
+            ReturnToOrigin();   // put the item back first, so the replayed step starts clean
+
+            if (reportMistakeOnBadDrop && !isLocked)
+                TutorialManager.Instance?.ReportMistake();
+        }
     }
 
     public void ReturnToOrigin()

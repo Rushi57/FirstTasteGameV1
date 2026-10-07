@@ -163,6 +163,25 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             yield break;
         }
     }
+    private void OnEnable()
+    {
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.OnTutorialReverted += OnTutorialReverted;
+    }
+
+    private void OnDisable()
+    {
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.OnTutorialReverted -= OnTutorialReverted;
+    }
+
+    private void OnTutorialReverted()
+    {
+        // Back to Off so the replayed step starts clean.
+        // Keep the dial open so the player can turn it again.
+        SetHeat(StoveHeat.Off);
+        dialUI?.SetVisual(StoveHeat.Off);
+    }
 
 
     public void SetRecipe(RecipeData newRecipe)

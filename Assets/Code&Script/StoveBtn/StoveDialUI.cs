@@ -42,10 +42,12 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         ApplyRotation(currentAngle);
 
         StoveHeat heat = (StoveHeat)step;
+        StoveHeat previous = stove != null ? stove.CurrentHeat : StoveHeat.Off;
         if (stove != null)
             stove.SetHeat(heat);
-
-        ReportToTutorial(heat);
+        bool tutorialRunning = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+        if (tutorialRunning && heat != previous)
+            ReportToTutorial(heat);
     }
 
     private void UpdateAngle(PointerEventData e)
@@ -71,15 +73,22 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private void ReportToTutorial(StoveHeat heat)
     {
         string wantedId = "Stove" + heat;   // StoveLow, StoveHigh, ...
+
         foreach (var t in interactables)
         {
             if (t.ResolvedId == wantedId)
             {
+                // Correct id for this heat. If it isn't the one the step wants
+                // (e.g. StoveLow on the High step), the manager rejects it and reverts.
                 t.ReportDrop();
                 return;
             }
         }
+
         // No interactable for this heat (Off/Medium) = wrong choice.
+        // Reset the stove first so the replayed step starts clean.
+        if (stove != null) stove.ResetStoveProgress();   // heat -> Off, dial closed
         TutorialManager.Instance?.ReportMistake();
     }
+
 }

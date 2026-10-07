@@ -7,6 +7,7 @@ public class GameOverController : MonoBehaviour
     [Header("Buttons")]
     public Button replayButton;
     public Button quitButton;
+    public Button scoreBorderReplay;
 
     [Header("Quit")]
     [Tooltip("Scene to load when the player tap Quit ")]

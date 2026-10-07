@@ -34,6 +34,9 @@ public class MixingSeasoningController : MonoBehaviour
     [Header("Direction")]
     public bool randomizeDirection = true;
     private MixingMechanic.MixDirection lastDirection = MixingMechanic.MixDirection.Any;
+    
+    private MixingMechanic.MixDirection configuredDirection;
+    private float configuredSpeed;
 
     private void Start()
     {
@@ -68,15 +71,27 @@ public class MixingSeasoningController : MonoBehaviour
         mixingPanel.SetActive(true);
         mixingMechanic.ResetForNewRound();
         mixingMechanic.ConfigureChallenge(direction, speed);
-
+        configuredDirection = mixingMechanic.requiredDirection;   // the direction actually chosen
+        configuredSpeed = speed;
         Debug.Log($"[Mixing] Opened for line {lineIndex}: '{recipe.cookingInstructions[lineIndex]}' -> direction={direction}, idealSpeed={speed}");
+    }
+
+    private static bool InTutorial =>
+    TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+
+    /// <summary>Restarts the same round in place so the replayed tutorial step can be retried.</summary>
+    private void RestartRound()
+    {
+        challengeActive = true;
+        mixingMechanic.ResetForNewRound();
+        mixingMechanic.ConfigureChallenge(configuredDirection, configuredSpeed);
     }
 
     private void HandleMixFinished(MixingMechanic.MixResult result)
     {
         if (!challengeActive) return;
 
-        bool success = result <= minimumSuccess; // enum order: VeryGood(0) < Good(1) < Bad(2)
+        bool success = result <= minimumSuccess; // VeryGood(0) < Good(1) < Bad(2)
         Debug.Log($"[Mixing] Result: {result} -> {(success ? "PASS" : "FAIL")}");
 
         ResultQuality quality = result switch
@@ -85,7 +100,11 @@ public class MixingSeasoningController : MonoBehaviour
             MixingMechanic.MixResult.Good => ResultQuality.Good,
             _ => ResultQuality.Bad
         };
-        ScoreManager.Instance?.ReportResult(quality);
+
+        bool inTutorial = InTutorial;
+
+        if (!inTutorial)
+            ScoreManager.Instance?.ReportResult(quality);   // no penalty while teaching
 
         if (success && pendingLineIndex >= 0)
         {
@@ -94,10 +113,23 @@ public class MixingSeasoningController : MonoBehaviour
         }
 
         challengeActive = false;
+
+        // Tutorial + red: reset the round so the replayed step can be done again.
+        // (MixingMechanic reports the mistake itself, right after this event.)
+        if (inTutorial && !success)
+            RestartRound();
     }
 
     public void Close()
     {
+        // Closing before the mix is finished counts as a tutorial mistake.
+        if (InTutorial && challengeActive)
+        {
+            RestartRound();                                // reset, keep the panel open
+            TutorialManager.Instance.ReportMistake();
+            return;
+        }
+
         mixingPanel.SetActive(false);
         pendingLineIndex = -1;
     }

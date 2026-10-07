@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Turn the dial to low
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: -381.8, y: 140}
   actionType: 2

@@ -17,8 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - Tap the TableSpoon measurment
   advanceDelay: 0
+  revertSteps: -1
   dialoguePosition: 1
-  customPosition: {x: 0, y: 145}
+  customPosition: {x: -200.8, y: 145}
   actionType: 1
   targetId: pickTbsp
   dragSourceId: 

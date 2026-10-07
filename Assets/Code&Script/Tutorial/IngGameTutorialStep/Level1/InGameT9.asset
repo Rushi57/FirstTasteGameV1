@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Now drag the knife to the chopping board to begin cutting.
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 145}
   actionType: 2
