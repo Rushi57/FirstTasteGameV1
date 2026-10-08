@@ -475,7 +475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &25443952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6118,11 +6118,11 @@ RectTransform:
   - {fileID: 1908031174}
   - {fileID: 864441034}
   - {fileID: 1764943754}
-  - {fileID: 663329906}
   - {fileID: 878492707}
   - {fileID: 881317332}
-  - {fileID: 1163599450}
+  - {fileID: 663329906}
   - {fileID: 900164823}
+  - {fileID: 1163599450}
   m_Father: {fileID: 1723323984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9151,6 +9151,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   image: {fileID: 620520280}
   liquidImage: {fileID: 915793240}
+  hideStreamOnReturn: 1
 --- !u!1 &629023177
 GameObject:
   m_ObjectHideFlags: 0
@@ -12982,6 +12983,7 @@ MonoBehaviour:
   recipe: {fileID: 0}
   confirmDelay: 0.5
   tutorialInteractable: {fileID: 864441039}
+  stoveDropZone: {fileID: 947460799}
 --- !u!114 &864441039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19209,7 +19211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45, y: -55.4}
+  m_AnchoredPosition: {x: -30.85, y: -81.7}
   m_SizeDelta: {x: 22.21, y: 190.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915793240
@@ -21173,7 +21175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -62.2, y: -11}
+  m_AnchoredPosition: {x: -51, y: -10.400002}
   m_SizeDelta: {x: 184.17, y: 84.959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1036081577
@@ -21258,6 +21260,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   image: {fileID: 1036081577}
   liquidImage: {fileID: 915793240}
+  hideStreamOnReturn: 1
 --- !u!1 &1047500675
 GameObject:
   m_ObjectHideFlags: 0
@@ -24152,6 +24155,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   image: {fileID: 620520280}
   liquidImage: {fileID: 0}
+  hideStreamOnReturn: 1
 --- !u!95 &1196578811
 Animator:
   serializedVersion: 7
@@ -25794,6 +25798,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   image: {fileID: 1319382195}
   liquidImage: {fileID: 0}
+  hideStreamOnReturn: 1
 --- !u!114 &1319382195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26792,8 +26797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -31, y: 22.850006}
-  m_SizeDelta: {x: 385.66, y: 95.81}
+  m_AnchoredPosition: {x: 1.14, y: 22.850006}
+  m_SizeDelta: {x: 449.94, y: 95.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1407043604
 MonoBehaviour:
@@ -26815,7 +26820,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ingredient Prep:'
+  m_text: 'Gather Ingredients:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26842,7 +26847,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.05
+  m_fontSize: 45.65
   m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -31653,6 +31658,7 @@ GameObject:
   - component: {fileID: 1853911556}
   - component: {fileID: 1853911557}
   - component: {fileID: 1853911558}
+  - component: {fileID: 1853911559}
   m_Layer: 0
   m_Name: InGamePlayGameObject
   m_TagString: Untagged
@@ -31759,6 +31765,21 @@ MonoBehaviour:
   wrongStepMessage: 'Wrong Step!
 
     Minus 1 heart'
+--- !u!114 &1853911559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853911552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4547e7a9a436c042bbcb80f285e08a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gatherFirstMessage: Gather Ingredient first
+  finishPrepFirstMessage: Finish the Ingredient Prep First
+  bypassDuringTutorial: 1
 --- !u!1 &1893461268
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,13 +43,14 @@ public class CookingPrepPanelController : MonoBehaviour
     public void ResetToIngredientStage()
     {
         SetPanels(true, false, false);
+        CookingPhaseGate.Instance?.SetPhase(CookingPhase.GatherIngredients);
     }
 
     // Stage 1 -> 2
     private void HandleAllIngredientsSpawned()
     {
         SetPanels(false, true, false);
-
+        CookingPhaseGate.Instance?.SetPhase(CookingPhase.IngredientPrep);
         if (currentRecipe == null) return;
 
         var prepIndices = currentRecipe.GetPrepStepIndices();
@@ -66,7 +67,7 @@ public class CookingPrepPanelController : MonoBehaviour
     private void HandleAllCutsDone()
     {
         SetPanels(false, false, true);
-
+        CookingPhaseGate.Instance?.SetPhase(CookingPhase.CookingPrep);
         if (currentRecipe != null)
             cookingPrepListUI?.DisplaySteps(currentRecipe, currentRecipe.GetCookingStepIndices());
     }

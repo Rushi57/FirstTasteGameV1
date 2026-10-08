@@ -49,6 +49,13 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
+        //Block the pan until Cooking Prep
+        if(CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanUseStove())
+        {
+            drag.ReturnToOrigin();
+            return;
+        }
+
         if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(panStepId))
         {
             Debug.Log($"[StoveDrop] Pan dropped too early (current step is '{CookingPrepListUI.Instance.CurrentStepId}'). Bouncing back.");

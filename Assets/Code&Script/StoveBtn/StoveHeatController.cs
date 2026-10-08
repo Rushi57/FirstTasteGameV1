@@ -27,7 +27,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
 
     [Header("Tutorial")]
     public TutorialInteractable tutorialInteractable;
-
+    [Header("Optional")]
+    public StoveDropZone stoveDropZone;
     public StoveHeat CurrentHeat { get; private set; } = StoveHeat.Off;
     public event System.Action<StoveHeat> OnHeatChanged;
 
@@ -61,6 +62,16 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     public void OpenDial()
     {
         if (dialPanel == null) return;
+
+        //Block the dial (and so the heat) until Cooking Prep
+        if (CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanUseStove()) return;
+
+        if (stoveDropZone != null && !stoveDropZone.HasPan)
+        {
+            WarningMessageUI.Instance?.Show("Place the pan first");
+            return;
+        }
+
         dialPanel.SetActive(true);
         dialUI?.SetVisual(CurrentHeat);
         tutorialInteractable?.ReportTap();   // see note below

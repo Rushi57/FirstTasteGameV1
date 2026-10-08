@@ -17,8 +17,6 @@ MonoBehaviour:
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   - text: With roots that reach back before the arrival of the Spanish colonizers
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: With roots that reach back before the arrival of the Spanish colonizers
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   - text: The name comes from the Spanish word "adobar,"
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   - text: Meaning to marinate or season, but Filipinos were already cooking meat
