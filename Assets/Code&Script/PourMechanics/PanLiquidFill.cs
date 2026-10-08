@@ -5,20 +5,11 @@ using UnityEngine.UI;
 
 public class PanLiquidFill : MonoBehaviour
 {
-    [System.Serializable]
-    public class LiquidStyle
-    {
-        [Tooltip("Must match: Soy, Vinegar, CookingOil, Water")]
-        public string id = "Soy";
-        public Color color = Color.white;
-        [Tooltip("Higher = this liquid dominates the mix. Lower = it only tints slightly.")]
-        public float tintStrength = 1f;
-        [Range(0f, 1f), Tooltip("How see-through this liquid is on its own (water should be low).")]
-        public float opacity = 1f;
-    }
+
+  
 
     [SerializeField] private Image blob;
-    [SerializeField] private List<LiquidStyle> styles = new List<LiquidStyle>();
+   
 
     [Header("Look")]
     [Range(0f, 1f), Tooltip("Overall cap on the blob's alpha. Lower = more transparent.")]
@@ -33,6 +24,18 @@ public class PanLiquidFill : MonoBehaviour
     private readonly Dictionary<string, float> amounts = new Dictionary<string, float>();
     private Coroutine routine;
     private Vector3 baseScale = Vector3.one;
+
+    [SerializeField] private DishLiquidProfile profile;
+    private float reduction;
+
+    public void SetProfile(DishLiquidProfile p) { profile = p; Clear(); }
+    public void SetReduction(float t)
+    {
+        reduction = Mathf.Clamp01(t);
+        if (blob == null || amounts.Count == 0) return;
+        if (routine != null) { StopCoroutine(routine); routine = null; }
+        blob.color = GetMix();   // applied directly, safe to call every frame
+    }
 
     private void Awake()
     {
@@ -52,6 +55,13 @@ public class PanLiquidFill : MonoBehaviour
         AddLiquidById("Water", ml);
     }
 
+    public void Refresh()
+    {
+        if(blob == null || amounts.Count == 0) return;
+        if(routine != null) StopCoroutine(routine);
+        routine = StartCoroutine(AnimateTo(GetMix(), GetTargetScale()));
+    }
+
     public void AddLiquidById(string id, float ml)
     {
         if (blob == null) return;
@@ -67,38 +77,43 @@ public class PanLiquidFill : MonoBehaviour
     {
         if (routine != null) StopCoroutine(routine);
         amounts.Clear();
+        reduction = 0f;          // new
         if (blob == null) return;
         Color c = blob.color; c.a = 0f; blob.color = c;
         blob.transform.localScale = baseScale * 0.5f;
     }
 
-    private LiquidStyle GetStyle(string id)
-    {
-        foreach (var s in styles) if (s.id == id) return s;
-        return null;
-    }
-
     private Color GetMix()
     {
+        if (profile == null || !profile.showLiquid) return Color.clear;
+
+        float total = 0f, weightSum = 0f, opacityW = 0f;
         Vector3 rgb = Vector3.zero;
-        float alpha = 0f, total = 0f;
 
         foreach (var kv in amounts)
         {
-            var s = GetStyle(kv.Key);
-            Color c = s != null ? s.color : Color.white;
-            float strength = s != null ? s.tintStrength : 1f;
-            float opacity = s != null ? s.opacity : 1f;
-
-            float w = kv.Value * strength;          // amount x strength
-            rgb += new Vector3(c.r, c.g, c.b) * w;
-            alpha += opacity * w;
-            total += w;
+            var s = profile.Get(kv.Key);
+            if (s == null) continue;                       // this dish ignores that liquid
+            float w = kv.Value * s.strength;
+            total += kv.Value;
+            weightSum += w;
+            rgb += new Vector3(s.color.r, s.color.g, s.color.b) * w;
+            opacityW += s.opacity * w;
         }
-        if (total <= 0f) return Color.clear;
+        if (total <= 0f || weightSum <= 0f) return Color.clear;
 
-        rgb /= total;
-        return new Color(rgb.x, rgb.y, rgb.z, (alpha / total) * maxAlpha);
+        Color tint = new Color(rgb.x / weightSum, rgb.y / weightSum, rgb.z / weightSum);
+        float tintOpacity = opacityW / weightSum;
+
+        // average strength per ml: lots of water lowers it, so the base shows through
+        float influence = 1f - Mathf.Exp(-profile.sensitivity * (weightSum / total));
+
+        Color result = Color.Lerp(profile.baseColor, tint, influence);
+        float alpha = Mathf.Lerp(profile.baseOpacity, tintOpacity, influence);
+
+        result = Color.Lerp(result, profile.reducedColor, reduction * 0.6f);
+        result.a = Mathf.Clamp01(alpha + reduction * 0.2f) * maxAlpha;
+        return result;
     }
 
     private float GetTargetScale()
@@ -131,4 +146,5 @@ public class PanLiquidFill : MonoBehaviour
         blob.color = target;
         blob.transform.localScale = endScale;
     }
+
 }

@@ -23,6 +23,8 @@ public class CookingPrepPanelController : MonoBehaviour
     [Tooltip("The recipe currently being cooked.")]
     public RecipeData currentRecipe;
 
+    [Header("Pan Liquid")]
+    public PanLiquidFill panLiquid;
     private void OnEnable()
     {
         if (ingredientList != null)
@@ -44,6 +46,7 @@ public class CookingPrepPanelController : MonoBehaviour
     {
         SetPanels(true, false, false);
         CookingPhaseGate.Instance?.SetPhase(CookingPhase.GatherIngredients);
+        ApplyLiquidProfile();   // add
     }
 
     // Stage 1 -> 2
@@ -68,6 +71,7 @@ public class CookingPrepPanelController : MonoBehaviour
     {
         SetPanels(false, false, true);
         CookingPhaseGate.Instance?.SetPhase(CookingPhase.CookingPrep);
+        ApplyLiquidProfile();   // add
         if (currentRecipe != null)
             cookingPrepListUI?.DisplaySteps(currentRecipe, currentRecipe.GetCookingStepIndices());
     }
@@ -77,5 +81,13 @@ public class CookingPrepPanelController : MonoBehaviour
         if (ingredientPrepPanel != null) ingredientPrepPanel.SetActive(ingredient);
         if (ingredientCutPrepPanel != null) ingredientCutPrepPanel.SetActive(cut);
         if (cookingPrepPanel != null) cookingPrepPanel.SetActive(cooking);
+    }
+    private void ApplyLiquidProfile()
+    {
+        if (panLiquid == null) return;
+        if (currentRecipe != null && currentRecipe.liquidProfile != null)
+            panLiquid.SetProfile(currentRecipe.liquidProfile);
+        else
+            panLiquid.Clear();   // dish has no profile: keep the pan empty
     }
 }

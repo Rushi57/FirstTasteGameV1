@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class PanDropZone : MonoBehaviour, IDropHandler
 {
@@ -36,6 +37,29 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
     private StoveHeatController ResolveStove() =>
     stoveController != null ? stoveController : GetComponentInParent<StoveHeatController>();
+
+
+    [System.Serializable]
+    public class PourLiquid
+    {
+        public string ingredientId;
+        public PourAnimationPlayer player;   // leave empty to use the shared Pour Player
+        public string liquidId;
+        public float ml = 250f;
+
+        [Header("Animation look")]
+        public Sprite pitcherSprite;         // water glass, blood bowl, coconut milk pitcher...
+        public Sprite streamSprite;          // use the WHITE stream sprite so the tint is exact
+        public Color streamColor = Color.white;
+    }
+
+
+
+
+    [Header("Pan Liquid")]
+    public PanLiquidFill panLiquid;
+    public List<PourLiquid> pourLiquids = new List<PourLiquid>();
+
     private void Awake()
     {
         tutorialTag = GetComponent<TutorialInteractable>();
@@ -118,19 +142,30 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
     private void HandlePour(TestDrag drag, IngredientData data, string stepId)
     {
-        if (pourPlayer == null)
+        PourLiquid entry = pourLiquids.Find(p => p.ingredientId == data.id);
+        PourAnimationPlayer player = entry != null && entry.player != null ? entry.player : pourPlayer;
+
+        if (entry == null)
+            Debug.LogWarning($"[PanDrop] No Pour Liquids entry for '{data.id}' - animation will play but the pan won't change.");
+
+        if (player == null)
         {
-            Debug.LogWarning("[PanDrop] Pour Player is not assigned on PanDropZone.");
-            return; // item returns normally via TestDrag.OnEndDrag
+            Debug.LogWarning($"[PanDrop] No pour player for '{data.id}' (add it to Pour Liquids or assign Pour Player).");
+            return;
         }
 
-        bool started = pourPlayer.Play(() =>
+        if (player.IsPlaying) return;
+
+        if (entry != null)
+            player.Configure(entry.pitcherSprite, entry.streamSprite, entry.streamColor);
+
+        bool started = player.Play(() =>
         {
-            // Pour finished: the animated pitcher is already hidden by PourAnimationPlayer.
-            // Bring the table pitcher back...
             if (drag != null) drag.SetLocked(false);
 
-            // ...and gray out "Add 1 cup of water" in the Cooking Prep list.
+            if (panLiquid != null && entry != null)
+                panLiquid.AddLiquidById(entry.liquidId, entry.ml);
+
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
@@ -138,12 +173,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             tutorialTag?.ReportDrop();
         });
 
-        if (started)
-        {
-            // Send the table pitcher back to its slot and hide it while the animation plays.
-            drag.LockAndReturn();
-        }
-        // If the animation was already busy, the drop is ignored and the item just returns, still visible.
+        if (started) drag.LockAndReturn();
     }
 
     /// <summary>True if heat isn't required, or the stove is on.</summary>

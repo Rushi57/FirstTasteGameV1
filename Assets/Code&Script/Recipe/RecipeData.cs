@@ -7,6 +7,7 @@ public class RecipeIngredientEntry
 {
     public IngredientData ingredient;
 
+    
     public float quantity = 1f;
 
     [Tooltip("e.g. \"cloves\", \"tbsp\", \"cup\", \"pc\" - purely for display text.")]
@@ -27,6 +28,9 @@ public class RecipeData : ScriptableObject
     [Header("Identity")]
     public string recipeName;
     public Sprite recipeIcon;
+
+    [Header("Pan Liquid")]
+    public DishLiquidProfile liquidProfile;
 
     [Header("Ingredients")]
     public List<RecipeIngredientEntry> ingredients = new List<RecipeIngredientEntry>();
@@ -212,4 +216,5 @@ public class RecipeData : ScriptableObject
             if (!IsPrepLine(cookingInstructions[i])) list.Add(i);
         return list;
     }
+
 }

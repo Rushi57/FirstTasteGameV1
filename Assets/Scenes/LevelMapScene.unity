@@ -18402,6 +18402,7 @@ MonoBehaviour:
   cutPrepListUI: {fileID: 1963478274}
   cookingPrepListUI: {fileID: 895778055}
   currentRecipe: {fileID: 0}
+  panLiquid: {fileID: 1058682817}
 --- !u!114 &881317337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18820,6 +18821,15 @@ MonoBehaviour:
   boilSimmerController: {fileID: 1764943758}
   pourPlayer: {fileID: 1205991024}
   stoveController: {fileID: 864441038}
+  panLiquid: {fileID: 1058682817}
+  pourLiquids:
+  - ingredientId: Water
+    player: {fileID: 1205991024}
+    liquidId: Water
+    ml: 1
+    pitcherSprite: {fileID: -5026358191354816851, guid: 250396549c54b2c4b985500c11adad06, type: 3}
+    streamSprite: {fileID: 6031388014311695419, guid: 375c806551d4754468f70b627fb099ab, type: 3}
+    streamColor: {r: 0.023529412, g: 0.003921569, b: 0.003921569, a: 1}
 --- !u!114 &897526504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18852,9 +18862,9 @@ MonoBehaviour:
   - 0.5
   - 1
   - 1.5
-  secondsToCook: 6
+  secondsToCook: 1
   canBurn: 0
-  secondsToBurn: 25
+  secondsToBurn: 80
   cookedTint: {r: 0.78, g: 0.5, b: 0.3, a: 1}
   burntTint: {r: 0.5471698, g: 0.4490922, b: 0.4000534, a: 1}
 --- !u!1 &898371873
@@ -20709,10 +20719,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1058682816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14, y: -19.387}
-  m_SizeDelta: {x: 191.65, y: 79.915}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 12, y: -26}
+  m_SizeDelta: {x: -98.86, y: -32.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007705676
 MonoBehaviour:
@@ -20727,7 +20737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.901886, b: 0, a: 0.16470589}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.16470589}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21544,6 +21554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058682816}
   - component: {fileID: 1058682817}
+  - component: {fileID: 1058682818}
   m_Layer: 5
   m_Name: LiquidEffect
   m_TagString: Untagged
@@ -21584,28 +21595,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blob: {fileID: 1007705676}
-  styles:
-  - id: CookingOil
-    color: {r: 1, g: 0.72156864, b: 0, a: 0.5019608}
-    tintStrength: 1
-    opacity: 0.5
-  - id: 'Soy '
-    color: {r: 0.23137255, g: 0.11764706, b: 0.0627451, a: 1}
-    tintStrength: 3
-    opacity: 1
-  - id: Vinegar
-    color: {r: 1, g: 1, b: 1, a: 1}
-    tintStrength: 0.5
-    opacity: 0.475
-  - id: Water
-    color: {r: 0.6117647, g: 0.827451, b: 0.9411765, a: 1}
-    tintStrength: 0.5
-    opacity: 0.242
   maxAlpha: 0.6
   fadeInTime: 0.4
   blendTime: 0.6
   pulseScale: 1.08
   growPerMl: 0.004
+  profile: {fileID: 0}
+--- !u!114 &1058682818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058682815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6a7813a0e234b448c2de6f719704fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panLiquid: {fileID: 1058682817}
+  waterMl: 250
 --- !u!1 &1059088773
 GameObject:
   m_ObjectHideFlags: 0
@@ -24409,6 +24418,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  onPourFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -5026358191354816851, guid: 250396549c54b2c4b985500c11adad06, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1207282394
 GameObject:
   m_ObjectHideFlags: 0

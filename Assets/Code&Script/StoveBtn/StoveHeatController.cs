@@ -66,11 +66,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         //Block the dial (and so the heat) until Cooking Prep
         if (CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanUseStove()) return;
 
-        if (stoveDropZone != null && !stoveDropZone.HasPan)
-        {
-            WarningMessageUI.Instance?.Show("Place the pan first");
-            return;
-        }
+      
 
         dialPanel.SetActive(true);
         dialUI?.SetVisual(CurrentHeat);

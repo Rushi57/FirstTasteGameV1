@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Adobo
   recipeIcon: {fileID: 4694169007334928847, guid: 6c86e246b21320745b38bf44057d9073, type: 3}
+  liquidProfile: {fileID: 11400000, guid: f08f1d9e43690874fb7dfddecd04a395, type: 2}
   ingredients:
   - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
     quantity: 0
