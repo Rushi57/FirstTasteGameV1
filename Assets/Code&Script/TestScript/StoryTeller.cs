@@ -101,10 +101,17 @@ public class StoryTeller : MonoBehaviour
     void MarkStorySeen()
     {
         PlayerPrefs.SetInt(StoryKey(), 1);
+        RegisterFlag(StoryKey());
         PlayerPrefs.Save();
         Debug.Log("[StoryTeller] MARKED SEEN: " + StoryKey());
     }
 
+    void MarkTutorialSeen()
+    {
+        PlayerPrefs.SetInt(TutorialKey(), 1);
+        RegisterFlag(TutorialKey());
+        PlayerPrefs.Save();
+    }
     // ---------- Panels ----------
     void OpenStoryPanel()
     {
@@ -191,5 +198,47 @@ public class StoryTeller : MonoBehaviour
         MarkStorySeen();
         ShowGameplay(startTutorial: true);
     }
+
+    // ---------- Reset support (call on New Game) ----------
+    const string FlagIndexKey = "StoryFlagIndex";
+
+    static void RegisterFlag(string key)
+    {
+        string index = PlayerPrefs.GetString(FlagIndexKey, "");
+        if (!("|" + index + "|").Contains("|" + key + "|"))
+        {
+            index = string.IsNullOrEmpty(index) ? key : index + "|" + key;
+            PlayerPrefs.SetString(FlagIndexKey, index);
+        }
+    }
+    public static void ResetAllFlags()
+    {
+        string index = PlayerPrefs.GetString(FlagIndexKey, "");
+        if (!string.IsNullOrEmpty(index))
+            foreach (string key in index.Split('|'))
+                PlayerPrefs.DeleteKey(key);
+
+        // Safety net for flags saved before the index existed
+        for (int i = 1; i <= 10; i++)
+        {
+            PlayerPrefs.DeleteKey("StorySeen_Level" + i);
+            PlayerPrefs.DeleteKey("TutorialSeen_Level" + i);
+        }
+
+        PlayerPrefs.DeleteKey(FlagIndexKey);
+        PlayerPrefs.Save();
+        Debug.Log("[StoryTeller] All story/tutorial flags reset");
+    }
+    // ---------- Tutorial seen flag (per dish) ----------
+    string TutorialKey()
+    {
+        LevelData level = LevelSelectionManager.SelectedLevel;
+        string id = level != null ? level.name : "fallback";
+        return "TutorialSeen_" + id;
+    }
+
+    bool HasSeenTutorial() => PlayerPrefs.GetInt(TutorialKey(), 0) == 1;
+
+   
 
 }

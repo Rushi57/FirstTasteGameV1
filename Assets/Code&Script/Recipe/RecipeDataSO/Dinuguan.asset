@@ -13,15 +13,22 @@ MonoBehaviour:
   m_Name: Dinuguan
   m_EditorClassIdentifier: 
   recipeName: Dinuguan
-  recipeIcon: {fileID: 0}
+  recipeIcon: {fileID: -6561501872683093162, guid: eabbd8d78467dfa469a240ae51b6415b, type: 3}
+  liquidProfile: {fileID: 11400000, guid: f08f1d9e43690874fb7dfddecd04a395, type: 2}
   ingredients:
-  - ingredient: {fileID: 0}
+  - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 2b91fc67856a61444873b8d04a053dbd, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 64cd73dd2538f0e45b0ccfd31cd1511c, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
   - Chop the Pork Belly into slice
   - Chop the Chili onto slice
-  - Chop the Garlic into slice
+  - Chop the Garlic into minced
   - Turn the on the stove to high heat
   - Put the Pan in the Stove
   - Add the Pork Belly

@@ -17,11 +17,12 @@ MonoBehaviour:
   category: 0
   size: 0
   icon: {fileID: 0}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 4633824830846953477, guid: 434ea7f5fcbe7ce48ae12339589a0759, type: 3}
   - state: 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 8677069507867967761, guid: cba6527bb8d05a64da7b8fb5e4cb1586, type: 3}
   - state: 2
     sprite: {fileID: 0}
   playsPourAnimation: 0
