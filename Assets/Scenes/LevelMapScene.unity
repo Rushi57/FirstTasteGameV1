@@ -18821,6 +18821,7 @@ MonoBehaviour:
   boilSimmerController: {fileID: 1764943758}
   pourPlayer: {fileID: 1205991024}
   stoveController: {fileID: 864441038}
+  cookingEffect: {fileID: 897526505}
   panLiquid: {fileID: 1058682817}
   pourLiquids:
   - ingredientId: Water
@@ -18829,7 +18830,7 @@ MonoBehaviour:
     ml: 1
     pitcherSprite: {fileID: -5026358191354816851, guid: 250396549c54b2c4b985500c11adad06, type: 3}
     streamSprite: {fileID: 6031388014311695419, guid: 375c806551d4754468f70b627fb099ab, type: 3}
-    streamColor: {r: 0.023529412, g: 0.003921569, b: 0.003921569, a: 1}
+    streamColor: {r: 0.7783019, g: 0.8992613, b: 1, a: 1}
 --- !u!114 &897526504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18862,7 +18863,7 @@ MonoBehaviour:
   - 0.5
   - 1
   - 1.5
-  secondsToCook: 1
+  secondsToCook: 13
   canBurn: 0
   secondsToBurn: 80
   cookedTint: {r: 0.78, g: 0.5, b: 0.3, a: 1}

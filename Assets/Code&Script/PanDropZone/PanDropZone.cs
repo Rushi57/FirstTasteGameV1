@@ -38,6 +38,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     private StoveHeatController ResolveStove() =>
     stoveController != null ? stoveController : GetComponentInParent<StoveHeatController>();
 
+    [Header("Coocking")]
+    public PanCookingEffect cookingEffect;
+
 
     [System.Serializable]
     public class PourLiquid
@@ -122,6 +125,14 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         // ---------- Normal ingredients ----------
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
+
+        //Start turning Brown Ingredients 
+        if (cookingEffect != null)
+        {
+            Image img = dropped.GetComponent<Image>();
+            if (img == null) img = dropped.GetComponentInChildren<Image>();
+            cookingEffect.Track(img);
+        }
 
         CookingPrepListUI.Instance?.CompleteStep(stepId);
         OnIngredientAdded?.Invoke(data);
