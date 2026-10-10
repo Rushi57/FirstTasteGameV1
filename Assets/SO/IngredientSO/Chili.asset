@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Chili
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 4633824830846953477, guid: 434ea7f5fcbe7ce48ae12339589a0759, type: 3}
   iconScale: 1
   stateSprites:
   - state: 0

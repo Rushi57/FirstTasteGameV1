@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Grab the spatula and start to saute or mix until the timer runs out.
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 389.2, y: 471.45}
   actionType: 4

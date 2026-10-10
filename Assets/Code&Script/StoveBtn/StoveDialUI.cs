@@ -15,6 +15,9 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Canvas canvas;
     private float currentAngle;   // clockwise from top, 0-360
 
+    private float lastRawAngle;
+
+
     private TutorialInteractable[] interactables;
 
     private void Awake()
@@ -32,13 +35,18 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         ApplyRotation(currentAngle);
     }
 
-    public void OnBeginDrag(PointerEventData e) => UpdateAngle(e);
+    public void OnBeginDrag(PointerEventData e)
+    {
+        lastRawAngle = currentAngle;
+        UpdateAngle(e);
+    }
     public void OnDrag(PointerEventData e) => UpdateAngle(e);
 
     public void OnEndDrag(PointerEventData e)
     {
-        int step = Mathf.RoundToInt(currentAngle / 90f) % 4;   // 0..3 = Off, Low, Medium, High
+        int step = Mathf.Clamp(Mathf.RoundToInt(currentAngle / 90f), 0, 3);
         currentAngle = step * 90f;
+        lastRawAngle = currentAngle;
         ApplyRotation(currentAngle);
 
         StoveHeat heat = (StoveHeat)step;
@@ -62,6 +70,14 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;   // 0 = up, clockwise positive
         if (angle < 0f) angle += 360f;
 
+
+        //Hard Stop
+        if (angle > 180f && angle < 90f)
+            angle = 270f;
+        else if (lastRawAngle < 90 && angle > 270f)
+            angle = 0f;
+
+        lastRawAngle = angle;
         currentAngle = angle;
         ApplyRotation(currentAngle);
     }
@@ -72,16 +88,15 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
     private void ReportToTutorial(StoveHeat heat)
     {
+        if (heat == StoveHeat.Off) return;
+
         string wantedId = "Stove" + heat;   // StoveLow, StoveHigh, ...
 
         foreach (var t in interactables)
         {
             if (t.ResolvedId == wantedId)
             {
-                // Correct id for this heat. If it isn't the one the step wants
-                // (e.g. StoveLow on the High step), the manager rejects it and reverts.
-                t.ReportDrop();
-                return;
+                if (t.ResolvedId == wantedId) { t.ReportDrop(); return; }
             }
         }
 

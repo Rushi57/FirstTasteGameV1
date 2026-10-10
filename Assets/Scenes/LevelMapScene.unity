@@ -21512,8 +21512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12, y: -26}
-  m_SizeDelta: {x: -98.86, y: -32.13}
+  m_AnchoredPosition: {x: 16.01, y: -9.862503}
+  m_SizeDelta: {x: -37.8, y: 0.14500761}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007705676
 MonoBehaviour:
@@ -21528,7 +21528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.16470589}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3882353}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22386,7 +22386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blob: {fileID: 1007705676}
-  maxAlpha: 0.6
+  maxAlpha: 0.9
   fadeInTime: 0.4
   blendTime: 0.6
   pulseScale: 1.08
