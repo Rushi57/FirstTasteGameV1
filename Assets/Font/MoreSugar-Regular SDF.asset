@@ -62,7 +62,7 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _FaceDilate: 0.52
+    - _FaceDilate: 0.53
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
@@ -81,12 +81,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.562
+    - _OutlineWidth: 0.659
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.7161015
+    - _ScaleRatioA: 0.66043663
     - _ScaleRatioB: 0.7386364
-    - _ScaleRatioC: 0.18993507
+    - _ScaleRatioC: 0.18344158
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -121,7 +121,7 @@ Material:
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0.37735847, g: 0.22684437, b: 0.17265928, a: 1}
+    - _UnderlayColor: {r: 0.5849056, g: 0.31675312, b: 0.2179601, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &11400000
@@ -2285,6 +2285,21 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 0
+      m_Height: 0
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 0
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 0
+      m_Width: 0
+      m_Height: 0
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
@@ -2905,6 +2920,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 8364
     m_GlyphIndex: 143
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 10
+    m_GlyphIndex: 1
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 4760310830335657875}
