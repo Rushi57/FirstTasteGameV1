@@ -171,6 +171,26 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public bool IsHeatLocked
+    {
+        get
+        {
+            if (recipe == null) return false;
+
+            CookingPrepListUI prepList = CookingPrepListUI.Instance;
+            if (prepList == null) return false;          // tutorial / no list: don't lock
+
+            string currentId = prepList.CurrentStepId;
+            if (currentId == null) return true;          // all steps done
+
+            for (int i = 0; i < recipe.cookingInstructions.Count; i++)
+            {
+                if (recipe.GetStepId(i) != currentId) continue;
+                return !recipe.TryGetStoveStep(i, out _, out _);
+            }
+            return false;
+        }
+    }
 
     public void SetRecipe(RecipeData newRecipe)
     {
