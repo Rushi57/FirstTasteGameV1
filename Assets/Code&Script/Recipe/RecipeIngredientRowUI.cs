@@ -2,11 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Put this on your ingredient row prefab (the "Ingredient Name and Quantity"
-/// rows in the scrolling Ingredients list). RecipeIngredientListUI spawns
-/// one of these per ingredient in the recipe.
-/// </summary>
 public class RecipeIngredientRowUI : MonoBehaviour
 {
     [Tooltip("Shows the combined 'Name - Quantity Unit' text, e.g. 'Garlic - 12 cloves'.")]
@@ -15,22 +10,35 @@ public class RecipeIngredientRowUI : MonoBehaviour
     [Tooltip("Optional icon showing the ingredient's sprite.")]
     public Image icon;
 
-    [Tooltip("Optional checkmark/highlight shown once this ingredient has been placed on the table. Leave unassigned if you don't want this visual.")]
+    [Tooltip("Check image shown once the ingredient has been gathered/spawned.")]
+    public GameObject spawnedCheckmark;
+    [Tooltip("Keeps the check image's proportions instead of stretching it to the rect.")]
+    public bool preserveCheckAspect = true;
+
+    [Tooltip("Also preserve the aspect ratio of the ingredient icon.")]
+    public bool preserveIconAspect = true;
+
+    [Tooltip("Optional: check/highlight shown once placed on the table.")]
     public GameObject collectedCheckmark;
 
-    [Tooltip("Controls the row's dim/grayed-out look once its ingredient has been spawned. Auto-added if left unassigned.")]
+    [Header("Optional dimming (off by default)")]
+    public bool dimWhenSpawned = false;
     public CanvasGroup canvasGroup;
+    [Range(0.1f, 1f)] public float spawnedAlpha = 0.5f;
 
-    [Range(0.1f, 1f)]
-    [Tooltip("Alpha applied to the whole row once its ingredient has been spawned (grayed out).")]
-    public float spawnedAlpha = 0.5f;
+
 
     private RecipeIngredientEntry entry;
 
     private void Awake()
     {
-        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        if (dimWhenSpawned && canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+        if (icon != null)
+            icon.preserveAspect = preserveIconAspect;
     }
+
 
     public void SetData(RecipeIngredientEntry ingredientEntry)
     {
@@ -49,32 +57,24 @@ public class RecipeIngredientRowUI : MonoBehaviour
         SetSpawned(false);
     }
 
-    /// <summary>Does this row represent the given ingredient?</summary>
     public bool Matches(IngredientData ingredient)
     {
         return entry != null && entry.ingredient == ingredient;
     }
 
-    /// <summary>
-    /// Marks the row as collected. No longer applies a strikethrough to the
-    /// label - toggles collectedCheckmark only. If you don't want any visual
-    /// at all here, leave collectedCheckmark unassigned in the Inspector.
-    /// </summary>
     public void SetCollected(bool collected)
     {
         if (collectedCheckmark != null)
             collectedCheckmark.SetActive(collected);
     }
 
-    /// <summary>
-    /// Dims the row to show its ingredient has already been spawned/pulled
-    /// out (e.g. from the Fridge/Basket) - distinct from SetCollected, which
-    /// is for "correctly placed on the table". A row can be spawned but not
-    /// yet collected, or spawned AND collected at the same time.
-    /// </summary>
+    /// <summary>Shows the check image when the ingredient has been gathered.</summary>
     public void SetSpawned(bool spawned)
     {
-        if (canvasGroup != null)
+        if (spawnedCheckmark != null)
+            spawnedCheckmark.SetActive(spawned);
+
+        if (dimWhenSpawned && canvasGroup != null)
             canvasGroup.alpha = spawned ? spawnedAlpha : 1f;
     }
 }

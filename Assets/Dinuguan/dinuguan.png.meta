@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d59fb0d41cad41d4787bc33ce7adedc4
+guid: eabbd8d78467dfa469a240ae51b6415b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -947749556987461895
-    second: vinegar_0
+      213: -6561501872683093162
+    second: dinuguan_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: vinegar_0
+      name: dinuguan_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 0
-        width: 138
-        height: 293
+        x: 74
+        y: 214
+        width: 874
+        height: 582
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9fe7abf9ccae8d2f0800000000000000
-      internalID: -947749556987461895
+      spriteID: 653f9a5afccd0f4a0800000000000000
+      internalID: -6561501872683093162
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      vinegar_0: -947749556987461895
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

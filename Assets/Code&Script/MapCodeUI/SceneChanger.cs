@@ -14,6 +14,7 @@ public class SceneChanger : MonoBehaviour
     public void NewGame(string sceneName)
     {
         TutorialManager.ResetAllTutorials();
+        StoryTeller.ResetAllFlags();      // <-- new
         GameSession.Clear();
         LoadingManager.LoadNextScene(sceneName);
     }

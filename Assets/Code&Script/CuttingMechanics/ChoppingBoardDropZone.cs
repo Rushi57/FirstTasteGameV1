@@ -42,6 +42,13 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         TestDrag drag = droppedObj.GetComponent<TestDrag>();
         if (drag == null) return;
 
+        //Block Cutting Until Ingredient Prep
+        if(CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanCut())
+        {
+            drag.ReturnToOrigin();
+            return;
+        }
+
         if (droppedObj.CompareTag(knifeTag))
             HandleKnifeDropped();
         else

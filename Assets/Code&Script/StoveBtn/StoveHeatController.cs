@@ -27,7 +27,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
 
     [Header("Tutorial")]
     public TutorialInteractable tutorialInteractable;
-
+    [Header("Optional")]
+    public StoveDropZone stoveDropZone;
     public StoveHeat CurrentHeat { get; private set; } = StoveHeat.Off;
     public event System.Action<StoveHeat> OnHeatChanged;
 
@@ -61,6 +62,12 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     public void OpenDial()
     {
         if (dialPanel == null) return;
+
+        //Block the dial (and so the heat) until Cooking Prep
+        if (CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanUseStove()) return;
+
+      
+
         dialPanel.SetActive(true);
         dialUI?.SetVisual(CurrentHeat);
         tutorialInteractable?.ReportTap();   // see note below
@@ -164,6 +171,26 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public bool IsHeatLocked
+    {
+        get
+        {
+            if (recipe == null) return false;
+
+            CookingPrepListUI prepList = CookingPrepListUI.Instance;
+            if (prepList == null) return false;          // tutorial / no list: don't lock
+
+            string currentId = prepList.CurrentStepId;
+            if (currentId == null) return true;          // all steps done
+
+            for (int i = 0; i < recipe.cookingInstructions.Count; i++)
+            {
+                if (recipe.GetStepId(i) != currentId) continue;
+                return !recipe.TryGetStoveStep(i, out _, out _);
+            }
+            return false;
+        }
+    }
 
     public void SetRecipe(RecipeData newRecipe)
     {

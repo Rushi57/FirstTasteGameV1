@@ -28,9 +28,10 @@ public class PanCookingEffect : MonoBehaviour
 
     public void Track(Image img)
     {
-        if (img == null) return;
-        foreach (var i in items) if (i.img == img) return;   // already tracked
+        if (img == null) { Debug.LogWarning("[Cook] Track called with NULL image"); return; }
+        foreach (var i in items) if (i.img == img) return;
         items.Add(new Item { img = img, raw = img.color });
+        Debug.Log($"[Cook] Tracking '{img.name}'");
     }
 
     private float Speed()
@@ -39,10 +40,16 @@ public class PanCookingEffect : MonoBehaviour
         int h = Mathf.Clamp((int)stove.CurrentHeat, 0, heatSpeed.Length - 1);
         return heatSpeed[h];
     }
-
+    private float logTimer;
     private void Update()
     {
         float speed = Speed();
+        logTimer += Time.deltaTime;
+        if (logTimer > 2f && items.Count > 0)
+        {
+            logTimer = 0f;
+            Debug.Log($"[Cook] items={items.Count} heat={(stove != null ? stove.CurrentHeat.ToString() : "NULL")} speed={speed} t={items[0].time:0.0}");
+        }
         if (speed <= 0f) return;
 
         float maxTime = secondsToCook + (canBurn ? secondsToBurn : 0f);

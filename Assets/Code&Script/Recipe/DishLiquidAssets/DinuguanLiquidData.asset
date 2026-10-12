@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9b256d7d87e124cb9f72769461cc09, type: 3}
+  m_Name: DinuguanLiquidData
+  m_EditorClassIdentifier: 
+  showLiquid: 1
+  baseColor: {r: 0.8, g: 0.8, b: 0.9, a: 1}
+  baseOpacity: 0.3
+  reducedColor: {r: 0.2, g: 0.1, b: 0.04, a: 1}
+  sensitivity: 1.2
+  liquids:
+  - id: Water
+    color: {r: 0.5999911, g: 0.78709745, b: 0.9150943, a: 0}
+    strength: 1
+    opacity: 0.204
+  - id: Pork Blood
+    color: {r: 0.3301887, g: 0.057308838, b: 0, a: 0}
+    strength: 3
+    opacity: 0.82
+  - id: CookingOil
+    color: {r: 1, g: 0.8509804, b: 0.3019608, a: 0}
+    strength: 3
+    opacity: 0.6

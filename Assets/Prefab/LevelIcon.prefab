@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7803148387982676440}
   - component: {fileID: 589457881435412417}
+  - component: {fileID: 5773000492735669750}
   - component: {fileID: 5739592871283046707}
   - component: {fileID: 8178893442514282670}
+  - component: {fileID: 4949340568105911557}
   m_Layer: 5
   m_Name: LevelIcon
   m_TagString: Untagged
@@ -46,6 +48,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4958446156975122027}
   m_CullTransparentMesh: 1
+--- !u!114 &5773000492735669750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958446156975122027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableId: 'Level 1 '
+  sourceData: {fileID: 0}
 --- !u!114 &5739592871283046707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +82,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4549871927518758641, guid: 41e7370383f8323439e6b536a39a4d53, type: 3}
+  m_Sprite: {fileID: -1492247306286396953, guid: 4dc1980edeab1184c8ea7b5c6ebbba01, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -132,3 +148,43 @@ MonoBehaviour:
           m_StringArgument: Open
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: TapLevel1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4949340568105911557}
+        m_TargetAssemblyTypeName: LevelIconButton, Assembly-CSharp
+        m_MethodName: SelectLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4949340568105911557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958446156975122027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246f9b82048c31c49a050d9e6df47d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelData: {fileID: 11400000, guid: beb5bf6e6b2356a4e9639e1d6900d1c4, type: 2}
+  dashboardStars: {fileID: 0}
+  dishImage: {fileID: 0}
+  requiredLevel: {fileID: 0}

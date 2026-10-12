@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Drag and drop the spatula in the pan
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 99.2, y: 434.4}
   actionType: 2

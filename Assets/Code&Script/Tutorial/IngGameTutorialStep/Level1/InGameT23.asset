@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Drag the pan in the stove
   advanceDelay: 0
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: -86.4, y: 454.08}
   actionType: 2

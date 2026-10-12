@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 /// <summary>
 /// Code-driven pour animation - no Animator needed.
 /// The pitcher's position in the scene is the POUR position (over the pan).
 /// It slides in from an offset, tilts, holds, tilts back, slides out, then hides.
 /// </summary>
+/// 
+
+
 public class PourAnimationPlayer : MonoBehaviour
 {
     [Header("References")]
@@ -35,6 +40,8 @@ public class PourAnimationPlayer : MonoBehaviour
 
     [Header("Easing")]
     public AnimationCurve ease = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
+    public UnityEvent onPourFinished;
 
     public bool IsPlaying { get; private set; }
 
@@ -66,6 +73,7 @@ public class PourAnimationPlayer : MonoBehaviour
 
     private IEnumerator Run(Action onFinished)
     {
+        Debug.Log("[Water] pour animation started");
         IsPlaying = true;
 
         Vector2 offscreen = pourPosition + enterOffset;
@@ -103,8 +111,9 @@ public class PourAnimationPlayer : MonoBehaviour
         IsPlaying = false;
         TutorialManager.Instance?.EndBusy();
         onFinished?.Invoke();
+        onPourFinished?.Invoke();
+        Debug.Log("[Water] pour finished");
     }
-
 
 
     private IEnumerator Tween(float duration, Action<float> apply)
@@ -126,6 +135,29 @@ public class PourAnimationPlayer : MonoBehaviour
         {
             IsPlaying = false;
             TutorialManager.Instance?.EndBusy();
+        }
+    }
+
+    public void Configure(Sprite pitcherSprite, Sprite streamSprite, Color streamColor)
+    {
+        if (pitcher != null && pitcherSprite != null)
+        {
+            Image img = pitcher.GetComponent<Image>();
+            if (img != null)
+            {
+                img.sprite = pitcherSprite;
+                img.preserveAspect = true;
+            }
+        }
+
+        if (pourEffect != null)
+        {
+            Image stream = pourEffect.GetComponent<Image>();
+            if (stream != null)
+            {
+                if (streamSprite != null) stream.sprite = streamSprite;
+                stream.color = streamColor;
+            }
         }
     }
 }

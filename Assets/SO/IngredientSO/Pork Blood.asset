@@ -15,7 +15,8 @@ MonoBehaviour:
   id: Pork Blood
   displayName: Pork Blood
   category: 0
-  size: 0
-  icon: {fileID: 0}
+  size: 1
+  icon: {fileID: -880353324988109038, guid: 827e567a6cee9b2449cacecc454d0c95, type: 3}
+  iconScale: 1
   stateSprites: []
   playsPourAnimation: 1

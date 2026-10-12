@@ -15,6 +15,15 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private Canvas canvas;
     private float currentAngle;   // clockwise from top, 0-360
 
+    private float lastRawAngle;
+
+    public bool locked;
+    private StoveHeat lockedHeat;
+
+    public void LockAt(StoveHeat heat) { locked = true; lockedHeat = heat; }
+
+    public void Unlock() { locked = false; }
+
     private TutorialInteractable[] interactables;
 
     private void Awake()
@@ -32,19 +41,37 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         ApplyRotation(currentAngle);
     }
 
-    public void OnBeginDrag(PointerEventData e) => UpdateAngle(e);
+    public void OnBeginDrag(PointerEventData e)
+    {
+        lastRawAngle = currentAngle;
+        UpdateAngle(e);
+    }
     public void OnDrag(PointerEventData e) => UpdateAngle(e);
 
     public void OnEndDrag(PointerEventData e)
     {
-        int step = Mathf.RoundToInt(currentAngle / 90f) % 4;   // 0..3 = Off, Low, Medium, High
+        int step = Mathf.Clamp(Mathf.RoundToInt(currentAngle / 90f), 0, 3);
+        StoveHeat heat = (StoveHeat)step;
+
+        // Heat step already completed: reject any change, snap back, cost a heart.
+        if (stove != null && stove.IsHeatLocked && heat != stove.CurrentHeat)
+        {
+            bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+            if (!inTutorial)
+                ScoreManager.Instance?.ReportMistake("Don't change the heat!\nMinus 1 heart");
+
+            SetVisual(stove.CurrentHeat);   // knob back to the real heat
+            lastRawAngle = currentAngle;
+            return;                         // SetHeat is never called
+        }
+
         currentAngle = step * 90f;
+        lastRawAngle = currentAngle;
         ApplyRotation(currentAngle);
 
-        StoveHeat heat = (StoveHeat)step;
         StoveHeat previous = stove != null ? stove.CurrentHeat : StoveHeat.Off;
-        if (stove != null)
-            stove.SetHeat(heat);
+        if (stove != null) stove.SetHeat(heat);
+
         bool tutorialRunning = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
         if (tutorialRunning && heat != previous)
             ReportToTutorial(heat);
@@ -62,6 +89,14 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;   // 0 = up, clockwise positive
         if (angle < 0f) angle += 360f;
 
+
+        //Hard Stop
+        if (lastRawAngle > 180f && angle < 90f)       // clockwise past High
+            angle = 270f;
+        else if (lastRawAngle < 90f && angle > 270f)  // counter-clockwise past Off
+            angle = 0f;
+
+        lastRawAngle = angle;
         currentAngle = angle;
         ApplyRotation(currentAngle);
     }
@@ -72,22 +107,20 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
     private void ReportToTutorial(StoveHeat heat)
     {
+        if (heat == StoveHeat.Off) return;
+
         string wantedId = "Stove" + heat;   // StoveLow, StoveHigh, ...
 
         foreach (var t in interactables)
         {
             if (t.ResolvedId == wantedId)
             {
-                // Correct id for this heat. If it isn't the one the step wants
-                // (e.g. StoveLow on the High step), the manager rejects it and reverts.
-                t.ReportDrop();
-                return;
+                if (t.ResolvedId == wantedId) { t.ReportDrop(); return; }
             }
         }
 
-        // No interactable for this heat (Off/Medium) = wrong choice.
-        // Reset the stove first so the replayed step starts clean.
-        if (stove != null) stove.ResetStoveProgress();   // heat -> Off, dial closed
+        if (stove != null) stove.SetHeat(StoveHeat.Off);
+        SetVisual(StoveHeat.Off);   // snap the knob back to Off
         TutorialManager.Instance?.ReportMistake();
     }
 

@@ -15,5 +15,5 @@ MonoBehaviour:
   levelNumber: 1
   levelName: Adobo
   recipe: {fileID: 11400000, guid: a74539e9cdf18684a9cba6faea59cf1b, type: 2}
-  levelPreviewImage: {fileID: 4694169007334928847, guid: 6c86e246b21320745b38bf44057d9073, type: 3}
+  levelPreviewImage: {fileID: -2905549093005077656, guid: 41524c236021f9f4894cf6d21896aba9, type: 3}
   story: {fileID: 11400000, guid: fa186fcccb3f7b7479ea61c1ca6f5bd1, type: 2}

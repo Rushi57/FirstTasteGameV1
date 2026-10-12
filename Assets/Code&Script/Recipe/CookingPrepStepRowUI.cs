@@ -9,6 +9,9 @@ public class CookingPrepStepRowUI : MonoBehaviour
     [Tooltip("Optional: the row's background Image (the dark brown bar). Leave empty to only gray the text.")]
     public Image background;
 
+    [Tooltip("The green check object (CheckImage) inside the CheckBox. Shown only when the step is done.")]
+    public GameObject checkMark;
+
     [Tooltip("Prefix shown before each step's text, e.g. a bullet character.")]
     public string bulletPrefix = "• ";
 
@@ -45,6 +48,9 @@ public class CookingPrepStepRowUI : MonoBehaviour
     public void SetCompleted(bool done)
     {
         CacheOriginals();
+
+        if (checkMark != null)
+            checkMark.SetActive(done);
 
         if (background != null)
             background.color = done ? completedBackground : originalBackground;
