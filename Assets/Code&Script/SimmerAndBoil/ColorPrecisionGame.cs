@@ -90,17 +90,17 @@ public class ColorPrecisionGame : MonoBehaviour
         // Check if hand is inside Green or Yellow "zones"
         if (IsPointInSlice(point, greenStart, greenImage.fillAmount))
         {
-            resultText.text = "<color=green>VERY GOOD!</color>";
+            resultText.text = "VERY GOOD!";
             ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
         }
         else if (IsPointInSlice(point, yellowStart, yellowImage.fillAmount))
         {
-            resultText.text = "<color=yellow>GOOD</color>";
+            resultText.text = "GOOD";
             ScoreManager.Instance?.ReportResult(ResultQuality.Good);
         }
         else
         {
-            resultText.text = "<color=red>BAD!</color>";
+            resultText.text = "BAD!";
             ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
         }
     }

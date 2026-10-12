@@ -28,6 +28,7 @@ public class CookingPrepListUI : MonoBehaviour
     [Tooltip("Assign this on the CUT PREP list only. Leave empty on the Cooking Prep list.")]
     public CuttingMechanic cuttingMechanic;
 
+
     [Header("Step order rules")]
     [Tooltip("If true, steps must be done in list order. Wrong/skipped actions are rejected.")]
     public bool strictOrder = true;
