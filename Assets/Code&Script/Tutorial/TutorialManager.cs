@@ -361,7 +361,7 @@ public class TutorialManager : MonoBehaviour
     private void AddPulse(RectTransform rect)
     {
         if (rect == null) return;
-        if (activePulses.Exists(p => p != null && p.transform == rect)) return;
+        if (activePulses.Exists(p => p != null && p.enabled && p.transform == rect)) return;
 
         var pulse = rect.gameObject.AddComponent<TutorialPulse>();
         pulse.SetOutline(pulseOutlineMaterial, outlineMin, outlineMax);

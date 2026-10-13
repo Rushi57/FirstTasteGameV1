@@ -3,39 +3,33 @@ using UnityEngine;
 public class MobilePauseHandler : MonoBehaviour
 {
     private static MobilePauseHandler instance;
+    private float previousTimeScale = 1f;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetStatics() => instance = null; // needed if domain reload is disabled
 
     void Awake()
     {
-        // Check if an instance of this handler already exists
         if (instance != null && instance != this)
         {
-            // Destroy this duplicate because one is already running
             Destroy(gameObject);
             return;
         }
-
-        // Set this object as the permanent instance
         instance = this;
-
-        // Tell Unity NOT to destroy this object when loading new scenes
         DontDestroyOnLoad(gameObject);
     }
 
-    void OnApplicationPause(bool pauseStatus)
+    void OnApplicationPause(bool paused)
     {
-        if (pauseStatus)
+        if (paused)
         {
-            // App minimized: freeze game logic and mute sound
+            previousTimeScale = Time.timeScale;
             Time.timeScale = 0f;
             AudioListener.pause = true;
-
-            // Clean up memory to help the OS keep the game's snapshot clean
-            System.GC.Collect();
         }
         else
         {
-            // App resumed: unfreeze game logic and restore sound
-            Time.timeScale = 1f;
+            Time.timeScale = previousTimeScale;
             AudioListener.pause = false;
         }
     }

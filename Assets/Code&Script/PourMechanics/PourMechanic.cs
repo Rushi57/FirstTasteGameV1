@@ -220,11 +220,11 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private void UpdateGlassTilt()
     {
-        if(glassImage == null ) return;
+        if (glassImage == null) return;
 
-        float goal = isPouring ? glassIdleAngle : glassIdleAngle;
+        float goal = isPouring ? glassTiltAngle : glassIdleAngle;
         float time = isPouring ? glassTiltTime : glassReturnTime;
-        float speed = MathF.Abs(glassTiltAngle - glassIdleAngle) / MathF.Max(0.01f, time);
+        float speed = Mathf.Abs(glassTiltAngle - glassIdleAngle) / Mathf.Max(0.01f, time);
 
         glassAngle = Mathf.MoveTowards(glassAngle, goal, speed * Time.deltaTime);
         glassImage.localRotation = Quaternion.Euler(0f, 0f, glassAngle);
