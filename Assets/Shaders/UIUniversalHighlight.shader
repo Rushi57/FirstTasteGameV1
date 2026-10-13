@@ -1,44 +1,18 @@
-Shader "UI/UniversalHighlight"
+Shader "UI/SpriteOutlineExpand"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        [PerRendererData] _MainTex ("Sprite", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
-
-        _HighlightColor ("Highlight Color", Color) = (1,0.9,0.3,1)
-        _HighlightAmount ("Highlight Amount", Range(0,1)) = 0
-        _OutlineWidth ("Outline Width (texels)", Range(0,8)) = 2
-
-        // Needed so Mask / RectMask2D still work
-        _StencilComp ("Stencil Comparison", Float) = 8
-        _Stencil ("Stencil ID", Float) = 0
-        _StencilOp ("Stencil Operation", Float) = 0
-        _StencilWriteMask ("Stencil Write Mask", Float) = 255
-        _StencilReadMask ("Stencil Read Mask", Float) = 255
-        _ColorMask ("Color Mask", Float) = 15
+        _OutlineColor ("Outline Color", Color) = (1,0.85,0.2,1)
+        _PadLocal ("Pad Local", Vector) = (0,0,0,0)
+        _PadUV ("Pad UV", Vector) = (0,0,0,0)
     }
-
     SubShader
     {
-        Tags { "Queue"="Transparent" "IgnoreProjector"="True"
-               "RenderType"="Transparent" "PreviewType"="Plane"
-               "CanUseSpriteAtlas"="True" }
-
-        Stencil
-        {
-            Ref [_Stencil]
-            Comp [_StencilComp]
-            Pass [_StencilOp]
-            ReadMask [_StencilReadMask]
-            WriteMask [_StencilWriteMask]
-        }
-
-        Cull Off
-        Lighting Off
-        ZWrite Off
-        ZTest [unity_GUIZTestMode]
+        Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "CanUseSpriteAtlas"="False" }
+        Cull Off ZWrite Off ZTest [unity_GUIZTestMode]
         Blend SrcAlpha OneMinusSrcAlpha
-        ColorMask [_ColorMask]
 
         Pass
         {
@@ -46,60 +20,47 @@ Shader "UI/UniversalHighlight"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            #include "UnityUI.cginc"
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-                float4 color  : COLOR;
-                float2 uv     : TEXCOORD0;
-            };
-
-            struct v2f
-            {
-                float4 pos   : SV_POSITION;
-                fixed4 color : COLOR;
-                float2 uv    : TEXCOORD0;
-            };
+            struct appdata { float4 vertex : POSITION; float4 color : COLOR; float2 uv : TEXCOORD0; };
+            struct v2f { float4 pos : SV_POSITION; fixed4 color : COLOR; float2 uv : TEXCOORD0; };
 
             sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
-            fixed4 _Color;
-            fixed4 _HighlightColor;
-            float _HighlightAmount;
-            float _OutlineWidth;
+            fixed4 _Color, _OutlineColor;
+            float4 _PadLocal, _PadUV;
 
-            v2f vert (appdata v)
+            v2f vert(appdata v)
             {
                 v2f o;
+                float2 dir = v.uv * 2 - 1;              // -1 or +1 at the quad corners
+                v.vertex.xy += dir * _PadLocal.xy;      // grow the quad
+                o.uv = v.uv + dir * _PadUV.xy;          // grow the UVs to match
                 o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                o.color = v.color * _Color;   // Image.color still works
+                o.color = v.color * _Color;
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            float SampleA(float2 uv)
             {
-                fixed4 tex = tex2D(_MainTex, i.uv);
-                fixed4 col = tex * i.color;
+                float inside = step(0, uv.x) * step(uv.x, 1) * step(0, uv.y) * step(uv.y, 1);
+                return tex2D(_MainTex, uv).a * inside;
+            }
 
-                // Outline: look at neighbouring pixels' alpha
-                float2 d = _MainTex_TexelSize.xy * _OutlineWidth;
-                float n = 0;
-                n = max(n, tex2D(_MainTex, i.uv + float2( d.x, 0)).a);
-                n = max(n, tex2D(_MainTex, i.uv + float2(-d.x, 0)).a);
-                n = max(n, tex2D(_MainTex, i.uv + float2(0,  d.y)).a);
-                n = max(n, tex2D(_MainTex, i.uv + float2(0, -d.y)).a);
-                float outline = saturate(n - tex.a) * _HighlightAmount;
+            fixed4 frag(v2f i) : SV_Target
+            {
+                float ca = SampleA(i.uv);
+                fixed3 rgb = tex2D(_MainTex, i.uv).rgb;
 
-                // Soft color tint on the sprite itself
-                col.rgb = lerp(col.rgb, _HighlightColor.rgb, _HighlightAmount * 0.3 * tex.a);
+                float a = 0;
+                for (int k = 0; k < 16; k++)
+                {
+                    float ang = k * 0.3926991;
+                    a = max(a, SampleA(i.uv + float2(cos(ang), sin(ang)) * _PadUV.xy));
+                }
 
-                // Add the outline on top
-                col.rgb = lerp(col.rgb, _HighlightColor.rgb, outline);
-                col.a = max(col.a, outline * _HighlightColor.a * i.color.a);
-
-                return col;
+                float oa = _OutlineColor.a * a * i.color.a;
+                float outA = ca * i.color.a + oa * (1 - ca * i.color.a);
+                fixed3 col = (rgb * i.color.rgb * ca * i.color.a + _OutlineColor.rgb * oa * (1 - ca * i.color.a)) / max(outA, 0.0001);
+                return fixed4(col, outA);
             }
             ENDCG
         }
