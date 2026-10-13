@@ -39,6 +39,16 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     [Tooltip("Width of the green/yellow bands in pixels. Match RedZone's width.")]
     public float zoneWidth = 30f;
 
+    [Header("Glass Tilt")]
+    [Tooltip("The GlassImage will tilt")]
+    public RectTransform glassImage;
+    public float glassIdleAngle = 0f;
+    public float glassTiltAngle = 73.143f;
+    [Tooltip("Seconds to reach full tilt / to return.")]
+    public float glassTiltTime = 0.25f;
+    public float glassReturnTime = 0.25f;
+
+    private float glassAngle;
 
     private float meterMaxMl;   // biggest measurement of the chosen tool
     private float TopMl => (meterMaxMl > 0f ? meterMaxMl : targetMl) * meterTopMultiplyer;
@@ -77,6 +87,8 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     void Update()
     {
+        UpdateGlassTilt();
+
         if (!isPouring || targetMl <= 0f) return;
 
         currentMl += (targetMl / Mathf.Max(0.1f, secondsToReachTarget)) * Time.deltaTime;
@@ -166,6 +178,8 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (resultLabel != null) resultLabel.text = "";
         if (meterTrack != null) trackHalfHeight = meterTrack.rect.height / 2f;
         UpdateVisuals();
+        glassAngle = glassIdleAngle;
+        if (glassImage != null) glassImage.localRotation = Quaternion.Euler(0f, 0f, glassIdleAngle);
     }
     public void SetParticleColor(Color color)
     {
@@ -202,5 +216,17 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         zone.pivot = new Vector2(0.5f, 0.5f);
         zone.offsetMin = new Vector2(-zoneWidth * 0.5f, 0f);
         zone.offsetMax = new Vector2(zoneWidth * 0.5f, 0f);
+    }
+
+    private void UpdateGlassTilt()
+    {
+        if (glassImage == null) return;
+
+        float goal = isPouring ? glassTiltAngle : glassIdleAngle;
+        float time = isPouring ? glassTiltTime : glassReturnTime;
+        float speed = Mathf.Abs(glassTiltAngle - glassIdleAngle) / Mathf.Max(0.01f, time);
+
+        glassAngle = Mathf.MoveTowards(glassAngle, goal, speed * Time.deltaTime);
+        glassImage.localRotation = Quaternion.Euler(0f, 0f, glassAngle);
     }
 }

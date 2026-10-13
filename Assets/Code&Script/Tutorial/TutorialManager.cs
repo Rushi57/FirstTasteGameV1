@@ -74,6 +74,11 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("Automatically pulse the current target/drag item to draw the player's attention.")]
     public bool pulseTargets = true;
 
+    [Tooltip("Outline material (uses the UI/SpriteOutlineExpand shader). Leave empty for scale-only pulsing.")]
+    public Material pulseOutlineMaterial;
+    public float outlineMin = 4f;   // canvas units
+    public float outlineMax = 8f;
+
     private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
 
 
@@ -81,9 +86,11 @@ public class TutorialManager : MonoBehaviour
     private int busyCount;
 
     private bool lockByMistake;
-
-
     public bool IsActive => tutorialActive;
+
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -354,10 +361,10 @@ public class TutorialManager : MonoBehaviour
     private void AddPulse(RectTransform rect)
     {
         if (rect == null) return;
-        // Avoid double-pulsing if target and source happen to be the same object.
-        if (activePulses.Exists(p => p != null && p.transform == rect)) return;
+        if (activePulses.Exists(p => p != null && p.enabled && p.transform == rect)) return;
 
         var pulse = rect.gameObject.AddComponent<TutorialPulse>();
+        pulse.SetOutline(pulseOutlineMaterial, outlineMin, outlineMax);
         activePulses.Add(pulse);
     }
 
