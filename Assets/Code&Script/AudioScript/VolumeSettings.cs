@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class VolumeSettings : MonoBehaviour
 {
     public const string MusicKey = "MusicVol";
-    public const string SfxKey = "SfxVol";
+    public const string SfxKey = "SfxVolume";
 
     [SerializeField] AudioMixer mixer;
     [SerializeField] Slider musicSlider;

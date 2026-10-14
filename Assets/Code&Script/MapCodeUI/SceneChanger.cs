@@ -17,6 +17,7 @@ public class SceneChanger : MonoBehaviour
         StoryTeller.ResetAllFlags();      // <-- new
         GameSession.Clear();
         LoadingManager.LoadNextScene(sceneName);
+        SFXManager.Instance.Play(SFXManager.Instance.tapButtonTest);
     }
 
     public void HomeGame(string sceneName)
