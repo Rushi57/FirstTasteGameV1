@@ -13,12 +13,22 @@ MonoBehaviour:
   m_Name: Sisig
   m_EditorClassIdentifier: 
   recipeName: Sisig
-  recipeIcon: {fileID: 0}
+  recipeIcon: {fileID: -2092983280216000583, guid: cd8c1c291906ae14cb0467a92c526883, type: 3}
+  liquidProfile: {fileID: 0}
   ingredients:
-  - ingredient: {fileID: 0}
+  - ingredient: {fileID: 11400000, guid: 392ae1c94d41b4e43b223dfa16405b2d, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 0}
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 97330965f88bbd8419ccc9f7ab9f667a, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:

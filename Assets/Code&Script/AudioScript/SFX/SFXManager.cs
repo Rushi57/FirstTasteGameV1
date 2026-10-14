@@ -20,6 +20,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip tapButtonTest;
     public AudioClip errorAndWrong;
     public AudioClip gameOverPanel;
+    public AudioClip scorebordePanel;
 
     [Header("Looping clips")]
     public AudioClip frying;

@@ -87,16 +87,25 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             return; // spatula bounces back to its rack via TestDrag
         }
         //PanLid
-        if(drag.itemId == lidId)
+        if (drag.itemId == lidId)
         {
             if (!HeatOk("Lid")) return;
-            Debug.Log("[PanDrop] Lid dropped on pan - opening Boil/Simmer mini-game.");
-            if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept("Pan:PanLid"))
-                return;
-            CookingPrepListUI.Instance?.CompleteStep("Pan:PanLid");
-            boilSimmerController?.OpenAndConfigure();
+
+            var prep = CookingPrepListUI.Instance;
+            string current = prep != null ? prep.CurrentStepId : null;
+
+            // Simmer only when the list says the simmer step is next, otherwise treat as boil
+            bool isSimmer = current == BoilSimmerController.SimmerStepId;
+            string lidStepId = isSimmer ? BoilSimmerController.SimmerStepId
+                                        : BoilSimmerController.BoilStepId;
+
+            if (prep != null && !prep.TryAccept(lidStepId)) return;
+
+            Debug.Log($"[PanDrop] Lid dropped on pan - step '{lidStepId}' - opening Boil/Simmer mini-game.");
+            prep?.CompleteStep(lidStepId);
+            boilSimmerController?.OpenAndConfigure(isSimmer ? CookMode.Simmer : CookMode.Boil);
             tutorialTag?.ReportDrop();
-            return; // lid bounces back to its spot via TestDrag
+            return;
         }
         var interactable = dropped.GetComponent<TutorialInteractable>();
         IngredientData data = interactable != null ? interactable.sourceData as IngredientData : null;

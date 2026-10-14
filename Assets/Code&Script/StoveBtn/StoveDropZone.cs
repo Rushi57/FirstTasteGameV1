@@ -82,6 +82,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         {
             myImage.raycastTarget = false;
             Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
+            if (SFXManager.Instance != null) SFXManager.Instance.Play(SFXManager.Instance.settingCastIron);
         }
     }
 

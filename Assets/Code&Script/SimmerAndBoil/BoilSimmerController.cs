@@ -13,35 +13,25 @@ public class BoilSimmerController : MonoBehaviour
     public float simmerSpeed = 260f;        // "a little fast"
     public StoveHeatController stove;
 
-    public void OpenAndConfigure()
+    public const string BoilStepId = "Pan:PanLid";
+    public const string SimmerStepId = "Pan:PanLidSimmer";
+
+    public void OpenAndConfigure(CookMode mode)
     {
-        CookMode mode = GetRecipeMode();
         game.SetSpeed(mode == CookMode.Simmer ? simmerSpeed : boilSpeed);
         Debug.Log($"[BoilSimmer] Mode = {mode}");
 
-        // Toggle so OnEnable (and its 2s headstart) always re-runs
         boilSimmerPanel.SetActive(false);
         boilSimmerPanel.SetActive(true);
     }
 
     // TODO: connect this to your real recipe data
-    private CookMode GetRecipeMode()
+    private CookMode GetModeFromStep()
     {
-      RecipeData recipe = stove  != null ? stove.recipe : null;
-        if(recipe == null)
-        {
-            Debug.LogWarning("[BoilSimmer] No recipe foind - default boild");
-            return CookMode.Boil;
-        }
-        foreach(string line in recipe.cookingInstructions)
-        {
-            string lower = line.ToLower();
-            if (!lower.Contains("lid")) continue;
+        string current = CookingPrepListUI.Instance != null
+            ? CookingPrepListUI.Instance.CurrentStepId : null;
 
-            if (lower.Contains("simmer")) return CookMode.Simmer;
-            if (lower.Contains("boil")) return CookMode.Boil;
-        }
-
-        return CookMode.Boil;
+        return current == SimmerStepId ? CookMode.Simmer : CookMode.Boil;
     }
+
 }

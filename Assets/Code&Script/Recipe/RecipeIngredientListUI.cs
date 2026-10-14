@@ -103,6 +103,22 @@ public class RecipeIngredientListUI : MonoBehaviour
         }
     }
 
+    public bool IsInRecipe(IngredientData ingredient)
+    {
+        if(ingredient == null || currentRecipe == null) return false;
+
+        foreach(var row in activeRows)
+        {
+            if(row.Matches(ingredient))
+            { 
+                return true; 
+            }
+
+        }
+        return false;
+    }
+
+
     public bool AllSpawned()
     {
         return currentRecipe != null && spawnedIds.Count >= currentRecipe.ingredients.Count;
