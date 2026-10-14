@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: 
   recipeIcon: {fileID: 0}
+  liquidProfile: {fileID: 0}
   ingredients: []
   cookingInstructions:
   - Slice the ginger
@@ -34,4 +35,7 @@ MonoBehaviour:
   - ' Mix using the spatula'
   - Put the pot lid and simmer
   - Put the pot lid and simmer
-  cookingStepIds: []
+  cookingStepIds:
+  - 
+  - 
+  - 

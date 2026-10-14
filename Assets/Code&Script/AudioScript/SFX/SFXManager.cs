@@ -30,7 +30,7 @@ public class SFXManager : MonoBehaviour
     AudioSource oneShotSource;
     AudioSource loopSource;
     UnityAction tapAction;
-
+    AudioSource stirSource;
     void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -45,6 +45,11 @@ public class SFXManager : MonoBehaviour
         loopSource.outputAudioMixerGroup = sfxGroup;
         loopSource.loop = true;          // needed for frying/boiling to repeat
         loopSource.playOnAwake = false;
+
+        stirSource = gameObject.AddComponent<AudioSource>();
+        stirSource.outputAudioMixerGroup = sfxGroup;
+        stirSource.loop = true;
+        stirSource.playOnAwake = false;
 
         tapAction = PlayTap;
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -82,6 +87,19 @@ public class SFXManager : MonoBehaviour
         loopSource.clip = clip;
         loopSource.Play();
     }
+
+    public void StartStir()
+    {
+        if (stirringPot == null || stirSource.isPlaying) return;
+        stirSource.clip = stirringPot;
+        stirSource.Play();
+    }
+
+    public void StopStir()
+    {
+        if(stirSource.isPlaying) stirSource.Stop();
+    }
+
 
     public void StopLoop() => loopSource.Stop();
 }
