@@ -159,9 +159,12 @@ MonoBehaviour:
   errorAndWrong: {fileID: 8300000, guid: df5e79e312c73d842859ea5d304c86c7, type: 3}
   gameOverPanel: {fileID: 8300000, guid: 68ba96b1026d3b142856b12c4f44939b, type: 3}
   scorebordePanel: {fileID: 8300000, guid: d78a5f18c9deb0f46be556cfd2d6ccf3, type: 3}
+  tickingStoveSound: {fileID: 8300000, guid: fbca6abdc9ef4a04bbfdc541282003a6, type: 3}
+  pourAnyLiquid: {fileID: 8300000, guid: 912392b4d040a6a4f8a68238f844cc2e, type: 3}
   frying: {fileID: 8300000, guid: b5277ce5ba1fdc2419820b6e1ab1082d, type: 3}
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
   boilingWater: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
+  clockTicking: {fileID: 8300000, guid: 7f1e468f1d2b10d45a1f4d939120e2e9, type: 3}
 --- !u!4 &10831795
 Transform:
   m_ObjectHideFlags: 0
@@ -626,7 +629,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.22508591
+  orthographic size: 0.225
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

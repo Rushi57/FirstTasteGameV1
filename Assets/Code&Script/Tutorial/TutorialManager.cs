@@ -176,14 +176,15 @@ public class TutorialManager : MonoBehaviour
 
     public bool HasCompletedTutorial()
     {
-        return GameSession.GetOrCreateData().IsTutorialCompleted(tutorialId);
+        return PlayerPrefs.GetInt(CompletedKey, 0) == 1;
     }
 
     /// <summary>Clears saved progress/completion for this tutorial id.</summary>
     public void ResetProgress()
     {
-        GameSession.GetOrCreateData().completedTutorials.Remove(tutorialId);
+        PlayerPrefs.DeleteKey(CompletedKey);
         PlayerPrefs.DeleteKey(ProgressKey);
+        PlayerPrefs.Save();
     }
 
     /// <summary>Adds id to the persisted set of every tutorialId that has ever run, if not already present.</summary>
@@ -218,9 +219,9 @@ public class TutorialManager : MonoBehaviour
     }
     private void MarkCompleted()
     {
-        SaveData data = GameSession.GetOrCreateData();
-        data.MarkTutorialCompleted(tutorialId);
-        if (saveImmediately) SaveSystem.Save(data);
+        PlayerPrefs.SetInt(CompletedKey, 1);
+        PlayerPrefs.DeleteKey(ProgressKey);
+        PlayerPrefs.Save();
     }
 
     public static void ResetAllTutorials()
@@ -345,7 +346,7 @@ public class TutorialManager : MonoBehaviour
 
         TutorialStep step = steps[stepIndex];
         if (step.actionType != TutorialActionType.Drag) return;
-        if (!string.IsNullOrEmpty(step.dragSourceId)) return; // only relevant in wildcard mode
+       
 
         currentSourceRects = ResolveDragSources(step);
 

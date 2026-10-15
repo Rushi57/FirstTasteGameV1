@@ -48,6 +48,7 @@ public class ColorPrecisionGame : MonoBehaviour
         }
 
         isSpinning = true;
+        SFXManager.Instance?.StartClock();
     }
 
     void Update()
@@ -61,8 +62,10 @@ public class ColorPrecisionGame : MonoBehaviour
 
     public void StopHand()
     {
+
         if (!isSpinning) return;
         isSpinning = false;
+        SFXManager.Instance?.StopClock();
 
         // Get hand rotation relative to the wheel container
         float angle = hand.localEulerAngles.z;
@@ -116,5 +119,10 @@ public class ColorPrecisionGame : MonoBehaviour
     public void SetSpeed(float speed)
     {
         rotateSpeed = speed;
+    }
+    private void OnDisable()
+    {
+        isSpinning = false;
+        SFXManager.Instance?.StopClock();
     }
 }

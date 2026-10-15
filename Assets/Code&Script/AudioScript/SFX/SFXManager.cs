@@ -21,16 +21,23 @@ public class SFXManager : MonoBehaviour
     public AudioClip errorAndWrong;
     public AudioClip gameOverPanel;
     public AudioClip scorebordePanel;
+    public AudioClip tickingStoveSound;
+    public AudioClip pourAnyLiquid;
 
     [Header("Looping clips")]
     public AudioClip frying;
     public AudioClip boilingLiquid;
     public AudioClip boilingWater;
+    public AudioClip clockTicking;
 
     AudioSource oneShotSource;
     AudioSource loopSource;
     UnityAction tapAction;
     AudioSource stirSource;
+    AudioSource tickSource;
+    AudioSource pourSource;
+    AudioSource clockSource;
+
     void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -50,6 +57,21 @@ public class SFXManager : MonoBehaviour
         stirSource.outputAudioMixerGroup = sfxGroup;
         stirSource.loop = true;
         stirSource.playOnAwake = false;
+
+        tickSource = gameObject.AddComponent<AudioSource>();
+        tickSource.outputAudioMixerGroup = sfxGroup;
+        tickSource.loop = true;
+        tickSource.playOnAwake = false;
+
+        pourSource = gameObject.GetComponent<AudioSource>();
+        pourSource.outputAudioMixerGroup = sfxGroup;
+        pourSource.loop = true;
+        pourSource.playOnAwake=false;
+
+        clockSource = gameObject.AddComponent<AudioSource>();
+        clockSource.outputAudioMixerGroup = sfxGroup;
+        clockSource.loop = true;
+        clockSource.playOnAwake = false;
 
         tapAction = PlayTap;
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -101,5 +123,38 @@ public class SFXManager : MonoBehaviour
     }
 
 
+    public void StartTick()
+    {
+        if (tickingStoveSound == null || tickSource.isPlaying) return;
+        tickSource.clip = tickingStoveSound;
+        tickSource.Play();
+    }
+    public void StopTick()
+    {
+        if(tickSource.isPlaying) tickSource.Stop();
+    }
+
     public void StopLoop() => loopSource.Stop();
+
+    public void StartPour()
+    {
+        if(pourAnyLiquid == null || pourSource.isPlaying) return;  
+        pourSource.clip = pourAnyLiquid;
+        pourSource.Play();
+    }
+    public void StopPour()
+    {
+        if(pourSource.isPlaying) pourSource.Stop();
+    }
+    public void StartClock()
+    {
+        if (clockTicking == null || clockSource.isPlaying) return;
+        clockSource.clip = clockTicking;
+        clockSource.Play();
+    }
+
+    public void StopClock()
+    {
+        if (clockSource.isPlaying) clockSource.Stop();
+    }
 }

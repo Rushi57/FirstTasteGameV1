@@ -17,6 +17,13 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private float lastRawAngle;
 
+
+    private bool isDragging;
+    private float lastMoveTime;
+
+    [Tooltip("Seconds without movement before the tick stops (while still holding the knob).")]
+    public float stopDelay = 0.12f;
+
     public bool locked;
     private StoveHeat lockedHeat;
 
@@ -44,12 +51,16 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData e)
     {
         lastRawAngle = currentAngle;
+        lastRawAngle = currentAngle;
         UpdateAngle(e);
     }
     public void OnDrag(PointerEventData e) => UpdateAngle(e);
 
     public void OnEndDrag(PointerEventData e)
     {
+        isDragging = false;
+        SFXManager.Instance?.StopTick();
+
         int step = Mathf.Clamp(Mathf.RoundToInt(currentAngle / 90f), 0, 3);
         StoveHeat heat = (StoveHeat)step;
 
@@ -79,6 +90,8 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private void UpdateAngle(PointerEventData e)
     {
+        float previousAngle = currentAngle;
+
         Camera cam = (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
             ? canvas.worldCamera : null;
 
@@ -99,6 +112,9 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         lastRawAngle = angle;
         currentAngle = angle;
         ApplyRotation(currentAngle);
+
+        UpdateTickSound(previousAngle);
+
     }
 
     private void ApplyRotation(float clockwiseAngle)
@@ -124,4 +140,26 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         TutorialManager.Instance?.ReportMistake();
     }
 
+    private void UpdateTickSound(float previousAngle)
+    {
+        if (SFXManager.Instance == null) return;
+
+        // Only play if the knob actually moved
+        if (Mathf.Abs(currentAngle - previousAngle) > 0.5f)
+        {
+            lastMoveTime = Time.unscaledTime;
+            SFXManager.Instance.StartTick();
+        }
+    }
+    private void OnDisable()
+    {
+        isDragging = false;
+        SFXManager.Instance?.StopTick();
+    }
+
+    private void Update()
+    {
+        if (isDragging && Time.unscaledDeltaTime - lastMoveTime > stopDelay)
+            SFXManager.Instance?.StopTick();
+    }
 }

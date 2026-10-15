@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Onion
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: -5768364531109799046, guid: c730171c2d3ed524c900dacdffc2e718, type: 3}
+  iconScale: 0.5
   stateSprites: []
   playsPourAnimation: 0

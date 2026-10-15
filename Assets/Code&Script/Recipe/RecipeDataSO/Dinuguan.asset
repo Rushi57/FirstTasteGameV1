@@ -25,7 +25,7 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 64cd73dd2538f0e45b0ccfd31cd1511c, type: 2}
+  - ingredient: {fileID: 11400000, guid: b6fc1cc6b1ad95d4bab8d30fd5179a4c, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
@@ -53,7 +53,7 @@ MonoBehaviour:
   - Put the Pan Lid to simmer
   cookingStepIds:
   - Pork Belly:Sliced
-  - Chili:Sliced
+  - Green Chili:Sliced
   - Garlic:Sliced
   - 
   - Pan:OnStove
@@ -64,7 +64,7 @@ MonoBehaviour:
   - Pour:CookingOil
   - Pan:Garlic
   - Mix:11
-  - Pan:Chili
+  - Pan:Green Chili
   - Pepper:Tbsp_1_2
   - Pan:Pork Blood
   - Salt:Tsp_1_8

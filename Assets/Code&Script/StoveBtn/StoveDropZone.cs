@@ -74,6 +74,9 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
         Debug.Log($"[StoveDrop] Pan placed on stove: {dropped.name}");
 
+        if (SFXManager.Instance != null)
+            SFXManager.Instance.Play(SFXManager.Instance.settingCastIron);
+
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
         tutorialTag?.ReportDrop();
@@ -82,7 +85,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         {
             myImage.raycastTarget = false;
             Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
-            if (SFXManager.Instance != null) SFXManager.Instance.Play(SFXManager.Instance.settingCastIron);
+            
         }
     }
 
