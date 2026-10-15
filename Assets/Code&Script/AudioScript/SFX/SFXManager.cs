@@ -63,7 +63,7 @@ public class SFXManager : MonoBehaviour
         tickSource.loop = true;
         tickSource.playOnAwake = false;
 
-        pourSource = gameObject.GetComponent<AudioSource>();
+        pourSource = gameObject.AddComponent<AudioSource>();
         pourSource.outputAudioMixerGroup = sfxGroup;
         pourSource.loop = true;
         pourSource.playOnAwake=false;
@@ -98,6 +98,7 @@ public class SFXManager : MonoBehaviour
 
     public void PlayTap() => Play(tapButtonTest);
 
+    public void PlayPotLidClose() => Play(potLidClose);
     public void Play(AudioClip clip, float volume = 1f)
     {
         if (clip != null) oneShotSource.PlayOneShot(clip, volume);

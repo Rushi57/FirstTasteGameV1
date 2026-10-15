@@ -80,7 +80,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (drag.itemId == spatulaId)
         {
             if (!HeatOk("Spatula")) return;
-          
+
+            SFXManager.Instance?.PlayPotLidClose();   // <-- SFX
+
             Debug.Log("[PanDrop] Spatula dropped on pan - opening mixing mini-game.");
             mixingController?.OpenAndConfigure();
             tutorialTag?.ReportDrop();
@@ -100,6 +102,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
                                         : BoilSimmerController.BoilStepId;
 
             if (prep != null && !prep.TryAccept(lidStepId)) return;
+
+            SFXManager.Instance?.PlayPotLidClose();   // <-- added, after the step is accepted
+
 
             Debug.Log($"[PanDrop] Lid dropped on pan - step '{lidStepId}' - opening Boil/Simmer mini-game.");
             prep?.CompleteStep(lidStepId);

@@ -153,7 +153,7 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 53c36353fd4c7a64d8f3620b1ebc3f7e, type: 2}
   potLidClose: {fileID: 8300000, guid: e203fbcb8d98a6e46b56acaeea2b5483, type: 3}
   pouringWater: {fileID: 8300000, guid: b51f42be8dd290543a02500838569791, type: 3}
-  settingCastIron: {fileID: 8300000, guid: 802846f45f7c5b145bd0748742c94ed6, type: 3}
+  settingCastIron: {fileID: 8300000, guid: b7bf54f485150594ca9fa2bfcf7dc80c, type: 3}
   stirringPot: {fileID: 8300000, guid: d135be01c29315d49be7be5cdc070f59, type: 3}
   tapButtonTest: {fileID: 8300000, guid: a43ec0f042bf8fa4889ec27086d06ea8, type: 3}
   errorAndWrong: {fileID: 8300000, guid: df5e79e312c73d842859ea5d304c86c7, type: 3}
@@ -161,9 +161,9 @@ MonoBehaviour:
   scorebordePanel: {fileID: 8300000, guid: d78a5f18c9deb0f46be556cfd2d6ccf3, type: 3}
   tickingStoveSound: {fileID: 8300000, guid: e9541c7f03705e142a40cbd0aea253e2, type: 3}
   pourAnyLiquid: {fileID: 8300000, guid: 912392b4d040a6a4f8a68238f844cc2e, type: 3}
-  frying: {fileID: 8300000, guid: b5277ce5ba1fdc2419820b6e1ab1082d, type: 3}
+  frying: {fileID: 8300000, guid: eb18ef9bd51b8e74a869efdfcbd61c6d, type: 3}
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
-  boilingWater: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
+  boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
   clockTicking: {fileID: 8300000, guid: 7f1e468f1d2b10d45a1f4d939120e2e9, type: 3}
 --- !u!4 &10831795
 Transform:
@@ -629,7 +629,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.22517122
+  orthographic size: 0.225
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
