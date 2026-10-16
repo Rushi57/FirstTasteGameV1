@@ -17,10 +17,13 @@ MonoBehaviour:
   category: 0
   size: 0
   icon: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
-  iconScale: 1
+  iconScale: 0.915
   stateSprites:
   - state: 0
     sprite: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
   - state: 0
     sprite: {fileID: 4656265324540592659, guid: 0670a1a6afde51744a2b2f76d87febf4, type: 3}
-  playsPourAnimation: 0
+  playsPourAnimation: 1
+  pourPositions:
+  - targetName: Calamansi
+    position: {x: 30.4, y: 6}

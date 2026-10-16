@@ -52,8 +52,8 @@ MonoBehaviour:
   - Mix:7
   - Pan:Pork Belly
   - Mix:9
-  - Pour:Vinegar
-  - Pour:Soy
+  - Pour:VinegarCup_1_2
+  - Pour:SoyCup_1_4
   - Pan:Water
   - 
   - Pan:PanLid

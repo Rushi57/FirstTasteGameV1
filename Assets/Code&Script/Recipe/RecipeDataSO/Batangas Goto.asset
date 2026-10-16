@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
   m_Name: Batangas Goto
   m_EditorClassIdentifier: 
-  recipeName: 
-  recipeIcon: {fileID: 0}
+  recipeName: Batangas Goto
+  recipeIcon: {fileID: 1222128613088977701, guid: 9273c5b62e589f049959263daebca091, type: 3}
   liquidProfile: {fileID: 0}
   ingredients: []
   cookingInstructions:

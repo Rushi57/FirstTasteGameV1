@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Sisig
   recipeIcon: {fileID: -2092983280216000583, guid: cd8c1c291906ae14cb0467a92c526883, type: 3}
-  liquidProfile: {fileID: 0}
+  liquidProfile: {fileID: 11400000, guid: 05c91d7cedbeb5b458bc6cf923ce258a, type: 2}
   ingredients:
   - ingredient: {fileID: 11400000, guid: 392ae1c94d41b4e43b223dfa16405b2d, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 97330965f88bbd8419ccc9f7ab9f667a, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
@@ -28,20 +31,24 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 97330965f88bbd8419ccc9f7ab9f667a, type: 2}
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: b6fc1cc6b1ad95d4bab8d30fd5179a4c, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the Pork Jowl into Minced
-  - Chop the Onion into Minced
-  - Chop Ginger into slice
-  - Chop Garlic into minced
-  - Chop Chil into slice
+  - Chop the pork jowl into minced
+  - Chop the onion into minced
+  - Chop ginger into minced
+  - Chop garlic into sliced
+  - Chop green chil into slice
+  - Chop the chicken liver to sliced
   - Turn on the Stove to high heat
   - Put the pan in the Stove
   - Add Pork jowl
   - Saute it until brown
-  - Add 2 tbsp of Cooking Oil
+  - Add 1 tbsp of Cooking Oil
   - Add chop Onion
   - Saute until translucent
   - Add Chop Ginger
@@ -58,20 +65,21 @@ MonoBehaviour:
   - Onion:Minced
   - Ginger:Minced
   - Garlic:Sliced
-  - Chili:Sliced
+  - Green Chili:Sliced
+  - Chicken Liver:Sliced
   - 
   - Pan:OnStove
   - Pan:Pork Jowl
-  - Mix:8
-  - Pour:CookingOil
+  - Mix:9
+  - Pour:CookingOilTbsp_1
   - Pan:Onion
-  - Mix:11
+  - Mix:12
   - Pan:Ginger
-  - Pan:Chili
-  - Pan:Chiken Liver
-  - Mix:15
+  - Pan:Green Chili
+  - Pan:Chicken Liver
+  - Mix:16
   - Pour:Soy
   - Salt:Tsp_1_2
   - Pepper:Tsp_1_2
   - Pan:calamasi
-  - Mix:20
+  - Mix:21

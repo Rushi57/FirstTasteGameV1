@@ -23,6 +23,8 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public bool reportMistakeOnBadDrop = true;
     public bool IsLocked => isLocked;
 
+    public void MarkDropHandled() => wasDroppedSuccessfully = true;
+
     private void Awake()
     {
         rectTransform = transform as RectTransform;

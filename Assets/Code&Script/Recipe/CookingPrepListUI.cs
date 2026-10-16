@@ -38,6 +38,8 @@ public class CookingPrepListUI : MonoBehaviour
     private readonly HashSet<string> completed = new HashSet<string>();
     private readonly List<string> orderedIds = new List<string>();
 
+    public bool HasStep(string id) => rows.ContainsKey(id);
+
     /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
     public event System.Action OnAllStepsComplete;
 
@@ -161,7 +163,9 @@ public class CookingPrepListUI : MonoBehaviour
     {
         Debug.Log($"[PrepList] cut event received: {(data != null ? data.id : "null")}:{state}");
         if (data == null || state == IngredientPrepState.Whole) return;
-        CompleteStep($"{data.id}:{state}");
+        string id = $"{data.id}:{state}";
+        if (!rows.ContainsKey(id)) return;   // intermediate state (e.g. Sliced on the way to Minced)
+        CompleteStep(id);
     }
 
     /// <summary>Call from ANY mechanic when it finishes.</summary>

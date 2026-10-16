@@ -29,16 +29,19 @@ public class GameOverController : MonoBehaviour
     }
     private void OnReplay()
     {
+
         Time.timeScale = 1f;   // reset before reloading
         var tutorial = TutorialManager.Instance;
 
         if (tutorial != null && !tutorial.HasCompletedTutorial())
             tutorial.ResetProgress();
 
+        SFXManager.Instance?.StopLoop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void OnQuit()
     {
+        SFXManager.Instance?.StopLoop();
         Time.timeScale = 1f;
         SceneManager.LoadScene(quitSceneName);
     }

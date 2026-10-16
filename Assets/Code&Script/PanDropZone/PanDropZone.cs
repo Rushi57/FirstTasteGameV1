@@ -205,7 +205,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
-        });
+        }, data);
 
         if (started) drag.LockAndReturn();
     }

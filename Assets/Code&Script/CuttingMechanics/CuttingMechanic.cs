@@ -79,8 +79,14 @@ public class CuttingMechanic : MonoBehaviour
     public int CutCount => cutCount;
 
     /// <summary>True once cutCount has reached maxCuts and no more cuts are allowed.</summary>
-    public bool IsFinished => cutCount >= maxCuts;
+    private bool finishedEarly;
+    public bool IsFinished => cutCount >= maxCuts || finishedEarly;
 
+    public bool IsCutIncomplete => cutCount > 0 && CurrentState != lockedFinalState;
+
+    private IngredientPrepState lockedFinalState = IngredientPrepState.Minced;
+
+    public event System.Action OnCuttingSessionClosed;
     void Awake()
     {
         if(tutorialInteractable ==  null)
@@ -118,6 +124,8 @@ public class CuttingMechanic : MonoBehaviour
     public void StartCuttingMinigame()
     {
         cutCount = 0;
+        finishedEarly = false;
+        lockedFinalState = IngredientPrepState.Minced;
         ApplyState(IngredientPrepState.Whole);
         isIndicatorMoving = true;
         tapToCutButton.gameObject.SetActive(true);
@@ -151,24 +159,32 @@ public class CuttingMechanic : MonoBehaviour
 
             bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
             if (inTutorial)
+            {
                 tutorialInteractable?.ReportMistake();
+            }
             else
-            //  SpawnNewPlaceholderCircle();
-
-            ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // -15 pts, -1 heart
+            {
+                ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
+            } // -15 pts, -1 heart
             return; // cutCount, ApplyState, and buttons stay untouched
         }
 
         // 3. GREEN / YELLOW: check the recipe step is valid
         IngredientPrepState targetState = (cutCount == 0)
-            ? IngredientPrepState.Sliced
-            : IngredientPrepState.Minced;
-
+         ? IngredientPrepState.Sliced
+         : IngredientPrepState.Minced;
+        IngredientPrepState finalState = GetFinalState();
+        lockedFinalState = finalState;
         if (currentIngredient != null && CookingPrepListUI.Instance != null)
         {
-            string id = $"{currentIngredient.id}:{targetState}";
-            if (!CookingPrepListUI.Instance.TryAccept(id))
-                return; // wrong ingredient/order: popup + heart loss already handled
+            // A slice on the way to Minced is validated against the Minced step
+            IngredientPrepState stepState =
+                (targetState == IngredientPrepState.Sliced && finalState == IngredientPrepState.Minced)
+                    ? IngredientPrepState.Minced
+                    : targetState;
+
+            if (!CookingPrepListUI.Instance.TryAccept($"{currentIngredient.id}:{stepState}"))
+                return;
         }
 
         // 4. Accept the cut
@@ -188,32 +204,36 @@ public class CuttingMechanic : MonoBehaviour
         ApplyState(targetState);
         tapToCutButton.gameObject.SetActive(false);
 
-        if (cutCount >= maxCuts)
+        bool done = cutCount >= maxCuts;
+        if (done)
         {
             tapToCutAgainButton.gameObject.SetActive(false);
             OnCuttingFinished?.Invoke();
         }
         else
         {
-            tapToCutAgainButton.gameObject.SetActive(true);
+            tapToCutAgainButton.gameObject.SetActive(true);   // shown for Sliced-only too
         }
     }
 
     // LINK TO "TapToCutAgain" BUTTON
     public void OnTapToCutAgainClicked()
     {
-        if (IsFinished) return; // safety net - button should already be inactive
+        if(IsFinished) return;
 
-        // NEW: the next cut would produce Minced, so ask the prep list first
-        if (currentIngredient != null && CookingPrepListUI.Instance != null)
+
+
+        // Recipe only wants Sliced: cutting again is a mistake, no mechanic starts
+        if (GetFinalState() == IngredientPrepState.Sliced)
         {
-            string id = $"{currentIngredient.id}:{IngredientPrepState.Minced}";
-            if (!CookingPrepListUI.Instance.TryAccept(id))
-            {
-                // Popup + heart loss already happened.
-                // No new circle, indicator stays frozen, state is unchanged.
-                return;
-            }
+            ScoreManager.Instance?.ReportMistake("Already sliced!\nMinus 1 heart");
+            return;   // no new circle, indicator stays frozen, state unchanged
+        }
+
+        if (lockedFinalState == IngredientPrepState.Sliced)
+        {
+            ScoreManager.Instance?.ReportMistake("Already sliced!\nMinus 1 heart");
+            return;
         }
 
         SpawnNewPlaceholderCircle();
@@ -320,5 +340,30 @@ public class CuttingMechanic : MonoBehaviour
         }
 
         OnStateChanged?.Invoke(currentIngredient, state);
+    }
+
+    
+    /// Minced unless the recipe only wants this ingredient Sliced.
+    private IngredientPrepState GetFinalState()
+    {
+        var list = CookingPrepListUI.Instance;
+        if (currentIngredient == null || list == null) return IngredientPrepState.Minced;
+
+        bool wantsSliced = list.HasStep($"{currentIngredient.id}:{IngredientPrepState.Sliced}");
+        bool wantsMinced = list.HasStep($"{currentIngredient.id}:{IngredientPrepState.Minced}");
+        return (wantsSliced && !wantsMinced) ? IngredientPrepState.Sliced : IngredientPrepState.Minced;
+    }
+    
+
+    public void OnCloseClicked()
+    {
+        if(IsCutIncomplete)
+        {
+            ScoreManager.Instance?.ReportMistake("Finish the cut first!\nMinus 1 heart");
+            return;
+        }
+        bool completed = cutCount > 0;
+        gameObject.SetActive(false);
+        if (completed) OnCuttingSessionClosed?.Invoke();
     }
 }

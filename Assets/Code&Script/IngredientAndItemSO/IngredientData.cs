@@ -58,8 +58,11 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
 
     [Header("Pour Animation (optional)")]
-    [Tooltip("If true, dropping this item on the pan plays the pitcher pour animation instead of just consuming the item.")]
+    [Tooltip("If true, dropping this item on a target plays the pitcher pour animation instead of just consuming the item.")]
     public bool playsPourAnimation = false;
+
+    [Tooltip("Only used when 'Plays Pour Animation' is checked. One PosX/PosY per target (pan, bowl, pitcher...).")]
+    public List<PourPositionEntry> pourPositions = new List<PourPositionEntry>();
 
     public string TutorialId => id;
 
@@ -72,4 +75,33 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
         }
         return icon;
     }
+    public bool TryGetPourPosition(string targetName, out Vector2 position)
+    {
+        position = default;
+        if (!playsPourAnimation || pourPositions == null || pourPositions.Count == 0)
+            return false;
+
+        foreach (var entry in pourPositions)
+        {
+            if (entry.targetName == targetName)
+            {
+                position = entry.position;
+                return true;
+            }
+        }
+
+        // No exact match: use the first entry instead of ignoring the list.
+        Debug.LogWarning($"[Pour] '{id}' has no pour position for '{targetName}'. Using '{pourPositions[0].targetName}'.");
+        position = pourPositions[0].position;
+        return true;
+    }
+}
+[System.Serializable]
+public class PourPositionEntry
+{
+    [Tooltip("Where the pour happens, e.g. Pan, Bowl, Pitcher. Must match the name the drop target passes in.")]
+    public string targetName = "Pan";
+
+    [Tooltip("PosX / PosY of 'Pitcher with water' (anchoredPosition) for this target.")]
+    public Vector2 position;
 }

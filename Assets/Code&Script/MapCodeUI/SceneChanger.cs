@@ -28,8 +28,11 @@ public class SceneChanger : MonoBehaviour
 
     public void QuitInGame(string sceneName)
     {
+       
         TutorialManager.Instance?.SkipTutorial();
         LoadingManager.LoadNextScene(sceneName);
+        SFXManager.Instance?.StopLoop();
+
 
     }
 
