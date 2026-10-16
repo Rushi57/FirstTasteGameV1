@@ -16,10 +16,12 @@ MonoBehaviour:
   displayName: Beef Tripe
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 5188495928801226314, guid: 765d3d360eb3a5e47a08e96d68caa74e, type: 3}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 5188495928801226314, guid: 765d3d360eb3a5e47a08e96d68caa74e, type: 3}
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 1014599048653792632, guid: 3ff015ddfa96d8043b1e2e10db540a51, type: 3}
   playsPourAnimation: 0
+  pourPositions: []
