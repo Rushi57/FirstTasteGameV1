@@ -7,74 +7,86 @@ public class ColorPrecisionGame : MonoBehaviour
 {
     [Header("UI References")]
     public RectTransform hand;
-    public RectTransform wheelContainer; // The 'Wheel' object
+    public RectTransform wheelContainer;
     public Image redImage, yellowImage, greenImage;
     public TextMeshProUGUI resultText;
 
     [Header("Settings")]
     public float rotateSpeed = 200f;
-    public float headstartDelay = 2f; // 2-second headstart before hand moves
+    public float headstartDelay = 2f;
+    public float retryDelay = 1.5f; // how long "BAD!" is shown before restarting
 
     private bool isSpinning = false;
+    private bool canStop = false;
+    private Coroutine activeRoutine;
 
-    // Called automatically whenever the script/GameObject is set active
     private void OnEnable()
     {
-        StartCoroutine(StartWithHeadstart());
+        StartRound();
+    }
+
+    // Single entry point so routines never overlap
+    private void StartRound()
+    {
+        if (activeRoutine != null) StopCoroutine(activeRoutine);
+        activeRoutine = StartCoroutine(StartWithHeadstart());
     }
 
     private IEnumerator StartWithHeadstart()
     {
         isSpinning = false;
+        canStop = false;
 
-        // Reset hand position to top
         hand.localEulerAngles = Vector3.zero;
 
-        // Randomize slice rotations immediately so player can see them
         yellowImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
         greenImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
 
-        if (resultText != null)
-        {
-            resultText.text = "GET READY!";
-        }
+        if (resultText != null) resultText.text = "GET READY!";
 
-        // Wait for 2 seconds (player headstart)
         yield return new WaitForSeconds(headstartDelay);
 
-        if (resultText != null)
-        {
-            resultText.text = "GO!";
-        }
+        if (resultText != null) resultText.text = "GO!";
 
         isSpinning = true;
+        canStop = true;
         SFXManager.Instance?.StartClock();
+
+        activeRoutine = null;
+    }
+
+    private IEnumerator RetryAfterBad(string message)
+    {
+        // Input stays locked (canStop is already false)
+        if (resultText != null) resultText.text = message;
+
+        yield return new WaitForSeconds(retryDelay);
+
+        // Restart the whole mechanic (re-randomizes slices + headstart)
+        activeRoutine = null;
+        StartRound();
     }
 
     void Update()
     {
         if (isSpinning)
         {
-            // Rotate the hand clockwise (Negative Z)
             hand.Rotate(0, 0, -rotateSpeed * Time.deltaTime);
         }
     }
 
     public void StopHand()
     {
+        if (!canStop || !isSpinning) return;
 
-        if (!isSpinning) return;
+        canStop = false;
         isSpinning = false;
         SFXManager.Instance?.StopClock();
 
-        // Get hand rotation relative to the wheel container
         float angle = hand.localEulerAngles.z;
         if (angle < 0) angle += 360;
 
-        // Convert rotation to a 0-1 "clock" value:
         float normalizedPoint = 1f - (angle / 360f);
-
-        // Handle the 'wrap around' since 1.0 and 0.0 are both the Top
         if (normalizedPoint >= 1.0f) normalizedPoint = 0f;
 
         CheckResult(normalizedPoint);
@@ -90,7 +102,6 @@ public class ColorPrecisionGame : MonoBehaviour
         yellowStart = 1f - yellowStart;
         if (yellowStart >= 1f) yellowStart -= 1f;
 
-        // Check if hand is inside Green or Yellow "zones"
         if (IsPointInSlice(point, greenStart, greenImage.fillAmount))
         {
             resultText.text = "VERY GOOD!";
@@ -103,12 +114,36 @@ public class ColorPrecisionGame : MonoBehaviour
         }
         else
         {
-            resultText.text = "BAD!";
-            ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
+            HandleBad();
         }
     }
 
-    // Helper to handle slices that cross the "12 o'clock" line
+    private void HandleBad()
+    {
+        if (IsTutorialActive())
+        {
+            // Tutorial: no deduction, just try again
+            activeRoutine = StartCoroutine(RetryAfterBad("TRY AGAIN!"));
+        }
+        else
+        {
+            // Normal play: deduct points + heart, then retry
+            ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
+
+            // If the heart loss ended the game and this object was
+            // disabled, the coroutine below simply won't run.
+            if (gameObject.activeInHierarchy)
+                activeRoutine = StartCoroutine(RetryAfterBad("BAD!"));
+        }
+    }
+
+    // TODO: connect this to your real tutorial system
+    private bool IsTutorialActive()
+    {
+        // Example: return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+        return false;
+    }
+
     bool IsPointInSlice(float point, float start, float fill)
     {
         float end = (start + fill) % 1f;
@@ -120,9 +155,12 @@ public class ColorPrecisionGame : MonoBehaviour
     {
         rotateSpeed = speed;
     }
+
     private void OnDisable()
     {
         isSpinning = false;
+        canStop = false;
+        activeRoutine = null;
         SFXManager.Instance?.StopClock();
     }
 }

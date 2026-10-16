@@ -27,7 +27,8 @@ public class LoadGameButton : MonoBehaviour
             return;
         }
 
-        GameSession.Data = data;                       // static, so it survives LoadingScene
+        GameSession.Data = data;
+        TutorialManager.ApplySavedTutorialState(data); // static, so it survives LoadingScene
         LoadingManager.LoadNextScene(mapSceneName);    // LoadingScene -> MapScene
     }
 

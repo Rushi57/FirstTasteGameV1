@@ -58,6 +58,9 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarSpoonFillSprite;    // optional
     public Sprite cookingOilSpoonFillSprite; // optional
 
+    [Header("Stove (for frying sound)")]
+    public StoveHeatController stove;
+
     private string currentStepId;
 
     [Header("Measuring tool image (Tbps_Tsp_CupImage)")]
@@ -270,6 +273,7 @@ public class PourSeasoningController : MonoBehaviour
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
                     if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                    StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
                 });
             }
@@ -279,6 +283,7 @@ public class PourSeasoningController : MonoBehaviour
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
                 if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                StartFryingIfOil(seasoning);
 
             }
         }
@@ -505,6 +510,13 @@ public class PourSeasoningController : MonoBehaviour
         ClearSelection();
 
     }
+    private void StartFryingIfOil(SeasoningType seasoning)
+    {
+        if (seasoning != SeasoningType.CookingOil) return;
+        if (stove != null && stove.CurrentHeat == StoveHeat.Off) return;
 
+        var sfx = SFXManager.Instance;
+        if (sfx != null) sfx.PlayLoop(sfx.frying);
+    }
 
 }

@@ -7,6 +7,8 @@ public class SaveButton : MonoBehaviour
 {
     [SerializeField] private GameObject savedMessage; // optional "Game Saved!" popup
 
+    SaveData data = GameSession.GetOrCreateData();
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(OnSaveClicked);
@@ -17,11 +19,11 @@ public class SaveButton : MonoBehaviour
         // Reuse the current session data so levelScores (the stars) are kept
         SaveData data = GameSession.GetOrCreateData();
 
-        // TODO: 
-        data.coins = 0;
-        data.currentLevel = 1;
-        if (!data.unlockedLevels.Contains(1)) data.unlockedLevels.Add(1);   // avoids duplicates on every save
-        data.tutorialDone = true;
+        // data.currentLevel = 1;   <- remove, this resets progress on every save
+        if (!data.unlockedLevels.Contains(1)) data.unlockedLevels.Add(1);
+
+        TutorialManager.WriteCompletedTutorialsTo(data);
+        data.tutorialDone = data.IsTutorialCompleted("main_tutorial_MAP");
 
         SaveSystem.Save(data);
 

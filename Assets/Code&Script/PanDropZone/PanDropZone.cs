@@ -148,7 +148,10 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             cookingEffect.Track(img);
         }
 
+
         CookingPrepListUI.Instance?.CompleteStep(stepId);
+        if (SFXManager.Instance != null && !SFXManager.Instance.IsLoopPlaying)
+            StartFrying();
         OnIngredientAdded?.Invoke(data);
 
         RectTransform target = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
@@ -194,6 +197,12 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
+            StartFrying();
+            if (data.id == "Water")
+                StartBoilingSound();
+            else if (!SFXManager.Instance.IsLoopPlaying)
+                StartFrying();
+
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
         });
@@ -218,4 +227,33 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         return false;
     }
 
+    private void StartFrying()
+    {
+        Debug.Log("[Fry] StartFrying called");
+
+        var sfx = SFXManager.Instance;
+        if (sfx == null) { Debug.LogWarning("[Fry] SFXManager.Instance is NULL"); return; }
+        if (sfx.frying == null) { Debug.LogWarning("[Fry] 'frying' clip is not assigned on SFXManager"); return; }
+
+        StoveHeatController s = ResolveStove();
+        if (s == null || s.CurrentHeat == StoveHeat.Off)
+        {
+            Debug.LogWarning($"[Fry] Stove not on (stove={(s != null ? s.CurrentHeat.ToString() : "NULL")})");
+            return;
+        }
+
+        sfx.PlayLoop(sfx.frying);
+        Debug.Log("[Fry] PlayLoop called");
+    }
+
+    private void StartBoilingSound()
+    {
+        var sfx = SFXManager.Instance;
+        if (sfx == null || sfx.boilingWater == null) return;
+
+        StoveHeatController s = ResolveStove();
+        if (s == null || s.CurrentHeat == StoveHeat.Off) return;
+
+        sfx.PlayLoop(sfx.boilingWater);   // replaces frying automatically
+    }
 }

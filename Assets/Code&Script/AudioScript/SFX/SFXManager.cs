@@ -107,6 +107,7 @@ public class SFXManager : MonoBehaviour
     public void PlayLoop(AudioClip clip)
     {
         if (clip == null || (loopSource.isPlaying && loopSource.clip == clip)) return;
+        Debug.Log($"[SFX] PlayLoop({clip.name})\n{System.Environment.StackTrace}");
         loopSource.clip = clip;
         loopSource.Play();
     }
@@ -136,7 +137,7 @@ public class SFXManager : MonoBehaviour
     }
 
     public void StopLoop() => loopSource.Stop();
-
+    public bool IsLoopPlaying => loopSource.isPlaying;
     public void StartPour()
     {
         if(pourAnyLiquid == null || pourSource.isPlaying) return;  

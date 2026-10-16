@@ -35,7 +35,6 @@ public class SceneChanger : MonoBehaviour
 
     public void TapLevel1()
     {
-        
         tutorialTagLevel1?.ReportTap();
         Debug.Log("Level 1 is Tap!!!!");
     }

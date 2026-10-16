@@ -40,6 +40,9 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("How many steps to go back on a mistake. 0 = replay the current step, 1 = previous step.")]
     [Min(0)] public int stepsToRevert = 1;
 
+    [Header("Level Restriction")]
+    [Tooltip("0 = any level. 1 = this tutorial only plays in level 1.")]
+    public int onlyForLevel = 0;
 
     public event System.Action OnTutorialReverted;
 
@@ -217,11 +220,25 @@ public class TutorialManager : MonoBehaviour
         foreach (var interactable in FindObjectsByType<TutorialInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             Register(interactable);
     }
-    private void MarkCompleted()
+    private void MarkCompleted(bool writeToSave = true)
     {
         PlayerPrefs.SetInt(CompletedKey, 1);
         PlayerPrefs.DeleteKey(ProgressKey);
         PlayerPrefs.Save();
+
+        SaveData data = GameSession.GetOrCreateData();
+        data.MarkTutorialCompleted(tutorialId);            // in memory, so any later Save includes it
+        if (writeToSave && saveImmediately) SaveSystem.Save(data);
+    }
+
+    public static void WriteCompletedTutorialsTo(SaveData data)
+    {
+        string existing = PlayerPrefs.GetString(KnownTutorialIdsKey, "");
+        foreach (string id in existing.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (PlayerPrefs.GetInt($"tutorial_{id}_completed", 0) == 1)
+                data.MarkTutorialCompleted(id);
+        }
     }
 
     public static void ResetAllTutorials()
@@ -248,6 +265,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     public void SkipTutorial()
     {
+        if (!tutorialActive) return;
         MarkCompleted();
         PlayerPrefs.DeleteKey(ProgressKey);
         PlayerPrefs.Save();
@@ -603,5 +621,49 @@ public class TutorialManager : MonoBehaviour
         }
 
         filter.SetAllowedAreas(allowed.ToArray());
+    }
+    /// <summary>Makes PlayerPrefs match a loaded save so the two never disagree.</summary>
+    public static void ApplySavedTutorialState(SaveData data)
+    {
+        ResetAllTutorials();
+
+        foreach (string id in data.completedTutorials)
+        {
+            PlayerPrefs.SetInt($"tutorial_{id}_completed", 1);
+            RegisterKnownTutorialId(id);
+        }
+
+        // Older saves: tutorialDone only ever meant the map tutorial
+        if (data.tutorialDone)
+            MarkInPrefs("main_tutorial_MAP");
+
+        // A level 1 result means the player already got through the level 1 tutorial
+        if (data.GetLevelResult(1) != null)
+        {
+            MarkInPrefs("main_tutorial_MAP");
+            MarkInPrefs("main_tutorial_InGame11");
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private static void MarkInPrefs(string id)
+    {
+        PlayerPrefs.SetInt($"tutorial_{id}_completed", 1);
+        RegisterKnownTutorialId(id);
+    }
+    public void StartTutorialForLevel(int level)
+    {
+        if (onlyForLevel > 0 && level != onlyForLevel) return;
+
+        // Already has a result for this level (stars earned)? Never show the tutorial again.
+        SaveData data = GameSession.Data;
+        if (data != null && data.GetLevelResult(level) != null)
+        {
+            MarkCompleted(false);
+            return;
+        }
+
+        StartTutorial();   // already returns if completed
     }
 }

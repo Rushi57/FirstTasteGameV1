@@ -88,6 +88,7 @@ public class PourAnimationPlayer : MonoBehaviour
 
         // 2. Tilt to pour
         if (pourEffect != null) pourEffect.SetActive(true);
+        SFXManager.Instance?.StartPour();
         yield return Tween(tiltTime, t =>
             pitcher.localRotation = Quaternion.Euler(0f, 0f, Mathf.LerpUnclamped(0f, pourAngle, t)));
 
@@ -96,6 +97,7 @@ public class PourAnimationPlayer : MonoBehaviour
 
         // 4. Tilt back
         if (pourEffect != null) pourEffect.SetActive(false);
+        SFXManager.Instance?.StopPour();
         yield return Tween(tiltBackTime, t =>
             pitcher.localRotation = Quaternion.Euler(0f, 0f, Mathf.LerpUnclamped(pourAngle, 0f, t)));
 
@@ -134,6 +136,7 @@ public class PourAnimationPlayer : MonoBehaviour
         if (IsPlaying)
         {
             IsPlaying = false;
+            SFXManager.Instance?.StopPour();
             TutorialManager.Instance?.EndBusy();
         }
     }
@@ -160,4 +163,5 @@ public class PourAnimationPlayer : MonoBehaviour
             }
         }
     }
+
 }

@@ -89,6 +89,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         Debug.Log($"[Stove] Heat changed: {old} -> {newHeat}");
 
         ApplyVisuals();
+        if (newHeat == StoveHeat.Off)
+            SFXManager.Instance?.StopLoop();
         OnHeatChanged?.Invoke(newHeat);
 
         if (confirmRoutine != null)
