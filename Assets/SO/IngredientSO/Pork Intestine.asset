@@ -16,8 +16,12 @@ MonoBehaviour:
   displayName: Pork Intestine
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 1186554024016733576, guid: 24bd7078426edfd4aadd54487c4f1eba, type: 3}
   iconScale: 1
-  stateSprites: []
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 1186554024016733576, guid: 24bd7078426edfd4aadd54487c4f1eba, type: 3}
+  - state: 1
+    sprite: {fileID: 2469666613333823022, guid: feffc57dc8bdbcb4fa7308259a16d45f, type: 3}
   playsPourAnimation: 0
   pourPositions: []
