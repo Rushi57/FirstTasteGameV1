@@ -30,7 +30,11 @@ MonoBehaviour:
     color: {r: 0.2509804, g: 0.12156863, b: 0.019607844, a: 0.69411767}
     strength: 5
     opacity: 0.645
-  - id: Cassava Starch
+  - id: CassavaStarch
     color: {r: 1, g: 1, b: 1, a: 0}
     strength: 5
     opacity: 0.645
+  - id: EggBeaten
+    color: {r: 0.95686275, g: 0.73333335, b: 0.16078432, a: 0}
+    strength: 9
+    opacity: 0.9

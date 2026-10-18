@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Batangas Lomi
   recipeIcon: {fileID: -1575645233659276657, guid: 29a9f3ed434cc434f92c83e2bb501c94, type: 3}
-  liquidProfile: {fileID: 11400000, guid: f55a09d5e81f5804d8439b3866576860, type: 2}
+  liquidProfile: {fileID: 11400000, guid: 21802537003d3f540bee8ee7c30265ba, type: 2}
   ingredients:
   - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
     quantity: 0
@@ -28,18 +28,27 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: cefa7188604a264448b36c04e24bdd5c, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: 1667a49eed87c3b47bdc0a8a4f9b7850, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 6d69dafb7db6294459954e33cae42e49, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
-  - Slice the pork belly
-  - Slice the pork liver
-  - Slice the kikiam
-  - Slice the onion
-  - Slice the garlic
+  - Slice the pork belly sliced
+  - Slice the chicken liver sliced
+  - Slice the kikiam sliced
+  - Slice the onion sliced
+  - Slice the garlic sliced
   - Turn the stove to high heat
   - Put the pan on the stove
   - Add 1/4 cup of cooking oil
@@ -53,22 +62,22 @@ MonoBehaviour:
   - "Saut\xE9 using the spatula"
   - Add pork bouillon
   - ' Add water'
-  - Add 1/6 cup of soy sauce
+  - Add 1/4 cup of soy sauce
   - "Saut\xE9 using the spatula"
   - Cover it with pan lid cook until simmering
   - Add lomi noodles
   - Cover it with pan lid until simmer
-  - Add dissolved cassava
+  - 'Add cassava 1 tbsp '
   - Cover it with pan lid until simmer
   - Add eggs beaten
   - "Saut\xE9 using the spatula"
-  - Turn the heat into meadium
+  - Turn the stove to medium heat
   - Cover it with pan lid until simmer
-  - Add 1/6 tbsp of salt
-  - Add 1/6 tbsp of pepper
+  - Add 1/4 tsp of salt
+  - Add 1/4 tsp of pepper
   cookingStepIds:
   - Pork Belly:Sliced
-  - Chiken Liver:Sliced
+  - Chicken Liver:Sliced
   - Kikiam:Sliced
   - Onion:Sliced
   - Garlic:Sliced
@@ -76,25 +85,25 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOilCup1_4
   - Pan:Onion
-  - Mix9
+  - Mix:9
   - Pan:Pork Belly
-  - Mix11
+  - Mix:11
   - Pan:Kikiam
-  - Mix12
+  - Mix:13
   - Pan:Chicken Liver
-  - Mix15
-  - Pan:Pork bouillon
+  - Mix:15
+  - Pan:PorkBouillon
   - Pan:Water
-  - Pour:SoyCup1_6
-  - Mix19
+  - Pour:SoyCup_1_4
+  - Mix:19
   - Pan:PanLidSimmer
   - Pan:Lomi Noodles
   - Pan:PanLidSimmer
-  - Pan:Cassava
+  - CassavaStarch:Tbsp_1
   - Pan:PanLidSimmer
-  - Pan:Eggs Beaten
-  - Mix26
+  - Pan:EggBeaten
+  - Mix:26
   - 
   - Pan:PanLidSimmer
-  - Salt:Tsp_1_6
-  - Pepper:Tsp_1_6
+  - Salt:Tsp_1_4
+  - Pepper:Tsp_1_4

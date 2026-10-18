@@ -58,6 +58,11 @@ public class SaltPepperController : MonoBehaviour
     public int wrongDropHearts = 1;
 
 
+    [Header("Pan liquid")]
+    public PanLiquidFill panLiquid;
+    public float mlPerTsp = 5f;
+    private float pendingTsp;
+
     //Value Msg
     [Header("Value popup (MessageBorder)")]
     [Tooltip("The MessageBorder object. Leave it inactive in the scene.")]
@@ -108,22 +113,25 @@ public class SaltPepperController : MonoBehaviour
 
         if (pendingSuccess)
         {
-
             string stepId = $"{currentType}:{PendingId}";
             Color color = GetColor(currentType);
+            float tspToAdd = pendingTsp;                 // capture before it's reset
+            SaltPepperType typeAtClose = currentType;
+
+            System.Action onDone = () =>
+            {
+                CookingPrepListUI.Instance?.CompleteStep(stepId);
+
+                if (typeAtClose == SaltPepperType.CassavaStarch)
+                    panLiquid?.AddLiquidById("CassavaStarch", tspToAdd * mlPerTsp);
+            };
 
             if (spoonAnimation != null)
             {
-                spoonAnimation.SetSprite(pendingSpoonSprite);   // match the dropped spoon
-                spoonAnimation.PlayPourAnimation(color, () =>
-                {
-                    CookingPrepListUI.Instance?.CompleteStep(stepId);
-                });
+                spoonAnimation.SetSprite(pendingSpoonSprite);
+                spoonAnimation.PlayPourAnimation(color, onDone);
             }
-            else
-            {
-                CookingPrepListUI.Instance?.CompleteStep(stepId);
-            }
+            else onDone();
         }
 
         pendingSuccess = false;
@@ -157,6 +165,7 @@ public class SaltPepperController : MonoBehaviour
         }
 
         bool correct = Mathf.Abs(spoon.TspValue - requiredTsp) <= 0.05f;
+        pendingTsp = requiredTsp;
 
         Debug.Log($"[SaltPepper] {currentType}: dropped {spoon.Label} ({spoon.TspValue} tsp), recipe wants {requiredTsp:0.###} tsp -> {(correct ? "CORRECT" : "WRONG")}");
 
@@ -188,6 +197,8 @@ public class SaltPepperController : MonoBehaviour
             // TestDrag bounces the spoon back automatically
         }
     }
+
+
 
     private void ShowWrongMessage(string message)
     {
@@ -305,7 +316,7 @@ public class SaltPepperController : MonoBehaviour
     {
         SaltPepperType.Salt => "salt",
         SaltPepperType.Pepper => "pepper",
-        _ => "starch"          // matches "cassava starch" and "starch"
+        _ => "cassava"          // matches "cassava starch" and "starch"
     };
 
     private static string GetDisplayName(SaltPepperType t) => t switch
