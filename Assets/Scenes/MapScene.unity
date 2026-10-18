@@ -3151,6 +3151,7 @@ MonoBehaviour:
   autoStart: 1
   revertOnMistake: 1
   stepsToRevert: 1
+  onlyForLevel: 0
   dialogueBox: {fileID: 928322967}
   inputBlocker: {fileID: 2025803979}
   pulseTargets: 1
@@ -3211,7 +3212,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: bd689dbd5b6456041a08b8affaf99219, type: 2}
   dashboardStars: {fileID: 1494433132}
   dishImage: {fileID: 2134620391}
-  requiredLevel: {fileID: 11400000, guid: bd689dbd5b6456041a08b8affaf99219, type: 2}
+  requiredLevel: {fileID: 11400000, guid: 40de8d9a0ecbf1940916ef0b6bb842f1, type: 2}
 --- !u!114 &1292426837
 MonoBehaviour:
   m_ObjectHideFlags: 0

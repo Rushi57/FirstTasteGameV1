@@ -141,6 +141,8 @@ public class CuttingMechanic : MonoBehaviour
         if (IsFinished) return;
         if (!isIndicatorMoving) return;
 
+        SFXManager.Instance?.PlayChop();
+
         // 1. Grade the cut FIRST, while the indicator is still where the player tapped
         CutQuality quality = EvaluateCutQuality();
 

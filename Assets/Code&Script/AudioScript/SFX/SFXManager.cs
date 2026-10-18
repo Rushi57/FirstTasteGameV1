@@ -23,6 +23,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip scorebordePanel;
     public AudioClip tickingStoveSound;
     public AudioClip pourAnyLiquid;
+    public AudioClip ChopIngredientSound;
 
     [Header("Looping clips")]
     public AudioClip frying;
@@ -91,13 +92,14 @@ public class SFXManager : MonoBehaviour
     {
         foreach (var b in FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
-            b.onClick.RemoveListener(tapAction); // prevents double-hooking
+            b.onClick.RemoveListener(tapAction);
+            if (b.GetComponent<NoTapSound>() != null) continue; // opt-out marker
             b.onClick.AddListener(tapAction);
         }
     }
-
+    public void PlayChop() => Play(ChopIngredientSound);
     public void PlayTap() => Play(tapButtonTest);
-
+    
     public void PlayPotLidClose() => Play(potLidClose);
     public void Play(AudioClip clip, float volume = 1f)
     {
@@ -159,4 +161,5 @@ public class SFXManager : MonoBehaviour
     {
         if (clockSource.isPlaying) clockSource.Stop();
     }
+    public class NoTapSound : MonoBehaviour { }
 }

@@ -22,7 +22,8 @@ MonoBehaviour:
   - state: 0
     sprite: {fileID: 1254733247220407415, guid: f845127ee6cce754fa5c31f8fd42f6f0, type: 3}
   - state: 1
-    sprite: {fileID: -3426918139369066666, guid: fadb0e865e03ce940b30ee23ab39962f, type: 3}
+    sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
   - state: 2
     sprite: {fileID: -3426918139369066666, guid: fadb0e865e03ce940b30ee23ab39962f, type: 3}
   playsPourAnimation: 0
+  pourPositions: []

@@ -15,6 +15,7 @@ TagManager:
   - ChoppingPanel
   - SeasoningPanel
   - smallIng
+  - SmokeParticle
   layers:
   - Default
   - TransparentFX
@@ -57,6 +58,12 @@ TagManager:
     locked: 0
   - name: 60
     uniqueID: 1494892713
+    locked: 0
+  - name: 61
+    uniqueID: 3047002199
+    locked: 0
+  - name: 62
+    uniqueID: 2522345845
     locked: 0
   m_RenderingLayers:
   - Default

@@ -99,7 +99,7 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         Vector2 dir = e.position - center;
         if (dir.sqrMagnitude < 4f) return;   // finger on the exact center, ignore
 
-        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;   // 0 = up, clockwise positive
+        float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;   // 0 = up, clockwise positive
         if (angle < 0f) angle += 360f;
 
 
@@ -117,9 +117,9 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     }
 
-    private void ApplyRotation(float clockwiseAngle)
+    private void ApplyRotation(float counterClockwiseAngle)
     {
-        knob.localRotation = Quaternion.Euler(0f, 0f, -(clockwiseAngle + angleOffset));
+        knob.localRotation = Quaternion.Euler(0f, 0f, counterClockwiseAngle + angleOffset);
     }
     private void ReportToTutorial(StoveHeat heat)
     {

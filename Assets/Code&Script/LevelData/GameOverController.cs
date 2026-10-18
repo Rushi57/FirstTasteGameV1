@@ -45,4 +45,15 @@ public class GameOverController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(quitSceneName);
     }
+
+    public void OnRetryScoreBtn()
+    {
+        Time.timeScale = 1f;   // reset before reloading
+        var tutorial = TutorialManager.Instance;
+
+        if (tutorial != null && !tutorial.HasCompletedTutorial())
+            tutorial.ResetProgress();
+        SFXManager.Instance?.StopLoop();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

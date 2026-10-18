@@ -23,6 +23,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     public bool HasPan => CurrentPan != null;
 
     public event System.Action<GameObject> OnPanPlaced;
+    public event System.Action OnStoveReset;
 
     private void Awake()
     {
@@ -93,5 +94,6 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     {
         CurrentPan = null;
         if (myImage != null) myImage.raycastTarget = true;
+        OnStoveReset?.Invoke();
     }
 }
