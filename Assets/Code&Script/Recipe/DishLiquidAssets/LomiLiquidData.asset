@@ -13,28 +13,28 @@ MonoBehaviour:
   m_Name: LomiLiquidData
   m_EditorClassIdentifier: 
   showLiquid: 1
-  baseColor: {r: 0.8, g: 0.8, b: 0.9, a: 1}
-  baseOpacity: 0.3
-  reducedColor: {r: 0.2, g: 0.1, b: 0.04, a: 1}
+  baseColor: {r: 0.9098039, g: 0.80784315, b: 0.5882353, a: 1}
+  baseOpacity: 0.75
+  reducedColor: {r: 0.3529412, g: 0.17254902, b: 0.04, a: 1}
   sensitivity: 1.2
   liquids:
   - id: CookingOil
-    color: {r: 1, g: 0.8509804, b: 0.3019608, a: 0}
+    color: {r: 1, g: 0.8235294, b: 0.24705882, a: 0}
     strength: 0.3
-    opacity: 0.6
+    opacity: 0.4
   - id: Water
-    color: {r: 0.5999911, g: 0.78709745, b: 0.9150943, a: 0}
-    strength: 0.3
-    opacity: 0.39
+    color: {r: 0.8862745, g: 0.9254902, b: 0.9372549, a: 0}
+    strength: 0.2
+    opacity: 0.25
   - id: Soy
-    color: {r: 0.2509804, g: 0.12156863, b: 0.019607844, a: 0.69411767}
-    strength: 5
-    opacity: 0.645
+    color: {r: 0.27058825, g: 0.1254902, b: 0.039215688, a: 0.69411767}
+    strength: 2.5
+    opacity: 0.85
   - id: CassavaStarch
-    color: {r: 1, g: 1, b: 1, a: 0}
-    strength: 5
-    opacity: 0.645
+    color: {r: 0.96862745, g: 0.93333334, b: 0.85882354, a: 0}
+    strength: 4
+    opacity: 0.85
   - id: EggBeaten
-    color: {r: 0.95686275, g: 0.73333335, b: 0.16078432, a: 0}
-    strength: 9
+    color: {r: 1, g: 0.7058824, b: 0.12156863, a: 0}
+    strength: 5
     opacity: 0.9

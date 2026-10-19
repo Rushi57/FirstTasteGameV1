@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Beef Shanks
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
+  id: BeefShanks
+  displayName: BeefShanks
   category: 0
   size: 0
   icon: {fileID: -2407234090661409627, guid: bc92331549773824689f92ee247b7cf6, type: 3}

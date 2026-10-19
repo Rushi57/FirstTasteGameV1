@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Pork Kidney
   m_EditorClassIdentifier: 
-  id: Pork Kidney
-  displayName: Pork Kidney
+  id: PorkKidney
+  displayName: PorkKidney
   category: 0
   size: 0
   icon: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}
@@ -21,7 +21,7 @@ MonoBehaviour:
   stateSprites:
   - state: 0
     sprite: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}
-  - state: 0
+  - state: 1
     sprite: {fileID: 405402548104365158, guid: 32c620619ea48e9469bf96bcb4b0bd12, type: 3}
   playsPourAnimation: 0
   pourPositions: []

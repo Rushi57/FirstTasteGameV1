@@ -14,17 +14,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Batangas Goto
   recipeIcon: {fileID: 1222128613088977701, guid: 9273c5b62e589f049959263daebca091, type: 3}
-  liquidProfile: {fileID: 0}
+  liquidProfile: {fileID: 11400000, guid: b028cabea0a7ab44bae56dedac519fca, type: 2}
   ingredients:
-  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
+  - ingredient: {fileID: 11400000, guid: e452bfb9a5af07440ae8fa7b15cb5aee, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: c36d7da2cad72da4a9f6172a0bc10b22, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 1f0754fa549d13e4a8a549c97cb2cf4c, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 12ff69ebdc4771e42828e4c12cc94063, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 1eddc5d4b5c245b45ab527b3807d3371, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
-  - Slice the ginger
-  - ' Slice the onion'
-  - Slice the garlic
+  - Chop the garlic minced
+  - Chop the onion minced
+  - Chop the ginger sliced
+  - Chop the beef shanks sliced
+  - Chop the pork kidney sliced
+  - Chop beef tripe to sliced
+  - Turn the stove to high heat
+  - Put the pot on the stove
+  - Add 1 tsp of cooking oil
+  - Add 1 tsp of cooking oil
+  - Add the minced garlic
+  - Add the julienned ginger
+  - "Saut\xE9 using the spatula"
+  - Add the sliced beef shanks
+  - Add the sliced beef tripe
+  - Add the sliced pork intestine
+  - Add the sliced kidney
+  - "Saut\xE9 using the spatula"
+  - Add 1/2 cup of vinegar
+  - Cover it with pan lid until boil
+  - Add 1 tsp of achuete powder
+  - "Saut\xE9 using the spatula"
+  - Add Water
+  - Turn the stove to medium heat
+  - Cover it with pan lid to simmer
+  - Add 1/4 tsp of salt
+  - Add 1/4 tsp of pepper
+  - "Saut\xE9 using the spatula"
   cookingStepIds:
+  - Garlic:Minced
+  - Onion:Minced
   - Ginger:Sliced
-  - Onion:Sliced
-  - Garlic:Sliced
-  - Garlic:Sliced
+  - BeefShanks:Sliced
+  - PorkKidney:Sliced
+  - BeefTripe:Sliced
+  - 
+  - Pan:OnStove
+  - Pour:CookingOilTsp_1
+  - Pour:CookingOilTsp_1
+  - Pan:Garlic
+  - Pan:Ginger
+  - Mix:12
+  - Pan:BeefShanks
+  - Pan:BeefTripe
+  - Pan:PorkIntestine
+  - Pan:PorkKidney
+  - Mix:17
+  - Pour:VinegarCup_1_2
+  - Pan:PanLidBoil
+  - Atchuetw:Tsp_1
+  - Mix:21
+  - Pan:Water
+  - 
+  - Pan:PanLidSimmer
+  - Salt:Tsp_1_4
+  - Pepper:Tsp_1_4
+  - Mix:27

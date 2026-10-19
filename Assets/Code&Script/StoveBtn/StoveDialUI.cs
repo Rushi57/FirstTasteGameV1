@@ -70,7 +70,7 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
             if (!inTutorial)
                 ScoreManager.Instance?.ReportMistake("Don't change the heat!\nMinus 1 heart");
-
+            Debug.Log($"Released -> {heat}, locked={stove?.IsHeatLocked}, current={stove?.CurrentHeat}");
             SetVisual(stove.CurrentHeat);   // knob back to the real heat
             lastRawAngle = currentAngle;
             return;                         // SetHeat is never called
