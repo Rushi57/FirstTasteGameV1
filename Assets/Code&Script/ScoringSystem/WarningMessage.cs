@@ -29,6 +29,10 @@ public class WarningMessageUI : MonoBehaviour
         if (!isActiveAndEnabled || board == null) return;   // can't run a coroutine if inactive
 
         if (messageText != null) messageText.text = message;
+
+        if (SFXManager.Instance != null)
+            SFXManager.Instance.Play(SFXManager.Instance.errorAndWrong);
+
         if (routine != null) StopCoroutine(routine);
         routine = StartCoroutine(ShowRoutine());
     }

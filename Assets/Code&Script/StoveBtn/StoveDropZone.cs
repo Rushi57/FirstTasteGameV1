@@ -23,6 +23,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     public bool HasPan => CurrentPan != null;
 
     public event System.Action<GameObject> OnPanPlaced;
+    public event System.Action OnStoveReset;
 
     private void Awake()
     {
@@ -74,6 +75,9 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
         Debug.Log($"[StoveDrop] Pan placed on stove: {dropped.name}");
 
+        if (SFXManager.Instance != null)
+            SFXManager.Instance.Play(SFXManager.Instance.settingCastIron);
+
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
         tutorialTag?.ReportDrop();
@@ -82,6 +86,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         {
             myImage.raycastTarget = false;
             Debug.Log("[StoveDrop] Raycast Target disabled - StoveDropZone will no longer intercept drops.");
+            
         }
     }
 
@@ -89,5 +94,6 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     {
         CurrentPan = null;
         if (myImage != null) myImage.raycastTarget = true;
+        OnStoveReset?.Invoke();
     }
 }

@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SaltPepperType { Salt, Pepper }
+public enum SaltPepperType { Salt, Pepper , CassavaStarch, Achuete }
 
 /// <summary>
 /// Flow: tap Salt/Pepper -> Salt/PepperPanel opens, jar shows salt or pepper
@@ -23,12 +23,16 @@ public class SaltPepperController : MonoBehaviour
     [Header("Open buttons")]
     public Button saltButton;
     public Button pepperButton;
+    public Button cassavaStarchButton;
+    public Button achueteButton;
     public Button closeButton;
 
     [Header("Jar visual")]
     public Image jarImage;
     public Sprite saltJarSprite;
     public Sprite pepperJarSprite;
+    public Sprite achueteJarSprite;
+    public Sprite cassavaStarchJarSprite;
 
     [Header("Stove-top spoon animation")]
     [Tooltip("PourAnimationController on TbpsSalt&PepperImageSeasoning. Leave its Liquid Image EMPTY (no pour).")]
@@ -40,6 +44,8 @@ public class SaltPepperController : MonoBehaviour
     public PourAnimationController tspAnimation;
     public Color saltColor = Color.white;
     public Color pepperColor = Color.white;
+    public Color cassavaStarchColor = Color.white;
+    public Color achueteColor = Color.white;
 
     [Header("Recipe check")]
     public CookingPrepPanelController cookingPrepPanel;
@@ -54,6 +60,11 @@ public class SaltPepperController : MonoBehaviour
     public int wrongDropPoints = 5;
     public int wrongDropHearts = 1;
 
+
+    [Header("Pan liquid")]
+    public PanLiquidFill panLiquid;
+    public float mlPerTsp = 5f;
+    private float pendingTsp;
 
     //Value Msg
     [Header("Value popup (MessageBorder)")]
@@ -80,6 +91,11 @@ public class SaltPepperController : MonoBehaviour
         if (pepperButton != null) pepperButton.onClick.AddListener(() => OpenFor(SaltPepperType.Pepper));
         if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
         if (valueBorder != null) valueBorder.SetActive(false);
+        if (cassavaStarchButton != null)
+            cassavaStarchButton.onClick.AddListener(() => OpenFor(SaltPepperType.CassavaStarch));
+        if (achueteButton != null)
+            achueteButton.onClick.AddListener(() => OpenFor(SaltPepperType.Achuete));
+
         spoonAnimation?.Hide();
         tspAnimation?.Hide();
     }
@@ -89,9 +105,8 @@ public class SaltPepperController : MonoBehaviour
         currentType = type;
         pendingSuccess = false;
         pendingLineIndex = -1;
+        if (jarImage != null) jarImage.sprite = GetJarSprite(type);
 
-        if (jarImage != null)
-            jarImage.sprite = type == SaltPepperType.Salt ? saltJarSprite : pepperJarSprite;
 
         saltPepperPanel.SetActive(true);
         if (valueBorder != null) valueBorder.SetActive(false);
@@ -104,22 +119,32 @@ public class SaltPepperController : MonoBehaviour
 
         if (pendingSuccess)
         {
-
             string stepId = $"{currentType}:{PendingId}";
-            Color color = currentType == SaltPepperType.Salt ? saltColor : pepperColor;
+            Color color = GetColor(currentType);
+            float tspToAdd = pendingTsp;                 // capture before it's reset
+            SaltPepperType typeAtClose = currentType;
+
+            System.Action onDone = () =>
+            {
+                CookingPrepListUI.Instance?.CompleteStep(stepId);
+
+                switch (typeAtClose)
+                {
+                    case SaltPepperType.CassavaStarch:
+                        panLiquid?.AddLiquidById("CassavaStarch", tspToAdd * mlPerTsp);
+                        break;
+                    case SaltPepperType.Achuete:
+                        panLiquid?.AddLiquidById("Achuete", tspToAdd * mlPerTsp);
+                        break;
+                }
+            };
 
             if (spoonAnimation != null)
             {
-                spoonAnimation.SetSprite(pendingSpoonSprite);   // match the dropped spoon
-                spoonAnimation.PlayPourAnimation(color, () =>
-                {
-                    CookingPrepListUI.Instance?.CompleteStep(stepId);
-                });
+                spoonAnimation.SetSprite(pendingSpoonSprite);
+                spoonAnimation.PlayPourAnimation(color, onDone);
             }
-            else
-            {
-                CookingPrepListUI.Instance?.CompleteStep(stepId);
-            }
+            else onDone();
         }
 
         pendingSuccess = false;
@@ -140,7 +165,7 @@ public class SaltPepperController : MonoBehaviour
             return;
         }
 
-        string keyword = currentType == SaltPepperType.Salt ? "salt" : "pepper";
+        string keyword = GetKeyword(currentType);
 
         if (!TryFindRequirement(recipe, keyword, out int lineIndex, out float requiredTsp))
         {
@@ -153,6 +178,7 @@ public class SaltPepperController : MonoBehaviour
         }
 
         bool correct = Mathf.Abs(spoon.TspValue - requiredTsp) <= 0.05f;
+        pendingTsp = requiredTsp;
 
         Debug.Log($"[SaltPepper] {currentType}: dropped {spoon.Label} ({spoon.TspValue} tsp), recipe wants {requiredTsp:0.###} tsp -> {(correct ? "CORRECT" : "WRONG")}");
 
@@ -184,6 +210,8 @@ public class SaltPepperController : MonoBehaviour
             // TestDrag bounces the spoon back automatically
         }
     }
+
+
 
     private void ShowWrongMessage(string message)
     {
@@ -282,4 +310,34 @@ public class SaltPepperController : MonoBehaviour
         tspAnimation?.Hide();
         if (valueBorderRoutine != null) { StopCoroutine(valueBorderRoutine); valueBorderRoutine = null; }
     }
+
+    private Sprite GetJarSprite(SaltPepperType t) => t switch
+    {
+        SaltPepperType.Salt => saltJarSprite,
+        SaltPepperType.Pepper => pepperJarSprite,
+        SaltPepperType.Achuete => achueteJarSprite,
+        _ => cassavaStarchJarSprite
+    };
+
+    private Color GetColor(SaltPepperType t) => t switch
+    {
+        SaltPepperType.Salt => saltColor,
+        SaltPepperType.Pepper => pepperColor,
+        SaltPepperType.Achuete => achueteColor,
+        _ => cassavaStarchColor
+    };
+
+    private static string GetKeyword(SaltPepperType t) => t switch
+    {
+        SaltPepperType.Salt => "salt",
+        SaltPepperType.Pepper => "pepper",
+        SaltPepperType.Achuete => "achuete",
+        _ => "cassava"          // matches "cassava starch" and "starch"
+    };
+
+    private static string GetDisplayName(SaltPepperType t) => t switch
+    {
+        SaltPepperType.CassavaStarch => "Cassava Starch",
+        _ => t.ToString()
+    };
 }

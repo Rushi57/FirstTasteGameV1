@@ -80,23 +80,37 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (drag.itemId == spatulaId)
         {
             if (!HeatOk("Spatula")) return;
-          
+
+            SFXManager.Instance?.PlayPotLidClose();   // <-- SFX
+
             Debug.Log("[PanDrop] Spatula dropped on pan - opening mixing mini-game.");
             mixingController?.OpenAndConfigure();
             tutorialTag?.ReportDrop();
             return; // spatula bounces back to its rack via TestDrag
         }
         //PanLid
-        if(drag.itemId == lidId)
+        if (drag.itemId == lidId)
         {
             if (!HeatOk("Lid")) return;
-            Debug.Log("[PanDrop] Lid dropped on pan - opening Boil/Simmer mini-game.");
-            if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept("Pan:PanLid"))
-                return;
-            CookingPrepListUI.Instance?.CompleteStep("Pan:PanLid");
-            boilSimmerController?.OpenAndConfigure();
+
+            var prep = CookingPrepListUI.Instance;
+            string current = prep != null ? prep.CurrentStepId : null;
+
+            // Simmer only when the list says the simmer step is next, otherwise treat as boil
+            bool isSimmer = current == BoilSimmerController.SimmerStepId;
+            string lidStepId = isSimmer ? BoilSimmerController.SimmerStepId
+                                        : BoilSimmerController.BoilStepId;
+
+            if (prep != null && !prep.TryAccept(lidStepId)) return;
+
+            SFXManager.Instance?.PlayPotLidClose();   // <-- added, after the step is accepted
+
+
+            Debug.Log($"[PanDrop] Lid dropped on pan - step '{lidStepId}' - opening Boil/Simmer mini-game.");
+            prep?.CompleteStep(lidStepId);
+            boilSimmerController?.OpenAndConfigure(isSimmer ? CookMode.Simmer : CookMode.Boil);
             tutorialTag?.ReportDrop();
-            return; // lid bounces back to its spot via TestDrag
+            return;
         }
         var interactable = dropped.GetComponent<TutorialInteractable>();
         IngredientData data = interactable != null ? interactable.sourceData as IngredientData : null;
@@ -134,7 +148,10 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             cookingEffect.Track(img);
         }
 
+
         CookingPrepListUI.Instance?.CompleteStep(stepId);
+        if (SFXManager.Instance != null && !SFXManager.Instance.IsLoopPlaying)
+            StartFrying();
         OnIngredientAdded?.Invoke(data);
 
         RectTransform target = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
@@ -180,9 +197,15 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
+            StartFrying();
+            if (data.id == "Water")
+                StartBoilingSound();
+            else if (!SFXManager.Instance.IsLoopPlaying)
+                StartFrying();
+
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
-        });
+        }, data);
 
         if (started) drag.LockAndReturn();
     }
@@ -204,4 +227,33 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         return false;
     }
 
+    private void StartFrying()
+    {
+        Debug.Log("[Fry] StartFrying called");
+
+        var sfx = SFXManager.Instance;
+        if (sfx == null) { Debug.LogWarning("[Fry] SFXManager.Instance is NULL"); return; }
+        if (sfx.frying == null) { Debug.LogWarning("[Fry] 'frying' clip is not assigned on SFXManager"); return; }
+
+        StoveHeatController s = ResolveStove();
+        if (s == null || s.CurrentHeat == StoveHeat.Off)
+        {
+            Debug.LogWarning($"[Fry] Stove not on (stove={(s != null ? s.CurrentHeat.ToString() : "NULL")})");
+            return;
+        }
+
+        sfx.PlayLoop(sfx.frying);
+        Debug.Log("[Fry] PlayLoop called");
+    }
+
+    private void StartBoilingSound()
+    {
+        var sfx = SFXManager.Instance;
+        if (sfx == null || sfx.boilingWater == null) return;
+
+        StoveHeatController s = ResolveStove();
+        if (s == null || s.CurrentHeat == StoveHeat.Off) return;
+
+        sfx.PlayLoop(sfx.boilingWater);   // replaces frying automatically
+    }
 }

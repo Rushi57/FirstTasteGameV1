@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Calamansi
+  m_EditorClassIdentifier: 
+  id: Calamansi
+  displayName: Calamansi
+  category: 0
+  size: 0
+  icon: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
+  iconScale: 0.915
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
+  - state: 1
+    sprite: {fileID: 4656265324540592659, guid: 0670a1a6afde51744a2b2f76d87febf4, type: 3}
+  playsPourAnimation: 1
+  pourPositions:
+  - targetName: Calamansi
+    position: {x: 30.4, y: 6}

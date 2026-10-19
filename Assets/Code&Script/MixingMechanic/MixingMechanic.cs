@@ -172,6 +172,11 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         }
     }
 
+    private void OnDisable()
+    {
+        SFXManager.Instance?.StopStir();    // <-- add
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (!hasStarted)
@@ -183,6 +188,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         if (!mixingActive) return;
 
         isDragging = true;
+        SFXManager.Instance?.StartStir();
         lastAngle = GetAngleFromPivot(eventData);
         lastDragTime = Time.time;
         directionSign = 0f; // fresh read each grab
@@ -217,6 +223,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     public void OnPointerUp(PointerEventData eventData)
     {
         isDragging = false;
+        SFXManager.Instance?.StopStir();
     }
 
     private void UpdateSpatulaVisual()
@@ -367,7 +374,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private void EvaluateResult()
     {
         isDragging = false;
-
+        SFXManager.Instance?.StopStir();
         float fraction = Mathf.Abs(indicatorY) / trackHalfHeight;
 
         MixResult result;

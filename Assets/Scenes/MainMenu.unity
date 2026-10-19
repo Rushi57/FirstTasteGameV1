@@ -119,6 +119,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &10831793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10831795}
+  - component: {fileID: 10831794}
+  - component: {fileID: 10831796}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &10831794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10831793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa2153e2334ff04cacc177bbe99fc28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxGroup: {fileID: 6113124643969357498, guid: 53c36353fd4c7a64d8f3620b1ebc3f7e, type: 2}
+  mixer: {fileID: 24100000, guid: 53c36353fd4c7a64d8f3620b1ebc3f7e, type: 2}
+  potLidClose: {fileID: 8300000, guid: e203fbcb8d98a6e46b56acaeea2b5483, type: 3}
+  pouringWater: {fileID: 8300000, guid: b51f42be8dd290543a02500838569791, type: 3}
+  settingCastIron: {fileID: 8300000, guid: b7bf54f485150594ca9fa2bfcf7dc80c, type: 3}
+  stirringPot: {fileID: 8300000, guid: d135be01c29315d49be7be5cdc070f59, type: 3}
+  tapButtonTest: {fileID: 8300000, guid: a43ec0f042bf8fa4889ec27086d06ea8, type: 3}
+  errorAndWrong: {fileID: 8300000, guid: df5e79e312c73d842859ea5d304c86c7, type: 3}
+  gameOverPanel: {fileID: 8300000, guid: 68ba96b1026d3b142856b12c4f44939b, type: 3}
+  scorebordePanel: {fileID: 8300000, guid: d78a5f18c9deb0f46be556cfd2d6ccf3, type: 3}
+  tickingStoveSound: {fileID: 8300000, guid: e9541c7f03705e142a40cbd0aea253e2, type: 3}
+  pourAnyLiquid: {fileID: 8300000, guid: 912392b4d040a6a4f8a68238f844cc2e, type: 3}
+  ChopIngredientSound: {fileID: 8300000, guid: 4762b56fa28459345b7db1a3c3fa282d, type: 3}
+  frying: {fileID: 8300000, guid: eb18ef9bd51b8e74a869efdfcbd61c6d, type: 3}
+  boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
+  boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
+  clockTicking: {fileID: 8300000, guid: 7f1e468f1d2b10d45a1f4d939120e2e9, type: 3}
+--- !u!4 &10831795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10831793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 494.88214, y: 176.45473, z: 1.0150871}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &10831796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10831793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3136b186b14ef934ea5c00dbb78e4b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 53c36353fd4c7a64d8f3620b1ebc3f7e, type: 2}
 --- !u!1 &81978499
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +630,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.22477065
+  orthographic size: 0.22476341
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3941,3 +4016,4 @@ SceneRoots:
   - {fileID: 1866946102}
   - {fileID: 1970606760}
   - {fileID: 1648373356}
+  - {fileID: 10831795}

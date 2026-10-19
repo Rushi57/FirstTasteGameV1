@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Meat Ball
+  m_EditorClassIdentifier: 
+  id: Meat Ball
+  displayName: Meat Ball
+  category: 0
+  size: 0
+  icon: {fileID: -886717763284981261, guid: 8dbb178e902a25e47adc11e1cdc4ad44, type: 3}
+  iconScale: 0.8
+  stateSprites: []
+  playsPourAnimation: 0
+  pourPositions: []

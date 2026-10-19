@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9b256d7d87e124cb9f72769461cc09, type: 3}
+  m_Name: SisigLiquidData
+  m_EditorClassIdentifier: 
+  showLiquid: 1
+  baseColor: {r: 0.81960785, g: 0.61960787, b: 0.38039216, a: 1}
+  baseOpacity: 0.45
+  reducedColor: {r: 0.30588236, g: 0.14901961, b: 0.05882353, a: 1}
+  sensitivity: 1.3
+  liquids:
+  - id: CookingOil
+    color: {r: 0.9490196, g: 0.7411765, b: 0.21960784, a: 0}
+    strength: 0.5
+    opacity: 0.6
+  - id: Calamansi
+    color: {r: 0.83137256, g: 0.8509804, b: 0.34117648, a: 0}
+    strength: 0.3
+    opacity: 0.25
+  - id: Soy
+    color: {r: 0.21960784, g: 0.101960786, b: 0.03137255, a: 0}
+    strength: 1.5
+    opacity: 0.75

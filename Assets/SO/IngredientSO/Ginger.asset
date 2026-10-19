@@ -16,12 +16,13 @@ MonoBehaviour:
   displayName: Ginger
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 8698163947868029849, guid: 85316927fa1abb947a4bada029bab420, type: 3}
+  iconScale: 0.8
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 8698163947868029849, guid: 85316927fa1abb947a4bada029bab420, type: 3}
   - state: 1
-    sprite: {fileID: 0}
+    sprite: {fileID: 5748659015128990777, guid: c52856559a7b90c40b99a4076db908d0, type: 3}
   - state: 2
-    sprite: {fileID: 0}
+    sprite: {fileID: -2478026441724452540, guid: b3d9192ef730b514a8912de616f3dcb0, type: 3}
   playsPourAnimation: 0

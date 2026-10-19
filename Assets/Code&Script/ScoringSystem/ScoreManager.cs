@@ -173,6 +173,9 @@ public class ScoreManager : MonoBehaviour
     {
         IsGameOver = true;
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
+
+        if (SFXManager.Instance != null) SFXManager.Instance.Play(SFXManager.Instance.gameOverPanel);
+
         Debug.Log("[ScoreManager] GAME OVER - hearts reached 0.");
         OnGameOver?.Invoke();
     }

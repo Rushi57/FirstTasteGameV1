@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Beef Tripe
   m_EditorClassIdentifier: 
-  id: Beef Tripe
-  displayName: Beef Tripe
+  id: BeefTripe
+  displayName: BeefTripe
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 5188495928801226314, guid: 765d3d360eb3a5e47a08e96d68caa74e, type: 3}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
-  - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 5188495928801226314, guid: 765d3d360eb3a5e47a08e96d68caa74e, type: 3}
+  - state: 1
+    sprite: {fileID: 1014599048653792632, guid: 3ff015ddfa96d8043b1e2e10db540a51, type: 3}
   playsPourAnimation: 0
+  pourPositions: []

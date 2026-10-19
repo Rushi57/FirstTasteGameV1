@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level4
   m_EditorClassIdentifier: 
   levelNumber: 4
-  levelName: Chiken Asado
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  levelName: Batangas Lomi
+  recipe: {fileID: 11400000, guid: da790b45dbb77fd4b8680757fe718652, type: 2}
+  levelPreviewImage: {fileID: -1575645233659276657, guid: 29a9f3ed434cc434f92c83e2bb501c94, type: 3}
+  story: {fileID: 11400000, guid: ac6862e6a18c2154294ef8211c6bdc42, type: 2}

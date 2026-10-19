@@ -17,6 +17,7 @@ public class SceneChanger : MonoBehaviour
         StoryTeller.ResetAllFlags();      // <-- new
         GameSession.Clear();
         LoadingManager.LoadNextScene(sceneName);
+        SFXManager.Instance.Play(SFXManager.Instance.tapButtonTest);
     }
 
     public void HomeGame(string sceneName)
@@ -27,14 +28,16 @@ public class SceneChanger : MonoBehaviour
 
     public void QuitInGame(string sceneName)
     {
+       
         TutorialManager.Instance?.SkipTutorial();
         LoadingManager.LoadNextScene(sceneName);
+        SFXManager.Instance?.StopLoop();
+
 
     }
 
     public void TapLevel1()
     {
-        
         tutorialTagLevel1?.ReportTap();
         Debug.Log("Level 1 is Tap!!!!");
     }

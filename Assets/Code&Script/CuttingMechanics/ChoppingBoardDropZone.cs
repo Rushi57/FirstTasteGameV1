@@ -37,20 +37,24 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedObj = eventData.pointerDrag;
+        Debug.Log($"[DropZone] OnDrop: {(droppedObj != null ? droppedObj.name : "null")}");
         if (droppedObj == null) return;
 
         TestDrag drag = droppedObj.GetComponent<TestDrag>();
-        if (drag == null) return;
+        if (drag == null) { Debug.Log("[DropZone] no TestDrag on dropped object"); return; }
 
-        //Block Cutting Until Ingredient Prep
-        if(CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanCut())
+        if (CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanCut())
         {
+            Debug.Log($"[DropZone] CanCut() is false, phase blocks cutting");
             drag.ReturnToOrigin();
             return;
         }
-
         if (droppedObj.CompareTag(knifeTag))
-            HandleKnifeDropped();
+        {
+            HandleKnifeDropped(drag);
+            drag.ReturnToOrigin();
+            drag.MarkDropHandled();   // stops OnEndDrag from reporting a tutorial mistake
+        }
         else
             HandleIngredientDropped(droppedObj, drag);
     }
@@ -88,20 +92,22 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         tutorialTag?.ReportDrop();
     }
 
-    private void HandleKnifeDropped()
+    private void HandleKnifeDropped(TestDrag knifeDrag)
     {
         if (currentIngredientObj == null || currentIngredientData == null)
         {
-            Debug.Log("[ChoppingBoardDropZone] Knife dropped but no ingredient on the board yet - ignoring.");
+            Debug.Log("[DropZone] Knife dropped but no ingredient on the board.");
             return;
         }
 
-        Debug.Log("[ChoppingBoardDropZone] Knife dropped with ingredient present - starting cutting.");
+        // Already-finished ingredient (or not the current step): mistake, no panel
+        if (CookingPrepListUI.Instance != null &&
+            !CookingPrepListUI.Instance.TryAcceptIngredientForCutting(currentIngredientData.id))
+        {
+            return;   // popup + heart loss handled by the prep list
+        }
 
-        if (choppingCuttingPanel != null)
-            choppingCuttingPanel.SetActive(true);   // OnEnable resets the minigame
-       
-        // AFTER SetActive, so it isn't wiped by OnEnable's reset
+        choppingCuttingPanel.SetActive(true);
         cuttingMechanic.SetIngredient(currentIngredientData);
         tutorialTag?.ReportDrop();
     }

@@ -20,3 +20,6 @@ MonoBehaviour:
   iconScale: 1
   stateSprites: []
   playsPourAnimation: 1
+  pourPositions:
+  - targetName: Pork Blood
+    position: {x: 36.8, y: 6}

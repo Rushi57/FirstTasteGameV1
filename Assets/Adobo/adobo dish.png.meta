@@ -5,6 +5,21 @@ TextureImporter:
   - first:
       213: -2905549093005077656
     second: adobo dish_0
+  - first:
+      213: 3278132566874465682
+    second: adobo dish_1
+  - first:
+      213: 952155777149127097
+    second: adobo dish_2
+  - first:
+      213: 407234569726295187
+    second: adobo dish_3
+  - first:
+      213: 4385024050195452860
+    second: adobo dish_4
+  - first:
+      213: 866367672830445605
+    second: adobo dish_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,10 +131,10 @@ TextureImporter:
       name: adobo dish_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 79
-        width: 397
-        height: 207
+        x: 6
+        y: 97
+        width: 488
+        height: 258
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,6 +145,116 @@ TextureImporter:
       bones: []
       spriteID: 86359f18e7a6da7d0800000000000000
       internalID: -2905549093005077656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adobo dish_1
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 95
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 295213783344e7d20800000000000000
+      internalID: 3278132566874465682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adobo dish_2
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 94
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b94fc372acb63d00800000000000000
+      internalID: 952155777149127097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adobo dish_3
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 95
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39c7bccfea9c6a500800000000000000
+      internalID: 407234569726295187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adobo dish_4
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 98
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb3d17b042cbadc30800000000000000
+      internalID: 4385024050195452860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adobo dish_5
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 6
+        width: 53
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 528c0f7eec4f50c00800000000000000
+      internalID: 866367672830445605
       vertices: []
       indices: 
       edges: []
@@ -147,8 +272,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      adobo dish_0: -2905549093005077656
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

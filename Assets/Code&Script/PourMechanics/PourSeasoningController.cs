@@ -58,6 +58,11 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarSpoonFillSprite;    // optional
     public Sprite cookingOilSpoonFillSprite; // optional
 
+    [Header("Stove (for frying sound)")]
+    public StoveHeatController stove;
+
+    private string currentStepId;
+
     [Header("Measuring tool image (Tbps_Tsp_CupImage)")]
     [Tooltip("The Image on Tbps_Tsp_CupImage. Its sprite changes to the picked measurement.")]
     public Image toolImage;
@@ -162,13 +167,18 @@ public class PourSeasoningController : MonoBehaviour
     public void OpenFor(SeasoningType seasoning)
     {
         //Wrong Step Gate
-        string stepId = $"Pour:{seasoning}";
+        string prefix = $"Pour:{seasoning}";
         var prep = CookingPrepListUI.Instance;
-        if (prep != null && prep.CurrentStepId != stepId)
+        string current = prep != null ? prep.CurrentStepId : null;
+
+        if (prep != null && (current == null ||
+            !current.StartsWith(prefix, System.StringComparison.Ordinal)))
         {
             ScoreManager.Instance?.ReportMistake("Wrong Step!\nMinus 1 heart", 0, 1);
             return;
         }
+
+        currentStepId = current;
 
         currentSeasoning = seasoning;
         ClearSelection();
@@ -243,7 +253,7 @@ public class PourSeasoningController : MonoBehaviour
         if (pendingSuccess)
         {
             PourAnimationController anim = chosenTool == MeasureTool.Cup ? cupAnimation : tbspAnimation;
-            string stepId = $"Pour:{currentSeasoning}";
+            string stepId = currentStepId;
             int lineIndex = pendingLineIndex;
             Color color = GetColor(currentSeasoning);
             SeasoningType seasoning = currentSeasoning;
@@ -263,6 +273,7 @@ public class PourSeasoningController : MonoBehaviour
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
                     if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                    StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
                 });
             }
@@ -272,6 +283,7 @@ public class PourSeasoningController : MonoBehaviour
                 completedLines.Add(lineIndex);
                 CookingPrepListUI.Instance?.CompleteStep(stepId);
                 if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                StartFryingIfOil(seasoning);
 
             }
         }
@@ -482,6 +494,8 @@ public class PourSeasoningController : MonoBehaviour
         return true;
     }
 
+
+
     /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
@@ -496,6 +510,13 @@ public class PourSeasoningController : MonoBehaviour
         ClearSelection();
 
     }
+    private void StartFryingIfOil(SeasoningType seasoning)
+    {
+        if (seasoning != SeasoningType.CookingOil) return;
+        if (stove != null && stove.CurrentHeat == StoveHeat.Off) return;
 
+        var sfx = SFXManager.Instance;
+        if (sfx != null) sfx.PlayLoop(sfx.frying);
+    }
 
 }

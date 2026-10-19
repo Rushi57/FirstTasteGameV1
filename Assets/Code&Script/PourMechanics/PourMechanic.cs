@@ -49,6 +49,8 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public float glassReturnTime = 0.25f;
 
     private float glassAngle;
+    private bool pourSoundPlaying;
+
 
     private float meterMaxMl;   // biggest measurement of the chosen tool
     private float TopMl => (meterMaxMl > 0f ? meterMaxMl : targetMl) * meterTopMultiplyer;
@@ -180,6 +182,9 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         UpdateVisuals();
         glassAngle = glassIdleAngle;
         if (glassImage != null) glassImage.localRotation = Quaternion.Euler(0f, 0f, glassIdleAngle);
+        
+        pourSoundPlaying = false;
+        SFXManager.Instance?.StopPour();
     }
     public void SetParticleColor(Color color)
     {
@@ -228,5 +233,30 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         glassAngle = Mathf.MoveTowards(glassAngle, goal, speed * Time.deltaTime);
         glassImage.localRotation = Quaternion.Euler(0f, 0f, glassAngle);
+
+        UpdatePourSound();
+    }
+
+    private void UpdatePourSound()
+    {
+        if(SFXManager.Instance == null) return;
+
+        if(isPouring && !pourSoundPlaying)
+        {
+            pourSoundPlaying = true;
+            SFXManager.Instance.StartPour();
+        }
+        // Glass has fully returned to its original position: stop
+        else if (!isPouring && pourSoundPlaying && Mathf.Approximately(glassAngle, glassIdleAngle))
+        {
+            pourSoundPlaying = false;
+            SFXManager.Instance.StopPour();
+        }
+    }
+    private void OnDisable()
+    {
+        isPouring = false;
+        pourSoundPlaying = false;
+        SFXManager.Instance?.StopPour();
     }
 }
