@@ -40638,19 +40638,19 @@ MonoBehaviour:
   saltButton: {fileID: 927912593}
   pepperButton: {fileID: 387139333}
   cassavaStarchButton: {fileID: 123179949}
-  achueteButton: {fileID: 0}
+  achueteButton: {fileID: 1302736757}
   closeButton: {fileID: 589164092}
   jarImage: {fileID: 961804226}
   saltJarSprite: {fileID: -1162442978445507191, guid: 0099786f6d0b46b45a7d5dd4caff07c2, type: 3}
   pepperJarSprite: {fileID: -7554645529450455501, guid: 484386300c37b144688cb9b364172c75, type: 3}
-  achueteJarSprite: {fileID: 0}
+  achueteJarSprite: {fileID: -7782418000348279540, guid: 9ee842c6d3f628149b9b7334451369ba, type: 3}
   cassavaStarchJarSprite: {fileID: -5639630747943670482, guid: 539563cb6d313b346925f4f33bf9c1e0, type: 3}
   spoonAnimation: {fileID: 1319382194}
   tspAnimation: {fileID: 1319382194}
   saltColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   pepperColor: {r: 0.15, g: 0.1, b: 0.05, a: 1}
   cassavaStarchColor: {r: 1, g: 1, b: 1, a: 1}
-  achueteColor: {r: 1, g: 1, b: 1, a: 1}
+  achueteColor: {r: 0.8509804, g: 0.26666668, b: 0.11764706, a: 1}
   cookingPrepPanel: {fileID: 881317336}
   penalizeWrongAmount: 1
   wrongDropPoints: 4

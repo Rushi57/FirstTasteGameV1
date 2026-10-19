@@ -50,6 +50,8 @@ MonoBehaviour:
   - Chop the beef shanks sliced
   - Chop the pork kidney sliced
   - Chop beef tripe to sliced
+  - Chop the beef to sliced
+  - Chop the pork intestine to sliced
   - Turn the stove to high heat
   - Put the pot on the stove
   - Add 1 tsp of cooking oil
@@ -63,7 +65,7 @@ MonoBehaviour:
   - Add the sliced kidney
   - "Saut\xE9 using the spatula"
   - Add 1/2 cup of vinegar
-  - Cover it with pan lid until boil
+  - Cover it with pan lid until simmer
   - Add 1 tsp of achuete powder
   - "Saut\xE9 using the spatula"
   - Add Water
@@ -79,25 +81,27 @@ MonoBehaviour:
   - BeefShanks:Sliced
   - PorkKidney:Sliced
   - BeefTripe:Sliced
+  - Beef:Sliced
+  - PorkIntestine:Sliced
   - 
   - Pan:OnStove
   - Pour:CookingOilTsp_1
   - Pour:CookingOilTsp_1
   - Pan:Garlic
   - Pan:Ginger
-  - Mix:12
+  - Mix:14
   - Pan:BeefShanks
   - Pan:BeefTripe
   - Pan:PorkIntestine
   - Pan:PorkKidney
-  - Mix:17
+  - Mix:19
   - Pour:VinegarCup_1_2
-  - Pan:PanLidBoil
-  - Atchuetw:Tsp_1
-  - Mix:21
+  - Pan:PanLidSimmer
+  - Achuete:Tsp_1
+  - Mix:23
   - Pan:Water
   - 
   - Pan:PanLidSimmer
   - Salt:Tsp_1_4
   - Pepper:Tsp_1_4
-  - Mix:27
+  - Mix:29
