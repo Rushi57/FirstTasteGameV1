@@ -15616,9 +15616,9 @@ MonoBehaviour:
   closeButton: {fileID: 1182531630}
   stoveImage: {fileID: 864441035}
   offSprite: {fileID: -6696897164379916337, guid: debedd1c12521e9449875337ec8a6476, type: 3}
-  lowSprite: {fileID: -7863244571002934300, guid: d13c5ab7102c7234b9eedab18fe83e76, type: 3}
+  lowSprite: {fileID: -7918553162825710409, guid: 215967dff4f9c4247bc70490bda8d8cb, type: 3}
   mediumSprite: {fileID: -7863244571002934300, guid: d13c5ab7102c7234b9eedab18fe83e76, type: 3}
-  highSprite: {fileID: -7863244571002934300, guid: d13c5ab7102c7234b9eedab18fe83e76, type: 3}
+  highSprite: {fileID: 7916630298461342892, guid: 0c23aa961438b8846b9f1558e5f306f6, type: 3}
   heatLabel: {fileID: 0}
   recipe: {fileID: 0}
   confirmDelay: 0.5
@@ -32276,14 +32276,14 @@ MonoBehaviour:
   - ingredientId: Water
     player: {fileID: 1205991024}
     liquidId: Water
-    ml: 1
+    ml: 0.9
     pitcherSprite: {fileID: -5026358191354816851, guid: 250396549c54b2c4b985500c11adad06, type: 3}
     streamSprite: {fileID: 6031388014311695419, guid: 375c806551d4754468f70b627fb099ab, type: 3}
     streamColor: {r: 0.7783019, g: 0.8992613, b: 1, a: 1}
   - ingredientId: Pork Blood
     player: {fileID: 1205991024}
     liquidId: Pork Blood
-    ml: 1
+    ml: 0.5
     pitcherSprite: {fileID: -880353324988109038, guid: 827e567a6cee9b2449cacecc454d0c95, type: 3}
     streamSprite: {fileID: 6031388014311695419, guid: 375c806551d4754468f70b627fb099ab, type: 3}
     streamColor: {r: 0.1981132, g: 0.04502847, b: 0.030838378, a: 1}
@@ -32301,6 +32301,7 @@ MonoBehaviour:
     pitcherSprite: {fileID: -5052152929520061544, guid: 1c3a4717b6498b040a58e5a093b48a85, type: 3}
     streamSprite: {fileID: 6031388014311695419, guid: 375c806551d4754468f70b627fb099ab, type: 3}
     streamColor: {r: 0.95686275, g: 0.73333335, b: 0.16078432, a: 1}
+  oilId: CookingOil
 --- !u!114 &1199354880
 MonoBehaviour:
   m_ObjectHideFlags: 0
