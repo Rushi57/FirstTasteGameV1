@@ -16,23 +16,16 @@ public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
-        
-
         GameObject dropped = eventData.pointerDrag;
         if (dropped == null) return;
 
-        var spoon = eventData.pointerDrag != null
-            ? eventData.pointerDrag.GetComponent<SaltPepperSpoonItem>()
-            : null;
-        if (spoon == null) return;
-
+        var spoon = dropped.GetComponent<SaltPepperSpoonItem>();
         var drag = dropped.GetComponent<TestDrag>();
-        if (spoon == null || drag == null) return; // not a spoon - bounces back on its own
+        if (spoon == null || drag == null) return; // not a spoon, bounces back on its own
 
         controller?.HandleSpoonDropped(spoon, drag, dropped);
         tutorialTag?.ReportDrop();
 
-        if (SFXManager.Instance != null)
-            SFXManager.Instance.PlayJarScoop();
+        SFXManager.Instance?.PlayJarScoop();
     }
 }
