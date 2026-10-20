@@ -166,6 +166,7 @@ MonoBehaviour:
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
   boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
   clockTicking: {fileID: 8300000, guid: 7f1e468f1d2b10d45a1f4d939120e2e9, type: 3}
+  stoveFlameSound: {fileID: 8300000, guid: 5ebd857e2fee1394bb575601511abe7a, type: 3}
 --- !u!4 &10831795
 Transform:
   m_ObjectHideFlags: 0

@@ -24,12 +24,14 @@ public class SFXManager : MonoBehaviour
     public AudioClip tickingStoveSound;
     public AudioClip pourAnyLiquid;
     public AudioClip ChopIngredientSound;
+    
 
     [Header("Looping clips")]
     public AudioClip frying;
     public AudioClip boilingLiquid;
     public AudioClip boilingWater;
     public AudioClip clockTicking;
+    public AudioClip stoveFlameSound;
 
     AudioSource oneShotSource;
     AudioSource loopSource;
@@ -38,6 +40,16 @@ public class SFXManager : MonoBehaviour
     AudioSource tickSource;
     AudioSource pourSource;
     AudioSource clockSource;
+
+    private AudioSource flameSource;
+
+    [Header("Stove Flame Levels")]
+    public float lowVolume = 0.25f;
+    public float mediumVolume = 0.5f;
+    public float highVolume = 0.85f;
+    public float lowPitch = 0.9f;
+    public float mediumPitch = 1.0f;
+    public float highPitch = 1.15f;
 
     void Awake()
     {
@@ -161,5 +173,52 @@ public class SFXManager : MonoBehaviour
     {
         if (clockSource.isPlaying) clockSource.Stop();
     }
+
+    //Stove
+    public void SetFlame(StoveHeat heat)
+    {
+        if(heat == StoveHeat.Off)
+        {
+            StopFlame();
+            return;
+        }    
+
+        if(flameSource == null)
+        {
+            flameSource = gameObject.AddComponent<AudioSource>();
+            flameSource.outputAudioMixerGroup = sfxGroup;   // your SFX mixer group field
+            flameSource.clip = stoveFlameSound;             // your flame clip field
+            flameSource.loop = true;
+            flameSource.playOnAwake = false;
+        }
+
+        switch(heat)
+        {
+            case StoveHeat.Low:
+                flameSource.volume = lowVolume;
+                flameSource.pitch = lowPitch;
+                break;
+            case StoveHeat.Medium:
+                flameSource.volume = mediumVolume;
+                flameSource.pitch = mediumPitch;
+                break;
+            case StoveHeat.High:
+                flameSource.volume = highVolume;
+                flameSource.pitch = highPitch;
+                break;
+
+        }
+        if (!flameSource.isPlaying) flameSource.Play();
+    }
+
+    public void StopFlame()
+    {
+        if (flameSource != null && flameSource.isPlaying) flameSource.Stop();
+    }
+
+
+
+
+
     public class NoTapSound : MonoBehaviour { }
 }

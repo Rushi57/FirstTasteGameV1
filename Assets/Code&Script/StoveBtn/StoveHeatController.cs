@@ -89,6 +89,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         Debug.Log($"[Stove] Heat changed: {old} -> {newHeat}");
 
         ApplyVisuals();
+        SFXManager.Instance?.SetFlame(newHeat);   // <-- new: loops on Low/Med/High, stops on Off
         if (newHeat == StoveHeat.Off)
             SFXManager.Instance?.StopLoop();
         OnHeatChanged?.Invoke(newHeat);
@@ -199,5 +200,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         recipe = newRecipe;
         ResetStoveProgress();
     }
-
+    private void OnDisable()
+    {
+        SFXManager.Instance?.StopFlame();
+    }
 }
