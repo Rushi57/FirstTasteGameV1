@@ -24,6 +24,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip tickingStoveSound;
     public AudioClip pourAnyLiquid;
     public AudioClip ChopIngredientSound;
+    public AudioClip jarScopping;
     
 
     [Header("Looping clips")]
@@ -110,6 +111,8 @@ public class SFXManager : MonoBehaviour
         }
     }
     public void PlayChop() => Play(ChopIngredientSound);
+
+    public void PlayJarScoop() => Play(jarScopping);
     public void PlayTap() => Play(tapButtonTest);
     
     public void PlayPotLidClose() => Play(potLidClose);
