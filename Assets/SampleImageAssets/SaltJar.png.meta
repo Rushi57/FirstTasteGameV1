@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SaltJar_0: 2772497699957965462
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pepper corn bits_0: -432706484008203230
+      pepper corn bits_1: -7724291675518434010
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

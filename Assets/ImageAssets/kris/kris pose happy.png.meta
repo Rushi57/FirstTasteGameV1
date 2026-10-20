@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kris pose happy_0: -3133446749485158621
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

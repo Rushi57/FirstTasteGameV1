@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pork bouillon_0: 1306317143960226626
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

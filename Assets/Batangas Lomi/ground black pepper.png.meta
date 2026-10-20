@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ground black pepper_0: -5548019223813798125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

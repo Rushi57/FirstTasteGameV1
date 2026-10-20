@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pork kidney cut_0: 405402548104365158
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

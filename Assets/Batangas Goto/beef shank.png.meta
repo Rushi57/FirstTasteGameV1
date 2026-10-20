@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      beef shank_0: -2407234090661409627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

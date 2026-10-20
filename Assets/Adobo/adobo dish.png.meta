@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      adobo dish_0: -2905549093005077656
+      adobo dish_1: 3278132566874465682
+      adobo dish_2: 952155777149127097
+      adobo dish_3: 407234569726295187
+      adobo dish_4: 4385024050195452860
+      adobo dish_5: 866367672830445605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

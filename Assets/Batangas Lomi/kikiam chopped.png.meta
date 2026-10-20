@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kikiam chopped_0: -7851064054420466989
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

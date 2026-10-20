@@ -397,7 +397,18 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      stove knob_0: 1215538453574569362
+      stove knob_1: -8953747241879146283
+      stove knob_10: 4171322519103825082
+      stove knob_2: -2821664478392017688
+      stove knob_3: -9072939671631904897
+      stove knob_4: -425061966315840223
+      stove knob_5: -5936424105729704556
+      stove knob_6: -8682763281182458917
+      stove knob_7: -1274904059523768391
+      stove knob_8: -6376435511250551378
+      stove knob_9: -4710566826886938045
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

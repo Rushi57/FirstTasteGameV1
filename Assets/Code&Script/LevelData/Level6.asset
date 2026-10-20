@@ -15,4 +15,5 @@ MonoBehaviour:
   levelNumber: 6
   levelName: Chiken Asado
   recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  levelPreviewImage: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
+  story: {fileID: 0}

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pork jowl cut_0: -3426918139369066666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

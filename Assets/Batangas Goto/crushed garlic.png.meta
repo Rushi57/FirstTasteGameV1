@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      crushed garlic_0: 6145918916347709586
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
