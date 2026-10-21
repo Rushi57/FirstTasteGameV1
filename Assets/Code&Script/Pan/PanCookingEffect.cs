@@ -34,6 +34,15 @@ public class PanCookingEffect : MonoBehaviour
         Debug.Log($"[Cook] Tracking '{img.name}'");
     }
 
+    /// <summary>Stop cooking this image and keep its current color (e.g. when set aside in the bowl).</summary>
+    public void Untrack(Image img)
+    {
+        if (img == null) return;
+        for (int n = items.Count - 1; n >= 0; n--)
+            if (items[n].img == img) items.RemoveAt(n);
+        Debug.Log($"[Cook] Untracked '{img.name}'");
+    }
+
     private float Speed()
     {
         if (stove == null) return 0f;

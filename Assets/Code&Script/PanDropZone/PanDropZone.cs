@@ -31,6 +31,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     public StoveHeatController stoveController;
 
     public event System.Action<IngredientData> OnIngredientAdded;
+    public event System.Action<IngredientData> OnIngredientRemoved;
 
     private TutorialInteractable tutorialTag;
     private static bool InTutorial =>
@@ -40,7 +41,11 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
     [Header("Coocking")]
     public PanCookingEffect cookingEffect;
+    [Header("Melting")]
+    [Tooltip("Ingredient id that melts and vanishes when dropped in the pan.")]
+    public string meltIngredientId = "Butter";
 
+    
 
     [System.Serializable]
     public class PourLiquid
@@ -147,14 +152,15 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         // ---------- Normal ingredients ----------
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
 
-        //Start turning Brown Ingredients 
-        if (cookingEffect != null)
+        // Only the butter melts; everything else browns as usual
+        bool isMelt = data.id == meltIngredientId;
+
+        if (!isMelt && cookingEffect != null)
         {
             Image img = dropped.GetComponent<Image>();
             if (img == null) img = dropped.GetComponentInChildren<Image>();
             cookingEffect.Track(img);
         }
-
 
         CookingPrepListUI.Instance?.CompleteStep(stepId);
         if (SFXManager.Instance != null && !SFXManager.Instance.IsLoopPlaying)
@@ -164,7 +170,17 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         RectTransform target = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
 
-        if (consumeIngredient)
+        if (isMelt)
+        {
+            drag.SnapTo(target);   // land on the pan first
+
+            // Add the component automatically if it isn't on the object yet
+            MeltAndVanish melt = dropped.GetComponent<MeltAndVanish>();
+            if (melt == null) melt = dropped.AddComponent<MeltAndVanish>();
+            melt.OnMeltFinished += () => OnIngredientRemoved?.Invoke(data);
+            melt.BeginMelt();
+        }
+        else if (consumeIngredient)
         {
             dropped.transform.SetParent(target, false);
             dropped.SetActive(false);
@@ -235,7 +251,10 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         return false;
     }
-
+    public void NotifyIngredientRemoved(IngredientData data)
+    {
+        OnIngredientRemoved?.Invoke(data);
+    }
     private void StartFrying()
     {
         Debug.Log("[Fry] StartFrying called");

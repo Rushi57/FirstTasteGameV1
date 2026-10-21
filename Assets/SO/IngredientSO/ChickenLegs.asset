@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Chicken
+  m_Name: ChickenLegs
   m_EditorClassIdentifier: 
-  id: Chicken
-  displayName: Chicken
+  id: ChickenLegs
+  displayName: ChickenLegs
   category: 0
   size: 0
-  icon: {fileID: 0}
-  stateSprites:
-  - state: 0
-    sprite: {fileID: 0}
-  - state: 1
-    sprite: {fileID: 0}
-  - state: 2
-    sprite: {fileID: 0}
+  icon: {fileID: 8203440858586457253, guid: 60aed17bb25d1e6469852f5f60708dd3, type: 3}
+  iconScale: 1
+  stateSprites: []
   playsPourAnimation: 0
+  pourPositions: []

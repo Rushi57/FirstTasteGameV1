@@ -22,6 +22,10 @@ public class TableItemSlotManager : MonoBehaviour
     [Tooltip("The recipe currently being cooked. Set this from wherever you assign/select the recipe (e.g. right after RecipeIngredientListUI.DisplayRecipe()).")]
     public RecipeData currentRecipe;
 
+    [Header("Always accepted")]
+    [Tooltip("Items that can always be placed on the table, even if the recipe's ingredient list doesn't contain them (e.g. the Bowl). If the recipe DOES list them, they still tick the checklist.")]
+    public List<IngredientData> alwaysAcceptedItems = new List<IngredientData>();
+
     private readonly Dictionary<RectTransform, GameObject> occupancy = new Dictionary<RectTransform, GameObject>();
 
     /// <summary>Returns the first empty slot, or null if the table is completely full.</summary>
@@ -82,7 +86,10 @@ public class TableItemSlotManager : MonoBehaviour
             return; // TestDrag.OnEndDrag snaps it back automatically
         }
 
-        if (!TryCollect(droppedIngredient))
+        // Ticks the checklist if the recipe needs it. Items on the "always accepted"
+        // list (e.g. the Bowl) are allowed even when the recipe doesn't list them.
+        bool needed = TryCollect(droppedIngredient);
+        if (!needed && !IsAlwaysAccepted(droppedIngredient))
         {
             Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' is not needed right now - rejecting drop.");
             return; // TestDrag.OnEndDrag snaps it back automatically
@@ -92,7 +99,7 @@ public class TableItemSlotManager : MonoBehaviour
         if (occupantComp != null && occupantComp.slot != null && occupantComp.slot != targetSlot)
             FreeSlot(occupantComp.slot);
 
-        Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' accepted into '{targetSlot.name}' and marked collected.");
+        Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' accepted into '{targetSlot.name}'{(needed ? " and marked collected" : "")}.");
 
         drag.SnapTo(targetSlot);
         OccupySlot(targetSlot, droppedObj);
@@ -102,6 +109,11 @@ public class TableItemSlotManager : MonoBehaviour
             occupantComp.slotManager = this;
             occupantComp.slot = targetSlot;
         }
+    }
+
+    private bool IsAlwaysAccepted(IngredientData ingredient)
+    {
+        return alwaysAcceptedItems != null && alwaysAcceptedItems.Contains(ingredient);
     }
 
     /// <summary>

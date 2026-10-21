@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SaltPepperType { Salt, Pepper , CassavaStarch, Achuete }
+public enum SaltPepperType { Salt, Pepper , CassavaStarch, Achuete, Sugar }
 
 /// <summary>
 /// Flow: tap Salt/Pepper -> Salt/PepperPanel opens, jar shows salt or pepper
@@ -25,6 +25,7 @@ public class SaltPepperController : MonoBehaviour
     public Button pepperButton;
     public Button cassavaStarchButton;
     public Button achueteButton;
+    public Button sugarButton;
     public Button closeButton;
 
     [Header("Jar visual")]
@@ -32,6 +33,7 @@ public class SaltPepperController : MonoBehaviour
     public Sprite saltJarSprite;
     public Sprite pepperJarSprite;
     public Sprite achueteJarSprite;
+    public Sprite sugarJarSprite;
     public Sprite cassavaStarchJarSprite;
 
     [Header("Stove-top spoon animation")]
@@ -46,6 +48,7 @@ public class SaltPepperController : MonoBehaviour
     public Color pepperColor = Color.white;
     public Color cassavaStarchColor = Color.white;
     public Color achueteColor = Color.white;
+    public Color sugarColor = Color.white;
 
     [Header("Recipe check")]
     public CookingPrepPanelController cookingPrepPanel;
@@ -95,7 +98,8 @@ public class SaltPepperController : MonoBehaviour
             cassavaStarchButton.onClick.AddListener(() => OpenFor(SaltPepperType.CassavaStarch));
         if (achueteButton != null)
             achueteButton.onClick.AddListener(() => OpenFor(SaltPepperType.Achuete));
-
+        if (sugarButton != null)
+            sugarButton.onClick.AddListener(() => OpenFor(SaltPepperType.Sugar));
         spoonAnimation?.Hide();
         tspAnimation?.Hide();
     }
@@ -135,6 +139,9 @@ public class SaltPepperController : MonoBehaviour
                         break;
                     case SaltPepperType.Achuete:
                         panLiquid?.AddLiquidById("Achuete", tspToAdd * mlPerTsp);
+                        break;
+                    case SaltPepperType.Sugar:
+                        panLiquid?.AddLiquidById("Sugar", tspToAdd * mlPerTsp);
                         break;
                 }
             };
@@ -316,6 +323,7 @@ public class SaltPepperController : MonoBehaviour
         SaltPepperType.Salt => saltJarSprite,
         SaltPepperType.Pepper => pepperJarSprite,
         SaltPepperType.Achuete => achueteJarSprite,
+        SaltPepperType.Sugar => sugarJarSprite,
         _ => cassavaStarchJarSprite
     };
 
@@ -324,6 +332,7 @@ public class SaltPepperController : MonoBehaviour
         SaltPepperType.Salt => saltColor,
         SaltPepperType.Pepper => pepperColor,
         SaltPepperType.Achuete => achueteColor,
+        SaltPepperType.Sugar => sugarColor,
         _ => cassavaStarchColor
     };
 
@@ -332,7 +341,8 @@ public class SaltPepperController : MonoBehaviour
         SaltPepperType.Salt => "salt",
         SaltPepperType.Pepper => "pepper",
         SaltPepperType.Achuete => "achuete",
-        _ => "cassava"          // matches "cassava starch" and "starch"
+        SaltPepperType.Sugar => "sugar",
+        _ => "cassava"          
     };
 
     private static string GetDisplayName(SaltPepperType t) => t switch

@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Tomato
+  m_Name: Butter
   m_EditorClassIdentifier: 
-  id: Tomato
-  displayName: Tomato
+  id: Butter
+  displayName: Butter
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 4315908420350577335, guid: 1a4193eac2a78b546b2769b7bde414b2, type: 3}
+  iconScale: 1
   stateSprites: []
   playsPourAnimation: 0
+  pourPositions: []
