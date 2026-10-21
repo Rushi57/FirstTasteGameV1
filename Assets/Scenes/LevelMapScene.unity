@@ -16013,7 +16013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &864441034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41699,7 +41699,7 @@ MonoBehaviour:
   targetRecipe: {fileID: 11400000, guid: 6c8b7e35c80d47643b739b8656dbea56, type: 2}
   instructionObject: {fileID: 746715976}
   continueButton: {fileID: 1440027443}
-  autoHideSeconds: 0
+  autoHideSeconds: 50
   saveKey: Tutorial_SetAsideBowl_ChickenAsado
 --- !u!1 &1766936336
 GameObject:

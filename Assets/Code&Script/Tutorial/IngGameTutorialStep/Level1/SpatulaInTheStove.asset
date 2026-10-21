@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 500}
+  customPosition: {x: 218.6, y: 500}
   actionType: 2
   targetId: InsidePan
   dragSourceId: Spatula
