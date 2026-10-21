@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      StoveDial_0: -3881029629473579757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

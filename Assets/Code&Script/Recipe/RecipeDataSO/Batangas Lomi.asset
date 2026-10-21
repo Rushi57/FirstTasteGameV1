@@ -44,11 +44,11 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Slice the pork belly sliced
-  - Slice the chicken liver sliced
-  - Slice the kikiam sliced
-  - Slice the onion sliced
-  - Slice the garlic sliced
+  - Chop the pork belly sliced
+  - Chop the chicken liver sliced
+  - Chop the kikiam sliced
+  - Chop  the onion sliced
+  - Chop the garlic sliced
   - Turn the stove to high heat
   - Put the pan on the stove
   - Add 1/4 cup of cooking oil

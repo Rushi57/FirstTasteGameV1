@@ -8,7 +8,7 @@ public class StoveSmokeController : MonoBehaviour
     public PanDropZone panDropZone;
     public StoveHeatController heatController;
 
-    private bool hasIngredient;
+    private int solidCount;   // solid ingredients currently in the pan (oil/water don't count)
 
     private void OnEnable()
     {
@@ -17,7 +17,11 @@ public class StoveSmokeController : MonoBehaviour
             stoveDropZone.OnPanPlaced += HandlePanPlaced;
             stoveDropZone.OnStoveReset += HandleReset;
         }
-        if (panDropZone != null) panDropZone.OnIngredientAdded += HandleIngredient;
+        if (panDropZone != null)
+        {
+            panDropZone.OnIngredientAdded += HandleAdded;
+            panDropZone.OnIngredientRemoved += HandleRemoved;
+        }
         if (heatController != null) heatController.OnHeatChanged += HandleHeat;
     }
 
@@ -28,7 +32,11 @@ public class StoveSmokeController : MonoBehaviour
             stoveDropZone.OnPanPlaced -= HandlePanPlaced;
             stoveDropZone.OnStoveReset -= HandleReset;
         }
-        if (panDropZone != null) panDropZone.OnIngredientAdded -= HandleIngredient;
+        if (panDropZone != null)
+        {
+            panDropZone.OnIngredientAdded -= HandleAdded;
+            panDropZone.OnIngredientRemoved -= HandleRemoved;
+        }
         if (heatController != null) heatController.OnHeatChanged -= HandleHeat;
     }
 
@@ -37,30 +45,46 @@ public class StoveSmokeController : MonoBehaviour
     private void HandlePanPlaced(GameObject pan) => Refresh();
     private void HandleHeat(StoveHeat heat) => Refresh();
 
-    private void HandleIngredient(IngredientData data)
+    private void HandleAdded(IngredientData data)
     {
-        hasIngredient = true;
+        if (data != null && data.playsPourAnimation) return;   // oil / water
+        solidCount++;
+        Refresh();
+    }
+
+    private void HandleRemoved(IngredientData data)
+    {
+        if (data != null && data.playsPourAnimation) return;
+        solidCount = Mathf.Max(0, solidCount - 1);
         Refresh();
     }
 
     private void HandleReset()
     {
-        hasIngredient = false;
+        solidCount = 0;
         Refresh();
     }
 
     private void Refresh()
     {
+
         if (smoke == null) return;
 
         bool shouldSmoke =
             stoveDropZone != null && stoveDropZone.HasPan &&
-            hasIngredient &&
+            solidCount > 0 &&
             heatController != null && heatController.CurrentHeat != StoveHeat.Off;
 
-        if (shouldSmoke && !smoke.isPlaying)
-            smoke.Play();
-        else if (!shouldSmoke && smoke.isPlaying)
-            smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting); // existing smoke fades out
+        if (shouldSmoke)
+        {
+            // isEmitting (not isPlaying): after Stop(StopEmitting) the system still
+            // "plays" while old particles fade, which blocked the restart.
+            if (!smoke.isEmitting) smoke.Play();
+        }
+        else
+        {
+            if (smoke.isEmitting)
+                smoke.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
     }
 }

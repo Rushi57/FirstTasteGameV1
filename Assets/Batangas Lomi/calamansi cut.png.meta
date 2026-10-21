@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      calamansi cut_0: 8178630673798206500
+      calamansi cut_1: 4656265324540592659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

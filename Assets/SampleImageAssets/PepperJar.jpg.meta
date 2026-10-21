@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PepperJar_0: -5499961943996511213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      crushed chicharon_0: 6742565662025980769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

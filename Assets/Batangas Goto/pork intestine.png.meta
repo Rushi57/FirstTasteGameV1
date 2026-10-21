@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pork intestine_0: 1186554024016733576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

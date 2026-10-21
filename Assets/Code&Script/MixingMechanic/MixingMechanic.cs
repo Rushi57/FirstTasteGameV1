@@ -62,7 +62,13 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [Header("Timer")]
     public Image timerFillImage;
     public Slider timerSlider;
-    public float mixDuration = 8f;
+    public TMP_Text timerText;
+
+    [Tooltip("Each time panel opens")]
+    public float minMixDuration = 8f;
+    public float maxMixDuration = 12f;
+   
+    [HideInInspector] public float mixDuration = 8f;
 
     [Header("UI Feedback")]
     public TMP_Text resultLabel;
@@ -318,6 +324,13 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         float progress = Mathf.Clamp01(elapsedTime / mixDuration);
         if (timerFillImage != null) timerFillImage.fillAmount = progress;
         if (timerSlider != null) timerSlider.value = progress;
+
+        if (timerText != null)
+        {
+            float remaining = Mathf.Max(0f, mixDuration - elapsedTime);
+            timerText.text = Mathf.CeilToInt(remaining).ToString();   // e.g. "8", "7", ... "0"
+                                                                      // For a decimal countdown instead: remaining.ToString("0.0") + "s"
+        }
     }
 
     public void ResetForNewRound()
@@ -329,13 +342,15 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         indicatorY = 0f;
         currentAngularSpeed = 0f;
 
+        RollMixDuration();
+
         if (indicator != null)
         {
             Vector2 p = indicator.anchoredPosition;
             p.y = 0f;
             indicator.anchoredPosition = p;
         }
-        UpdateTimerVisual();
+        //UpdateTimerVisual();
 
         if (spatulaImage != null)
         {
@@ -422,5 +437,20 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         };
     }
 
-    
+    private void RollMixDuration()
+    {
+        float lo = Mathf.Min(minMixDuration, maxMixDuration);
+        float hi = Mathf.Max(minMixDuration, maxMixDuration);
+
+        // Whole seconds so the countdown text looks clean (8, 9, 10, 11 or 12).
+        mixDuration = UnityEngine.Random.Range(Mathf.CeilToInt(lo), Mathf.FloorToInt(hi) + 1);
+
+
+        UpdateTimerVisual();   // so the text shows the new starting number right away
+    }
+
+    private void OnEnable()
+    {
+        RollMixDuration();
+    }
 }

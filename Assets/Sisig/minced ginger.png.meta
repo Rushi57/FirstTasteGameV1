@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      minced ginger_0: -2478026441724452540
+      minced ginger_1: -4039386662461048481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

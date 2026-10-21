@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pork uncut_0: 4216607565012934476
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

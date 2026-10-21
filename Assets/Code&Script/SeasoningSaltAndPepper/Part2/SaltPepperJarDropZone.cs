@@ -21,9 +21,11 @@ public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
 
         var spoon = dropped.GetComponent<SaltPepperSpoonItem>();
         var drag = dropped.GetComponent<TestDrag>();
-        if (spoon == null || drag == null) return; // not a spoon - bounces back on its own
+        if (spoon == null || drag == null) return; // not a spoon, bounces back on its own
 
         controller?.HandleSpoonDropped(spoon, drag, dropped);
         tutorialTag?.ReportDrop();
+
+        SFXManager.Instance?.PlayJarScoop();
     }
 }

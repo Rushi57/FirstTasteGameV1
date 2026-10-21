@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cassava starch_0: -5639630747943670482
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

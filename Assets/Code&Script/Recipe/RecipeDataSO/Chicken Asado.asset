@@ -13,38 +13,59 @@ MonoBehaviour:
   m_Name: Chicken Asado
   m_EditorClassIdentifier: 
   recipeName: Chicken Asado
-  recipeIcon: {fileID: 0}
-  ingredients: []
+  recipeIcon: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
+  liquidProfile: {fileID: 11400000, guid: 2ac7583c297fb034586709a7f4783dd2, type: 2}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 2e104489f71b4a34cae0963b0555f17d, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: c40760e9c9a26884aaa6d4e522e1160a, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 08d4249f7238c724280ba41d5eb41f67, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
-  - 'Chop the Onion into slice '
-  - 'Chop the Garlic into slice '
-  - 'Chop the Tomato into slice '
-  - turn on the stove to high heat
-  - put the pan in the stove
-  - Add 2tbsp of Cooking Oil
-  - Add chicken Leg
-  - sear using Spatula
-  - Add the chop Onion
-  - 'Add the chop Garlic '
-  - 'Add the chop Tomato '
-  - Saute using Spatula
-  - Add 1 tbsp of Soy
-  - Add 1 tbsp of Soy
-  - Add 1 tbsp of Soy
-  - 'Add Calamansi Juice '
-  - Add Water
-  - Reduce the stove to low
-  - Put the pan Lid and simmer
+  - 'Chop the white onion into slice '
+  - 'Chop the garlic into slice '
+  - 'Chop the tomatoes into slice '
+  - Turn on the stove to medium high heat
+  - Put the Pan in the Stove
+  - Add 1 tbsp of cooking oil
+  - Add butter
+  - Add the chicken legs
+  - Mix it using Spatula
+  - Put the sear chicken in the bowl
+  - Add the onions in the pan
+  - Add the garlic in the pan
+  - Add the bay leaf in the pan
+  - Add the chop tomatoes in the pan
+  - Put the pan lid to simmer
+  - Add 1/4 cup of soy
+  - Add 1/8 tps
+  - Mix well using spatula
+  - Return the chicken back to the pan
+  - Put the pan lid to simmer
+  - Add 1/2 tsp of achuete oil
+  - Add 1/8 tsp of salt
+  - Mix using the spatula
   cookingStepIds:
   - Onion:Sliced
   - Garlic:Sliced
-  - Tomato:Sliced
-  - Tomato:Sliced
+  - Tomatoes:Sliced
+  - 
   - Pan:OnStove
-  - Pour:CookingOil
-  - Pan:ChickenLeg
-  - Mix:7
-  - Pan:Onion
-  - 'Pan:Garlic '
-  - Pan:Tomato
-  - Pan:Tomato
+  - Pour:CookingOilTbsp_1
+  - Pan:Butter
+  - Pan:ChickenLegs
+  - Mix:8
+  - SetAside:ChickenLegs

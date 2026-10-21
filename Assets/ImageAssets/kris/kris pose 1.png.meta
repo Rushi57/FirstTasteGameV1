@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kris pose 1_0: -511706578061346315
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

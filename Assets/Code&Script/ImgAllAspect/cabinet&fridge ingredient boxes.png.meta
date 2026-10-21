@@ -422,7 +422,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cabinet&fridge ingredient boxes_0: -7265157435818365351
+      cabinet&fridge ingredient boxes_1: -3799691066136260573
+      cabinet&fridge ingredient boxes_10: 4392333605155742185
+      cabinet&fridge ingredient boxes_11: 7917217913344831827
+      cabinet&fridge ingredient boxes_2: -9057119147655665206
+      cabinet&fridge ingredient boxes_3: -3790417091233460966
+      cabinet&fridge ingredient boxes_4: -1769412708131680191
+      cabinet&fridge ingredient boxes_5: -7682481563462346951
+      cabinet&fridge ingredient boxes_6: 8486276802296710761
+      cabinet&fridge ingredient boxes_7: -8571106653667469060
+      cabinet&fridge ingredient boxes_8: -5042619096977803098
+      cabinet&fridge ingredient boxes_9: -1567055307529662238
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

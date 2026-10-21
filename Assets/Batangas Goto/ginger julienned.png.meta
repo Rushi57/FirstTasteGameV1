@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ginger julienned_0: 5748659015128990777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

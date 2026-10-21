@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      condiments_shelf_small_size_0: -3843507313598400476
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

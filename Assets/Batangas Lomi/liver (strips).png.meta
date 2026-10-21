@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      liver (strips)_0: -6737480534903412191
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

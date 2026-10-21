@@ -162,10 +162,18 @@ MonoBehaviour:
   tickingStoveSound: {fileID: 8300000, guid: e9541c7f03705e142a40cbd0aea253e2, type: 3}
   pourAnyLiquid: {fileID: 8300000, guid: 912392b4d040a6a4f8a68238f844cc2e, type: 3}
   ChopIngredientSound: {fileID: 8300000, guid: 4762b56fa28459345b7db1a3c3fa282d, type: 3}
+  jarScopping: {fileID: 8300000, guid: 022c1f873259e4d4dbca77145aad809f, type: 3}
   frying: {fileID: 8300000, guid: eb18ef9bd51b8e74a869efdfcbd61c6d, type: 3}
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
   boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
   clockTicking: {fileID: 8300000, guid: 7f1e468f1d2b10d45a1f4d939120e2e9, type: 3}
+  stoveFlameSound: {fileID: 8300000, guid: 5ebd857e2fee1394bb575601511abe7a, type: 3}
+  lowVolume: 0.25
+  mediumVolume: 0.5
+  highVolume: 0.85
+  lowPitch: 0.9
+  mediumPitch: 1
+  highPitch: 1.15
 --- !u!4 &10831795
 Transform:
   m_ObjectHideFlags: 0
@@ -630,7 +638,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.22476341
+  orthographic size: 0.28125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2753,6 +2761,7 @@ GameObject:
   - component: {fileID: 1648373359}
   - component: {fileID: 1648373360}
   - component: {fileID: 1648373361}
+  - component: {fileID: 1648373362}
   m_Layer: 0
   m_Name: MainGameRefreshExit/Return
   m_TagString: Untagged
@@ -2998,6 +3007,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1648373362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648373354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d428515de1fedc479a7db9d6442144b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFPS: 60
+  renderWidth: 1280
 --- !u!1 &1701073545
 GameObject:
   m_ObjectHideFlags: 0
