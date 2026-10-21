@@ -54,7 +54,7 @@ MonoBehaviour:
   - Add the chop tomato in the pan
   - Put the pan lid to simmer
   - Add 1/4 cup of soy
-  - Add 1/8 tps of sugar
+  - Add 1/8 tsp of sugar
   - Mix well using spatula
   - Return the chicken back to the pan
   - Put the pan lid to simmer
@@ -82,6 +82,6 @@ MonoBehaviour:
   - Mix:17
   - Pan:ChickenLegs
   - Pan:PanLidSimmer
-  - Pour:AchueteTsp_1_2
+  - Pour:AchueteOilTsp_1_2
   - Salt:Tsp_1_8
   - Mix:22
