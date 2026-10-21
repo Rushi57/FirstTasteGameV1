@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Tomatoes
+  m_Name: Tomato
   m_EditorClassIdentifier: 
-  id: Tomatoes
-  displayName: Tomatoes
+  id: Tomato
+  displayName: Tomato
   category: 0
   size: 0
   icon: {fileID: 6877156210995117044, guid: 9949e5fc426bd6549ab7d8ace38338cc, type: 3}

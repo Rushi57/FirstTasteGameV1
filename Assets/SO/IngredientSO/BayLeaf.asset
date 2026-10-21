@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Bay Leaf
+  m_Name: BayLeaf
   m_EditorClassIdentifier: 
-  id: Bay Leaf
-  displayName: Bay Leaf
+  id: BayLeaf
+  displayName: BayLeaf
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 6442737243050135569, guid: ddd751cbba01b84448b899944d33bd80, type: 3}
+  iconScale: 0.929
   stateSprites: []
   playsPourAnimation: 0
+  pourPositions: []

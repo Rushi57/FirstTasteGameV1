@@ -34,10 +34,13 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 08d4249f7238c724280ba41d5eb41f67, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
   - 'Chop the white onion into slice '
   - 'Chop the garlic into slice '
-  - 'Chop the tomatoes into slice '
+  - 'Chop the tomato into slice '
   - Turn on the stove to medium high heat
   - Put the Pan in the Stove
   - Add 1 tbsp of cooking oil
@@ -48,10 +51,10 @@ MonoBehaviour:
   - Add the onions in the pan
   - Add the garlic in the pan
   - Add the bay leaf in the pan
-  - Add the chop tomatoes in the pan
+  - Add the chop tomato in the pan
   - Put the pan lid to simmer
   - Add 1/4 cup of soy
-  - Add 1/8 tps
+  - Add 1/8 tps of sugar
   - Mix well using spatula
   - Return the chicken back to the pan
   - Put the pan lid to simmer
@@ -61,7 +64,7 @@ MonoBehaviour:
   cookingStepIds:
   - Onion:Sliced
   - Garlic:Sliced
-  - Tomatoes:Sliced
+  - Tomato:Sliced
   - 
   - Pan:OnStove
   - Pour:CookingOilTbsp_1
@@ -69,3 +72,16 @@ MonoBehaviour:
   - Pan:ChickenLegs
   - Mix:8
   - SetAside:ChickenLegs
+  - Pan:Onion
+  - Pan:Garlic
+  - Pan:BayLeaf
+  - Pan:Tomato
+  - Pan:PanLidSimmer
+  - Pour:SoyTsp_1_2
+  - Sugar:Tsp_1_8
+  - Mix:17
+  - Pan:ChickenLegs
+  - Pan:PanLidSimmer
+  - Pour:AchueteTsp_1_2
+  - Salt:Tsp_1_8
+  - Mix:22

@@ -2919,7 +2919,7 @@ RectTransform:
   m_Father: {fileID: 1568000256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12192,7 +12192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &663329906
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13119,7 +13119,7 @@ RectTransform:
   m_Father: {fileID: 861685386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26583,7 +26583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &900164823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28638,7 +28638,7 @@ GameObject:
   - component: {fileID: 1015027181}
   - component: {fileID: 1015027180}
   m_Layer: 5
-  m_Name: AtsueteBtn
+  m_Name: AchueteOil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28675,7 +28675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047a0730da8538545a017d19d71e9076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableId: Atsuete
+  interactableId: AchueteOil
   sourceData: {fileID: 0}
 --- !u!114 &1015027181
 MonoBehaviour:
@@ -30029,7 +30029,7 @@ RectTransform:
   m_Father: {fileID: 1501678740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31442,7 +31442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1163599450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35284,7 +35284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1346437103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41201,6 +41201,7 @@ MonoBehaviour:
   soyButton: {fileID: 260044848}
   vinegarButton: {fileID: 1296183215}
   cookingOilButton: {fileID: 1098676826}
+  achueteOilButton: {fileID: 1015027181}
   pickSpoonButton: {fileID: 758290479}
   pickCupButton: {fileID: 875827928}
   closeButton: {fileID: 487761822}
@@ -41209,10 +41210,12 @@ MonoBehaviour:
   soyGlassSprite: {fileID: 6126183905695377157, guid: b2d996649de685140a9333cfa5c7592e, type: 3}
   vinegarGlassSprite: {fileID: -947749556987461895, guid: d59fb0d41cad41d4787bc33ce7adedc4, type: 3}
   cookingOilGlassSprite: {fileID: 312855514268800688, guid: d84b3a69e67c7f64db900099003592a5, type: 3}
+  achueteOilGlassSprite: {fileID: -6467636747858642627, guid: 132453fe37c9d0c46a04eb8d600317f8, type: 3}
   fillSpoonImage: {fileID: 51468090}
   soySpoonFillSprite: {fileID: 0}
   vinegarSpoonFillSprite: {fileID: 0}
   cookingOilSpoonFillSprite: {fileID: 0}
+  achueteOilSpoonFillSprite: {fileID: 0}
   stove: {fileID: 864441038}
   toolImage: {fileID: 386576261}
   tintAnimation: 0
@@ -41291,6 +41294,7 @@ MonoBehaviour:
   soyColor: {r: 0.25, g: 0.12, b: 0.02, a: 1}
   vinegarColor: {r: 0.85, g: 0.85, b: 0.6, a: 1}
   cookingOilColor: {r: 1, g: 0.85, b: 0.3, a: 1}
+  achueteOilColor: {r: 0.9, g: 0.3, b: 0.05, a: 1}
   cupAnimation: {fileID: 1036081580}
   tbspAnimation: {fileID: 620520282}
   selectedLabel: {fileID: 0}
@@ -41453,7 +41457,7 @@ RectTransform:
   m_Father: {fileID: 1172925069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -42856,7 +42860,7 @@ GameObject:
   - component: {fileID: 1863401810}
   - component: {fileID: 1863401809}
   m_Layer: 5
-  m_Name: Calamansi
+  m_Name: BayLeafBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42930,7 +42934,7 @@ MonoBehaviour:
         m_MethodName: SpawnIngredient
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
           m_ObjectArgumentAssemblyTypeName: IngredientData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -42957,7 +42961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
+  m_Sprite: {fileID: 6442737243050135569, guid: ddd751cbba01b84448b899944d33bd80, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
