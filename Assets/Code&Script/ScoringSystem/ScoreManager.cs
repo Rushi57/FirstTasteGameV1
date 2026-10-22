@@ -211,7 +211,7 @@ public class ScoreManager : MonoBehaviour
 
         SaveData data = GameSession.GetOrCreateData();
         data.SetLevelResult(levelNumber, CurrentScore, GetStarRating(), keepBest);
-        SaveSystem.Save(data);
+        
 
         Debug.Log($"[ScoreManager] Saved Level {levelNumber} result: score={CurrentScore}, stars={GetStarRating()}");
     }

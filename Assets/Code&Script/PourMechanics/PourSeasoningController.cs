@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum SeasoningType { Soy, Vinegar, CookingOil, AchueteOil }
+public enum SeasoningType { Soy, Vinegar, CookingOil, AchueteOil, FishSauce, OysterSauce }
 public enum MeasureTool { Spoon, Cup }
 
 
@@ -27,6 +27,8 @@ public class PourSeasoningController : MonoBehaviour
     public Button vinegarButton;
     public Button cookingOilButton;
     public Button achueteOilButton;
+    public Button fishSauceButton;
+    public Button oysterSauceButton;
 
     [Header("Tool pick buttons (inside PickPanel)")]
     public Button pickSpoonButton;
@@ -43,6 +45,8 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarGlassSprite;
     public Sprite cookingOilGlassSprite;
     public Sprite achueteOilGlassSprite;
+    public Sprite fishSauceGlassSprite;
+    public Sprite oysterSauceGlassSprite;
 
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
@@ -51,6 +55,8 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite vinegarSpoonFillSprite;    // optional
     public Sprite cookingOilSpoonFillSprite; // optional
     public Sprite achueteOilSpoonFillSprite;
+    public Sprite fishSauceSpoonFillSprite;      // optional
+    public Sprite oysterSauceSpoonFillSprite;    // optional
 
     [Header("Stove (for frying sound)")]
     public StoveHeatController stove;
@@ -89,6 +95,8 @@ public class PourSeasoningController : MonoBehaviour
     public Color vinegarColor = new Color(0.85f, 0.85f, 0.6f, 1f);   // pale yellow
     public Color cookingOilColor = new Color(1f, 0.85f, 0.3f, 1f);   // golden yellow
     public Color achueteOilColor = new Color(0.9f, 0.3f, 0.05f, 1f);
+    public Color fishSauceColor = new Color(0.65f, 0.35f, 0.1f, 1f);     // amber
+    public Color oysterSauceColor = new Color(0.15f, 0.08f, 0.03f, 1f);  // very dark brown
 
 
     [Header("Stove-top pour animation")]
@@ -147,6 +155,8 @@ public class PourSeasoningController : MonoBehaviour
 
         if (achueteOilButton != null) achueteOilButton.onClick.AddListener(() => OpenFor(SeasoningType.AchueteOil));
 
+        if (fishSauceButton != null) fishSauceButton.onClick.AddListener(() => OpenFor(SeasoningType.FishSauce));
+        if (oysterSauceButton != null) oysterSauceButton.onClick.AddListener(() => OpenFor(SeasoningType.OysterSauce));
         cupAnimation?.Hide();
         tbspAnimation?.Hide();
 
@@ -194,6 +204,8 @@ public class PourSeasoningController : MonoBehaviour
                 SeasoningType.Soy => soyGlassSprite,
                 SeasoningType.Vinegar => vinegarGlassSprite,
                 SeasoningType.AchueteOil => achueteOilGlassSprite,
+                SeasoningType.FishSauce => fishSauceGlassSprite,
+                SeasoningType.OysterSauce => oysterSauceGlassSprite,
                 _ => cookingOilGlassSprite
             };
             if (sprite != null) glassImage.sprite = sprite;
@@ -207,6 +219,8 @@ public class PourSeasoningController : MonoBehaviour
                 SeasoningType.Soy => soySpoonFillSprite,
                 SeasoningType.Vinegar => vinegarSpoonFillSprite,
                 SeasoningType.AchueteOil => achueteOilSpoonFillSprite,
+                SeasoningType.FishSauce => fishSauceSpoonFillSprite,
+                SeasoningType.OysterSauce => oysterSauceSpoonFillSprite,
                 _ => cookingOilSpoonFillSprite
             };
             if (fillSprite != null) fillSpoonImage.sprite = fillSprite;
@@ -301,6 +315,8 @@ public class PourSeasoningController : MonoBehaviour
         SeasoningType.Soy => soyColor,
         SeasoningType.Vinegar => vinegarColor,
         SeasoningType.AchueteOil => achueteOilColor,
+        SeasoningType.FishSauce => fishSauceColor,
+        SeasoningType.OysterSauce => oysterSauceColor,
         _ => cookingOilColor
     };
 
@@ -446,6 +462,8 @@ public class PourSeasoningController : MonoBehaviour
             SeasoningType.Soy => "soy",
             SeasoningType.Vinegar => "vinegar",
             SeasoningType.AchueteOil => "achuete",
+            SeasoningType.FishSauce => "fish",
+            SeasoningType.OysterSauce => "oyster",
             _ => "oil"
         };
 

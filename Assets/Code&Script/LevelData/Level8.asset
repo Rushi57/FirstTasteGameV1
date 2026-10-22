@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 8
   levelName: Chiken Asado
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
+  recipe: {fileID: 11400000, guid: 7298aa6f145a99d448d898a8f4fed5fc, type: 2}
   levelPreviewImage: {fileID: 0}
+  story: {fileID: 0}
