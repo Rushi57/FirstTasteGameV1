@@ -16,4 +16,4 @@ MonoBehaviour:
   levelName: Sisig
   recipe: {fileID: 11400000, guid: a4a96f9e18f1234418dc799344930314, type: 2}
   levelPreviewImage: {fileID: -2092983280216000583, guid: cd8c1c291906ae14cb0467a92c526883, type: 3}
-  story: {fileID: 11400000, guid: fa186fcccb3f7b7479ea61c1ca6f5bd1, type: 2}
+  story: {fileID: 11400000, guid: 517459d6b56974c4e9f1198790a575c9, type: 2}

@@ -13,13 +13,32 @@ MonoBehaviour:
   m_Name: DinuguanHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: 
+  - text: Now we're moving on to a traditional Filipino stew with a rich and distinctive
+      flavor.
     characterSprite: {fileID: 0}
-  - text: 
+  - text: Let's learn about dinuguan before preparing this classic dish!
     characterSprite: {fileID: 0}
-  - text: 
+  - text: Let me tell you the history and origin of dinuguan.
     characterSprite: {fileID: 0}
-  - text: 
+  - text: Dinuguan gets its name from dugo, the Filipino word for blood.
     characterSprite: {fileID: 0}
-  - text: 
-    characterSprite: {fileID: 0}
+  - text: This savory stew is commonly made with pork, pork innards, pig's blood,
+      vinegar, garlic, and spices.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: 'Its exact origins are difficult to trace but the dish reflects. '
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: A longstanding tradition of making use of different parts of an animal.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Recipes vary across the Philippines, with some versions thick and rich
+      while others have a lighter broth.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you know?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Dinuguan is often paired with puto, a steamed rice cake.!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: ' The combination of savory stew and soft, slightly sweet rice cake is
+      a favorite for many.'
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Take your time with this one. Let's turn these ingredients into a flavorful
+      Filipino classic!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

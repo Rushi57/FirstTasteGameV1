@@ -16,12 +16,14 @@ MonoBehaviour:
   displayName: Tomato
   category: 0
   size: 0
-  icon: {fileID: 6877156210995117044, guid: 9949e5fc426bd6549ab7d8ace38338cc, type: 3}
+  icon: {fileID: -3962807554240710951, guid: d642eaeb3380b13458f2dcf40114c1fa, type: 3}
   iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 6877156210995117044, guid: 9949e5fc426bd6549ab7d8ace38338cc, type: 3}
+    sprite: {fileID: -3962807554240710951, guid: d642eaeb3380b13458f2dcf40114c1fa, type: 3}
   - state: 1
+    sprite: {fileID: -3983004569931891280, guid: a5a3ea8327cb20243ab71088c70d6a54, type: 3}
+  - state: 2
     sprite: {fileID: 17844251192950625, guid: 99f0db18484a45849a308ff846cf8705, type: 3}
   playsPourAnimation: 0
   pourPositions: []

@@ -25,16 +25,7 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 61579d0de64f15445805b25b46ef29ba, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
-    quantity: 0
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 6ccbd6aa9c5646144ae167bfaa06c86a, type: 2}
-    quantity: 0
-    unit: 
   - ingredient: {fileID: 11400000, guid: 2df5132b6fc319044ad73163fed9fe59, type: 2}
-    quantity: 0
-    unit: 
-  - ingredient: {fileID: 11400000, guid: 0bf6de470fef64f47b939cfcc8b23aa2, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: 4490bd662194a444ebf7fc8b3ad6e0e4, type: 2}
@@ -43,7 +34,22 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 395405806d9ed6a4b8b67bc460113055, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: ef811ad4419eac144a5558f05c414b37, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: 0322e7d71d4e4a942ac1cbea9093e222, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 2edaec72006f1af4eb2a2eaabb897793, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: b0a2bf17a0d698a4f8ecf7aabc57e78f, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
@@ -51,12 +57,13 @@ MonoBehaviour:
   - Chop the chicken liver into sliced
   - Chop the kikiam into sliced
   - Chop the garlic into minced
-  - Chop the red onion into sliced
+  - Chop the onion into sliced
   - Chop the cabbage into sliced
   - Chop the carrot  into sliced
   - Chop the bell peppers into sliced
   - Chop celery into minced
-  - Turn the stove in medium heat
+  - Turn the stove to medium heat
+  - Put the pan in the stove
   - Add 1 tbsp of cooking oil
   - Add pork belly in the pan
   - Add chicken liver
@@ -68,13 +75,12 @@ MonoBehaviour:
   - Add the sliced carrots in the pan
   - Add the sliced cabbage in the pan
   - Add the sliced bell peppers in the pan
-  - Add the snow peas  in the pan
   - Saute it using the spatula
-  - Pour in the chicken broth
+  - Add the chicken broth
   - Add 1/4 cup of soy
-  - Add 1/8 cup of oyster sauce
+  - Add 1/4 cup of oyster sauce
   - Add 1 tbsp  of fish sauuce
-  - Put the pan lid to boil
+  - Put the pan lid to simmer
   - Add 1/8 tsp of pepper
   - Add pancit canton noodles
   - stir it using the spatula
@@ -84,31 +90,31 @@ MonoBehaviour:
   - Chicken Liver:Sliced
   - Kikiam:Sliced
   - Garlic:Minced
-  - RedOnion:Sliced
+  - Onion:Sliced
   - Cabbage:Sliced
   - Carrot:Sliced
   - GreenBellPepper:Sliced
-  - Celery:Minced
+  - Celery:Sliced
   - 
+  - Pan:OnStove
   - Pour:CookingOilTbsp_1
   - Pan:Pork Belly
-  - Pan:Chiken Liver
+  - Pan:Chicken Liver
   - Pan:Shrimp
-  - Mix:14
+  - Mix:15
   - Pan:Garlic
-  - Pan:RedOnion
-  - Mix:17
-  - Pan:Carrots
+  - Pan:Onion
+  - Mix:18
+  - Pan:Carrot
   - Pan:Cabbage
   - Pan:GreenBellPepper
-  - Pan:SnowPeas
   - Mix:22
-  - Pan:ChickenBroth
+  - Pan:Chicken Broth
   - Pour:SoyCup_1_4
-  - Pour:OysterSauceCup_1_8
+  - Pour:OysterSauceCup_1_4
   - Pour:FishSauceTbsp_1
-  - Pan:PanlidBoil
+  - Pan:PanLid
   - Pepper:Tsp_1_8
-  - Pan:CantonNoodles
+  - Pan:Dried Pancit Canton
   - Mix:30
   - Pan:Celery

@@ -20,10 +20,10 @@ MonoBehaviour:
   iconScale: 0.8
   stateSprites:
   - state: 0
-    sprite: {fileID: 4216607565012934476, guid: 0c2186b39d46f8e47a9968460923a37f, type: 3}
+    sprite: {fileID: 3297570108422251771, guid: 5292391ef9fde7a479878aa6f31c5e31, type: 3}
   - state: 1
-    sprite: {fileID: -6237445509998130909, guid: a80fa3d926c9dfc4a91ed31bc5d9f0fa, type: 3}
+    sprite: {fileID: -7430356140429759504, guid: f8dc25b30f710f842a7801456de9f1f1, type: 3}
   - state: 2
-    sprite: {fileID: 4195983217780921705, guid: 92f7b589a888e274dba997efb3c89018, type: 3}
+    sprite: {fileID: -6648355561728683117, guid: 39e5bd80047f07d459315a1a14b14a7a, type: 3}
   playsPourAnimation: 0
   pourPositions: []

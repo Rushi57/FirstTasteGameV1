@@ -13,11 +13,27 @@ MonoBehaviour:
   m_Name: BatangasLomiHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: asdasdasd
-    characterSprite: {fileID: 0}
-  - text: asdasdasd
-    characterSprite: {fileID: 0}
-  - text: asdasdasd
-    characterSprite: {fileID: 0}
-  - text: asdasdasd
-    characterSprite: {fileID: 0}
+  - text: Up next, we're heading to Batangas for a hearty bowl of lomi! Let's find
+      out what makes this noodle dish a local favorite.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Let me tell you the history and origin of batangas lomi.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: 'Batangas Lomi is especially associated with, '
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: 'Lipa City and reflects the influence of Chinese noodle traditions in the
+      Philippines. '
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: One popular account credits Chinese immigrant To Kim Eng with helping popularize
+      the local version in the late 1960s.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Its thick broth, chewy egg noodles, and generous toppings of pork, liver,
+      meatballs, and kikiam make it stand out from other noodle soups.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Over time, lomi houses became an important part of Batangas food culture.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you know?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Batangas Lomi is famous for its thick broth and generous toppings.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Some versions even leave out vegetables entirely!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

@@ -16,8 +16,12 @@ MonoBehaviour:
   displayName: Celery
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 1407062479078631588, guid: d07d82bb3cb25844f8dab16cee207d4a, type: 3}
   iconScale: 1
-  stateSprites: []
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 1407062479078631588, guid: d07d82bb3cb25844f8dab16cee207d4a, type: 3}
+  - state: 1
+    sprite: {fileID: 6714428482900753738, guid: d59163ff26dd14d46b6af480d6bd617d, type: 3}
   playsPourAnimation: 0
   pourPositions: []
