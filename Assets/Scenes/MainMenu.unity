@@ -289,7 +289,7 @@ MonoBehaviour:
   potLidClose: {fileID: 8300000, guid: e203fbcb8d98a6e46b56acaeea2b5483, type: 3}
   pouringWater: {fileID: 8300000, guid: b51f42be8dd290543a02500838569791, type: 3}
   settingCastIron: {fileID: 8300000, guid: b7bf54f485150594ca9fa2bfcf7dc80c, type: 3}
-  stirringPot: {fileID: 8300000, guid: d135be01c29315d49be7be5cdc070f59, type: 3}
+  stirringPot: {fileID: 8300000, guid: 03d6408ebcd4759469bb643081fdf634, type: 3}
   tapButtonTest: {fileID: 8300000, guid: a43ec0f042bf8fa4889ec27086d06ea8, type: 3}
   errorAndWrong: {fileID: 8300000, guid: df5e79e312c73d842859ea5d304c86c7, type: 3}
   gameOverPanel: {fileID: 8300000, guid: 68ba96b1026d3b142856b12c4f44939b, type: 3}

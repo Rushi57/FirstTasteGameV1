@@ -911,6 +911,7 @@ MonoBehaviour:
   stepPrefix: 'SetAside:'
   acceptedIngredientIds:
   - ChickenLegs
+  - Chicken Parts
   requireInPan: 1
   panZone: {fileID: 1199354879}
   cookingEffect: {fileID: 1199354877}
@@ -14860,7 +14861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &746715977
 RectTransform:
   m_ObjectHideFlags: 0
