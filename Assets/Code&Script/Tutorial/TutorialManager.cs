@@ -228,7 +228,7 @@ public class TutorialManager : MonoBehaviour
 
         SaveData data = GameSession.GetOrCreateData();
         data.MarkTutorialCompleted(tutorialId);            // in memory, so any later Save includes it
-        if (writeToSave && saveImmediately) SaveSystem.Save(data);
+       
     }
 
     public static void WriteCompletedTutorialsTo(SaveData data)

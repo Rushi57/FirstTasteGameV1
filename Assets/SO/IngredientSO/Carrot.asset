@@ -16,12 +16,12 @@ MonoBehaviour:
   displayName: Carrot
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 2950869812727453837, guid: ec6abadb97f70aa4686814611e4e953d, type: 3}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 2950869812727453837, guid: ec6abadb97f70aa4686814611e4e953d, type: 3}
   - state: 1
-    sprite: {fileID: 0}
-  - state: 2
-    sprite: {fileID: 0}
+    sprite: {fileID: 4693783649766824889, guid: 2ab199dc4c70a3f498c92ef1e091fdba, type: 3}
   playsPourAnimation: 0
+  pourPositions: []

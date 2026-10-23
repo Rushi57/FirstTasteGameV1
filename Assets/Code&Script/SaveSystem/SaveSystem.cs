@@ -72,10 +72,10 @@ public class SaveData
 public static class GameSession
 {
     public static SaveData Data;          // null = new game
+    public static int CurrentSlot = -1;   // NEW: which slot was loaded / last saved
     public static bool HasPendingLoad => Data != null;
-    public static void Clear() => Data = null;
+    public static void Clear() { Data = null; CurrentSlot = -1; }
 
-    /// <summary>Returns Data, creating a fresh SaveData if this is a new game (Data is currently null).</summary>
     public static SaveData GetOrCreateData()
     {
         if (Data == null) Data = new SaveData();
@@ -85,25 +85,46 @@ public static class GameSession
 
 public static class SaveSystem
 {
-    // persistentDataPath works on Android, iOS, and PC
-    private static string FilePath => Path.Combine(Application.persistentDataPath, "savegame.json");
+    public const int SlotCount = 5; // must match the number of LoadButtons in your list
 
-    public static bool HasSave() => File.Exists(FilePath);
+    private static string PathFor(int slot) =>
+        Path.Combine(Application.persistentDataPath, $"savegame_slot{slot}.json");
 
-    public static void Save(SaveData data)
+    // Old single-file save -> moves into slot 0 so players don't lose it
+    private static string LegacyPath => Path.Combine(Application.persistentDataPath, "savegame.json");
+    private static void MigrateLegacy()
+    {
+        if (File.Exists(LegacyPath) && !File.Exists(PathFor(0)))
+            File.Move(LegacyPath, PathFor(0));
+    }
+
+    public static bool HasSave(int slot)
+    {
+        MigrateLegacy();
+        return File.Exists(PathFor(slot));
+    }
+
+    public static bool AnySaveExists()
+    {
+        for (int i = 0; i < SlotCount; i++)
+            if (HasSave(i)) return true;
+        return false;
+    }
+
+    public static void Save(SaveData data, int slot)
     {
         try
         {
             data.lastSaved = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             string json = JsonUtility.ToJson(data, true);
 
-            // write to a temp file first so a crash mid-save can't corrupt the real file
-            string tmp = FilePath + ".tmp";
+            string path = PathFor(slot);
+            string tmp = path + ".tmp";
             File.WriteAllText(tmp, json);
-            if (File.Exists(FilePath)) File.Delete(FilePath);
-            File.Move(tmp, FilePath);
+            if (File.Exists(path)) File.Delete(path);
+            File.Move(tmp, path);
 
-            Debug.Log("Game saved: " + FilePath);
+            Debug.Log($"Game saved to slot {slot}: {path}");
         }
         catch (Exception e)
         {
@@ -111,13 +132,12 @@ public static class SaveSystem
         }
     }
 
-    public static SaveData Load()
+    public static SaveData Load(int slot)
     {
-        if (!HasSave()) return null;
+        if (!HasSave(slot)) return null;
         try
         {
-            string json = File.ReadAllText(FilePath);
-            return JsonUtility.FromJson<SaveData>(json);
+            return JsonUtility.FromJson<SaveData>(File.ReadAllText(PathFor(slot)));
         }
         catch (Exception e)
         {
@@ -126,8 +146,23 @@ public static class SaveSystem
         }
     }
 
-    public static void DeleteSave()
+    public static void DeleteSave(int slot)
     {
-        if (HasSave()) File.Delete(FilePath);
+        if (HasSave(slot)) File.Delete(PathFor(slot));
+    }
+
+    /// <summary>
+    /// Autosave helper: writes to the slot the player loaded or last saved to.
+    /// If the player has never picked a slot (new game), it does nothing, and the
+    /// data stays in memory (GameSession.Data) until they save manually.
+    /// </summary>
+    public static void SaveToCurrentSlot(SaveData data)
+    {
+        if (GameSession.CurrentSlot < 0)
+        {
+            Debug.Log("Autosave skipped: no save slot chosen yet.");
+            return;
+        }
+        Save(data, GameSession.CurrentSlot);
     }
 }

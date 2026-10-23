@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level10
   m_EditorClassIdentifier: 
   levelNumber: 10
-  levelName: Chiken Asado
+  levelName: Tamales
   recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
   levelPreviewImage: {fileID: 0}
+  story: {fileID: 11400000, guid: 7dc1c114e989ab747ae074adb24dfd04, type: 2}

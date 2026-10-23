@@ -13,26 +13,64 @@ MonoBehaviour:
   m_Name: Pansit Pusit
   m_EditorClassIdentifier: 
   recipeName: Pansit Pusit
-  recipeIcon: {fileID: 0}
-  ingredients: []
+  recipeIcon: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
+  liquidProfile: {fileID: 0}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
-  - Slice the squid
-  - Slice the onion
-  - Slice the tomato
-  - Slice the garlic
-  - Put the pan on the stove
-  - Add cooking oil
-  - Add garlic
-  - Add onion
-  - "Saut\xE9"
-  - Add tomato
-  - Add squid
-  - Add squid ink
-  - Add soy sauce
-  - Add vinegar
+  - Chop the garlic into minced
+  - Chop the onion into minced
+  - Chop the siling labuyo into sliced
+  - Chop the squid into sliced
+  - Turn the stove to high heat
+  - Put the pan in the stove
+  - Add 1/8 cup of cooking oil
+  - Add minced garlic
+  - Add minced onion
+  - Add bay leaf
+  - Add slice chilies
+  - Saute it using the spatula
+  - 'Add Squid '
   - Add water
-  - Add salt
-  - Add pepper
-  - Add canton noodles
-  - Mix using the spatula
-  cookingStepIds: []
+  - Add 1/4 cup of vinegar
+  - Mix it using the spatula
+  - Add squid ink
+  - Put the pan Lid to simmer
+  - Add the noodle in the pan
+  - Turn the stove to medium heat
+  - Put the pan lid to simmer
+  - Add 1/8 tsp of salt
+  - Add 1/8 tsp of pepper
+  - Saute it using spatula
+  - Add chop celery for toppings
+  cookingStepIds:
+  - Garlic:Minced
+  - Onion:Minced
+  - SilingLabuyo:Sliced
+  - Squid:Sliced
+  - 
+  - Pan:OnStove
+  - Pour:CookingOilCup_1_8
+  - Pan:Garlic
+  - Pan:Onion
+  - Pan:BayLeaf
+  - Pan:SilingLabuyo
+  - Mix:11
+  - Pan:Squid
+  - Pan:Water
+  - Pour:VinegarCup_1_4
+  - Mix:15
+  - Pan:SquidInk
+  - Pan:PanLidSimmer
+  - Pan:Noodles
+  - 
+  - Pan:PanLidSimmer
+  - Salt:Tsp_1_8
+  - Pepper:Tsp_1_8
+  - Mix:23
+  - Pan:Celery

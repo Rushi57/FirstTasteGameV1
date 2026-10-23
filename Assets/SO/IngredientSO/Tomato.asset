@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Tomato
+  m_EditorClassIdentifier: 
+  id: Tomato
+  displayName: Tomato
+  category: 0
+  size: 0
+  icon: {fileID: -3962807554240710951, guid: d642eaeb3380b13458f2dcf40114c1fa, type: 3}
+  iconScale: 1
+  stateSprites:
+  - state: 0
+    sprite: {fileID: -3962807554240710951, guid: d642eaeb3380b13458f2dcf40114c1fa, type: 3}
+  - state: 1
+    sprite: {fileID: -3983004569931891280, guid: a5a3ea8327cb20243ab71088c70d6a54, type: 3}
+  - state: 2
+    sprite: {fileID: 17844251192950625, guid: 99f0db18484a45849a308ff846cf8705, type: 3}
+  playsPourAnimation: 0
+  pourPositions: []

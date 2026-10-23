@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level8
   m_EditorClassIdentifier: 
   levelNumber: 8
-  levelName: Chiken Asado
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  levelName: Pancit Pusit
+  recipe: {fileID: 11400000, guid: 7298aa6f145a99d448d898a8f4fed5fc, type: 2}
+  levelPreviewImage: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
+  story: {fileID: 11400000, guid: 1616f76044177554fa734d36ec1bb492, type: 2}

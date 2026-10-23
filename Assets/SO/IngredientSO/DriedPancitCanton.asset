@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: DriedPancitCanton
+  m_EditorClassIdentifier: 
+  id: Dried Pancit Canton
+  displayName: Dried Pancit Canton
+  category: 0
+  size: 0
+  icon: {fileID: -6307149016570354395, guid: 76d68c71f00c5394980ce94d94a9ee77, type: 3}
+  iconScale: 1
+  stateSprites: []
+  playsPourAnimation: 0
+  pourPositions: []

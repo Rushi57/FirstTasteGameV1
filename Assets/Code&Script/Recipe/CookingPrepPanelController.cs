@@ -25,6 +25,10 @@ public class CookingPrepPanelController : MonoBehaviour
 
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
+
+    [Header("Tutorial")]
+    public SetAsideTutorial setAsideTutorial;   // drag GameMechanicsGameObject here
+
     private void OnEnable()
     {
         if (ingredientList != null)
@@ -46,7 +50,7 @@ public class CookingPrepPanelController : MonoBehaviour
     {
         SetPanels(true, false, false);
         CookingPhaseGate.Instance?.SetPhase(CookingPhase.GatherIngredients);
-        ApplyLiquidProfile();   // add
+        ApplyLiquidProfile();
     }
 
     // Stage 1 -> 2
@@ -71,9 +75,15 @@ public class CookingPrepPanelController : MonoBehaviour
     {
         SetPanels(false, false, true);
         CookingPhaseGate.Instance?.SetPhase(CookingPhase.CookingPrep);
-        ApplyLiquidProfile();   // add
+        ApplyLiquidProfile();
         if (currentRecipe != null)
             cookingPrepListUI?.DisplaySteps(currentRecipe, currentRecipe.GetCookingStepIndices());
+
+        // One-time Chicken Asado bowl tutorial
+        if (setAsideTutorial != null)
+            setAsideTutorial.TryShow(currentRecipe);
+        else
+            Debug.LogWarning("[CookingPrepPanelController] setAsideTutorial is not assigned.");
     }
 
     private void SetPanels(bool ingredient, bool cut, bool cooking)
@@ -82,6 +92,7 @@ public class CookingPrepPanelController : MonoBehaviour
         if (ingredientCutPrepPanel != null) ingredientCutPrepPanel.SetActive(cut);
         if (cookingPrepPanel != null) cookingPrepPanel.SetActive(cooking);
     }
+
     private void ApplyLiquidProfile()
     {
         if (panLiquid == null) return;

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f310e05cc019a48855581da30b411e, type: 3}
+  m_Name: ChickenAsadoHistory
+  m_EditorClassIdentifier: 
+  lines:
+  - text: Next up is a comforting chicken dish from Pampanga! Let's explore Chicken
+      Asado and the different culinary influences behind its flavorful sauce.
+    characterSprite: {fileID: 0}
+  - text: Let me tell you the history and origin of pampanga chicken asado.
+    characterSprite: {fileID: 0}
+  - text: Filipino Asado reflects a blend of Spanish and Chinese culinary influences.
+    characterSprite: {fileID: 0}
+  - text: The word asado comes from Spanish, while Filipino versions also draw on
+      Chinese-style braising and seasoning techniques.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Chicken Asado is commonly simmered with garlic, onions, soy sauce, and
+      tomatoes or tomato sauce.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Recipes vary between households, with some versions tasting more savory
+      and others slightly sweet.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you know
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: The name Asado can refer to different dishes! Filipino recipes vary depending
+      on the region and the cook's own traditions.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Let's bring those flavors together! Keep the chicken tender and the sauce
+      delicious.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

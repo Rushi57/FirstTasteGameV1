@@ -7,50 +7,60 @@ using UnityEngine.UI;
 public class LoadGameButton : MonoBehaviour
 {
     [SerializeField] private string mapSceneName = "MapScene";
-    [Header("No Save Message")]
-    [SerializeField] private GameObject noSavePanel;      // LoadGameMainMenuPanel (the inactive parent)
+
+    [Header("Load Panel")]
+    [SerializeField] private GameObject noSavePanel;      // LoadGameMainMenuPanel
     [SerializeField] private Animator noSaveAnimator;     // Animator on LoadMainMenuBorder
+    [SerializeField] private GameObject noSaveText;       // Text (TMP) "No Save Data!"
+    [SerializeField] private GameObject slotList;         // ScrollSave
     [SerializeField] private string openTrigger = "MainMenuAnimOpen";
     [SerializeField] private string closeTrigger = "MainMenuAnimClose";
 
-    // Wire these in the Inspector via each Button's OnClick() list.
-    public void OnLoadClicked()
+    private SaveSlotButton[] slots;
+
+    private void Awake()
     {
-        float t = Time.realtimeSinceStartup;
-        SaveData data = SaveSystem.Load();
-        Debug.Log($"[Load] File read took {(Time.realtimeSinceStartup - t) * 1000f:0.0} ms");
-
-        if (data == null)
-        {
-            Debug.Log("No save file found.");
-            ShowNoSaveMessage();
-            return;
-        }
-
-        GameSession.Data = data;
-        TutorialManager.ApplySavedTutorialState(data); // static, so it survives LoadingScene
-        LoadingManager.LoadNextScene(mapSceneName);    // LoadingScene -> MapScene
+        slots = slotList.GetComponentsInChildren<SaveSlotButton>(true);
+        for (int i = 0; i < slots.Length; i++)
+            slots[i].Setup(i, OnSlotClicked);
     }
 
+    // Wire to LoadGameBtn's OnClick()
+    public void OnLoadClicked()
+    {
+        bool anySave = SaveSystem.AnySaveExists();
+
+        // No saves at all -> only the "No Save Data!" text. Otherwise -> the slot list.
+        noSaveText.SetActive(!anySave);
+        slotList.SetActive(anySave);
+        if (anySave) foreach (var s in slots) s.Refresh();
+
+        if (!noSavePanel.activeSelf) noSavePanel.SetActive(true);
+        if (noSaveAnimator != null)
+        {
+            noSaveAnimator.ResetTrigger(closeTrigger);
+            noSaveAnimator.SetTrigger(openTrigger);
+        }
+    }
+
+    private void OnSlotClicked(int slot)
+    {
+        SaveData data = SaveSystem.Load(slot);
+        if (data == null) return; // empty slot: nothing to load
+
+        GameSession.Data = data;
+        GameSession.CurrentSlot = slot;
+        TutorialManager.ApplySavedTutorialState(data);
+        LoadingManager.LoadNextScene(mapSceneName);
+    }
+
+    // Wire to CloseBtn's OnClick()
     public void OnCloseClicked()
     {
         if (noSaveAnimator != null)
         {
             noSaveAnimator.ResetTrigger(openTrigger);
             noSaveAnimator.SetTrigger(closeTrigger);
-        }
-    }
-
-    private void ShowNoSaveMessage()
-    {
-        // The Animator can't run while its parent is inactive, so turn the panel on first
-        if (noSavePanel != null && !noSavePanel.activeSelf)
-            noSavePanel.SetActive(true);
-
-        if (noSaveAnimator != null)
-        {
-            noSaveAnimator.ResetTrigger(openTrigger);
-            noSaveAnimator.SetTrigger(openTrigger);
         }
     }
 }

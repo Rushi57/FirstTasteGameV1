@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f310e05cc019a48855581da30b411e, type: 3}
+  m_Name: PancitPusitHistory
+  m_EditorClassIdentifier: 
+  lines:
+  - text: Our next dish comes from the coastal food traditions of Cavite! Get ready
+      for Pancit Pusit, a noodle dish with a very distinctive look.
+    characterSprite: {fileID: 0}
+  - text: Let me tell you the history and origin of pancit pusit.
+    characterSprite: {fileID: 0}
+  - text: Cavite Pancit Pusit is associated with Cavite City's Chabacano food culture.
+    characterSprite: {fileID: 0}
+  - text: Its name, Pancit Choko en Su Tinta, refers to noodles cooked with squid
+      and its ink, combining Chinese-influenced noodle traditions with locally available
+      seafood.
+    characterSprite: {fileID: 0}
+  - text: The squid ink gives the dish its signature dark color, while garlic, onions,
+      and seasonings add flavor.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Though its exact origins are not fully documented, it remains a distinctive
+      part of Cavite's culinary heritage.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you know?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Those dark noodles get their color from squid ink.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: The name Choko en Su Tinta also reflects the influence of Chabacano, a
+      language shaped by Spanish and local influences.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Let's give these noodles their signature color and bring this coastal specialty
+      to life!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

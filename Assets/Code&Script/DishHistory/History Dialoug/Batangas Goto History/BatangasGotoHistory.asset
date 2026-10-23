@@ -13,11 +13,31 @@ MonoBehaviour:
   m_Name: BatangasGotoHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: asdasdasd
+  - text: Ready for another Batangas specialty?
     characterSprite: {fileID: 0}
-  - text: asdasdasd
+  - text: This time, we're making goto but don't expect the usual rice porridge!
     characterSprite: {fileID: 0}
-  - text: asdasdasd
+  - text: Let me tell you the history and origin of batangas goto.
     characterSprite: {fileID: 0}
-  - text: asdasdasd
+  - text: The word goto is linked to Chinese culinary influences, particularly the
+      use of beef tripe.
     characterSprite: {fileID: 0}
+  - text: While goto commonly refers to rice porridge in many parts of the Philippines,
+      the Batangas version is known for its beef-based soup.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: It usually contains beef tripe, tendons, and other cuts simmered until
+      tender.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: "Served with rice and condiments like calamansi and chili, it has become
+      a recognizable Batangue\xF1o favorite."
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you Know
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Unlike many versions of goto, '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Batangas Goto is served as a soup without rice cooked into it the rice
+      usually comes on the side!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Let's get that broth simmering. The secret is giving the beef enough time
+      to become tender!
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

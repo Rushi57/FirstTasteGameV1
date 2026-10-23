@@ -16,12 +16,12 @@ MonoBehaviour:
   displayName: Cabbage
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 3244378606169850246, guid: 7aa7f4db6d4a1d44a81c01d9bec3d5ec, type: 3}
+  iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 0}
+    sprite: {fileID: 3244378606169850246, guid: 7aa7f4db6d4a1d44a81c01d9bec3d5ec, type: 3}
   - state: 1
-    sprite: {fileID: 0}
-  - state: 2
-    sprite: {fileID: 0}
+    sprite: {fileID: -3942968046582003185, guid: 93adb4c3a01dcf14e9b9a767f6401e78, type: 3}
   playsPourAnimation: 0
+  pourPositions: []

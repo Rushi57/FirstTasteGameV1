@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Butter
   category: 0
   size: 0
-  icon: {fileID: 4315908420350577335, guid: 1a4193eac2a78b546b2769b7bde414b2, type: 3}
+  icon: {fileID: 4315908420350577335, guid: d6d8719b565b82244a4e21aeb9585f3f, type: 3}
   iconScale: 1
   stateSprites: []
   playsPourAnimation: 0

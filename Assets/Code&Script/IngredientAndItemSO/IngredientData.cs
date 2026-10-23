@@ -48,7 +48,6 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Header("Visual")]
     public Sprite icon;
 
-
     [Tooltip("Multiplies the prefab's size for this item. 1 = full prefab size, 0.5 = half. Use it to make small things like garlic look smaller than pork or a pitcher.")]
     [Range(0.2f, 1.5f)]
     public float iconScale = 1f;
@@ -75,6 +74,7 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
         }
         return icon;
     }
+
     public bool TryGetPourPosition(string targetName, out Vector2 position)
     {
         position = default;
@@ -95,6 +95,7 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
         position = pourPositions[0].position;
         return true;
     }
+
 }
 [System.Serializable]
 public class PourPositionEntry

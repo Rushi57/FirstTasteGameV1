@@ -13,16 +13,31 @@ MonoBehaviour:
   m_Name: AdoboHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: ' Adobo is one of the oldest dishes in Philippine cuisine,'
+  - text: Pork Adobo! But there's an interesting question behind this familiar favorite
+      where did adobo really begin?
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: With roots that reach back before the arrival of the Spanish colonizers
+  - text: Let me tell you the history and origin of adobo.
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: The name comes from the Spanish word "adobar,"
+  - text: 'The word adobo comes from the Spanish term adobar, meaning to season or
+      marinate. '
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Meaning to marinate or season, but Filipinos were already cooking meat
-      in vinegar long before that name arrived
+  - text: 'However, Filipinos may have already been cooking meat with vinegar before
+      Spanish colonization. '
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Filipino cooks have passed down recipes like Adobo through generations,
+  - text: With the Spanish term later used to describe the method.
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Adjusting vinegar, soy sauce, and garlic to their family's taste
+  - text: 'Pork Adobo is typically simmered with vinegar, soy sauce, garlic, peppercorns,
+      and bay leaves. '
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Every household has its own version, whether the sauce is tangy and plentiful
+      or reduced until the meat is nearly dry.
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: Did you know?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Adobo has no single recipe that every Filipino household follows! '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Some families prefer more vinegar, while others like their sauce rich and
+      savory.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Let's make a dish that tastes like home. Don't forget the garlic!
+    characterSprite: {fileID: 0}
