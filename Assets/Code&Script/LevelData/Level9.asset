@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level9
   m_EditorClassIdentifier: 
   levelNumber: 9
-  levelName: Pinaupong Manok
+  levelName: Kare-Kare
   recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
   levelPreviewImage: {fileID: 0}
   story: {fileID: 11400000, guid: b7e185a2922fffa4f85367d0833af812, type: 2}

@@ -123,7 +123,12 @@ public class ColorPrecisionGame : MonoBehaviour
         if (IsTutorialActive())
         {
             // Tutorial: no deduction, just try again
-            activeRoutine = StartCoroutine(RetryAfterBad("TRY AGAIN!"));
+            TutorialManager.Instance.ReportMistake();
+            
+
+            if(gameObject .activeInHierarchy)
+                activeRoutine = StartCoroutine(RetryAfterBad("TRY AGAIN!"));
+
         }
         else
         {
@@ -140,8 +145,7 @@ public class ColorPrecisionGame : MonoBehaviour
     // TODO: connect this to your real tutorial system
     private bool IsTutorialActive()
     {
-        // Example: return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
-        return false;
+        return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
     }
 
     bool IsPointInSlice(float point, float start, float fill)

@@ -27,7 +27,7 @@ MonoBehaviour:
     unit: 
   cookingInstructions:
   - Chop the Pork Belly into slice
-  - Chop the Garlic into slice
+  - Chop the Garlic into minced
   - Turn on the Stove to high heat
   - Put the Pan in the Stove
   - Add 1 tbsp of cooking oil
@@ -43,7 +43,7 @@ MonoBehaviour:
   - Put the Pan Lid and simmer
   cookingStepIds:
   - Pork Belly:Sliced
-  - Garlic:Sliced
+  - Garlic:Minced
   - 
   - Pan:OnStove
   - Pour:CookingOil

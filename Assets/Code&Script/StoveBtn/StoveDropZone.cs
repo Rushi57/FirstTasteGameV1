@@ -78,6 +78,8 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
         if (SFXManager.Instance != null)
             SFXManager.Instance.Play(SFXManager.Instance.settingCastIron);
 
+        CabinetAutoCloser.Instance?.Close();
+
         OnPanPlaced?.Invoke(dropped);
         CookingPrepListUI.Instance?.CompleteStep(panStepId);
         tutorialTag?.ReportDrop();

@@ -116,8 +116,8 @@ public class PourSeasoningController : MonoBehaviour
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
 
+    private bool isAnimating;
     private float pendingMl;
-
     /// <summary>seasoning, chosen ml, was it fully correct (right amount + good pour).</summary>
     public event Action<SeasoningType, float, bool> OnPourConfirmed;
 
@@ -174,6 +174,7 @@ public class PourSeasoningController : MonoBehaviour
 
     public void OpenFor(SeasoningType seasoning)
     {
+        if (isAnimating) return;
         //Wrong Step Gate
         string prefix = $"Pour:{seasoning}";
         var prep = CookingPrepListUI.Instance;
@@ -282,6 +283,9 @@ public class PourSeasoningController : MonoBehaviour
 
                 Debug.Log($"[Pour] Panel closed after a correct pour - playing {chosenTool} animation before completing '{stepId}'.");
 
+                isAnimating = true;
+                TutorialManager.Instance?.BeginBusy();
+
                 anim.PlayPourAnimation(color, () =>
                 {
                     completedLines.Add(lineIndex);
@@ -289,6 +293,9 @@ public class PourSeasoningController : MonoBehaviour
                     if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
                     StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
+
+                    isAnimating = false;
+                    TutorialManager.Instance?.EndBusy();   // last, after everything is reported
                 });
             }
             else
@@ -533,6 +540,12 @@ public class PourSeasoningController : MonoBehaviour
     /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
+        if (isAnimating)
+        {
+            isAnimating = false;
+            TutorialManager.Instance?.EndBusy();   // callback will never fire after Hide()
+        }
+
         if (panLiquid != null) panLiquid.Clear();
         completedLines.Clear();
         pendingSuccess = false;
@@ -540,7 +553,6 @@ public class PourSeasoningController : MonoBehaviour
         seasoningPanel.SetActive(false);
         cupAnimation?.Hide();
         tbspAnimation?.Hide();
-        panLiquid.Clear();
         ClearSelection();
 
     }

@@ -80,12 +80,16 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         lastRawAngle = currentAngle;
         ApplyRotation(currentAngle);
 
+       
         StoveHeat previous = stove != null ? stove.CurrentHeat : StoveHeat.Off;
         if (stove != null) stove.SetHeat(heat);
 
         bool tutorialRunning = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
         if (tutorialRunning && heat != previous)
-            ReportToTutorial(heat);
+        {
+            if (ReportToTutorial(heat))
+                stove?.CloseDial();
+        }
     }
 
     private void UpdateAngle(PointerEventData e)
@@ -121,23 +125,25 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         knob.localRotation = Quaternion.Euler(0f, 0f, counterClockwiseAngle + angleOffset);
     }
-    private void ReportToTutorial(StoveHeat heat)
+    private bool ReportToTutorial(StoveHeat heat)
     {
-        if (heat == StoveHeat.Off) return;
+        if (heat == StoveHeat.Off) return false;
 
-        string wantedId = "Stove" + heat;   // StoveLow, StoveHigh, ...
+        string wantedId = "Stove" + heat;
 
         foreach (var t in interactables)
         {
             if (t.ResolvedId == wantedId)
             {
-                if (t.ResolvedId == wantedId) { t.ReportDrop(); return; }
+                t.ReportDrop();
+                return true;
             }
         }
 
         if (stove != null) stove.SetHeat(StoveHeat.Off);
-        SetVisual(StoveHeat.Off);   // snap the knob back to Off
+        SetVisual(StoveHeat.Off);
         TutorialManager.Instance?.ReportMistake();
+        return false;
     }
 
     private void UpdateTickSound(float previousAngle)

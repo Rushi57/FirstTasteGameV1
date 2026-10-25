@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Rotate the dial to high to set the stove to high flame
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 2

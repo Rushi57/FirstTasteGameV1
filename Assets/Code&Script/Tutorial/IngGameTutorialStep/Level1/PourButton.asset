@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap and hold the pour button
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 318.2, y: 404.44}
   actionType: 5

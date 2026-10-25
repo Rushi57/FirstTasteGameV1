@@ -54,6 +54,8 @@ public class CookingPrepListUI : MonoBehaviour
     /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
     public event System.Action OnAllStepsComplete;
 
+    public static event System.Action<string> StepCompleted;
+
     private void OnEnable()
     {
         Instance = this;
@@ -215,6 +217,7 @@ public class CookingPrepListUI : MonoBehaviour
         var row = rows[key];
         completed.Add(key);
         row.SetCompleted(true);
+        StepCompleted?.Invoke(stepId);
 
         string nextKey = CurrentKey;
         if (nextKey != null && rows.TryGetValue(nextKey, out var nextRow))
@@ -289,6 +292,12 @@ public class CookingPrepListUI : MonoBehaviour
         }
         scrollRect.verticalNormalizedPosition = scrollTargetNorm;
         scrollRoutine = null;
+    }
+
+    public bool IsMixStepCurrent()
+    {
+        string current = CurrentStepId;
+        return current != null && current.StartsWith("Mix:", System.StringComparison.Ordinal);
     }
 
     private void Clear()

@@ -91,7 +91,18 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         // Spatula: opens the mixing mini-game instead of being added as an ingredient
         if (drag.itemId == spatulaId)
         {
+            var prep = CookingPrepListUI.Instance;
+
+            // Spatula is only valid when a Mix step is the current one
+            if (prep != null && prep.strictOrder && !prep.IsMixStepCurrent())
+            {
+                Debug.Log($"[PrepList] REJECTED spatula - current step is '{prep.CurrentStepId}'");
+                ScoreManager.Instance?.ReportMistake(prep.wrongStepMessage);
+                return;
+            }
+
             if (!HeatOk("Spatula")) return;
+            CabinetAutoCloser.Instance?.Close();
 
             SFXManager.Instance?.PlayPotLidClose();   // <-- SFX
 
@@ -114,7 +125,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
                                         : BoilSimmerController.BoilStepId;
 
             if (prep != null && !prep.TryAccept(lidStepId)) return;
-
+            CabinetAutoCloser.Instance?.Close();
             SFXManager.Instance?.PlayPotLidClose();   // <-- added, after the step is accepted
 
 

@@ -150,6 +150,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             yield break;
         }
 
+      
+
         // Find the recipe line that matches the prep list's current step
         for (int i = 0; i < recipe.cookingInstructions.Count; i++)
         {
@@ -165,6 +167,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log($"[Stove] Step {order} done: {required} held for {confirmDelay}s -> '{currentId}'");
                 prepList.CompleteStep(currentId);
+                CloseDial();
             }
             else
             {
