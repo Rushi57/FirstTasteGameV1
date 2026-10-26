@@ -7,10 +7,13 @@ public class DishFinishController : MonoBehaviour
 {
     [Header("Prep list")]
     public CookingPrepListUI prepList;
-    
+
     [Header("Finish button")]
     public GameObject finishButtonPanel;    // FinishBtnPanelShow
     public Button continueButton;           // ContinueBtn
+
+    [Header("Level completion reflection")]
+    public LevelCompletionReflection reflection;   // on FinishCookingGameObject
 
     [Header("Scoreboard")]
     public GameObject finishCookingRoot;    // FinishCookingGameObject
@@ -34,6 +37,7 @@ public class DishFinishController : MonoBehaviour
     {
         finishButtonPanel.SetActive(false);
         scoreBoardPanel.SetActive(false);
+        if (finishCookingRoot != null) finishCookingRoot.SetActive(false);   // hidden until Finish is tapped
         continueButton.onClick.AddListener(OnContinue);
 
         if (prepList != null) prepList.OnAllStepsComplete += HandleAllStepsComplete;
@@ -82,18 +86,28 @@ public class DishFinishController : MonoBehaviour
     private void OnContinue()
     {
         finishButtonPanel.SetActive(false);
-        finishCookingRoot.SetActive(true);
-        scoreBoardPanel.SetActive(true);
 
         RecipeData recipe = cookingPrepPanel != null ? cookingPrepPanel.currentRecipe : null;
         if (recipe != null)
         {
-            if (recipeImage != null) recipeImage.sprite = recipe.recipeIcon;   // see note below
+            if (recipeImage != null) recipeImage.sprite = recipe.recipeIcon;
             if (dishTitleLabel != null) dishTitleLabel.text = recipe.recipeName;
         }
 
-        ScoreManager.Instance?.SaveDishResult();
+        // Child first (stays hidden while the root is inactive); the root is activated by Show()
+        scoreBoardPanel.SetActive(true);
 
+        if (reflection != null)
+        {
+            // Saves the result, activates FinishCookingGameObject, starts the reflection text
+            reflection.Show();
+        }
+        else
+        {
+            // Fallback: old behaviour if no reflection is assigned
+            finishCookingRoot.SetActive(true);
+            ScoreManager.Instance?.SaveDishResult();
+        }
     }
 
     // Call this from Retry so the flag resets
