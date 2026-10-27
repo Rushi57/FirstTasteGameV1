@@ -52,8 +52,12 @@ public class DishFinishController : MonoBehaviour
     private void HandleAllStepsComplete()
     {
         allStepsDone = true;
-        if (waitRoutine == null)
+        if (waitRoutine != null) { StopCoroutine(waitRoutine); waitRoutine = null; }
+
+        if (isActiveAndEnabled)
             waitRoutine = StartCoroutine(WaitThenShow());
+        else
+            Debug.LogWarning("[Finish] DishFinishController is inactive - can't start WaitThenShow.");
     }
 
     private IEnumerator WaitThenShow()
@@ -70,8 +74,13 @@ public class DishFinishController : MonoBehaviour
 
         if (ScoreManager.Instance != null && ScoreManager.Instance.IsGameOver) yield break;
 
-        Debug.Log("[Finish] All steps done and all mini-games closed - showing Continue.");
+        // Make sure every parent is active, otherwise the panel can't be seen
+        Transform parent = finishButtonPanel.transform.parent;
+        if (parent != null && !parent.gameObject.activeSelf)
+            parent.gameObject.SetActive(true);
+
         finishButtonPanel.SetActive(true);
+        Debug.Log($"[Finish] Panel active in hierarchy: {finishButtonPanel.activeInHierarchy}");
     }
 
     private bool NothingRunning()
@@ -117,4 +126,5 @@ public class DishFinishController : MonoBehaviour
         if (waitRoutine != null) { StopCoroutine(waitRoutine); waitRoutine = null; }
         finishButtonPanel.SetActive(false);
     }
+    void OnDisable() { Debug.Log("FinishBtnShowGameObject disabled\n" + System.Environment.StackTrace); }
 }

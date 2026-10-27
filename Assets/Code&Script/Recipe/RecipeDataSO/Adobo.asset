@@ -19,41 +19,48 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
   - Chop the Pork Belly into slice
   - Chop the Garlic into minced
-  - Turn on the Stove to high heat
-  - Put the Pan in the Stove
-  - Add 1 tbsp of cooking oil
-  - Add the chop Garlick
-  - Add 1/2 of tbsp of Peppercorn
-  - "Saut\xE9 the Garlick and peppercorn"
-  - Add the Chop Pork
-  - Saute it until brown
-  - Add 1/2 Cup of Vinegar
-  - Add 1/4 Cup of Soy
-  - Add 1 cup of water
-  - Reduce the stove to low
-  - Put the Pan Lid and simmer
+  - Turn on the stove to high heat
+  - Put the pan in the Stove
+  - Add pork belly
+  - Add 1 tbsp of vinegar.
+  - Add water.
+  - Add the minced garlic.
+  - Add 1/4 cup of soy sauce.
+  - Add the bay leaf.
+  - Add the 1/2 tbsp of peppercorns
+  - Add the 1/2 tsp of salt
+  - Turn on the stove to medium heat
+  - Put the pan lid to boil
+  - Turn on the stove to low heat
+  - Put the pan lid to boil
+  - Add 1 tsp of sugar
   cookingStepIds:
   - Pork Belly:Sliced
   - Garlic:Minced
   - 
   - Pan:OnStove
-  - Pour:CookingOil
-  - Pan:Garlic
-  - Pepper:Tbsp_1_2
-  - Mix:7
   - Pan:Pork Belly
-  - Mix:9
-  - Pour:VinegarCup_1_2
-  - Pour:SoyCup_1_4
+  - Pour:VinegarTbsp_1
   - Pan:Water
+  - Pan:Garlic
+  - Pour:SoyCup_1_4
+  - Pan:BayLeaf
+  - Pepper:Tbsp_1_2
+  - Salt:Tsp_1_2
   - 
   - Pan:PanLid
+  - 
+  - Pan:PanLidSimmer
+  - Sugar:Tsp_1_2
