@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: BatangasGotoDishReflection
+  m_EditorClassIdentifier: 
+  dishName: Adobo
+  dishSprite: {fileID: 0}
+  pages:
+  - Great work. The bowl in front of you is a small act of care. Chinese congee technique,
+    Spanish-era beef, Filipino garnishes,
+  - ' all brought together in a dish that families reach for when someone they love
+    needs comfort.'
+  - The ginger does more than flavour. It warms the body and settles the stomach,
+    which is why goto has been a convalescent food for generations.
+  - 'They are the Lipa canon, documented in peer-reviewed heritage research, and
+    they distinguish a competent lomi from a merely passable one. '
+  - The next time you make a bowl for someone who is unwell,
+  - ' you are doing what Filipino families have been doing with this dish for nearly
+    two centuries.'

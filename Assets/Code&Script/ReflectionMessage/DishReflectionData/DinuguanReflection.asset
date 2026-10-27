@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: DinuguanReflection
+  m_EditorClassIdentifier: 
+  dishName: Adobo
+  dishSprite: {fileID: 0}
+  pages:
+  - Well done. You have just prepared one of the oldest Filipino dishes still cooked
+    today.
+  - The vinegar you added did two jobs at once.
+  - It stabilised the blood against clotting, and it carried the dish forward through
+    time,
+  - "allowing families without refrigerators to feast on today\u2019s pig for days
+    afterwards."
+  - When you serve dinuguan with puto, you are serving the sweet alongside the deep,
+    the new alongside the old,
+  - 'the quiet with the bold. This is how Filipino families have thought about meals
+    for centuries. '

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: ChickenAsadoDishReflection
+  m_EditorClassIdentifier: 
+  dishName: Adobo
+  dishSprite: {fileID: 0}
+  pages:
+  - Wonderful work. The sauce in your pan is a map of three centuries of culinary
+    exchange.
+  - Mexican tomato, Spanish sofrito technique, Chinese soy sauce, Filipino calamansi,
+  - ' all balanced against each other in the Kapampangan Sunday dinner tradition.'
+  - The Spanish word for roasting stayed, but the method became braising to suit
+    a tropical kitchen.
+  - but as a slow weaving of ingredients and techniques into something new that neither
+    parent cuisine would quite recognize.
