@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Coconut Milk
+  m_Name: Oxtail
   m_EditorClassIdentifier: 
-  id: Coconut Milk
-  displayName: Coconut Milk
+  id: Oxtail
+  displayName: Oxtail
   category: 0
   size: 0
-  icon: {fileID: 0}
-  stateSprites:
-  - state: 0
-    sprite: {fileID: 0}
-  playsPourAnimation: 1
+  icon: {fileID: -8493930012269158530, guid: 02855e3403a276f4f8e47137c6f7bf1c, type: 3}
+  iconScale: 1
+  stateSprites: []
+  playsPourAnimation: 0
+  pourPositions: []

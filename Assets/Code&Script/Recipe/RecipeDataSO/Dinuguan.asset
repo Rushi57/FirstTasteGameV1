@@ -19,6 +19,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: ea8d00ece951030449934bca43d64b5f, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: 2b91fc67856a61444873b8d04a053dbd, type: 2}
     quantity: 0
     unit: 
@@ -29,6 +32,12 @@ MonoBehaviour:
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:

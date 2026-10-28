@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
   m_Name: ChickenAsadoDishReflection
   m_EditorClassIdentifier: 
-  dishName: Adobo
+  dishName: Chicken Asado
   dishSprite: {fileID: 0}
   pages:
   - Wonderful work. The sauce in your pan is a map of three centuries of culinary

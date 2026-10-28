@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
+  m_Name: KareKare
+  m_EditorClassIdentifier: 
+  recipeName: Kare-Kare
+  recipeIcon: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
+  liquidProfile: {fileID: 11400000, guid: 1cc729af9241ad44c892ce67ec7321d7, type: 2}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 8727f0e2305381d469389669209fceee, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: e452bfb9a5af07440ae8fa7b15cb5aee, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: ecce071ca1b040c42b55e49eec3813b7, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: ecce071ca1b040c42b55e49eec3813b7, type: 2}
+    quantity: 0
+    unit: 
+  cookingInstructions:
+  - Chop the beef tripe into sliced
+  - Chop the garlic into sliced
+  - Chop the eggplant into sliced
+  - Chop the string beans into sliced
+  - Chop the banana heart into sliced
+  - Chop the pechay into sliced
+  - Turn the stove to high heat
+  - Put the Pot on the stove
+  - 
+  - 
+  - 
+  cookingStepIds:
+  - 

@@ -21,8 +21,13 @@ public class LevelCompletionReflection : MonoBehaviour
     [Header("Typing")]
     [SerializeField] private float charsPerSecond = 40f;
 
+    [SerializeField] private GameObject replayOrGotToMap;
+
     [Header("Events")]
     public UnityEvent onFinished;   // e.g. load LevelMapScene
+
+    [Header("Hide when text finishes")]
+    [SerializeField] private GameObject[] hideOnFinish;   // DialogueBox, ContinueBtn, etc.
 
     private DishReflectionData current;
     private int pageIndex;
@@ -65,7 +70,12 @@ public class LevelCompletionReflection : MonoBehaviour
                 dishImage.sprite = selected.recipe.recipeIcon;   // fallback: recipe icon
         }
 
-        gameObject.SetActive(true);   // triggers StarRatingDisplay.OnEnable
+        gameObject.SetActive(true);
+        if (replayOrGotToMap != null)
+            replayOrGotToMap.SetActive(false);
+
+        foreach (var go in hideOnFinish)
+            if (go != null) go.SetActive(true);
         pageIndex = 0;
         ShowPage();
     }
@@ -122,7 +132,12 @@ public class LevelCompletionReflection : MonoBehaviour
             ShowPage();
         else
         {
-            gameObject.SetActive(false);
+            foreach (var go in hideOnFinish)
+                if (go != null) go.SetActive(false);
+
+            if (replayOrGotToMap != null)
+                replayOrGotToMap.SetActive(true);
+
             onFinished?.Invoke();
         }
     }

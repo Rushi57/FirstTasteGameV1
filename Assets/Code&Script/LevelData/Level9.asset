@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 9
   levelName: Kare-Kare
-  recipe: {fileID: 11400000, guid: 0e9e16b01619d374991479bf3e3ff50b, type: 2}
-  levelPreviewImage: {fileID: 0}
+  recipe: {fileID: 11400000, guid: ab054a4723322c8419de30dc68ce033c, type: 2}
+  levelPreviewImage: {fileID: -1156428549729947634, guid: 4c03ffcc0e339f444ae676b3c691bf71, type: 3}
   story: {fileID: 11400000, guid: b7e185a2922fffa4f85367d0833af812, type: 2}
+  reflection: {fileID: 11400000, guid: 4842a98871849564fadc24c261d7fc28, type: 2}
