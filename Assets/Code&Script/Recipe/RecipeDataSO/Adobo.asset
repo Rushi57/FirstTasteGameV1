@@ -46,6 +46,7 @@ MonoBehaviour:
   - Turn on the stove to low heat
   - Put the pan lid to boil
   - Add 1 tsp of sugar
+  - Mix it well
   cookingStepIds:
   - Pork Belly:Sliced
   - Garlic:Minced
@@ -64,3 +65,4 @@ MonoBehaviour:
   - 
   - Pan:PanLidSimmer
   - Sugar:Tsp_1
+  - Mix:17

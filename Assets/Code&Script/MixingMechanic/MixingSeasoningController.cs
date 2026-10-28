@@ -34,7 +34,13 @@ public class MixingSeasoningController : MonoBehaviour
     [Header("Direction")]
     public bool randomizeDirection = true;
     private MixingMechanic.MixDirection lastDirection = MixingMechanic.MixDirection.Any;
-    
+
+    [Header("Direction Arrow")]
+    public Image arrowChanger;
+    public Sprite clockwiseSprite;
+    public Sprite counterClockwiseSprite;
+
+
     private MixingMechanic.MixDirection configuredDirection;
     private float configuredSpeed;
 
@@ -73,6 +79,7 @@ public class MixingSeasoningController : MonoBehaviour
         mixingMechanic.ConfigureChallenge(direction, speed);
         configuredDirection = mixingMechanic.requiredDirection;   // the direction actually chosen
         configuredSpeed = speed;
+        UpdateArrow(configuredDirection);
         Debug.Log($"[Mixing] Opened for line {lineIndex}: '{recipe.cookingInstructions[lineIndex]}' -> direction={direction}, idealSpeed={speed}");
     }
 
@@ -85,6 +92,7 @@ public class MixingSeasoningController : MonoBehaviour
         challengeActive = true;
         mixingMechanic.ResetForNewRound();
         mixingMechanic.ConfigureChallenge(configuredDirection, configuredSpeed);
+        UpdateArrow(configuredDirection);
     }
 
     private void HandleMixFinished(MixingMechanic.MixResult result)
@@ -177,6 +185,27 @@ public class MixingSeasoningController : MonoBehaviour
         mixingMechanic?.ResetForNewRound();
         lastDirection = MixingMechanic.MixDirection.Any;
     }
+
+    private void UpdateArrow(MixingMechanic.MixDirection dir)
+    {
+        if (arrowChanger == null) return;
+
+        switch(dir)
+        {
+            case MixingMechanic.MixDirection.Clockwise:
+                arrowChanger.sprite = clockwiseSprite;
+                arrowChanger.enabled = true;
+                break;
+            case MixingMechanic.MixDirection.CounterClockwise:
+                arrowChanger.sprite = counterClockwiseSprite;
+                arrowChanger.enabled = true;
+                break;
+            default:
+                arrowChanger.enabled = false;
+                break;
+        }
+    }
+
 
     private MixingMechanic.MixDirection PickDirection()
     {

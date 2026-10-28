@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Pork Liver
   m_EditorClassIdentifier: 
-  id: Pork
-  displayName: Pork
+  id: Pork Liver
+  displayName: Pork Liver
   category: 0
   size: 0
-  icon: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}
+  icon: {fileID: -2994135681845959411, guid: c3b2662d2daf8b643ab49f0803818ae4, type: 3}
   iconScale: 1
   stateSprites:
   - state: 0
-    sprite: {fileID: 4216607565012934476, guid: 0c2186b39d46f8e47a9968460923a37f, type: 3}
+    sprite: {fileID: -2994135681845959411, guid: c3b2662d2daf8b643ab49f0803818ae4, type: 3}
   - state: 1
-    sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
+    sprite: {fileID: 6617939801112336587, guid: 585ec634432644348b79f73cf1e2689f, type: 3}
   playsPourAnimation: 0
   pourPositions: []

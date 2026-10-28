@@ -42,24 +42,14 @@ MonoBehaviour:
     unit: 
   cookingInstructions:
   - Chop the Pork Belly into slice
-  - Chop the Chili into slice
-  - Chop the Garlic into slice
-  - Turn the on the stove to high heat
-  - Put the Pan in the Stove
-  - Add the Pork Belly
-  - 'Add Water '
-  - Put the pan lid and boil
-  - Stir using spatula
-  - Add 1 tbsp of cooking oil
-  - Add the chop garlic
-  - Saute using the spatula
-  - Add the chop chili
-  - Add 1/2 tbsp of peppercorn
-  - 'Add pork blood '
-  - Add 1/8  tsp of salt
-  - Add 1/2 cup of vinegar
-  - Mix it using Spatula
-  - Put the Pan Lid to simmer
+  - Chop the pork liver into slice
+  - Chop the green chili into slice
+  - Chop the garlic into minced
+  - Chop the onion into sliced
+  - Chop the ginger into sliced
+  - Turn the stove high heat.
+  - Put the pan in the stove.
+  - 
   cookingStepIds:
   - Pork Belly:Sliced
   - Green Chili:Sliced

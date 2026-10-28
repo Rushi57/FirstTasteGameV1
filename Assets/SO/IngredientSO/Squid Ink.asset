@@ -16,6 +16,8 @@ MonoBehaviour:
   displayName: Squid Ink
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: -4188058202072986412, guid: f78e9736ce54ca14ca208f221aefcfb0, type: 3}
+  iconScale: 1
   stateSprites: []
   playsPourAnimation: 1
+  pourPositions: []

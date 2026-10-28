@@ -341,6 +341,8 @@ public class PourSeasoningController : MonoBehaviour
 
         ApplyToolVisual(btn.Ml);
 
+        ShowPicker(false);   // <-- auto-close Cupborder / Tsp/Tbspborder
+
         Debug.Log($"[Pour] Selected {btn.Label} = {btn.Ml:0.##} ml");
     }
 
@@ -563,6 +565,18 @@ public class PourSeasoningController : MonoBehaviour
 
         var sfx = SFXManager.Instance;
         if (sfx != null) sfx.PlayLoop(sfx.frying);
+    }
+
+    private void ShowPicker(bool show)
+    {
+
+        if (spoonScroll != null) spoonScroll.SetActive(show && chosenTool == MeasureTool.Spoon);
+        if (cupScroll != null) cupScroll.SetActive(show && chosenTool == MeasureTool.Cup);
+    }
+    public void ReopenPicker()
+    {
+        if (pourBoard == null || !pourBoard.activeSelf) return;
+        ShowPicker(true);
     }
 
 }
