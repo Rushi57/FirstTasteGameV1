@@ -40,6 +40,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: 87ff5fce7e7921f4db66db66bdc14dff, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
   - Chop the pork belly into sliced
   - Chop the green chillies sliced
@@ -56,8 +59,9 @@ MonoBehaviour:
   - Add the choped ginger
   - Saute until brown
   - Add the bagoong alamang
-  - Pour the coconut milk
   - Pour the water
+  - Pour the coconut milk
+  - Put coconut cream
   - Add the green chillies
   - "Add the bird\u2019s eye chillies"
   - Add 1 tsp of fish sauce(Manila linage)
@@ -67,13 +71,13 @@ MonoBehaviour:
   - Put the pan lid to simmer
   cookingStepIds:
   - Pork Belly:Sliced
-  - Green:Sliced
+  - Green Chili:Sliced
   - BirdsEyeChillies:Sliced
   - Garlic:Sliced
   - Onion:Sliced
   - Ginger:Sliced
   - 
-  - Pan:Onstove
+  - Pan:OnStove
   - Pan:Pork Belly
   - Mix:9
   - Pan:Garlic
@@ -81,8 +85,9 @@ MonoBehaviour:
   - Pan:Ginger
   - Mix:13
   - Pan:BagoongAlamang
-  - Pan:CoconutMilk
   - Pan:Water
+  - Pan:Coconut Milk
+  - Pan:Coconut Cream
   - Pan:GreenChillies
   - Pan:BirdsEyeChillies
   - Pour:FishSauceTsp_1

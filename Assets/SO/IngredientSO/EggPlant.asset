@@ -16,8 +16,12 @@ MonoBehaviour:
   displayName: EggPlant
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: -5235280566220964929, guid: 9ef43a3a3008b654c9c71b5824d64ae9, type: 3}
   iconScale: 1
-  stateSprites: []
+  stateSprites:
+  - state: 0
+    sprite: {fileID: -5235280566220964929, guid: 9ef43a3a3008b654c9c71b5824d64ae9, type: 3}
+  - state: 1
+    sprite: {fileID: 1320670469207229782, guid: e77d1699bf753b546a234b2e44b0a721, type: 3}
   playsPourAnimation: 0
   pourPositions: []

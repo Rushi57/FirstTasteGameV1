@@ -22,24 +22,82 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: e452bfb9a5af07440ae8fa7b15cb5aee, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: ecce071ca1b040c42b55e49eec3813b7, type: 2}
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: ecce071ca1b040c42b55e49eec3813b7, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 39b974b28ed72f14ca52d8dfe19838ff, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 903d0e4e94742e34c922ad6210730c4b, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 5668f7378e0efe34db47e97d98b33103, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
   - Chop the beef tripe into sliced
-  - Chop the garlic into sliced
   - Chop the eggplant into sliced
   - Chop the string beans into sliced
   - Chop the banana heart into sliced
   - Chop the pechay into sliced
+  - Chop the garlic into sliced
+  - Chop the onion into sliced
   - Turn the stove to high heat
-  - Put the Pot on the stove
-  - 
-  - 
-  - 
-  - 
+  - Put the pan in the stove
+  - Add water
+  - 'Add 1 tsp of salt '
+  - Add the oxtail
+  - Add the beef tripe
+  - Put the pan lid and boil
+  - Set aside the beef tripe
+  - Set aside the oxtail
+  - Add 1/2 Tbsp of cooking oil
+  - Add 1/2 cup of Achuete oil
+  - Add 1 tbsp of peanut butter
+  - Add water
+  - 'Stir the pan '
+  - Add the tender oxtail
+  - Add the beef trip
+  - Add banana heart
+  - Add string beans
+  - Add pechay
+  - Add eggplant
+  - put the pan lid to simmer
   cookingStepIds:
+  - BeefTripe:Sliced
+  - EggPlant:Sliced
+  - LongBean:Sliced
+  - Banana Heart:Sliced
+  - Pechay:Sliced
+  - Garlic:Sliced
+  - Onion:Sliced
   - 
+  - Pan:OnStove
+  - Pan:Water
+  - Salt:Tsp_1
+  - Pan:Oxtail
+  - Pan:BeefTripe
+  - Pan:PanLid
+  - Bowl:BeefTripe
+  - Bowl:Oxtail
+  - Pour:CookingOilTbsp_1_2
+  - Pour:AchueteOilCup_1_2
+  - PeanutButter:Tbsp_1
+  - Pan:Water
+  - Mix:20
+  - Pan:Oxtail
+  - Pan:BeefTripe
+  - Pan:Banana Heart
+  - Pan:LongBean
+  - Pan:Pechay
+  - Pan:EggPlant
+  - Pan:PanLidSimmer

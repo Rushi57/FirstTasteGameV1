@@ -22,7 +22,7 @@ MonoBehaviour:
     color: {r: 0.8509804, g: 0.7647059, b: 0.6039216, a: 0}
     strength: 1.5
     opacity: 0.45
-  - id: AnnattoWater
+  - id: AchueteOil
     color: {r: 0.8392157, g: 0.2901961, b: 0.08235294, a: 0}
     strength: 0.3
     opacity: 0.8
@@ -34,3 +34,7 @@ MonoBehaviour:
     color: {r: 0.49411765, g: 0.23137255, b: 0.23137255, a: 0}
     strength: 0
     opacity: 1
+  - id: Water
+    color: {r: 1, g: 1, b: 1, a: 0}
+    strength: 6.07
+    opacity: 0.507

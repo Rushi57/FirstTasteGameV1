@@ -19,7 +19,7 @@ public class ColorPrecisionGame : MonoBehaviour
     private bool isSpinning = false;
     private bool canStop = false;
     private Coroutine activeRoutine;
-
+    public event System.Action OnSucceeded;
     private void OnEnable()
     {
         StartRound();
@@ -106,11 +106,13 @@ public class ColorPrecisionGame : MonoBehaviour
         {
             resultText.text = "VERY GOOD!";
             ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
+            OnSucceeded?.Invoke();
         }
         else if (IsPointInSlice(point, yellowStart, yellowImage.fillAmount))
         {
             resultText.text = "GOOD";
             ScoreManager.Instance?.ReportResult(ResultQuality.Good);
+            OnSucceeded?.Invoke();
         }
         else
         {

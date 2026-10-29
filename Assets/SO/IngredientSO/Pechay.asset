@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Pechay
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
+  id: Pechay
+  displayName: Pechay
   category: 0
   size: 0
-  icon: {fileID: 0}
+  icon: {fileID: 2056853112100942070, guid: 0031088bd92cd7f458cb2345cc4f97e9, type: 3}
   iconScale: 1
-  stateSprites: []
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 2056853112100942070, guid: 0031088bd92cd7f458cb2345cc4f97e9, type: 3}
+  - state: 1
+    sprite: {fileID: 1519609605921049490, guid: 62e5303977bd5d64194cc4da41f0cc07, type: 3}
   playsPourAnimation: 0
   pourPositions: []

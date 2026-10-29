@@ -5,19 +5,39 @@ public enum CookMode { Boil, Simmer }
 public class BoilSimmerController : MonoBehaviour
 {
     [Header("Panel")]
-    public GameObject boilSimmerPanel;      // Boil/SimmerPanel
-    public ColorPrecisionGame game;         // the ColorPrecisionGame on that panel
+    public GameObject boilSimmerPanel;
+    public ColorPrecisionGame game;
 
     [Header("Speeds (degrees/second)")]
-    public float boilSpeed = 200f;          // default speed
-    public float simmerSpeed = 260f;        // "a little fast"
+    public float boilSpeed = 200f;
+    public float simmerSpeed = 260f;
     public StoveHeatController stove;
+
+    [Header("Boil Evaporation (starts after the mini-game succeeds)")]
+    public PanLiquidFill panLiquid;
+    public string evaporateLiquidId = "Water";
+    [Tooltip("Total ml lost. Use >= the water you poured to dry the pan completely.")]
+    public float boilEvaporateMl = 250f;
+    public float boilEvaporateSeconds = 8f;
 
     public const string BoilStepId = "Pan:PanLid";
     public const string SimmerStepId = "Pan:PanLidSimmer";
 
+    private CookMode currentMode = CookMode.Boil;
+
+    private void OnEnable()
+    {
+        if (game != null) game.OnSucceeded += HandleGameSucceeded;
+    }
+
+    private void OnDisable()
+    {
+        if (game != null) game.OnSucceeded -= HandleGameSucceeded;
+    }
+
     public void OpenAndConfigure(CookMode mode)
     {
+        currentMode = mode;
         game.SetSpeed(mode == CookMode.Simmer ? simmerSpeed : boilSpeed);
         Debug.Log($"[BoilSimmer] Mode = {mode}");
 
@@ -25,13 +45,11 @@ public class BoilSimmerController : MonoBehaviour
         boilSimmerPanel.SetActive(true);
     }
 
-    // TODO: connect this to your real recipe data
-    private CookMode GetModeFromStep()
+    private void HandleGameSucceeded()
     {
-        string current = CookingPrepListUI.Instance != null
-            ? CookingPrepListUI.Instance.CurrentStepId : null;
+        if (currentMode != CookMode.Boil) return;   // simmer keeps the water
 
-        return current == SimmerStepId ? CookMode.Simmer : CookMode.Boil;
+        Debug.Log("[BoilSimmer] Boil finished - starting evaporation");
+        panLiquid?.StartEvaporate(evaporateLiquidId, boilEvaporateMl, boilEvaporateSeconds);
     }
-
 }

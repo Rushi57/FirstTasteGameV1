@@ -71,7 +71,7 @@ MonoBehaviour:
   - Pan:Butter
   - Pan:Chicken Parts
   - Mix:8
-  - SetAside:Chicken Parts
+  - Bowl:Chicken Parts
   - Pan:Onion
   - Pan:Garlic
   - Pan:BayLeaf

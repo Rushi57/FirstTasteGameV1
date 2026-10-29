@@ -75,6 +75,7 @@ public class PanLiquidFill : MonoBehaviour
 
     public void Clear()
     {
+        StopEvaporate();
         if (routine != null) StopCoroutine(routine);
         amounts.Clear();
         reduction = 0f;          // new
@@ -146,5 +147,45 @@ public class PanLiquidFill : MonoBehaviour
         blob.color = target;
         blob.transform.localScale = endScale;
     }
+    private Coroutine evaporateRoutine;
 
+    /// <summary>Slowly removes up to 'ml' of liquid 'id' over 'seconds'.</summary>
+    public void StartEvaporate(string id, float ml, float seconds)
+    {
+        if (blob == null || !amounts.ContainsKey(id)) return;
+        StopEvaporate();
+        evaporateRoutine = StartCoroutine(EvaporateRoutine(id, ml, seconds));
+    }
+
+    public void StopEvaporate()
+    {
+        if (evaporateRoutine != null) StopCoroutine(evaporateRoutine);
+        evaporateRoutine = null;
+    }
+
+    private IEnumerator EvaporateRoutine(string id, float ml, float seconds)
+    {
+        // Stop any blend animation so we control the visuals directly
+        if (routine != null) { StopCoroutine(routine); routine = null; }
+
+        float rate = ml / Mathf.Max(0.01f, seconds);
+        float removed = 0f;
+
+        while (removed < ml && amounts.TryGetValue(id, out float current) && current > 0f)
+        {
+            float step = Mathf.Min(rate * Time.deltaTime, ml - removed, current);
+            removed += step;
+
+            float left = current - step;
+            if (left <= 0.01f) amounts.Remove(id);
+            else amounts[id] = left;
+
+            // Apply directly each frame
+            blob.color = GetMix();
+            blob.transform.localScale = baseScale * GetTargetScale();
+
+            yield return null;
+        }
+        evaporateRoutine = null;
+    }
 }

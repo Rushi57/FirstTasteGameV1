@@ -72,8 +72,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("The ingredient id of the cooking oil (must match IngredientData.id).")]
     public string oilId = "CookingOil";
 
-    private enum PanSound { None, Frying, Boiling }
-    private PanSound panSound = PanSound.None;
+    private enum PanSound { Frying, Boiling }
+    private PanSound liquidSound = PanSound.Frying;
+    private bool hasIngredient = false;
 
     private void Awake()
     {
@@ -174,9 +175,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         }
 
         CookingPrepListUI.Instance?.CompleteStep(stepId);
-        if (SFXManager.Instance != null && !SFXManager.Instance.IsLoopPlaying)
-            ApplyPanSound();
-        StartFrying();
+        hasIngredient = true;
+        UpdatePanSound();
+
         OnIngredientAdded?.Invoke(data);
 
         RectTransform target = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
@@ -233,11 +234,11 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
 
-            if (data.id == "Water") panSound = PanSound.Boiling;
-            else if (data.id == oilId) panSound = PanSound.Frying;
-            // any other pour (e.g. EggBeaten) keeps whatever the pan is doing
+            if (data.id == "Water") liquidSound = PanSound.Boiling;
+            else if (data.id == oilId) liquidSound = PanSound.Frying;
+            else hasIngredient = true;
 
-            ApplyPanSound();
+            UpdatePanSound();
 
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
@@ -266,44 +267,27 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     {
         OnIngredientRemoved?.Invoke(data);
     }
-    private void StartFrying()
+
+
+    public void ResetCookingSound()
     {
-        Debug.Log("[Fry] StartFrying called");
-
-        var sfx = SFXManager.Instance;
-        if (sfx == null) { Debug.LogWarning("[Fry] SFXManager.Instance is NULL"); return; }
-        if (sfx.frying == null) { Debug.LogWarning("[Fry] 'frying' clip is not assigned on SFXManager"); return; }
-
-        StoveHeatController s = ResolveStove();
-        if (s == null || s.CurrentHeat == StoveHeat.Off)
-        {
-            Debug.LogWarning($"[Fry] Stove not on (stove={(s != null ? s.CurrentHeat.ToString() : "NULL")})");
-            return;
-        }
-
-        sfx.PlayLoop(sfx.frying);
-        Debug.Log("[Fry] PlayLoop called");
+        liquidSound = PanSound.Frying;
+        hasIngredient = false;
+        SFXManager.Instance?.StopLoop();
     }
-
-    private void StartBoilingSound()
+    private void UpdatePanSound()
     {
+        if (!hasIngredient) return;
+
         var sfx = SFXManager.Instance;
-        if (sfx == null || sfx.boilingWater == null) return;
+        if (sfx == null) return;
 
         StoveHeatController s = ResolveStove();
         if (s == null || s.CurrentHeat == StoveHeat.Off) return;
 
-        sfx.PlayLoop(sfx.boilingWater);   // replaces frying automatically
-    }
-    private void ApplyPanSound()
-    {
-        if (panSound == PanSound.Boiling) StartBoilingSound();
-        else StartFrying();   // None or Frying
-    }
+        AudioClip clip = liquidSound == PanSound.Boiling ? sfx.boilingWater : sfx.frying;
+        if (clip == null) return;
 
-    public void ResetCookingSound()
-    {
-        panSound = PanSound.None;
-        SFXManager.Instance?.StopLoop();
+        sfx.PlayLoop(clip);
     }
 }
