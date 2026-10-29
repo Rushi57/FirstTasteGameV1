@@ -446,21 +446,29 @@ public class PourSeasoningController : MonoBehaviour
         }
 
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
-        // Tell the tutorial LAST, once the result is known
+        if (!success && !amountCorrect)
+        {
+            // Wrong measurement: the player has to pick a different one,
+            // so reset and reopen the picker (Cupborder / Tsp/Tbspborder).
+            ClearSelection();
+            ShowPicker(true);
+        }
+        // If the amount was right but the pour was bad (released on red),
+        // do nothing here: selection, target, zones and Tbps_Tsp_CupImage stay,
+        // and PourMechanic resets the meter when the player presses Pour again.
+
         if (inTutorial)
         {
-            if (success)
-            {
-                pourTutorial?.ReportHold();
-            }
-            else
-            {
-                ClearSelection();                 // resets the meter and unselects the measurement
-                pourTutorial?.ReportMistake();    // revert to the previous step
-            }
+            if (success) pourTutorial?.ReportHold();
+            else pourTutorial?.ReportMistake();
         }
     }
-
+    private void RefreshCloseButton()
+{
+    if (closeButton == null) return;
+    bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+    closeButton.interactable = !inTutorial || pendingSuccess;
+}
     private static bool IsAchuete(string lower) =>
         lower.Contains("achuete") || lower.Contains("atsuete") || lower.Contains("annatto");
 
@@ -578,5 +586,6 @@ public class PourSeasoningController : MonoBehaviour
         if (pourBoard == null || !pourBoard.activeSelf) return;
         ShowPicker(true);
     }
+
 
 }

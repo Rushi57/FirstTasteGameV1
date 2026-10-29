@@ -19,6 +19,8 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
     private bool reported;
     private bool dragging;
 
+
+
     private void Awake()
     {
         scrollRect = GetComponent<ScrollRect>();
@@ -36,11 +38,15 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
         float y = scrollRect.verticalNormalizedPosition;
         float progress = targetAtBottom ? 1f - y : y;
 
+        bool atEnd = progress >= completeThreshold;
+
         if (reported && progress < completeThreshold - 0.2f) { reported = false; return; }
         if (reported) return;
 
-        bool settled = !dragging && scrollRect.velocity.sqrMagnitude < settledSpeed * settledSpeed;
-        if (progress >= completeThreshold && settled)
+        bool settled = !dragging &&
+                       (atEnd || scrollRect.velocity.sqrMagnitude < settledSpeed * settledSpeed);
+
+        if (atEnd && settled)
         {
             reported = true;
             if (interactable != null) interactable.ReportScroll();

@@ -40,6 +40,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
   - Chop the pork belly into slice
   - Chop the pork liver into slice
@@ -49,17 +52,17 @@ MonoBehaviour:
   - Chop the ginger into sliced
   - Turn the stove high heat.
   - Put the pan in the stove.
+  - 'Add water '
   - Place the pork belly in the pan
   - Place the pork liver in the pan
-  - Put the pan lid to simmer
+  - Add the chopped ginger
   - Add the garlic
   - Add the onion
-  - Add the chopped ginger
+  - Put the pan lid to simmer
   - Saute the pan
-  - 'Add water '
-  - Stir the pan
   - Add the seasoned pork blood
   - Put the pan lid to simmer
+  - Stir the pan
   - Add the green chillies
   - Add bay leaf
   - Put the pan lid to simmer
@@ -68,24 +71,24 @@ MonoBehaviour:
   cookingStepIds:
   - Pork Belly:Sliced
   - Pork Liver:Sliced
-  - GreenChillies:Sliced
+  - Green Chili:Sliced
   - Garlic:Sliced
   - Onion:Sliced
   - Ginger:Sliced
   - 
   - Pan:OnStove
+  - Pan:Water
   - Pan:Pork Belly
-  - Pan:PorkLiver
-  - Pan:PanLidSimmer
+  - Pan:Pork Liver
+  - Pan:Ginger
   - Pan:Garlic
   - Pan:Onion
-  - Pan:Ginger
-  - Mix:14
-  - Pan:Water
-  - Mix16
-  - Pan:PorkBlood
+  - Pan:PanLid
+  - Mix:15
+  - Pan:Pork Blood
   - Pan:PanLidSimmer
-  - Pan:GreenChillies
+  - Mix:18
+  - Pan:Green Chili
   - Pan:BayLeaf
   - Pan:PanLidSimmer
   - Pour:VinegarTsp_1

@@ -74,6 +74,7 @@ MonoBehaviour:
   - Add the bihon in the pan
   - Add chop cabbage
   - Add chop carrot
+  - Add 1/2 cup of oyster sauce
   - Turn the stove to medium heat
   - Put the pan lid to simmer
   - Add 1/8 tsp of salt
@@ -105,9 +106,10 @@ MonoBehaviour:
   - Pan:Bihon
   - Pan:Cabbage
   - Pan:Carrot
+  - Pour:OysterSauceCup_1_4
   - 
   - Pan:PanLidSimmer
   - Salt:Tsp_1_8
   - Pepper:Tsp_1_8
-  - Mix:28
+  - Mix:29
   - Pan:Celery

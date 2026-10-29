@@ -15,6 +15,6 @@ MonoBehaviour:
   levelNumber: 10
   levelName: Bicol Express
   recipe: {fileID: 11400000, guid: 6bdf8fabffeafed47aa30781a09a77d0, type: 2}
-  levelPreviewImage: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
-  story: {fileID: 11400000, guid: 7dc1c114e989ab747ae074adb24dfd04, type: 2}
+  levelPreviewImage: {fileID: -1156428549729947634, guid: 4c03ffcc0e339f444ae676b3c691bf71, type: 3}
+  story: {fileID: 0}
   reflection: {fileID: 11400000, guid: 8367c5120bbb5ed46939159670f817ab, type: 2}

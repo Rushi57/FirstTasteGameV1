@@ -22,6 +22,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 18a0c1920995d0046a771ddc6c6297d4, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: 87ff5fce7e7921f4db66db66bdc14dff, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
@@ -40,7 +43,7 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 87ff5fce7e7921f4db66db66bdc14dff, type: 2}
+  - ingredient: {fileID: 11400000, guid: a8b1ac4db78551d4288305bcbae0ac2b, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
@@ -84,14 +87,14 @@ MonoBehaviour:
   - Pan:Onion
   - Pan:Ginger
   - Mix:13
-  - Pan:BagoongAlamang
+  - Pan:Shrimp Paste
   - Pan:Water
   - Pan:Coconut Milk
   - Pan:Coconut Cream
-  - Pan:GreenChillies
+  - Pan:Green Chili
   - Pan:BirdsEyeChillies
   - Pour:FishSauceTsp_1
   - Sugar:Tsp_1
-  - Mix:21
+  - Mix:22
   - Pepper:Tbsp_1
   - Pan:PanLidSimmer

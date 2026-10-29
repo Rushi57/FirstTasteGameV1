@@ -22,11 +22,11 @@ MonoBehaviour:
     color: {r: 0.9490196, g: 0.92156863, b: 0.8509804, a: 0}
     strength: 2
     opacity: 0.75
-  - id: Bagoong
+  - id: Shrimp Paste
     color: {r: 0.627451, g: 0.32156864, b: 0.29411766, a: 0}
     strength: 2.5
     opacity: 0.85
-  - id: Coconut cream
+  - id: Coconut Cream
     color: {r: 1, g: 0.99215686, b: 0.9607843, a: 0}
     strength: 3
     opacity: 0.95

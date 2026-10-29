@@ -28,17 +28,21 @@ public class CabinetScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, I
 
     private void Update()
     {
-        float x = scrollRect.horizontalNormalizedPosition;
+        float x = scrollRect.horizontalNormalizedPosition;      // 0 = left, 1 = right
         float progress = utensilsAtEnd ? x : 1f - x;
+
+        bool atEnd = progress >= completeThreshold;
 
         if (reported && progress < completeThreshold - 0.2f) { reported = false; return; }
         if (reported) return;
 
-        bool settled = !dragging && scrollRect.velocity.sqrMagnitude < settledSpeed * settledSpeed;
-        if (progress >= completeThreshold && settled)
+        bool settled = !dragging &&
+                       (atEnd || scrollRect.velocity.sqrMagnitude < settledSpeed * settledSpeed);
+
+        if (atEnd && settled)
         {
             reported = true;
-            interactable.ReportScroll();
+            if (interactable != null) interactable.ReportScroll();
         }
     }
 }
