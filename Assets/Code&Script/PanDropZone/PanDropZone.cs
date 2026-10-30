@@ -45,20 +45,27 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("Ingredient id that melts and vanishes when dropped in the pan.")]
     public string meltIngredientId = "Butter";
 
-    
+    [Header("Fill timing")]
+    public float fillDelay = 0.6f;
+    public float fillDuration = 1.5f;
+
 
     [System.Serializable]
     public class PourLiquid
     {
-        public string ingredientId;
+        public string ingredientId;          // must match IngredientData.id (e.g. "Water")
         public PourAnimationPlayer player;   // leave empty to use the shared Pour Player
-        public string liquidId;
+        public string liquidId;              // id used in DishLiquidProfile (e.g. "Water")
         public float ml = 250f;
 
         [Header("Animation look")]
-        public Sprite pitcherSprite;         // water glass, blood bowl, coconut milk pitcher...
+        public Sprite pitcherSprite;
         public Sprite streamSprite;          // use the WHITE stream sprite so the tint is exact
         public Color streamColor = Color.white;
+
+        [Header("Fill timing")]
+        public float fillDelay = 0.6f;       // wait for the pitcher to tilt and the stream to start
+        public float fillDuration = 1.5f;
     }
 
 
@@ -228,7 +235,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             if (drag != null) drag.SetLocked(false);
 
             if (panLiquid != null && entry != null)
-                panLiquid.AddLiquidById(entry.liquidId, entry.ml);
+                panLiquid.FinishGradualAdd(entry.liquidId, entry.ml);
 
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
 
@@ -244,7 +251,12 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             tutorialTag?.ReportDrop();
         }, data);
 
-        if (started) drag.LockAndReturn();
+        if (started)
+        {
+            drag.LockAndReturn();
+            if (panLiquid != null && entry != null)
+                panLiquid.BeginGradualAdd(entry.liquidId, entry.ml, entry.fillDelay, entry.fillDuration);
+        }
     }
 
     /// <summary>True if heat isn't required, or the stove is on.</summary>

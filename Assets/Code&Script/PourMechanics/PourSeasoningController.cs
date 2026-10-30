@@ -48,6 +48,8 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite fishSauceGlassSprite;
     public Sprite oysterSauceGlassSprite;
 
+    
+
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
     public Image fillSpoonImage;
@@ -115,6 +117,10 @@ public class PourSeasoningController : MonoBehaviour
 
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
+    [Tooltip("Seconds after the animation starts before the pan begins to fill (spoon/cup tilts first).")]
+    public float panFillDelay = 0.5f;
+    [Tooltip("How long the pan takes to fill while the stream is pouring.")]
+    public float panFillDuration = 1.0f;
 
     private bool isAnimating;
     private float pendingMl;
@@ -290,13 +296,16 @@ public class PourSeasoningController : MonoBehaviour
                 {
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
-                    if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                    if (panLiquid != null)
+                        panLiquid.FinishGradualAdd(seasoning.ToString(), ml);   // was AddLiquid
                     StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
 
                     isAnimating = false;
-                    TutorialManager.Instance?.EndBusy();   // last, after everything is reported
+                    TutorialManager.Instance?.EndBusy();
                 });
+                if (panLiquid != null)
+                    panLiquid.BeginGradualAdd(seasoning.ToString(), ml, panFillDelay, panFillDuration);
             }
             else
             {

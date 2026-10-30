@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 public class SaveSlotButton : MonoBehaviour
 {
     [SerializeField] private TMP_Text label; // auto-found if left empty
+    [SerializeField] private int totalLevels = 10; // how many level icons you have
 
     private int slotIndex;
 
@@ -34,9 +36,10 @@ public class SaveSlotButton : MonoBehaviour
             return;
         }
 
-        int totalStars = 0;
-        foreach (var entry in d.levelScores) totalStars += entry.stars;
+        // Count each level that has a saved result (distinct, so a level is never counted twice)
+        int unlocked = d.levelScores.Select(e => e.levelNumber).Distinct().Count();
+        unlocked = Mathf.Clamp(unlocked, 0, totalLevels);
 
-        label.text = $"Slot {slotIndex + 1} - {totalStars} Stars - {d.unlockedLevels.Count} Levels\n{d.lastSaved}";
+        label.text = $"Slot {slotIndex + 1} - {unlocked}/{totalLevels} Levels Unlocked\n{d.lastSaved}";
     }
 }

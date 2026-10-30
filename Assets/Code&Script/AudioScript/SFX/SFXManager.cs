@@ -25,6 +25,11 @@ public class SFXManager : MonoBehaviour
     public AudioClip pourAnyLiquid;
     public AudioClip ChopIngredientSound;
     public AudioClip jarScopping;
+    public AudioClip fridgeOpen;
+    public AudioClip fridgeClose;
+    public AudioClip cabinetClose;
+    public AudioClip cabinetOpen;
+
     
 
     [Header("Looping clips")]

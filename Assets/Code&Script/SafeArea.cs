@@ -4,11 +4,14 @@ using UnityEngine;
 public class SafeArea : MonoBehaviour
 {
     RectTransform rectTransform;
-    Rect lastSafeArea = new Rect(0, 0, 0, 0);
+    Canvas canvas;
+    Rect lastSafeArea;
+    Vector2Int lastScreenSize;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>().rootCanvas;
         Refresh();
     }
 
@@ -19,26 +22,34 @@ public class SafeArea : MonoBehaviour
 
     void Refresh()
     {
-        Rect safeArea = Screen.safeArea;
+        Rect safe = Screen.safeArea;
+        Vector2Int size = new Vector2Int(Screen.width, Screen.height);
 
-        if (safeArea != lastSafeArea)
+        if (safe != lastSafeArea || size != lastScreenSize)
         {
-            lastSafeArea = safeArea;
-            ApplySafeArea(safeArea);
+            lastSafeArea = safe;
+            lastScreenSize = size;
+            ApplySafeArea(safe);
         }
     }
 
-    void ApplySafeArea(Rect r)
+    void ApplySafeArea(Rect safe)
     {
-        Vector2 anchorMin = r.position;
-        Vector2 anchorMax = r.position + r.size;
+        RectTransform parent = rectTransform.parent as RectTransform;
+        if (parent == null) return;
 
-        anchorMin.x /= Screen.width;
-        anchorMin.y /= Screen.height;
-        anchorMax.x /= Screen.width;
-        anchorMax.y /= Screen.height;
+        Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null : canvas.worldCamera;
 
-        rectTransform.anchorMin = anchorMin;
-        rectTransform.anchorMax = anchorMax;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, safe.min, cam, out Vector2 localMin);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, safe.max, cam, out Vector2 localMax);
+
+        Rect pr = parent.rect;
+        rectTransform.anchorMin = Rect.PointToNormalized(pr, localMin);
+        rectTransform.anchorMax = Rect.PointToNormalized(pr, localMax);
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+
+        Debug.Log($"SafeArea: screen {Screen.width}x{Screen.height}, safe {safe}");
     }
 }

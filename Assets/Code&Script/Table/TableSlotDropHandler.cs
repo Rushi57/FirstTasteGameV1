@@ -23,8 +23,10 @@ public class TableSlotDropHandler : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        slotManager?.HandleDrop(transform as RectTransform, eventData.pointerDrag);
+        bool accepted = slotManager != null &&
+                  slotManager.HandleDrop(transform as RectTransform, eventData.pointerDrag);
         Debug.Log("The item is dropped in here");
-        tutorialTag?.ReportDrop();
+        if (accepted)
+            tutorialTag?.ReportDrop();
     }
 }

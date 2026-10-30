@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 177.4, y: 367.3}
   actionType: 1
   targetId: BayLeafBtn
   dragSourceId: 
