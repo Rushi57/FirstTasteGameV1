@@ -15,9 +15,9 @@ MonoBehaviour:
   id: PorkIntestine
   displayName: PorkIntestine
   category: 0
-  size: 0
+  size: 1
   icon: {fileID: 1186554024016733576, guid: 24bd7078426edfd4aadd54487c4f1eba, type: 3}
-  iconScale: 1
+  iconScale: 0.9
   stateSprites:
   - state: 0
     sprite: {fileID: 1186554024016733576, guid: 24bd7078426edfd4aadd54487c4f1eba, type: 3}

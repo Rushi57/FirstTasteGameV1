@@ -15,9 +15,9 @@ MonoBehaviour:
   id: Pork Liver
   displayName: Pork Liver
   category: 0
-  size: 0
+  size: 1
   icon: {fileID: -2994135681845959411, guid: c3b2662d2daf8b643ab49f0803818ae4, type: 3}
-  iconScale: 1
+  iconScale: 0.9
   stateSprites:
   - state: 0
     sprite: {fileID: -2994135681845959411, guid: c3b2662d2daf8b643ab49f0803818ae4, type: 3}

@@ -15,9 +15,9 @@ MonoBehaviour:
   id: Chicken Liver
   displayName: Chicken Liver
   category: 0
-  size: 0
+  size: 1
   icon: {fileID: 1035947260946846135, guid: 7a0f7513bb2cb784f9719c070fcb55fa, type: 3}
-  iconScale: 1
+  iconScale: 0.95
   stateSprites:
   - state: 0
     sprite: {fileID: 1035947260946846135, guid: 7a0f7513bb2cb784f9719c070fcb55fa, type: 3}
@@ -26,3 +26,4 @@ MonoBehaviour:
   - state: 2
     sprite: {fileID: 87669652057089363, guid: 570243de2e0df0e42a3905f39d3dff7b, type: 3}
   playsPourAnimation: 0
+  pourPositions: []

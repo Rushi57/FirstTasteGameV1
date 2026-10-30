@@ -15,9 +15,9 @@ MonoBehaviour:
   id: PorkKidney
   displayName: PorkKidney
   category: 0
-  size: 0
+  size: 1
   icon: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}
-  iconScale: 1
+  iconScale: 0.9
   stateSprites:
   - state: 0
     sprite: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}

@@ -15,9 +15,9 @@ MonoBehaviour:
   id: Beef
   displayName: Beef
   category: 0
-  size: 0
+  size: 1
   icon: {fileID: 6282751622250221668, guid: e81f6e64eb8c4ea48892bdfbe17c2612, type: 3}
-  iconScale: 1
+  iconScale: 0.7
   stateSprites:
   - state: 0
     sprite: {fileID: 6282751622250221668, guid: e81f6e64eb8c4ea48892bdfbe17c2612, type: 3}
