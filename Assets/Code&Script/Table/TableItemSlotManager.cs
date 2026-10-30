@@ -62,44 +62,35 @@ public class TableItemSlotManager : MonoBehaviour
     /// nothing is done, TestDrag.OnEndDrag handles snapping the item back to
     /// where it came from automatically (no extra code needed here for that).
     /// </summary>
-    public void HandleDrop(RectTransform targetSlot, GameObject droppedObj)
+    public bool HandleDrop(RectTransform targetSlot, GameObject droppedObj)
     {
-        if (droppedObj == null) return;
+        if (droppedObj == null) return false;
 
         TestDrag drag = droppedObj.GetComponent<TestDrag>();
         TutorialInteractable interactable = droppedObj.GetComponent<TutorialInteractable>();
-        if (drag == null) return;
+        if (drag == null) return false;
 
         IngredientData droppedIngredient = interactable != null ? interactable.sourceData as IngredientData : null;
         if (droppedIngredient == null)
         {
-            Debug.LogWarning($"[TableItemSlotManager] Dropped object '{droppedObj.name}' has no IngredientData (sourceData) to identify it - can't validate against the recipe.");
-            return;
+            Debug.LogWarning($"[TableItemSlotManager] '{droppedObj.name}' has no IngredientData.");
+            return false;
         }
 
         TableSlotOccupant occupantComp = droppedObj.GetComponent<TableSlotOccupant>();
 
-        // Reject if the target slot is already occupied by something else.
-        if (occupancy.TryGetValue(targetSlot, out var existing) && existing != null && existing != droppedObj)
+        if (IsSlotTakenByOther(targetSlot, droppedObj))
         {
             Debug.Log($"[TableItemSlotManager] Slot '{targetSlot.name}' is already occupied - rejecting drop.");
-            return; // TestDrag.OnEndDrag snaps it back automatically
+            return false;
         }
 
-        // Ticks the checklist if the recipe needs it. Items on the "always accepted"
-        // list (e.g. the Bowl) are allowed even when the recipe doesn't list them.
         bool needed = TryCollect(droppedIngredient);
         if (!needed && !IsAlwaysAccepted(droppedIngredient))
-        {
-            Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' is not needed right now - rejecting drop.");
-            return; // TestDrag.OnEndDrag snaps it back automatically
-        }
+            return false;
 
-        // Free whatever slot this item previously occupied (if any) before moving it.
         if (occupantComp != null && occupantComp.slot != null && occupantComp.slot != targetSlot)
             FreeSlot(occupantComp.slot);
-
-        Debug.Log($"[TableItemSlotManager] '{droppedIngredient.displayName}' accepted into '{targetSlot.name}'{(needed ? " and marked collected" : "")}.");
 
         drag.SnapTo(targetSlot);
         OccupySlot(targetSlot, droppedObj);
@@ -109,6 +100,7 @@ public class TableItemSlotManager : MonoBehaviour
             occupantComp.slotManager = this;
             occupantComp.slot = targetSlot;
         }
+        return true;
     }
 
     private bool IsAlwaysAccepted(IngredientData ingredient)
@@ -140,5 +132,18 @@ public class TableItemSlotManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+    private bool IsSlotTakenByOther(RectTransform slot, GameObject dropped)
+    {
+        if (!occupancy.TryGetValue(slot, out var existing) || existing == null) return false;
+        if (existing == dropped) return false;
+
+        // SnapTo parents an item to its slot. If it's no longer a child, it has left.
+        if (!existing.activeInHierarchy || existing.transform.parent != slot)
+        {
+            occupancy.Remove(slot);
+            return false;
+        }
+        return true;
     }
 }

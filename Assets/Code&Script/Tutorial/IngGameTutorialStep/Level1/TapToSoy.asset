@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Tap the soy bottle.
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 1

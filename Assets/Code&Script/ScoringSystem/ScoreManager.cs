@@ -40,6 +40,9 @@ public class ScoreDeductionSettings
 /// </summary>
 public class ScoreManager : MonoBehaviour
 {
+    private static bool InTutorial =>
+    TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+
     public static ScoreManager Instance { get; private set; }
 
     [Header("Score")]
@@ -101,9 +104,9 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void ReportResult(ResultQuality quality)
     {
-        if (IsGameOver) return;
 
-      
+
+        if (IsGameOver || InTutorial) return;
 
         int pointLoss = quality switch
         {
@@ -134,7 +137,7 @@ public class ScoreManager : MonoBehaviour
     /// <summary>Call when the player tries an action that isn't the current recipe step.</summary>
     public void ReportWrongStep()
     {
-        if (IsGameOver) return;
+        if (IsGameOver || InTutorial) return;
 
         CurrentScore = Mathf.Max(0, CurrentScore - wrongStepPointDeduction);
         CurrentHearts = Mathf.Max(0, CurrentHearts - wrongStepHeartLoss);
@@ -152,7 +155,13 @@ public class ScoreManager : MonoBehaviour
 
     public void ReportMistake(string message, int points = 6, int hearts = 1 )
     {
-        if(IsGameOver) return;
+        if (IsGameOver) return;
+
+        if (InTutorial)
+        {
+            WarningMessageUI.Instance?.Show(message);   // message only, no penalty
+            return;
+        }
 
         CurrentScore = Mathf.Max(0, CurrentScore -  points);
         CurrentHearts = Mathf.Max(0, CurrentHearts - hearts);

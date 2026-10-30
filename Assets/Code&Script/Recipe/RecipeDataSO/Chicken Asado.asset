@@ -69,9 +69,9 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOilTbsp_1
   - Pan:Butter
-  - Pan:ChickenLegs
+  - Pan:Chicken Parts
   - Mix:8
-  - SetAside:ChickenLegs
+  - Bowl:Chicken Parts
   - Pan:Onion
   - Pan:Garlic
   - Pan:BayLeaf
@@ -80,7 +80,7 @@ MonoBehaviour:
   - Pour:SoyTsp_1_2
   - Sugar:Tsp_1_8
   - Mix:17
-  - Pan:ChickenLegs
+  - Pan:Chicken Parts
   - Pan:PanLidSimmer
   - Pour:AchueteOilTsp_1_2
   - Salt:Tsp_1_8

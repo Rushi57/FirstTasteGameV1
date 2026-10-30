@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: Pechay
+  m_EditorClassIdentifier: 
+  id: Pechay
+  displayName: Pechay
+  category: 0
+  size: 0
+  icon: {fileID: 2056853112100942070, guid: 0031088bd92cd7f458cb2345cc4f97e9, type: 3}
+  iconScale: 1
+  stateSprites:
+  - state: 0
+    sprite: {fileID: 2056853112100942070, guid: 0031088bd92cd7f458cb2345cc4f97e9, type: 3}
+  - state: 1
+    sprite: {fileID: 1519609605921049490, guid: 62e5303977bd5d64194cc4da41f0cc07, type: 3}
+  playsPourAnimation: 0
+  pourPositions: []

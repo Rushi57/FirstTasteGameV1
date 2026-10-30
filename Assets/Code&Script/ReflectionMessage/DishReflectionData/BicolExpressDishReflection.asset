@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: BicolExpressDishReflection
+  m_EditorClassIdentifier: 
+  dishName: Bicol Express
+  dishSprite: {fileID: 0}
+  pages:
+  - 'Excellent work. The dish in front of you has a twofold origin, and both parts
+    of the story are true. '
+  - 'Every ingredient, every technique, every cultural signature belongs to the Bicol
+    region. '
+  - But the specific standardised recipe and the brand-like train name belong to
+    a Manila restaurant of the 1970s.
+  - This is a very Philippine kind of history. Metro Manila has long served as the
+    receiver and amplifier for regional cuisines,
+  - ' and when the amplification is done respectfully, as here, the result is a dish
+    that honours its source while extending its reach.'
+  - ' Your Bicol Express is Bicolano in every bite, even if the train name came from
+    somewhere else.'

@@ -19,7 +19,7 @@ public class ColorPrecisionGame : MonoBehaviour
     private bool isSpinning = false;
     private bool canStop = false;
     private Coroutine activeRoutine;
-
+    public event System.Action OnSucceeded;
     private void OnEnable()
     {
         StartRound();
@@ -106,11 +106,13 @@ public class ColorPrecisionGame : MonoBehaviour
         {
             resultText.text = "VERY GOOD!";
             ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
+            OnSucceeded?.Invoke();
         }
         else if (IsPointInSlice(point, yellowStart, yellowImage.fillAmount))
         {
             resultText.text = "GOOD";
             ScoreManager.Instance?.ReportResult(ResultQuality.Good);
+            OnSucceeded?.Invoke();
         }
         else
         {
@@ -123,7 +125,12 @@ public class ColorPrecisionGame : MonoBehaviour
         if (IsTutorialActive())
         {
             // Tutorial: no deduction, just try again
-            activeRoutine = StartCoroutine(RetryAfterBad("TRY AGAIN!"));
+            TutorialManager.Instance.ReportMistake();
+            
+
+            if(gameObject .activeInHierarchy)
+                activeRoutine = StartCoroutine(RetryAfterBad("TRY AGAIN!"));
+
         }
         else
         {
@@ -140,8 +147,7 @@ public class ColorPrecisionGame : MonoBehaviour
     // TODO: connect this to your real tutorial system
     private bool IsTutorialActive()
     {
-        // Example: return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
-        return false;
+        return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
     }
 
     bool IsPointInSlice(float point, float start, float fill)

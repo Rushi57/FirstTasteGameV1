@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: BatangasLomiDishReflection
+  m_EditorClassIdentifier: 
+  dishName: Batangas Lomi
+  dishSprite: {fileID: 0}
+  pages:
+  - Excellent work. The bowl in front of you is the product of Chinese noodle technique,
+  - Hokkien merchant settlement, and nearly a century of Lipa panciteria tradition.
+  - "The thick broth, the generous offal, the \u201Cchicharon\u201D on top, and the
+    raw egg stirred in at the"
+  - 'They are the Lipa canon, documented in peer-reviewed heritage research, and
+    they distinguish a competent lomi from a merely passable one. '
+  - 'The next time you eat a thinner, lighter bowl somewhere else, you will know
+    what the thicker Lipa version is doing differently and why. '

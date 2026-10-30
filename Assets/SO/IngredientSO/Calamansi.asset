@@ -17,7 +17,7 @@ MonoBehaviour:
   category: 0
   size: 0
   icon: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}
-  iconScale: 0.915
+  iconScale: 0.7
   stateSprites:
   - state: 0
     sprite: {fileID: 3526567876942953959, guid: 6103bcd7380ffc845afc05f71182c025, type: 3}

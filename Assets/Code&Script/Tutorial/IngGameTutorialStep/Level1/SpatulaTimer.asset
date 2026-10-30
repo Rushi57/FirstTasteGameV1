@@ -15,12 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Drag and rotate the spatula in the pan keep the indicator to the color green
-    or yellow before the time runs out
+  - Grab and rotate the spatula to start the timer.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 360.2, y: 500}
+  customPosition: {x: 317.24, y: 500}
   actionType: 4
   targetId: MiniGameSpatula
   dragSourceId: 

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4f1de8e0994cb4aaaa0ccb234f52f2, type: 3}
+  m_Name: PancitPusitDishReflection
+  m_EditorClassIdentifier: 
+  dishName: Pancit Pusit
+  dishSprite: {fileID: 0}
+  pages:
+  - 'Impressive work. The plate in front of you carries the signature of three culinary
+    worlds. '
+  - Spain gave you the squid-ink technique, carried in through three centuries of
+    naval and clerical cuisine.
+  - 'China gave you the noodles and the stir-fry. '
+  - The Philippines gave you the fresh squid, the Manila Bay fishery, and the calamansi
+    finish.
+  - Only Cavite City, with its unique colonial history, could have brought the three
+    together in one dish.
+  - "When you order \u201Cpancit choca\u201D by its old name, you are speaking a
+    word in three languages at once. "

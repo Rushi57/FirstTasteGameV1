@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
+  m_Name: LongBean
+  m_EditorClassIdentifier: 
+  id: LongBean
+  displayName: LongBean
+  category: 0
+  size: 0
+  icon: {fileID: -560268583825605628, guid: d4b4097514e28264bb227bf3c940ad07, type: 3}
+  iconScale: 1
+  stateSprites:
+  - state: 0
+    sprite: {fileID: -560268583825605628, guid: d4b4097514e28264bb227bf3c940ad07, type: 3}
+  - state: 1
+    sprite: {fileID: -54988296057527344, guid: a3c4853ebd2555f4f831c1798d6f1157, type: 3}
+  playsPourAnimation: 0
+  pourPositions: []

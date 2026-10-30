@@ -48,6 +48,8 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite fishSauceGlassSprite;
     public Sprite oysterSauceGlassSprite;
 
+    
+
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
     public Image fillSpoonImage;
@@ -115,9 +117,13 @@ public class PourSeasoningController : MonoBehaviour
 
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
+    [Tooltip("Seconds after the animation starts before the pan begins to fill (spoon/cup tilts first).")]
+    public float panFillDelay = 0.5f;
+    [Tooltip("How long the pan takes to fill while the stream is pouring.")]
+    public float panFillDuration = 1.0f;
 
+    private bool isAnimating;
     private float pendingMl;
-
     /// <summary>seasoning, chosen ml, was it fully correct (right amount + good pour).</summary>
     public event Action<SeasoningType, float, bool> OnPourConfirmed;
 
@@ -174,6 +180,7 @@ public class PourSeasoningController : MonoBehaviour
 
     public void OpenFor(SeasoningType seasoning)
     {
+        if (isAnimating) return;
         //Wrong Step Gate
         string prefix = $"Pour:{seasoning}";
         var prep = CookingPrepListUI.Instance;
@@ -282,14 +289,23 @@ public class PourSeasoningController : MonoBehaviour
 
                 Debug.Log($"[Pour] Panel closed after a correct pour - playing {chosenTool} animation before completing '{stepId}'.");
 
+                isAnimating = true;
+                TutorialManager.Instance?.BeginBusy();
+
                 anim.PlayPourAnimation(color, () =>
                 {
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
-                    if (panLiquid != null) panLiquid.AddLiquid(seasoning, color, ml);
+                    if (panLiquid != null)
+                        panLiquid.FinishGradualAdd(seasoning.ToString(), ml);   // was AddLiquid
                     StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
+
+                    isAnimating = false;
+                    TutorialManager.Instance?.EndBusy();
                 });
+                if (panLiquid != null)
+                    panLiquid.BeginGradualAdd(seasoning.ToString(), ml, panFillDelay, panFillDuration);
             }
             else
             {
@@ -333,6 +349,8 @@ public class PourSeasoningController : MonoBehaviour
         if (pourMechanic != null) pourMechanic.SetTarget(btn.Ml);
 
         ApplyToolVisual(btn.Ml);
+
+        ShowPicker(false);   // <-- auto-close Cupborder / Tsp/Tbspborder
 
         Debug.Log($"[Pour] Selected {btn.Label} = {btn.Ml:0.##} ml");
     }
@@ -437,21 +455,29 @@ public class PourSeasoningController : MonoBehaviour
         }
 
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
-        // Tell the tutorial LAST, once the result is known
+        if (!success && !amountCorrect)
+        {
+            // Wrong measurement: the player has to pick a different one,
+            // so reset and reopen the picker (Cupborder / Tsp/Tbspborder).
+            ClearSelection();
+            ShowPicker(true);
+        }
+        // If the amount was right but the pour was bad (released on red),
+        // do nothing here: selection, target, zones and Tbps_Tsp_CupImage stay,
+        // and PourMechanic resets the meter when the player presses Pour again.
+
         if (inTutorial)
         {
-            if (success)
-            {
-                pourTutorial?.ReportHold();
-            }
-            else
-            {
-                ClearSelection();                 // resets the meter and unselects the measurement
-                pourTutorial?.ReportMistake();    // revert to the previous step
-            }
+            if (success) pourTutorial?.ReportHold();
+            else pourTutorial?.ReportMistake();
         }
     }
-
+    private void RefreshCloseButton()
+{
+    if (closeButton == null) return;
+    bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+    closeButton.interactable = !inTutorial || pendingSuccess;
+}
     private static bool IsAchuete(string lower) =>
         lower.Contains("achuete") || lower.Contains("atsuete") || lower.Contains("annatto");
 
@@ -533,6 +559,12 @@ public class PourSeasoningController : MonoBehaviour
     /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
+        if (isAnimating)
+        {
+            isAnimating = false;
+            TutorialManager.Instance?.EndBusy();   // callback will never fire after Hide()
+        }
+
         if (panLiquid != null) panLiquid.Clear();
         completedLines.Clear();
         pendingSuccess = false;
@@ -540,7 +572,6 @@ public class PourSeasoningController : MonoBehaviour
         seasoningPanel.SetActive(false);
         cupAnimation?.Hide();
         tbspAnimation?.Hide();
-        panLiquid.Clear();
         ClearSelection();
 
     }
@@ -552,5 +583,18 @@ public class PourSeasoningController : MonoBehaviour
         var sfx = SFXManager.Instance;
         if (sfx != null) sfx.PlayLoop(sfx.frying);
     }
+
+    private void ShowPicker(bool show)
+    {
+
+        if (spoonScroll != null) spoonScroll.SetActive(show && chosenTool == MeasureTool.Spoon);
+        if (cupScroll != null) cupScroll.SetActive(show && chosenTool == MeasureTool.Cup);
+    }
+    public void ReopenPicker()
+    {
+        if (pourBoard == null || !pourBoard.activeSelf) return;
+        ShowPicker(true);
+    }
+
 
 }

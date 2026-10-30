@@ -67,6 +67,7 @@ MonoBehaviour:
   - Add 1 tbsp of cooking oil
   - Add pork belly in the pan
   - Add chicken liver
+  - Add the sllice kikiam
   - Add shrimp
   - Saute it using the spatula
   - Add the minced garlic in the pan
@@ -100,15 +101,16 @@ MonoBehaviour:
   - Pour:CookingOilTbsp_1
   - Pan:Pork Belly
   - Pan:Chicken Liver
+  - Pan:Kikiam
   - Pan:Shrimp
-  - Mix:15
+  - Mix:16
   - Pan:Garlic
   - Pan:Onion
-  - Mix:18
+  - Mix:19
   - Pan:Carrot
   - Pan:Cabbage
   - Pan:GreenBellPepper
-  - Mix:22
+  - Mix:23
   - Pan:Chicken Broth
   - Pour:SoyCup_1_4
   - Pour:OysterSauceCup_1_4
@@ -116,5 +118,5 @@ MonoBehaviour:
   - Pan:PanLid
   - Pepper:Tsp_1_8
   - Pan:Dried Pancit Canton
-  - Mix:30
+  - Mix:31
   - Pan:Celery

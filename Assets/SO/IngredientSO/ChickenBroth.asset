@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Chicken Broth
   category: 0
   size: 1
-  icon: {fileID: -944607108548543782, guid: c1d4e5dc87d3d8642b4900598dd47e1b, type: 3}
+  icon: {fileID: 2216837559817832261, guid: 46add52fa60c2aa4b9b8267efe887b8d, type: 3}
   iconScale: 1
   stateSprites: []
   playsPourAnimation: 1

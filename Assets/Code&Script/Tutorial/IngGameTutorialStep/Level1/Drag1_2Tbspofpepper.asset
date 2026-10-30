@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Drag the 1/2 tbsp in the container
+  - Drag the 1/2 tbsp in the container.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

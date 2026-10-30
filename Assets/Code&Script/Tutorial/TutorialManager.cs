@@ -391,12 +391,12 @@ public class TutorialManager : MonoBehaviour
     {
         foreach (var pulse in activePulses)
         {
-            if (pulse != null)
-                Destroy(pulse);
+            if (pulse == null) continue;   // already destroyed, skip it
+            pulse.enabled = false;         // runs OnDisable now: restores scale + material
+            Destroy(pulse);
         }
         activePulses.Clear();
     }
-
     private void RefreshTargetIfNeed(TutorialInteractable justRegistered)
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;

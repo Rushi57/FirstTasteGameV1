@@ -45,20 +45,27 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("Ingredient id that melts and vanishes when dropped in the pan.")]
     public string meltIngredientId = "Butter";
 
-    
+    [Header("Fill timing")]
+    public float fillDelay = 0.6f;
+    public float fillDuration = 1.5f;
+
 
     [System.Serializable]
     public class PourLiquid
     {
-        public string ingredientId;
+        public string ingredientId;          // must match IngredientData.id (e.g. "Water")
         public PourAnimationPlayer player;   // leave empty to use the shared Pour Player
-        public string liquidId;
+        public string liquidId;              // id used in DishLiquidProfile (e.g. "Water")
         public float ml = 250f;
 
         [Header("Animation look")]
-        public Sprite pitcherSprite;         // water glass, blood bowl, coconut milk pitcher...
+        public Sprite pitcherSprite;
         public Sprite streamSprite;          // use the WHITE stream sprite so the tint is exact
         public Color streamColor = Color.white;
+
+        [Header("Fill timing")]
+        public float fillDelay = 0.6f;       // wait for the pitcher to tilt and the stream to start
+        public float fillDuration = 1.5f;
     }
 
 
@@ -72,8 +79,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("The ingredient id of the cooking oil (must match IngredientData.id).")]
     public string oilId = "CookingOil";
 
-    private enum PanSound { None, Frying, Boiling }
-    private PanSound panSound = PanSound.None;
+    private enum PanSound { Frying, Boiling }
+    private PanSound liquidSound = PanSound.Frying;
+    private bool hasIngredient = false;
 
     private void Awake()
     {
@@ -91,7 +99,18 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         // Spatula: opens the mixing mini-game instead of being added as an ingredient
         if (drag.itemId == spatulaId)
         {
+            var prep = CookingPrepListUI.Instance;
+
+            // Spatula is only valid when a Mix step is the current one
+            if (prep != null && prep.strictOrder && !prep.IsMixStepCurrent())
+            {
+                Debug.Log($"[PrepList] REJECTED spatula - current step is '{prep.CurrentStepId}'");
+                ScoreManager.Instance?.ReportMistake(prep.wrongStepMessage);
+                return;
+            }
+
             if (!HeatOk("Spatula")) return;
+            CabinetAutoCloser.Instance?.Close();
 
             SFXManager.Instance?.PlayPotLidClose();   // <-- SFX
 
@@ -114,7 +133,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
                                         : BoilSimmerController.BoilStepId;
 
             if (prep != null && !prep.TryAccept(lidStepId)) return;
-
+            CabinetAutoCloser.Instance?.Close();
             SFXManager.Instance?.PlayPotLidClose();   // <-- added, after the step is accepted
 
 
@@ -163,9 +182,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         }
 
         CookingPrepListUI.Instance?.CompleteStep(stepId);
-        if (SFXManager.Instance != null && !SFXManager.Instance.IsLoopPlaying)
-            ApplyPanSound();
-        StartFrying();
+        hasIngredient = true;
+        UpdatePanSound();
+
         OnIngredientAdded?.Invoke(data);
 
         RectTransform target = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
@@ -216,23 +235,28 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             if (drag != null) drag.SetLocked(false);
 
             if (panLiquid != null && entry != null)
-                panLiquid.AddLiquidById(entry.liquidId, entry.ml);
+                panLiquid.FinishGradualAdd(entry.liquidId, entry.ml);
 
             Debug.Log($"[PanDrop] Pour finished -> completing '{stepId}'");
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
 
-            if (data.id == "Water") panSound = PanSound.Boiling;
-            else if (data.id == oilId) panSound = PanSound.Frying;
-            // any other pour (e.g. EggBeaten) keeps whatever the pan is doing
+            if (data.id == "Water") liquidSound = PanSound.Boiling;
+            else if (data.id == oilId) liquidSound = PanSound.Frying;
+            else hasIngredient = true;
 
-            ApplyPanSound();
+            UpdatePanSound();
 
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
         }, data);
 
-        if (started) drag.LockAndReturn();
+        if (started)
+        {
+            drag.LockAndReturn();
+            if (panLiquid != null && entry != null)
+                panLiquid.BeginGradualAdd(entry.liquidId, entry.ml, entry.fillDelay, entry.fillDuration);
+        }
     }
 
     /// <summary>True if heat isn't required, or the stove is on.</summary>
@@ -255,44 +279,27 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     {
         OnIngredientRemoved?.Invoke(data);
     }
-    private void StartFrying()
+
+
+    public void ResetCookingSound()
     {
-        Debug.Log("[Fry] StartFrying called");
-
-        var sfx = SFXManager.Instance;
-        if (sfx == null) { Debug.LogWarning("[Fry] SFXManager.Instance is NULL"); return; }
-        if (sfx.frying == null) { Debug.LogWarning("[Fry] 'frying' clip is not assigned on SFXManager"); return; }
-
-        StoveHeatController s = ResolveStove();
-        if (s == null || s.CurrentHeat == StoveHeat.Off)
-        {
-            Debug.LogWarning($"[Fry] Stove not on (stove={(s != null ? s.CurrentHeat.ToString() : "NULL")})");
-            return;
-        }
-
-        sfx.PlayLoop(sfx.frying);
-        Debug.Log("[Fry] PlayLoop called");
+        liquidSound = PanSound.Frying;
+        hasIngredient = false;
+        SFXManager.Instance?.StopLoop();
     }
-
-    private void StartBoilingSound()
+    private void UpdatePanSound()
     {
+        if (!hasIngredient) return;
+
         var sfx = SFXManager.Instance;
-        if (sfx == null || sfx.boilingWater == null) return;
+        if (sfx == null) return;
 
         StoveHeatController s = ResolveStove();
         if (s == null || s.CurrentHeat == StoveHeat.Off) return;
 
-        sfx.PlayLoop(sfx.boilingWater);   // replaces frying automatically
-    }
-    private void ApplyPanSound()
-    {
-        if (panSound == PanSound.Boiling) StartBoilingSound();
-        else StartFrying();   // None or Frying
-    }
+        AudioClip clip = liquidSound == PanSound.Boiling ? sfx.boilingWater : sfx.frying;
+        if (clip == null) return;
 
-    public void ResetCookingSound()
-    {
-        panSound = PanSound.None;
-        SFXManager.Instance?.StopLoop();
+        sfx.PlayLoop(clip);
     }
 }

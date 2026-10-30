@@ -13,23 +13,53 @@ MonoBehaviour:
   m_Name: Pansit Pusit
   m_EditorClassIdentifier: 
   recipeName: Pansit Pusit
-  recipeIcon: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
-  liquidProfile: {fileID: 0}
+  recipeIcon: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
+  liquidProfile: {fileID: 11400000, guid: 272be9f4bf5534944aa5e56c501e8fdf, type: 2}
   ingredients:
-  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+  - ingredient: {fileID: 11400000, guid: 92432a4baf41a3947a4d426c0adad7ea, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: fba457986da80b84b937d63519b0e377, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 4490bd662194a444ebf7fc8b3ad6e0e4, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 0322e7d71d4e4a942ac1cbea9093e222, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 2df5132b6fc319044ad73163fed9fe59, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 7321bb0ee983fd14ea24c650a0686d85, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: c8224f17839119147b767f8de99715b7, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
+  - Chop the squid into sliced
   - Chop the garlic into minced
   - Chop the onion into minced
-  - Chop the siling labuyo into sliced
-  - Chop the squid into sliced
+  - Chop the cabbage into sliced
+  - Chop the carrot into sliced
+  - Chop the celery into sliced
+  - Chop the birds eye chillie into sliced
   - Turn the stove to high heat
   - Put the pan in the stove
-  - Add 1/8 cup of cooking oil
+  - Add 1/4 cup of cooking oil
   - Add minced garlic
   - Add minced onion
   - Add bay leaf
@@ -41,7 +71,10 @@ MonoBehaviour:
   - Mix it using the spatula
   - Add squid ink
   - Put the pan Lid to simmer
-  - Add the noodle in the pan
+  - Add the bihon in the pan
+  - Add chop cabbage
+  - Add chop carrot
+  - Add 1/2 cup of oyster sauce
   - Turn the stove to medium heat
   - Put the pan lid to simmer
   - Add 1/8 tsp of salt
@@ -49,28 +82,34 @@ MonoBehaviour:
   - Saute it using spatula
   - Add chop celery for toppings
   cookingStepIds:
+  - Squid:Sliced
   - Garlic:Minced
   - Onion:Minced
-  - SilingLabuyo:Sliced
-  - Squid:Sliced
+  - Cabbage:Sliced
+  - Carrot:Sliced
+  - Celery:Sliced
+  - BirdsEyeChillies:Sliced
   - 
   - Pan:OnStove
-  - Pour:CookingOilCup_1_8
+  - Pour:CookingOilCup_1_4
   - Pan:Garlic
   - Pan:Onion
   - Pan:BayLeaf
-  - Pan:SilingLabuyo
-  - Mix:11
+  - Pan:BirdsEyeChillies
+  - Mix:14
   - Pan:Squid
   - Pan:Water
   - Pour:VinegarCup_1_4
-  - Mix:15
-  - Pan:SquidInk
+  - Mix:18
+  - Pan:Squid Ink
   - Pan:PanLidSimmer
-  - Pan:Noodles
+  - Pan:Bihon
+  - Pan:Cabbage
+  - Pan:Carrot
+  - Pour:OysterSauceCup_1_4
   - 
   - Pan:PanLidSimmer
   - Salt:Tsp_1_8
   - Pepper:Tsp_1_8
-  - Mix:23
+  - Mix:29
   - Pan:Celery

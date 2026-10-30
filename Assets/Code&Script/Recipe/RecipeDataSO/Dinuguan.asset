@@ -19,6 +19,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: c0f88dea538fe6940a7780f12f139fcf, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: ea8d00ece951030449934bca43d64b5f, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: 2b91fc67856a61444873b8d04a053dbd, type: 2}
     quantity: 0
     unit: 
@@ -31,43 +34,62 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
+    quantity: 0
+    unit: 
   cookingInstructions:
-  - Chop the Pork Belly into slice
-  - Chop the Chili into slice
-  - Chop the Garlic into slice
-  - Turn the on the stove to high heat
-  - Put the Pan in the Stove
-  - Add the Pork Belly
-  - 'Add Water '
-  - Put the pan lid and boil
-  - Stir using spatula
-  - Add 1 tbsp of cooking oil
-  - Add the chop garlic
-  - Saute using the spatula
-  - Add the chop chili
-  - Add 1/2 tbsp of peppercorn
-  - 'Add pork blood '
-  - Add 1/8  tsp of salt
-  - Add 1/2 cup of vinegar
-  - Mix it using Spatula
-  - Put the Pan Lid to simmer
+  - Chop the pork belly into slice
+  - Chop the pork liver into slice
+  - Chop the green chili into slice
+  - Chop the garlic into minced
+  - Chop the onion into sliced
+  - Chop the ginger into sliced
+  - Turn the stove high heat.
+  - Put the pan in the stove.
+  - 'Add water '
+  - Place the pork belly in the pan
+  - Place the pork liver in the pan
+  - Add the chopped ginger
+  - Add the garlic
+  - Add the onion
+  - Put the pan lid to simmer
+  - Saute the pan
+  - Add the seasoned pork blood
+  - Put the pan lid to simmer
+  - Stir the pan
+  - Add the green chillies
+  - Add bay leaf
+  - Put the pan lid to simmer
+  - Add 1 tsp of vinegar
+  - Add 1 tsp of salt
   cookingStepIds:
   - Pork Belly:Sliced
+  - Pork Liver:Sliced
   - Green Chili:Sliced
   - Garlic:Sliced
+  - Onion:Sliced
+  - Ginger:Sliced
   - 
   - Pan:OnStove
-  - Pan:Pork Belly
   - Pan:Water
-  - Pan:PanLid
-  - Mix:8
-  - Pour:CookingOilTbsp_1
+  - Pan:Pork Belly
+  - Pan:Pork Liver
+  - Pan:Ginger
   - Pan:Garlic
-  - Mix:11
-  - Pan:Green Chili
-  - Pepper:Tbsp_1_2
+  - Pan:Onion
+  - Pan:PanLid
+  - Mix:15
   - Pan:Pork Blood
-  - Salt:Tsp_1_8
-  - Pour:VinegarCup_1_2
-  - Mix:17
   - Pan:PanLidSimmer
+  - Mix:18
+  - Pan:Green Chili
+  - Pan:BayLeaf
+  - Pan:PanLidSimmer
+  - Pour:VinegarTsp_1
+  - Salt:Tsp_1

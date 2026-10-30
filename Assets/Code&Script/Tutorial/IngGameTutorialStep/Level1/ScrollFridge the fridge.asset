@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Guide
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Scroll the fridge up to see the ingredient below.
+  - Scroll the fridge up to see the other ingredients.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 320, y: 569.4}
+  customPosition: {x: 273.6, y: 472.5}
   actionType: 3
   targetId: ScrollFridgeContent
   dragSourceId: ScrollFridgeContent

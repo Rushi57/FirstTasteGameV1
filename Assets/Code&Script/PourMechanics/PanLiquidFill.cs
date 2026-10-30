@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class PanLiquidFill : MonoBehaviour
 {
+    [Header("Gradual Pour")]
+    [SerializeField] private bool animateFillAmount = true;
 
+    private Coroutine pourRoutine;
+    private bool gradualBegun;
+    private float pouringTotal, pouringAdded;
   
 
     [SerializeField] private Image blob;
@@ -75,6 +80,9 @@ public class PanLiquidFill : MonoBehaviour
 
     public void Clear()
     {
+        StopEvaporate();
+        if(pourRoutine != null) { StopCoroutine(pourRoutine); pourRoutine = null; }
+        gradualBegun = false;
         if (routine != null) StopCoroutine(routine);
         amounts.Clear();
         reduction = 0f;          // new
@@ -146,5 +154,115 @@ public class PanLiquidFill : MonoBehaviour
         blob.color = target;
         blob.transform.localScale = endScale;
     }
+    private Coroutine evaporateRoutine;
 
+    /// <summary>Slowly removes up to 'ml' of liquid 'id' over 'seconds'.</summary>
+    public void StartEvaporate(string id, float ml, float seconds)
+    {
+        if (blob == null || !amounts.ContainsKey(id)) return;
+        StopEvaporate();
+        evaporateRoutine = StartCoroutine(EvaporateRoutine(id, ml, seconds));
+    }
+
+    public void StopEvaporate()
+    {
+        if (evaporateRoutine != null) StopCoroutine(evaporateRoutine);
+        evaporateRoutine = null;
+    }
+
+    private IEnumerator EvaporateRoutine(string id, float ml, float seconds)
+    {
+        // Stop any blend animation so we control the visuals directly
+        if (routine != null) { StopCoroutine(routine); routine = null; }
+
+        float rate = ml / Mathf.Max(0.01f, seconds);
+        float removed = 0f;
+
+        while (removed < ml && amounts.TryGetValue(id, out float current) && current > 0f)
+        {
+            float step = Mathf.Min(rate * Time.deltaTime, ml - removed, current);
+            removed += step;
+
+            float left = current - step;
+            if (left <= 0.01f) amounts.Remove(id);
+            else amounts[id] = left;
+
+            // Apply directly each frame
+            blob.color = GetMix();
+            blob.transform.localScale = baseScale * GetTargetScale();
+
+            yield return null;
+        }
+        evaporateRoutine = null;
+    }
+
+    public void BeginGradualAdd(string id, float ml, float delay, float duration)
+    {
+        if (blob == null) return;
+        if (pourRoutine != null) StopCoroutine(pourRoutine);
+        StopEvaporate();
+        gradualBegun = true;
+        pouringTotal = Mathf.Max(ml, 0.1f);
+        pouringAdded = 0f;
+        pourRoutine = StartCoroutine(GradualAddRoutine(id, pouringTotal, delay, Mathf.Max(0.05f, duration)));
+    }
+    public void FinishGradualAdd(string id, float ml)
+    {
+        if (blob == null) return;
+
+        if (!gradualBegun)
+        {
+            AddLiquidById(id, ml);      // fallback if the gradual fill never started
+            return;
+        }
+
+        if (pourRoutine != null)
+        {
+            StopCoroutine(pourRoutine);
+            pourRoutine = null;
+
+            float remaining = Mathf.Max(0f, pouringTotal - pouringAdded);
+            if (remaining > 0f)
+            {
+                amounts.TryGetValue(id, out float old);
+                amounts[id] = old + remaining;
+            }
+            ApplyInstant(1f);
+        }
+        gradualBegun = false;
+    }
+
+    private void ApplyInstant(float grow)
+    {
+        blob.color = GetMix();
+        Color c = blob.color; c.a *= grow; blob.color = c;   // fade in
+        blob.transform.localScale = Vector3.Lerp(baseScale * 0.5f, baseScale * GetTargetScale(), grow);
+        if (animateFillAmount) blob.fillAmount = grow;
+    }
+
+    private IEnumerator GradualAddRoutine(string id, float ml, float delay, float duration)
+    {
+        if (delay > 0f) yield return new WaitForSeconds(delay);
+
+        if(routine != null) { StopCoroutine(routine); routine = null; }
+
+        bool first = blob.color.a < 0.01f;   // pan was empty before this pour
+        float rate = ml / duration;
+
+        while (pouringAdded < ml)
+        {
+            float step = Mathf.Min(rate * Time.deltaTime, ml - pouringAdded);
+            pouringAdded += step;
+
+            amounts.TryGetValue(id, out float old);
+            amounts[id] = old + step;
+
+            float grow = first ? Mathf.Clamp01(pouringAdded / ml) : 1f;
+            ApplyInstant(grow);
+            yield return null;
+        }
+
+        gradualBegun = false;
+        pourRoutine = null;
+    }
 }

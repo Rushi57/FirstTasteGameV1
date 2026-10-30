@@ -21,5 +21,9 @@ public class LevelData : ScriptableObject
 
     public DishStorySO story;
 
+    [Header("Level Completion")]
+    [Tooltip("Reflection pages shown after finishing this level.")]
+    public DishReflectionData reflection;
+
 
 }

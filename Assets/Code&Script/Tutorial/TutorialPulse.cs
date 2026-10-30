@@ -13,7 +13,7 @@ public class TutorialPulse : MonoBehaviour
     private float outlineMin = 4f;
     private float outlineMax = 8f;
 
-    private Vector3 baseScale;
+    private float appliedFactor = 1f;
     private Image img;
     private RectTransform rt;
     private Material savedMat;
@@ -23,13 +23,9 @@ public class TutorialPulse : MonoBehaviour
     {
         img = GetComponent<Image>();
         rt = transform as RectTransform;
-        baseScale = transform.localScale;
     }
 
-    private void OnEnable()
-    {
-        baseScale = transform.localScale;
-    }
+
 
     /// <summary>Called by TutorialManager right after AddComponent.</summary>
     public void SetOutline(Material source, float min, float max)
@@ -52,12 +48,19 @@ public class TutorialPulse : MonoBehaviour
         if (img != null) img.material = savedMat;
         Destroy(mat);
         mat = null;
+        savedMat = null;
+
     }
 
     private void Update()
     {
         float t = (Mathf.Sin(Time.unscaledTime * speed) + 1f) * 0.5f;
-        transform.localScale = baseScale * Mathf.Lerp(minScale, maxScale, t);
+
+        // Remove last frame's factor, apply this frame's. Works even if the
+        // object was reparented (and its local scale changed) in between.
+        float factor = Mathf.Lerp(minScale, maxScale, t);
+        transform.localScale = transform.localScale / appliedFactor * factor;
+        appliedFactor = factor;
 
         if (mat != null)
         {
@@ -68,9 +71,12 @@ public class TutorialPulse : MonoBehaviour
         }
     }
 
+
+
     private void OnDisable()
     {
-        transform.localScale = baseScale;
+        transform.localScale = transform.localScale / appliedFactor;
+        appliedFactor = 1f;
         RemoveOutline();
     }
 }
