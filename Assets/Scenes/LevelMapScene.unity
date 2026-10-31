@@ -9343,6 +9343,7 @@ RectTransform:
   - {fileID: 746715977}
   - {fileID: 2036536620}
   - {fileID: 367667785}
+  - {fileID: 1231655400}
   m_Father: {fileID: 1723323984}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -11396,6 +11397,7 @@ GameObject:
   - component: {fileID: 561000627}
   - component: {fileID: 561000626}
   - component: {fileID: 561000625}
+  - component: {fileID: 561000629}
   - component: {fileID: 561000628}
   m_Layer: 5
   m_Name: Fridgebtn
@@ -11467,10 +11469,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2036536619}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: FridgeOpen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11479,9 +11481,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: FridgeOpen
+      - m_Target: {fileID: 561000629}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11543,6 +11545,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableId: FridgeId
   sourceData: {fileID: 0}
+--- !u!114 &561000629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561000623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9062cc167fd09824bba0803592585351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPanel: {fileID: 2036536619}
 --- !u!1 &561837936
 GameObject:
   m_ObjectHideFlags: 0
@@ -14305,10 +14320,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2058872718}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: CabinetClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14317,9 +14332,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: CabinetClose
+      - m_Target: {fileID: 861224350}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16762,6 +16777,7 @@ GameObject:
   - component: {fileID: 861224348}
   - component: {fileID: 861224347}
   - component: {fileID: 861224346}
+  - component: {fileID: 861224350}
   - component: {fileID: 861224349}
   m_Layer: 5
   m_Name: Cabinetbtn
@@ -16833,10 +16849,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2058872718}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: CabinetOpen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16845,9 +16861,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: CabinetOpen
+      - m_Target: {fileID: 861224350}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16909,6 +16925,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableId: CabinetId
   sourceData: {fileID: 0}
+--- !u!114 &861224350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861224344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9062cc167fd09824bba0803592585351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPanel: {fileID: 2058872718}
 --- !u!1 &861685385
 GameObject:
   m_ObjectHideFlags: 0
@@ -35498,10 +35527,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 367667784}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: CabinetClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -35510,9 +35539,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: CabinetClose
+      - m_Target: {fileID: 1876566966}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -35810,10 +35839,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2036536619}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: FridgeClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -35822,9 +35851,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: FridgeClose
+      - m_Target: {fileID: 561000629}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -36843,6 +36872,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225937959}
   m_CullTransparentMesh: 1
+--- !u!1 &1231655399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231655400}
+  - component: {fileID: 1231655401}
+  m_Layer: 5
+  m_Name: PanelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1231655400
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231655399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 474853922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1231655401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231655399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aecf822aadea47e4e956cbc83670f198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warning: {fileID: 663329907}
+  alreadyOpenMessage: Close the open panel first!
 --- !u!1 &1237978652
 GameObject:
   m_ObjectHideFlags: 0
@@ -49893,6 +49972,7 @@ GameObject:
   - component: {fileID: 1876566963}
   - component: {fileID: 1876566962}
   - component: {fileID: 1876566965}
+  - component: {fileID: 1876566966}
   m_Layer: 5
   m_Name: UICloseCabinet
   m_TagString: Untagged
@@ -49963,10 +50043,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 367667784}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1196578813}
+        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
+        m_MethodName: CabinetOpen
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -49975,9 +50055,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1196578813}
-        m_TargetAssemblyTypeName: UISfxTrigger, Assembly-CSharp
-        m_MethodName: CabinetOpen
+      - m_Target: {fileID: 1876566966}
+        m_TargetAssemblyTypeName: PanelOpenButton, Assembly-CSharp
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -50039,6 +50119,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableId: CabinetShelf
   sourceData: {fileID: 0}
+--- !u!114 &1876566966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876566960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9062cc167fd09824bba0803592585351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPanel: {fileID: 367667784}
 --- !u!1 &1881970936
 GameObject:
   m_ObjectHideFlags: 0

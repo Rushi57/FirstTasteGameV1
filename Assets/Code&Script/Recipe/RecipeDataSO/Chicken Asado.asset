@@ -35,9 +35,9 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - 'Chop the white onion into slice '
-  - 'Chop the garlic into slice '
-  - 'Chop the tomato into slice '
+  - Chop the white onion into sliced
+  - Chop the garlic into sliced
+  - Chop the tomato into sliced
   - Turn on the stove to high heat
   - Put the Pan in the Stove
   - Add 1 tbsp of cooking oil
