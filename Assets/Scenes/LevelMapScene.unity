@@ -29484,7 +29484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSceneName: MapScene
-  rePlayBtn: {fileID: 0}
+  rePlayBtn: {fileID: 1941712637}
 --- !u!1 &981242868
 GameObject:
   m_ObjectHideFlags: 0
@@ -39039,7 +39039,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1321888050}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 973146772}
+        m_TargetAssemblyTypeName: ScoreboardButtons, Assembly-CSharp
+        m_MethodName: GoToMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1321888050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49463,10 +49475,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8292211360f49e948930bf1eaeb838e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replayButton: {fileID: 1941712637}
-  quitButton: {fileID: 1321888049}
-  scoreBorderReplay: {fileID: 1159085351}
-  quitSceneName: MapScene
+  extraToStop:
+  - {fileID: 1568067038}
+  - {fileID: 1977712134}
+  - {fileID: 695525250}
+  - {fileID: 1029109662}
+  - {fileID: 853925484}
 --- !u!114 &1853911558
 MonoBehaviour:
   m_ObjectHideFlags: 0
