@@ -76,8 +76,8 @@ MonoBehaviour:
   - Add 1/4 tsp of salt
   - Add 1/4 tsp of pepper
   cookingStepIds:
-  - Pork Belly:Sliced
-  - Chicken Liver:Sliced
+  - PorkBelly:Sliced
+  - ChickenLiver:Sliced
   - Kikiam:Sliced
   - Onion:Sliced
   - Garlic:Sliced
@@ -86,18 +86,18 @@ MonoBehaviour:
   - Pour:CookingOilCup1_4
   - Pan:Onion
   - Mix:9
-  - Pan:Pork Belly
+  - Pan:PorkBelly
   - Mix:11
   - Pan:Kikiam
   - Mix:13
-  - Pan:Chicken Liver
+  - Pan:ChickenLiver
   - Mix:15
   - Pan:PorkBouillon
   - Pan:Water
   - Pour:SoyCup_1_4
   - Mix:19
   - Pan:PanLidSimmer
-  - Pan:Lomi Noodles
+  - Pan:LomiNoodles
   - Pan:PanLidSimmer
   - CassavaStarch:Tbsp_1
   - Pan:PanLidSimmer

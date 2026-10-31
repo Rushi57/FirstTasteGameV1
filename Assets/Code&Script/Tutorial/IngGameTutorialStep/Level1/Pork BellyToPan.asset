@@ -22,7 +22,7 @@ MonoBehaviour:
   customPosition: {x: 0, y: 435.78}
   actionType: 2
   targetId: InsidePan
-  dragSourceId: Pork Belly
+  dragSourceId: PorkBelly
   blockOtherInput: 1
   revertOnMistake: 1
   mistakeMessage: Oops, that's not quite right. Let's go over it again!

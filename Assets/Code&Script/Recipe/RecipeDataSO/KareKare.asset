@@ -76,7 +76,7 @@ MonoBehaviour:
   - BeefTripe:Sliced
   - EggPlant:Sliced
   - LongBean:Sliced
-  - Banana Heart:Sliced
+  - BananaHeart:Sliced
   - Pechay:Sliced
   - Garlic:Sliced
   - Onion:Sliced
@@ -96,7 +96,7 @@ MonoBehaviour:
   - Mix:20
   - Pan:Oxtail
   - Pan:BeefTripe
-  - Pan:Banana Heart
+  - Pan:BananaHeart
   - Pan:LongBean
   - Pan:Pechay
   - Pan:EggPlant

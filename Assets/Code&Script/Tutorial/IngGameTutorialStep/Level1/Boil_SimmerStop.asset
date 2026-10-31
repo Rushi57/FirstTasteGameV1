@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 346.48, y: 470.29}
+  customPosition: {x: 298.17, y: 558.7}
   actionType: 1
   targetId: Simmer/BoilStopBtn
   dragSourceId: 

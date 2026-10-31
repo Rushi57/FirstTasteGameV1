@@ -64,37 +64,39 @@ MonoBehaviour:
   - Add the bagoong alamang
   - Pour the water
   - Pour the coconut milk
-  - Put coconut cream
+  - Stir the pan
   - Add the green chillies
   - "Add the bird\u2019s eye chillies"
+  - Put coconut cream
   - Add 1 tsp of fish sauce(Manila linage)
   - Add 1 tsp of sugar(Manila linage)
   - Mix it using the spatula
   - Add 1 tbsp of pepper
   - Put the pan lid to simmer
   cookingStepIds:
-  - Pork Belly:Sliced
-  - Green Chili:Sliced
+  - PorkBelly:Sliced
+  - GreenChili:Sliced
   - BirdsEyeChillies:Sliced
   - Garlic:Sliced
   - Onion:Sliced
   - Ginger:Sliced
   - 
   - Pan:OnStove
-  - Pan:Pork Belly
+  - Pan:PorkBelly
   - Mix:9
   - Pan:Garlic
   - Pan:Onion
   - Pan:Ginger
   - Mix:13
-  - Pan:Shrimp Paste
+  - Pan:ShrimpPaste
   - Pan:Water
-  - Pan:Coconut Milk
-  - Pan:Coconut Cream
-  - Pan:Green Chili
+  - Pan:CoconutMilk
+  - Mix:17
+  - Pan:GreenChili
   - Pan:BirdsEyeChillies
+  - Pan:CoconutCream
   - Pour:FishSauceTsp_1
   - Sugar:Tsp_1
-  - Mix:22
+  - Mix:23
   - Pepper:Tbsp_1
   - Pan:PanLidSimmer

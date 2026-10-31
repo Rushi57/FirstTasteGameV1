@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beef Shanks
   m_EditorClassIdentifier: 
   id: BeefShanks
-  displayName: BeefShanks
+  displayName: Beef Shanks
   category: 0
   size: 0
   icon: {fileID: -2407234090661409627, guid: bc92331549773824689f92ee247b7cf6, type: 3}

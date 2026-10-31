@@ -44,10 +44,10 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the pork belly into slice
-  - Chop the pork liver into slice
-  - Chop the green chili into slice
-  - Chop the garlic into minced
+  - Chop the pork belly into sliced
+  - Chop the pork liver into sliced
+  - Chop the green chili into sliced
+  - Chop the garlic into sliced
   - Chop the onion into sliced
   - Chop the ginger into sliced
   - Turn the stove high heat.
@@ -69,26 +69,26 @@ MonoBehaviour:
   - Add 1 tsp of vinegar
   - Add 1 tsp of salt
   cookingStepIds:
-  - Pork Belly:Sliced
-  - Pork Liver:Sliced
-  - Green Chili:Sliced
+  - PorkBelly:Sliced
+  - PorkLiver:Sliced
+  - GreenChili:Sliced
   - Garlic:Sliced
   - Onion:Sliced
   - Ginger:Sliced
   - 
   - Pan:OnStove
   - Pan:Water
-  - Pan:Pork Belly
-  - Pan:Pork Liver
+  - Pan:PorkBelly
+  - Pan:PorkLiver
   - Pan:Ginger
   - Pan:Garlic
   - Pan:Onion
   - Pan:PanLid
   - Mix:15
-  - Pan:Pork Blood
+  - Pan:PorkBlood
   - Pan:PanLidSimmer
   - Mix:18
-  - Pan:Green Chili
+  - Pan:GreenChili
   - Pan:BayLeaf
   - Pan:PanLidSimmer
   - Pour:VinegarTsp_1

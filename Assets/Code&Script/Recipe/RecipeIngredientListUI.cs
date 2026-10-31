@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 /// <summary>
 /// Populates the scrolling "Ingredients :" list from a RecipeData and tracks
@@ -31,6 +32,8 @@ public class RecipeIngredientListUI : MonoBehaviour
     /// <summary>Fires once, when every ingredient row has been grayed out (spawned).</summary>
     public System.Action OnAllIngredientsSpawned;
 
+    private ScrollRect scrollRect;
+
     public void DisplayRecipe(RecipeData recipe)
     {
         currentRecipe = recipe;
@@ -57,6 +60,26 @@ public class RecipeIngredientListUI : MonoBehaviour
             row.SetData(entry);
             activeRows.Add(row);
         }
+        if (isActiveAndEnabled)
+            StartCoroutine(ScrollToTop());
+    }
+
+    private IEnumerator ScrollToTop()
+    {
+        // Destroy() in Clear() and the layout rebuild both finish by end of frame
+        yield return new WaitForEndOfFrame();
+
+        if (contentContainer == null) yield break;
+
+        if (scrollRect == null)
+            scrollRect = contentContainer.GetComponentInParent<ScrollRect>();
+        if (scrollRect == null) yield break;
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(scrollRect.content);
+
+        scrollRect.StopMovement();
+        scrollRect.verticalNormalizedPosition = 1f; // 1 = top
     }
 
     /// <summary>Grays out the row for this ingredient. Call right after IngredientSpawner spawns it.</summary>

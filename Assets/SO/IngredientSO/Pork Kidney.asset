@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pork Kidney
   m_EditorClassIdentifier: 
   id: PorkKidney
-  displayName: PorkKidney
+  displayName: Pork Kidney
   category: 0
   size: 1
   icon: {fileID: -3481350222225262640, guid: 46d626e9f12fc9348a233229300c1881, type: 3}

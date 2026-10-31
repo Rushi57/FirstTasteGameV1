@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: -395.16, y: 140}
+  customPosition: {x: -344.39, y: 140}
   actionType: 2
   targetId: InsidePan
   dragSourceId: Garlic

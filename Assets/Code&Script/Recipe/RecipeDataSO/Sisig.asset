@@ -60,26 +60,26 @@ MonoBehaviour:
   - 'Add 1 cup of soy '
   - Add 1/2 tsp of salt
   - Add 1/4 tsp of pepper
-  - Add Calamansi
+  - Add calamansi  juice
   - Mix using spatula
   cookingStepIds:
-  - Pork Jowl:Minced
+  - PorkJowl:Minced
   - Onion:Minced
   - Ginger:Minced
   - Garlic:Sliced
-  - Green Chili:Sliced
-  - Chicken Liver:Sliced
+  - GreenChili:Sliced
+  - ChickenLiver:Sliced
   - Calamansi:Sliced
   - 
   - Pan:OnStove
-  - Pan:Pork Jowl
+  - Pan:PorkJowl
   - Mix:10
   - Pour:CookingOilTbsp_1
   - Pan:Onion
   - Mix:13
   - Pan:Ginger
-  - Pan:Green Chili
-  - Pan:Chicken Liver
+  - Pan:GreenChili
+  - Pan:ChickenLiver
   - Pan:Garlic
   - Mix:18
   - Pour:SoyCup_1

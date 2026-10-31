@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 317.24, y: 500}
+  customPosition: {x: 255.4, y: 119.9}
   actionType: 4
   targetId: MiniGameSpatula
   dragSourceId: 

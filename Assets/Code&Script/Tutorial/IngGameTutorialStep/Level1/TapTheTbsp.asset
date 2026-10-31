@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: -363.27, y: 140}
+  customPosition: {x: -294.6, y: 475.9}
   actionType: 1
   targetId: pickTbsp
   dragSourceId: 

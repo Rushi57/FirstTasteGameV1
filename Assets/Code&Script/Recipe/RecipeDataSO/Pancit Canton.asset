@@ -25,6 +25,9 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 61579d0de64f15445805b25b46ef29ba, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: b0a2bf17a0d698a4f8ecf7aabc57e78f, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: 2df5132b6fc319044ad73163fed9fe59, type: 2}
     quantity: 0
     unit: 
@@ -47,9 +50,6 @@ MonoBehaviour:
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: 2edaec72006f1af4eb2a2eaabb897793, type: 2}
-    quantity: 0
-    unit: 
-  - ingredient: {fileID: 11400000, guid: b0a2bf17a0d698a4f8ecf7aabc57e78f, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
@@ -87,8 +87,8 @@ MonoBehaviour:
   - stir it using the spatula
   - Add minced celery into the pan
   cookingStepIds:
-  - Pork Belly:Sliced
-  - Chicken Liver:Sliced
+  - PorkBelly:Sliced
+  - ChickenLiver:Sliced
   - Kikiam:Sliced
   - Garlic:Minced
   - Onion:Sliced
@@ -99,8 +99,8 @@ MonoBehaviour:
   - 
   - Pan:OnStove
   - Pour:CookingOilTbsp_1
-  - Pan:Pork Belly
-  - Pan:Chicken Liver
+  - Pan:PorkBelly
+  - Pan:ChickenLiver
   - Pan:Kikiam
   - Pan:Shrimp
   - Mix:16
@@ -111,12 +111,12 @@ MonoBehaviour:
   - Pan:Cabbage
   - Pan:GreenBellPepper
   - Mix:23
-  - Pan:Chicken Broth
+  - Pan:ChickenBroth
   - Pour:SoyCup_1_4
   - Pour:OysterSauceCup_1_4
   - Pour:FishSauceTbsp_1
   - Pan:PanLid
   - Pepper:Tsp_1_8
-  - Pan:Dried Pancit Canton
+  - Pan:DriedPancitCanton
   - Mix:31
   - Pan:Celery

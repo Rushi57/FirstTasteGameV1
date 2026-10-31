@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Guide
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the knife holder to show the knife
+  - Tap the knife holder to show or hide the knife
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

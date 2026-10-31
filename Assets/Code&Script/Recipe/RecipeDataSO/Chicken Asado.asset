@@ -25,9 +25,6 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
-    quantity: 0
-    unit: 
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
@@ -69,9 +66,9 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOilTbsp_1
   - Pan:Butter
-  - Pan:Chicken Parts
+  - Pan:ChickenParts
   - Mix:8
-  - Bowl:Chicken Parts
+  - Bowl:ChickenParts
   - Pan:Onion
   - Pan:Garlic
   - Pan:BayLeaf
@@ -80,7 +77,7 @@ MonoBehaviour:
   - Pour:SoyTsp_1_2
   - Sugar:Tsp_1_8
   - Mix:17
-  - Pan:Chicken Parts
+  - Pan:ChickenParts
   - Pan:PanLidSimmer
   - Pour:AchueteOilTsp_1_2
   - Salt:Tsp_1_8

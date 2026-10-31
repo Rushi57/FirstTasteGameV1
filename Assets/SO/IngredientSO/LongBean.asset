@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LongBean
   m_EditorClassIdentifier: 
   id: LongBean
-  displayName: LongBean
+  displayName: Long Beans
   category: 0
   size: 0
   icon: {fileID: -560268583825605628, guid: d4b4097514e28264bb227bf3c940ad07, type: 3}

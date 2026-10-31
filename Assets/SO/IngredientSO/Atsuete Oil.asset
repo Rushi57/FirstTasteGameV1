@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Atsuete Oil
   m_EditorClassIdentifier: 
   id: AtsueteOil
-  displayName: AtsueteOil
+  displayName: Atsuete Oil
   category: 0
   size: 0
   icon: {fileID: 0}
+  iconScale: 1
   stateSprites: []
   playsPourAnimation: 0
+  pourPositions: []

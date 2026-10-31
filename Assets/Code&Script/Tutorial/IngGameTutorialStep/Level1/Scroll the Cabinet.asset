@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 320, y: 569.4}
+  customPosition: {x: 320, y: 399.1}
   actionType: 3
   targetId: ScrollContentCabinet
   dragSourceId: ScrollContentCabinet

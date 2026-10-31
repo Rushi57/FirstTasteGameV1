@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
   m_Name: Meat Ball
   m_EditorClassIdentifier: 
-  id: Meat Ball
+  id: MeatBall
   displayName: Meat Ball
   category: 0
   size: 0

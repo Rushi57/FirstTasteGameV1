@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pork Intestine
   m_EditorClassIdentifier: 
   id: PorkIntestine
-  displayName: PorkIntestine
+  displayName: Pork Intestine
   category: 0
   size: 1
   icon: {fileID: 1186554024016733576, guid: 24bd7078426edfd4aadd54487c4f1eba, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BirdsEyeChillies
   m_EditorClassIdentifier: 
   id: BirdsEyeChillies
-  displayName: BirdsEyeChillies
+  displayName: Birds Eye Chillies
   category: 0
   size: 0
   icon: {fileID: 4104725166358580763, guid: d830bc221f0c680429f9e9febcdf589f, type: 3}

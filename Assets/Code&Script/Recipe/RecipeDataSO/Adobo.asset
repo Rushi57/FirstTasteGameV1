@@ -48,11 +48,11 @@ MonoBehaviour:
   - Add 1 tsp of sugar
   - Mix it well
   cookingStepIds:
-  - Pork Belly:Sliced
+  - PorkBelly:Sliced
   - Garlic:Minced
   - 
   - Pan:OnStove
-  - Pan:Pork Belly
+  - Pan:PorkBelly
   - Pour:VinegarTbsp_1
   - Pan:Water
   - Pan:Garlic

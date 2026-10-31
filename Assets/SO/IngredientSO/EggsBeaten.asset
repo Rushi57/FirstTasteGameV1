@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EggsBeaten
   m_EditorClassIdentifier: 
   id: EggBeaten
-  displayName: EggBeaten
+  displayName: Egg Beaten
   category: 0
   size: 0
   icon: {fileID: -5052152929520061544, guid: 1c3a4717b6498b040a58e5a093b48a85, type: 3}
