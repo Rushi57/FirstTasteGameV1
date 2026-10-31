@@ -22,6 +22,10 @@ public class ColorPrecisionGame : MonoBehaviour
     [Tooltip("ON = the whole arrow head must be inside the color. OFF = any overlap counts.")]
     public bool requireWholeHead = true;
 
+    [Header("Zone Sizes (fraction of the circle)")]
+    [Range(0.02f, 0.5f)] public float greenFill = 0.12f;   // 0.12 = 43°
+    [Range(0.02f, 0.6f)] public float yellowFill = 0.25f;  // 0.25 = 90°
+
     private bool isSpinning = false;
     private bool canStop = false;
     private Coroutine activeRoutine;
@@ -44,6 +48,8 @@ public class ColorPrecisionGame : MonoBehaviour
         canStop = false;
 
         hand.localEulerAngles = Vector3.zero;
+        greenImage.fillAmount = greenFill;
+        yellowImage.fillAmount = yellowFill;
 
         yellowImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
         greenImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
@@ -190,5 +196,10 @@ public class ColorPrecisionGame : MonoBehaviour
         canStop = false;
         activeRoutine = null;
         SFXManager.Instance?.StopClock();
+    }
+    private void OnValidate()
+    {
+        if (greenImage != null) greenImage.fillAmount = greenFill;
+        if (yellowImage != null) yellowImage.fillAmount = yellowFill;
     }
 }
