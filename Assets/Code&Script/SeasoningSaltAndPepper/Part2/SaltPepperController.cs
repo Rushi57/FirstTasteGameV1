@@ -111,6 +111,25 @@ public class SaltPepperController : MonoBehaviour
 
     public void OpenFor(SaltPepperType type)
     {
+        var prep = CookingPrepListUI.Instance;
+
+        // Cooking hasn't started (ingredients not gathered yet)
+        if (prep == null)
+        {
+            ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);
+            return;
+        }
+
+        // Not this seasoning's turn
+        string current = prep.CurrentStepId;
+        string prefix = $"{type}:";
+        if (current == null || !current.StartsWith(prefix, System.StringComparison.Ordinal))
+        {
+            Debug.Log($"[SaltPepper] Blocked {type}. Current step is '{current}'.");
+            ScoreManager.Instance?.ReportMistake("Wrong Step!\nMinus 1 heart", 0, 1);
+            return;
+        }
+
         currentType = type;
         pendingSuccess = false;
         pendingLineIndex = -1;
