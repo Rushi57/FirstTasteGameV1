@@ -2,21 +2,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Shows InActiveMessagePanel when the player hasn't touched anything for a few seconds.
-///  - Ingredient stage -> "tap an ingredient" message (separate text)
-///  - Cut / Cooking stage -> the current step from the active CookingPrepListUI
-/// Tapping anywhere on the panel closes it.
-/// </summary>
 public class InactivityHintController : MonoBehaviour
 {
     [Header("References")]
-    public CookingPrepPanelController prepController;   // to know which stage is active
-    public GameObject inactiveMessagePanel;             // InActiveMessagePanel (root)
-    public TMP_Text messageText;                        // the Text (TMP) inside the border
+    public CookingPrepPanelController prepController;
+    public GameObject inactiveMessagePanel;
+    public TMP_Text messageText;
+
+    [Header("Don't show while these are active")]
+    public GameObject[] blockingPanels;
 
     [Header("Timing")]
     public float idleSeconds = 8f;
+
+    [Header("Debug")]
+    public bool debugLogs = true;
 
     [Header("Messages")]
     [TextArea]
@@ -26,10 +26,12 @@ public class InactivityHintController : MonoBehaviour
     [TextArea] public string fallbackMessage = "Keep going! Follow the recipe steps.";
 
     private float idleTimer;
+    private string lastReason = "";
 
+    public Animator settingsAnimator;                          // Animator on GameSettingsPanel
+    public string settingsClosedState = "IngSettingCloseIdle"; // resting "closed" state
     private void Awake()
     {
-        // Make the whole panel a "tap anywhere to close" button.
         if (inactiveMessagePanel != null)
         {
             var btn = inactiveMessagePanel.GetComponent<Button>();
@@ -44,18 +46,33 @@ public class InactivityHintController : MonoBehaviour
 
     private void Update()
     {
-        // Only count idle time while a recipe is actually being cooked
-        if (prepController == null || prepController.currentRecipe == null) return;
+        if (prepController == null) { Report("prepController is NOT assigned"); return; }
+        if (prepController.currentRecipe == null) { Report("currentRecipe is NULL (recipe not set yet)"); return; }
 
-        // Panel is open: wait for the player to tap it
-        if (inactiveMessagePanel != null && inactiveMessagePanel.activeSelf) return;
-
-        if (PlayerIsInteracting())
+        GameObject blocker = GetBlocker();
+        if (blocker != null)
         {
+            Report($"Blocked by active object: {blocker.name}");
+            if (inactiveMessagePanel != null && inactiveMessagePanel.activeSelf)
+                inactiveMessagePanel.SetActive(false);
             idleTimer = 0f;
             return;
         }
 
+        if (inactiveMessagePanel != null && inactiveMessagePanel.activeSelf)
+        {
+            Report("Hint is open, waiting for tap");
+            return;
+        }
+
+        if (PlayerIsInteracting())
+        {
+            Report("Player is touching/clicking (timer reset)");
+            idleTimer = 0f;
+            return;
+        }
+
+        Report($"Counting idle time...");
         idleTimer += Time.unscaledDeltaTime;
         if (idleTimer >= idleSeconds)
             Show();
@@ -63,17 +80,16 @@ public class InactivityHintController : MonoBehaviour
 
     private bool PlayerIsInteracting()
     {
-        // Legacy Input. Covers touch and mouse (drag included).
         return Input.touchCount > 0 || Input.GetMouseButton(0);
     }
 
     private void Show()
     {
         if (inactiveMessagePanel == null) return;
-
-        messageText.text = BuildMessage();
+        if (messageText != null) messageText.text = BuildMessage();
         inactiveMessagePanel.SetActive(true);
         inactiveMessagePanel.transform.SetAsLastSibling();
+        if (debugLogs) Debug.Log("[InactivityHint] SHOWN");
     }
 
     public void Hide()
@@ -84,11 +100,9 @@ public class InactivityHintController : MonoBehaviour
 
     private string BuildMessage()
     {
-        // Stage 1: ingredient list buttons
         if (prepController.ingredientPrepPanel != null && prepController.ingredientPrepPanel.activeInHierarchy)
             return ingredientStageMessage;
 
-        // Stage 2 / 3: whichever CookingPrepListUI is on the active panel
         var list = CookingPrepListUI.Instance;
         if (list != null)
         {
@@ -96,7 +110,30 @@ public class InactivityHintController : MonoBehaviour
             if (!string.IsNullOrEmpty(step))
                 return string.Format(stepMessageFormat, step);
         }
-
         return fallbackMessage;
+    }
+
+    private GameObject GetBlocker()
+    {
+        if (IsSettingsOpen()) return settingsAnimator.gameObject;
+        foreach (var go in blockingPanels)
+            if (go != null && go.activeInHierarchy) return go;
+        return null;
+    }
+
+    // Logs only when the reason CHANGES, so the Console doesn't flood.
+    private void Report(string reason)
+    {
+        if (!debugLogs || reason == lastReason) return;
+        lastReason = reason;
+        Debug.Log($"[InactivityHint] {reason}");
+    }
+
+    // True whenever the settings window is anything other than fully closed
+    private bool IsSettingsOpen()
+    {
+        if (settingsAnimator == null || !settingsAnimator.isActiveAndEnabled) return false;
+        if (settingsAnimator.IsInTransition(0)) return true;   // opening or closing blend
+        return !settingsAnimator.GetCurrentAnimatorStateInfo(0).IsName(settingsClosedState);
     }
 }
