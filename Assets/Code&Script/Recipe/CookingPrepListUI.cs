@@ -49,6 +49,9 @@ public class CookingPrepListUI : MonoBehaviour
     // unique key -> base id
     private readonly Dictionary<string, string> keyToBase = new Dictionary<string, string>();
 
+    
+    // unique key -> instruction text
+    private readonly Dictionary<string, string> keyToText = new Dictionary<string, string>();
     public bool HasStep(string id) => occurrences.ContainsKey(id);
 
     /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
@@ -114,6 +117,7 @@ public class CookingPrepListUI : MonoBehaviour
 
                 rows[key] = row;
                 keyToBase[key] = id;
+                keyToText[key] = recipe.cookingInstructions[i];
                 orderedIds.Add(key);
             }
             row.SetCompleted(false);
@@ -137,7 +141,9 @@ public class CookingPrepListUI : MonoBehaviour
 
     /// <summary>Base id of the first step (in list order) that isn't completed yet. Null if all done.</summary>
     public string CurrentStepId => CurrentKey != null ? keyToBase[CurrentKey] : null;
-
+    /// <summary>Instruction text of the first step that isn't completed yet. Null if all done.</summary>
+    public string CurrentStepText =>
+        CurrentKey != null && keyToText.TryGetValue(CurrentKey, out var t) ? t : null;
     public bool IsExpected(string id)
     {
         if (!strictOrder) return true;
@@ -306,6 +312,7 @@ public class CookingPrepListUI : MonoBehaviour
         rows.Clear();
         orderedIds.Clear();
         occurrences.Clear();
+        keyToText.Clear();
         keyToBase.Clear();
         if (contentContainer == null) return;
 

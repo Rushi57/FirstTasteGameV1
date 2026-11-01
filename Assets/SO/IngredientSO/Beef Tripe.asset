@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beef Tripe
   m_EditorClassIdentifier: 
   id: BeefTripe
-  displayName: BeefTripe
+  displayName: Beef Tripe
   category: 0
   size: 0
   icon: {fileID: 5188495928801226314, guid: 765d3d360eb3a5e47a08e96d68caa74e, type: 3}

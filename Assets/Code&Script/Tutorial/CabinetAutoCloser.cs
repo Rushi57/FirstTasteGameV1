@@ -36,8 +36,16 @@ public class CabinetAutoCloser : MonoBehaviour
 
     private IEnumerator CloseRoutine()
     {
-        yield return new WaitForSeconds(closeDelay);   // let the item finish snapping/dropping
-        cabinetMain.SetActive(false);                  // no button click, so no tutorial report
+        yield return new WaitForSeconds(closeDelay);
+
+        if (cabinetMain != null)
+        {
+            if (PanelExclusivityManager.Instance != null)
+                PanelExclusivityManager.Instance.Close(cabinetMain);  // clears currentOpen + SetActive(false)
+            else
+                cabinetMain.SetActive(false);                         // fallback if no manager in scene
+        }
+
         closeRoutine = null;
     }
 }

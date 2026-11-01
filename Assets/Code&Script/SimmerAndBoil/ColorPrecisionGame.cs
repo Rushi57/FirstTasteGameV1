@@ -16,6 +16,16 @@ public class ColorPrecisionGame : MonoBehaviour
     public float headstartDelay = 2f;
     public float retryDelay = 1.5f; // how long "BAD!" is shown before restarting
 
+    [Header("Hit Detection")]
+    [Tooltip("Half the arrow head's width, in degrees. 0 = only the tip line counts.")]
+    public float handHalfWidthDeg = 8f;
+    [Tooltip("ON = the whole arrow head must be inside the color. OFF = any overlap counts.")]
+    public bool requireWholeHead = true;
+
+    [Header("Zone Sizes (fraction of the circle)")]
+    [Range(0.02f, 0.5f)] public float greenFill = 0.12f;   // 0.12 = 43°
+    [Range(0.02f, 0.6f)] public float yellowFill = 0.25f;  // 0.25 = 90°
+
     private bool isSpinning = false;
     private bool canStop = false;
     private Coroutine activeRoutine;
@@ -38,6 +48,8 @@ public class ColorPrecisionGame : MonoBehaviour
         canStop = false;
 
         hand.localEulerAngles = Vector3.zero;
+        greenImage.fillAmount = greenFill;
+        yellowImage.fillAmount = yellowFill;
 
         yellowImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
         greenImage.rectTransform.localEulerAngles = new Vector3(0, 0, Random.Range(0f, 360f));
@@ -102,13 +114,14 @@ public class ColorPrecisionGame : MonoBehaviour
         yellowStart = 1f - yellowStart;
         if (yellowStart >= 1f) yellowStart -= 1f;
 
-        if (IsPointInSlice(point, greenStart, greenImage.fillAmount))
+        if (HandHitsSlice(point, greenStart, greenImage.fillAmount, true))
         {
             resultText.text = "VERY GOOD!";
             ScoreManager.Instance?.ReportResult(ResultQuality.VeryGood);
             OnSucceeded?.Invoke();
         }
-        else if (IsPointInSlice(point, yellowStart, yellowImage.fillAmount))
+        else if (HandHitsSlice(point, greenStart, greenImage.fillAmount, false)
+      || HandHitsSlice(point, yellowStart, yellowImage.fillAmount, false))
         {
             resultText.text = "GOOD";
             ScoreManager.Instance?.ReportResult(ResultQuality.Good);
@@ -157,6 +170,21 @@ public class ColorPrecisionGame : MonoBehaviour
         else return point >= start || point <= end;
     }
 
+    bool HandHitsSlice(float point, float start, float fill, bool wholeHead)
+    {
+        float half = handHalfWidthDeg / 360f;
+        float left = Mathf.Repeat(point - half, 1f);
+        float right = Mathf.Repeat(point + half, 1f);
+
+        bool leftIn = IsPointInSlice(left, start, fill);
+        bool centerIn = IsPointInSlice(point, start, fill);
+        bool rightIn = IsPointInSlice(right, start, fill);
+
+        return wholeHead
+            ? (leftIn && centerIn && rightIn)
+            : (leftIn || centerIn || rightIn);
+    }
+
     public void SetSpeed(float speed)
     {
         rotateSpeed = speed;
@@ -168,5 +196,10 @@ public class ColorPrecisionGame : MonoBehaviour
         canStop = false;
         activeRoutine = null;
         SFXManager.Instance?.StopClock();
+    }
+    private void OnValidate()
+    {
+        if (greenImage != null) greenImage.fillAmount = greenFill;
+        if (yellowImage != null) yellowImage.fillAmount = yellowFill;
     }
 }

@@ -10,6 +10,7 @@ public class StoryTeller : MonoBehaviour
     public Button nextButton;
     public Image characterImage;
     public Image dishImage;
+    public Button tapAnywhereButton;
 
     [Header("Panels")]
     public GameObject storyPanel;  // BackgroudStoryTelling
@@ -48,7 +49,8 @@ public class StoryTeller : MonoBehaviour
         LevelData level = LevelSelectionManager.SelectedLevel;
         currentStory = (level != null && level.story != null) ? level.story : fallbackStory;
 
-        nextButton.onClick.AddListener(OnNext);   // add ONCE here
+        nextButton.onClick.AddListener(OnNext);
+        if (tapAnywhereButton != null) tapAnywhereButton.onClick.AddListener(OnNext);
 
         Debug.Log($"[StoryTeller] level={(level != null ? level.name : "NULL")}, " +
              $"story={(currentStory != null ? currentStory.name : "NULL")}, " +
@@ -171,13 +173,25 @@ public class StoryTeller : MonoBehaviour
         isTyping = false;
     }
 
+    // Tapping anywhere only completes the current line; it never advances.
+    void SkipTyping()
+    {
+        if (!isTyping) return;
+        FinishTyping();
+    }
+
+    void FinishTyping()
+    {
+        if (typingRoutine != null) StopCoroutine(typingRoutine);
+        storyText.maxVisibleCharacters = int.MaxValue;
+        isTyping = false;
+    }
+
     void OnNext()
     {
         if (isTyping)
         {
-            StopCoroutine(typingRoutine);
-            storyText.maxVisibleCharacters = int.MaxValue;
-            isTyping = false;
+            FinishTyping();
             return;
         }
 

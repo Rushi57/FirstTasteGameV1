@@ -39,6 +39,8 @@ public class PourAnimationController : MonoBehaviour
     public bool hideStreamOnReturn = true;
     private bool returning;
 
+    private bool busyRegistered;
+
     private void Awake()
     {
         rect = transform as RectTransform;
@@ -62,6 +64,7 @@ public class PourAnimationController : MonoBehaviour
     /// <summary>Activates this object, resets to Idle, tints it, then tilts -> holds -> returns.</summary>
     public void PlayPourAnimation(Color color, Action onComplete, bool hideAfter = true)
     {
+        SetBusy(true);
         returning = false;  
         gameObject.SetActive(true);
         if (liquidImage != null)
@@ -103,6 +106,7 @@ public class PourAnimationController : MonoBehaviour
             gameObject.SetActive(false);
         }
         onComplete?.Invoke();
+        SetBusy(false);
     }
 
     private IEnumerator RotateOverTime(float from, float to, float duration)
@@ -150,6 +154,7 @@ public class PourAnimationController : MonoBehaviour
 
     public void ReturnToIdle()
     {
+        SetBusy(false);
         returning = false;
         if (running != null) StopCoroutine(running);
         running = null;
@@ -158,6 +163,7 @@ public class PourAnimationController : MonoBehaviour
 
     public void Hide()
     {
+        SetBusy(false);
         returning = false;
         if (running != null) StopCoroutine(running);
         running = null;
@@ -165,4 +171,16 @@ public class PourAnimationController : MonoBehaviour
         if (liquidImage != null) liquidImage.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
+  
+
+    // Idempotent: never double-counts, never leaks
+    private void SetBusy(bool on)
+    {
+        if (on == busyRegistered) return;
+        busyRegistered = on;
+        if (on) TutorialManager.Instance?.BeginBusy();
+        else TutorialManager.Instance?.EndBusy();
+    }
+
+    private void OnDisable() => SetBusy(false);   // covers parent deactivation / scene changes
 }

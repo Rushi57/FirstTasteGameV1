@@ -1,59 +1,44 @@
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class GameOverController : MonoBehaviour
+public class GameMechanicsFreezer : MonoBehaviour
 {
-    [Header("Buttons")]
-    public Button replayButton;
-    public Button quitButton;
-    public Button scoreBorderReplay;
+    [Header("Optional: also shut these down (MainFridge, TopUtensils, CabinetMain)")]
+    [SerializeField] private GameObject[] extraToStop;
 
-    [Header("Quit")]
-    [Tooltip("Scene to load when the player tap Quit ")]
-    public string quitSceneName = "Map Scene";
+    private CanvasGroup group;
+
+    private void Awake()
+    {
+        // Used to block touches/drags on anything still visible
+        group = GetComponent<CanvasGroup>();
+        if (group == null) group = gameObject.AddComponent<CanvasGroup>();
+    }
 
     private void Start()
     {
-        if (replayButton != null) replayButton.onClick.AddListener(OnReplay);
-        if (quitButton != null) quitButton.onClick.AddListener(OnQuit);
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.OnGameOver += Freeze;
     }
+
     private void OnDestroy()
     {
         if (ScoreManager.Instance != null)
-            ScoreManager.Instance.OnGameOver += HandleGameOver;
-    }
-    private void HandleGameOver()
-    {
-        TutorialManager.Instance?.AbortTutorial();
-    }
-    private void OnReplay()
-    {
-
-        Time.timeScale = 1f;   // reset before reloading
-        var tutorial = TutorialManager.Instance;
-
-        if (tutorial != null && !tutorial.HasCompletedTutorial())
-            tutorial.ResetProgress();
-
-        SFXManager.Instance?.StopLoop();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    private void OnQuit()
-    {
-        SFXManager.Instance?.StopLoop();
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(quitSceneName);
+            ScoreManager.Instance.OnGameOver -= Freeze;
     }
 
-    public void OnRetryScoreBtn()
+    private void Freeze()
     {
-        Time.timeScale = 1f;   // reset before reloading
-        var tutorial = TutorialManager.Instance;
+        // Stop input
+        group.interactable = false;
+        group.blocksRaycasts = false;
 
-        if (tutorial != null && !tutorial.HasCompletedTutorial())
-            tutorial.ResetProgress();
-        SFXManager.Instance?.StopLoop();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // Deactivating a panel stops its Update, coroutines and timers
+        foreach (Transform child in transform)
+            child.gameObject.SetActive(false);
+
+        foreach (var go in extraToStop)
+            if (go != null) go.SetActive(false);
+
+        SFXManager.Instance?.StopLoop();   // stops looping sounds like boiling
     }
 }

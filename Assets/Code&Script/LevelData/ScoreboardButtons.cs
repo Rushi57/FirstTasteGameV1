@@ -25,7 +25,10 @@ public class ScoreboardButtons : MonoBehaviour
         var tutorial = TutorialManager.Instance;
 
         if (tutorial != null && !tutorial.HasCompletedTutorial())
+        {
             tutorial.ResetProgress();
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void OnDestroy()
     {

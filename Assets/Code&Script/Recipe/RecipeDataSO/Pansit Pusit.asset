@@ -58,7 +58,7 @@ MonoBehaviour:
   - Chop the celery into sliced
   - Chop the birds eye chillie into sliced
   - Turn the stove to high heat
-  - Put the pan in the stove
+  - Put the wok in the stove
   - Add 1/4 cup of cooking oil
   - Add minced garlic
   - Add minced onion
@@ -101,7 +101,7 @@ MonoBehaviour:
   - Pan:Water
   - Pour:VinegarCup_1_4
   - Mix:18
-  - Pan:Squid Ink
+  - Pan:SquidInk
   - Pan:PanLidSimmer
   - Pan:Bihon
   - Pan:Cabbage

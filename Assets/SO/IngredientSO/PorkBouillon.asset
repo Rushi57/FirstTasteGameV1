@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PorkBouillon
   m_EditorClassIdentifier: 
   id: PorkBouillon
-  displayName: PorkBouillon
+  displayName: Pork Bouillon
   category: 0
   size: 0
   icon: {fileID: 1306317143960226626, guid: e1a47e233325b9f499fe490450538026, type: 3}

@@ -22,9 +22,9 @@ MonoBehaviour:
     color: {r: 0.9019608, g: 0.92941177, b: 0.9411765, a: 0}
     strength: 0.2
     opacity: 0.2
-  - id: Pork Blood
+  - id: PorkBlood
     color: {r: 0.2901961, g: 0.07058824, b: 0.05490196, a: 0}
-    strength: 10
+    strength: 12
     opacity: 1
   - id: CookingOil
     color: {r: 0.9607843, g: 0.77254903, b: 0.21960784, a: 0}

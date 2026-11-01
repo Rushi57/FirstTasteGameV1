@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 0}
+  m_AnchoredPosition: {x: 30, y: 0}
   m_SizeDelta: {x: 328.6299, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4245624474506221362
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pork Belly
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7828f0b6474d92940ac0a8b2e2f598fb, type: 2}
-  m_sharedMaterial: {fileID: -3349553436411711770, guid: 7828f0b6474d92940ac0a8b2e2f598fb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
+  m_sharedMaterial: {fileID: 3211506966235453190, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

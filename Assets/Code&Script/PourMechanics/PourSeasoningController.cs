@@ -181,13 +181,19 @@ public class PourSeasoningController : MonoBehaviour
     public void OpenFor(SeasoningType seasoning)
     {
         if (isAnimating) return;
+
+        var prep = CookingPrepListUI.Instance;
+        // Cooking hasn't started (ingredients not all gathered yet)
+        if (prep == null)
+        {
+            ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);
+            return;
+        }
         //Wrong Step Gate
         string prefix = $"Pour:{seasoning}";
-        var prep = CookingPrepListUI.Instance;
-        string current = prep != null ? prep.CurrentStepId : null;
+        string current = prep.CurrentStepId;
 
-        if (prep != null && (current == null ||
-            !current.StartsWith(prefix, System.StringComparison.Ordinal)))
+        if (current == null || !current.StartsWith(prefix, System.StringComparison.Ordinal))
         {
             ScoreManager.Instance?.ReportMistake("Wrong Step!\nMinus 1 heart", 0, 1);
             return;

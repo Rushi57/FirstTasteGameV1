@@ -25,9 +25,6 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: d9c8a1881d5a21046969526341db1bce, type: 2}
-    quantity: 0
-    unit: 
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
@@ -38,16 +35,16 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - 'Chop the white onion into slice '
-  - 'Chop the garlic into slice '
-  - 'Chop the tomato into slice '
+  - Chop the white onion into sliced
+  - Chop the garlic into sliced
+  - Chop the tomato into sliced
   - Turn on the stove to high heat
-  - Put the Pan in the Stove
+  - Put the wok in the Stove
   - Add 1 tbsp of cooking oil
   - Add butter
   - Add the chicken legs
   - Mix it using Spatula
-  - Put the sear chicken in the bowl
+  - Put the sear chicken in the plate
   - Add the onions in the pan
   - Add the garlic in the pan
   - Add the bay leaf in the pan
@@ -69,9 +66,9 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOilTbsp_1
   - Pan:Butter
-  - Pan:Chicken Parts
+  - Pan:ChickenParts
   - Mix:8
-  - Bowl:Chicken Parts
+  - Bowl:ChickenParts
   - Pan:Onion
   - Pan:Garlic
   - Pan:BayLeaf
@@ -80,7 +77,7 @@ MonoBehaviour:
   - Pour:SoyTsp_1_2
   - Sugar:Tsp_1_8
   - Mix:17
-  - Pan:Chicken Parts
+  - Pan:ChickenParts
   - Pan:PanLidSimmer
   - Pour:AchueteOilTsp_1_2
   - Salt:Tsp_1_8

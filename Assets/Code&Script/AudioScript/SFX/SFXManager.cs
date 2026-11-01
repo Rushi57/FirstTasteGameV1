@@ -116,6 +116,10 @@ public class SFXManager : MonoBehaviour
         }
     }
     public void PlayChop() => Play(ChopIngredientSound);
+    public void PlayFridgeOpen() => Play(fridgeOpen);
+    public void PlayFridgeClose() => Play(fridgeClose);
+    public void PlayCabinetOpen() => Play(cabinetOpen);
+    public void PlayCabinetClose() => Play(cabinetClose);
 
     public void PlayJarScoop() => Play(jarScopping);
     public void PlayTap() => Play(tapButtonTest);

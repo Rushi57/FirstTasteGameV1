@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 159.3, y: 140}
   actionType: 2
   targetId: ChoppingBoard
   dragSourceId: Garlic
