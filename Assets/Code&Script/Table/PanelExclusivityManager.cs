@@ -19,9 +19,13 @@ public class PanelExclusivityManager : MonoBehaviour
     /// Returns true if the panel may open.
     public bool TryOpen(GameObject panel)
     {
+        // Stale reference: panel was disabled by something that didn't call Close()
+        if (currentOpen != null && !currentOpen.activeInHierarchy)
+            currentOpen = null;
+
         if (currentOpen != null && currentOpen != panel)
         {
-            warning?.Show(alreadyOpenMessage);   // message only, no ScoreManager call
+            warning?.Show(alreadyOpenMessage);
             return false;
         }
 

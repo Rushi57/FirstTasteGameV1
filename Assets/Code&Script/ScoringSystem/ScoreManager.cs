@@ -177,7 +177,15 @@ public class ScoreManager : MonoBehaviour
             TriggerGameOver();
     }
 
-
+    public void SetPerfectScore()
+    {
+        CurrentScore = startingScore;   // 100 >= threeStarMinScore (90)
+        CurrentHearts = startingHearts;
+        IsGameOver = false;
+        RefreshUI();
+        OnScoreChanged?.Invoke(CurrentScore);
+        OnHeartsChanged?.Invoke(CurrentHearts);
+    }
     private void TriggerGameOver()
     {
         IsGameOver = true;

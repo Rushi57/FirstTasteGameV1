@@ -856,6 +856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 229684622}
   - component: {fileID: 229684623}
+  - component: {fileID: 229684624}
   m_Layer: 5
   m_Name: CodeForUIGameObject
   m_TagString: Untagged
@@ -897,6 +898,19 @@ MonoBehaviour:
   tutorialTagLevel1: {fileID: 434116486}
   tutorialTagLevelPlay: {fileID: 863714043}
   tutorialTapDelay: 1
+--- !u!114 &229684624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229684621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8c3e91b639e9b45ac55e2c0d646c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1880894228}
 --- !u!1 &244961622
 GameObject:
   m_ObjectHideFlags: 0

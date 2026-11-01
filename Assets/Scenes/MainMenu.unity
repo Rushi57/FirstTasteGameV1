@@ -834,7 +834,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.28125
+  orthographic size: 0.2248227
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2905,7 +2905,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 715.8, y: 450}
+  m_SizeDelta: {x: 741.5, y: 343.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341953844
 MonoBehaviour:
@@ -2927,8 +2927,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Kyle M. Domagas \n\nReymark R. Coronado\n\nAdrian Gabriel S. Pechardo\n\nEduard
-    Johnson R. Sagun\n \nDr. Ni\xF1a Ana Marie Jocelyn Sales"
+  m_text: "Kyle M. Domagas \nReymark R. Coronado\nAdrian Gabriel S. Pechardo\nEduard
+    Johnson R. Sagun\nDr. Ni\xF1a Ana Marie Jocelyn Sales"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
   m_sharedMaterial: {fileID: 3211506966235453190, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
@@ -2955,19 +2955,19 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.6
-  m_fontSizeBase: 40.6
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 28
+  m_fontSizeMax: 46
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: -19.45
+  m_lineSpacing: 9.4
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2993,7 +2993,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -3.9601974, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
