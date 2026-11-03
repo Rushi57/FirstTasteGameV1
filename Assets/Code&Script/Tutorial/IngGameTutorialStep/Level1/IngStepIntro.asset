@@ -16,10 +16,11 @@ MonoBehaviour:
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
   - Always follow the Cooking Instructions on the right side of the screen
-  - ' See the hearts at the top? You have five chances. If all hearts are lost, it''s
-    game over.'
+  - See the hearts at the top? You have five chances. If all hearts are lost, it's
+    game over.
   - Let's start by preparing the ingredients before we move to the cooking steps.
   advanceDelay: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 0

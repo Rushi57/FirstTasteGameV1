@@ -13,31 +13,33 @@ MonoBehaviour:
   m_Name: AdoboHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Pork Adobo! But there's an interesting question behind this familiar favorite
-      where did adobo really begin?
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Let me tell you the history and origin of adobo.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: 'The word adobo comes from the Spanish term adobar, meaning to season or
-      marinate. '
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: 'However, Filipinos may have already been cooking meat with vinegar before
-      Spanish colonization. '
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: With the Spanish term later used to describe the method.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: 'Pork Adobo is typically simmered with vinegar, soy sauce, garlic, peppercorns,
-      and bay leaves. '
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Every household has its own version, whether the sauce is tangy and plentiful
-      or reduced until the meat is nearly dry.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Did you know?
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: 'Adobo has no single recipe that every Filipino household follows! '
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: Some families prefer more vinegar, while others like their sauce rich and
-      savory.
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: Let's make a dish that tastes like home. Don't forget the garlic!
+  - text: Rooted in pre-colonial Austronesian survival techniques where,
+    characterSprite: {fileID: 0}
+  - text: families preserved food in acid before refrigeration existed,
+    characterSprite: {fileID: 0}
+  - text: this dish carries a thousand year old heritage that was,
+    characterSprite: {fileID: 0}
+  - text: later documented and named during early Spanish contact.
+    characterSprite: {fileID: 0}
+  - text: Will your careful hand honor this deep tradition?
+    characterSprite: {fileID: 0}
+  - text: "Did you know the word \u201CAdobo\u201D is Spanish,"
+    characterSprite: {fileID: 0}
+  - text: but the cooking method is not. When Spanish friars arrived in the Philippines
+    characterSprite: {fileID: 0}
+  - text: ',they used a familiar word for a technique that was already here.'
+    characterSprite: {fileID: 0}
+  - text: "The 1613 \u201CVocabulario de la lengua tagala\u201D even recorded,"
+    characterSprite: {fileID: 0}
+  - text: "it as \u201CAdobo de los Naturales\u201D, meaning the adobo of the native
+      people."
+    characterSprite: {fileID: 0}
+  - text: 'What came next was gradual elaboration. '
+    characterSprite: {fileID: 0}
+  - text: "Chinese merchants brought soy sauce \u201CToyo\u201D, "
+    characterSprite: {fileID: 0}
+  - text: which many families now consider essential but which was not part of the
+      oldest recipe.
+    characterSprite: {fileID: 0}
+  - text: Now that's all done, Let's get to cooking!
     characterSprite: {fileID: 0}

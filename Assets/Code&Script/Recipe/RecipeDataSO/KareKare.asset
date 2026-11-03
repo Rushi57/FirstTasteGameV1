@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
   m_Name: KareKare
   m_EditorClassIdentifier: 
-  recipeName: Kare-Kare
+  recipeName: '`'
   recipeIcon: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
   liquidProfile: {fileID: 11400000, guid: 1cc729af9241ad44c892ce67ec7321d7, type: 2}
   ingredients:

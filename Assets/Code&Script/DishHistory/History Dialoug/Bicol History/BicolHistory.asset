@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f310e05cc019a48855581da30b411e, type: 3}
+  m_Name: BicolHistory
+  m_EditorClassIdentifier: 
+  lines:
+  - text: 'Spicy, creamy, and named after a train. Bicol Express earns its heat honestly, '
+    characterSprite: {fileID: 0}
+  - text: "with \u201Csiling labuyo\u201D and \u201Csiling haba\u201D bringing fire
+      while \u201Cgata\u201D and \u201Cbagoong alamang\u201D bring comfort. "
+    characterSprite: {fileID: 0}
+  - text: The story. A Manila cook in the 1970s renamed an older Bicolano chili-and
+      coconut tradition,
+    characterSprite: {fileID: 0}
+  - text: after the overnight train that carried travelers between Manila and Legazpi.
+    characterSprite: {fileID: 0}
+  - text: Can you balance the heat with the richness,
+    characterSprite: {fileID: 0}
+  - text: "without ever breaking the delicate \r\ncoconut cream?"
+    characterSprite: {fileID: 0}

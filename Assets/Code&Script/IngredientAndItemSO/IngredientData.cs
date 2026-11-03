@@ -19,7 +19,8 @@ public enum IngredientPrepState
 {
     Whole,
     Sliced,
-    Minced
+    Minced,
+    Cooked
 }
 
 [System.Serializable]
@@ -37,6 +38,7 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     public string id;
 
     public string displayName;
+
 
     [Header("Spawning")]
     [Tooltip("Whether this is an ingredient or a cooking utensil/tool - determines which prefab IngredientSpawner uses.")]
@@ -63,6 +65,9 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Tooltip("Only used when 'Plays Pour Animation' is checked. One PosX/PosY per target (pan, bowl, pitcher...).")]
     public List<PourPositionEntry> pourPositions = new List<PourPositionEntry>();
 
+    [Header("State Change On Drop (optional)")]
+    [Tooltip("When this item is dropped on a matching target (e.g. Wok), its prep state changes and its sprite updates. Leave empty if it never changes.")]
+    public List<DropStateChange> dropStateChanges = new List<DropStateChange>();
     public string TutorialId => id;
 
     public Sprite GetSpriteForState(IngredientPrepState state)
@@ -95,7 +100,21 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
         position = pourPositions[0].position;
         return true;
     }
+    public bool TryGetStateOnDrop(string targetName, out IngredientPrepState newState)
+    {
+        newState = default;
+        if (dropStateChanges == null) return false;
 
+        foreach (var entry in dropStateChanges)
+        {
+            if (entry.targetName == targetName)
+            {
+                newState = entry.newState;
+                return true;
+            }
+        }
+        return false;
+    }
 }
 [System.Serializable]
 public class PourPositionEntry
@@ -105,4 +124,14 @@ public class PourPositionEntry
 
     [Tooltip("PosX / PosY of 'Pitcher with water' (anchoredPosition) for this target.")]
     public Vector2 position;
+}
+
+[System.Serializable]
+public class DropStateChange
+{
+    [Tooltip("Name the drop target passes in, e.g. Wok. Must match exactly.")]
+    public string targetName = "Wok";
+
+    [Tooltip("The state the ingredient becomes when dropped on this target.")]
+    public IngredientPrepState newState = IngredientPrepState.Cooked;
 }

@@ -16,14 +16,13 @@ MonoBehaviour:
   displayName: Pork Jowl
   category: 0
   size: 1
-  icon: {fileID: 1254733247220407415, guid: f845127ee6cce754fa5c31f8fd42f6f0, type: 3}
+  icon: {fileID: 3230269074733936568, guid: e778f2a2cc453dd49b101178a51932b6, type: 3}
   iconScale: 1.1
   stateSprites:
   - state: 0
-    sprite: {fileID: 1254733247220407415, guid: f845127ee6cce754fa5c31f8fd42f6f0, type: 3}
+    sprite: {fileID: 3230269074733936568, guid: e778f2a2cc453dd49b101178a51932b6, type: 3}
   - state: 1
-    sprite: {fileID: -3426918139369066666, guid: fadb0e865e03ce940b30ee23ab39962f, type: 3}
-  - state: 2
-    sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
+    sprite: {fileID: -1384810189098888181, guid: 89aea1c678f7bdc4694ed4ffa472b2b4, type: 3}
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges: []

@@ -13,8 +13,28 @@ MonoBehaviour:
   m_Name: Level7
   m_EditorClassIdentifier: 
   levelNumber: 7
-  levelName: Pancit Canton
-  recipe: {fileID: 11400000, guid: 822ae64ded66e8b44a8bf6a360a0d07e, type: 2}
-  levelPreviewImage: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
-  story: {fileID: 11400000, guid: b3d0985280a8774498cff40e6f80be45, type: 2}
-  reflection: {fileID: 11400000, guid: cf7ee5b15b45ce446bc383e8586b50a7, type: 2}
+  levelName: Pancit Pusit
+  recipe: {fileID: 11400000, guid: 7298aa6f145a99d448d898a8f4fed5fc, type: 2}
+  levelPreviewImage: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
+  story: {fileID: 11400000, guid: 1616f76044177554fa734d36ec1bb492, type: 2}
+  reflection: {fileID: 11400000, guid: 1005e31c90ee6f8458d9bf0b77cf4e61, type: 2}
+  faqDishImage: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
+  faqEntries:
+  - type: 1
+    text: "Do you know why is this dish called \u201Cpancit choca\u201D in Cavite? "
+    answer: "\u201CChoca\u201D comes from the Spanish word \u201Cchoco\u201D, meaning
+      cuttlefish or squid. Cavite City was the Spanish naval port of the Philippines
+      for three centuries, which is why its culinary language still carries so much
+      Iberian vocabulary. "
+  - type: 1
+    text: "Do you know why is this dish called \u201Cpancit choca\u201D in Cavite? "
+    answer: "\u201CChoca\u201D comes from the Spanish word \u201Cchoco\u201D, meaning
+      cuttlefish or squid. Cavite City was the Spanish naval port of the Philippines
+      for three centuries, which is why its culinary language still carries so much
+      Iberian vocabulary. "
+  - type: 1
+    text: Do you know why does Cavite have so many unique Spanish-flavored dishes?
+    answer: 'Cavite City was the Spanish naval shipyard and provisioning port from
+      1571 until the end of Spanish rule. Three centuries of Spanish, Mexican, Chinese,
+      and Filipino cooks sharing one port town produced a cuisine unlike anywhere
+      else. '

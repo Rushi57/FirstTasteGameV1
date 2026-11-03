@@ -13,27 +13,14 @@ MonoBehaviour:
   m_Name: ChickenAsadoHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Next up is a comforting chicken dish from Pampanga! Let's explore Chicken
-      Asado and the different culinary influences behind its flavorful sauce.
+  - text: "Reflecting the 1565 \u2013 1815 Manila Galleon trade where New World tomatoes
+      and Spanish,"
     characterSprite: {fileID: 0}
-  - text: Let me tell you the history and origin of pampanga chicken asado.
+  - text: braising methods merged with local citrus and Chinese soy,
     characterSprite: {fileID: 0}
-  - text: Filipino Asado reflects a blend of Spanish and Chinese culinary influences.
+  - text: ' sauce during three centuries of colonial rule (1565 - 1898),'
     characterSprite: {fileID: 0}
-  - text: The word asado comes from Spanish, while Filipino versions also draw on
-      Chinese-style braising and seasoning techniques.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Chicken Asado is commonly simmered with garlic, onions, soy sauce, and
-      tomatoes or tomato sauce.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Recipes vary between households, with some versions tasting more savory
-      and others slightly sweet.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Did you know
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: The name Asado can refer to different dishes! Filipino recipes vary depending
-      on the region and the cook's own traditions.
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: Let's bring those flavors together! Keep the chicken tender and the sauce
-      delicious.
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: this Kapampangan Sunday classic holds families together.
+    characterSprite: {fileID: 0}
+  - text: ' Can you balance the soy, calamansi, and tomato for the ideal sauce?'
+    characterSprite: {fileID: 0}

@@ -69,7 +69,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     }
 
 
-
+    [Header("State change on drop")]
+    [Tooltip("Matched against 'Target Name' in each ingredient's 'State Change On Drop' list.")]
+    public string targetName = "Pan";
 
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
@@ -173,6 +175,15 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         // Only the butter melts; everything else browns as usual
         bool isMelt = data.id == meltIngredientId;
+
+        // Change the sprite if this ingredient has a state change for this target (e.g. noodles -> Cooked)
+        if (data.TryGetStateOnDrop(targetName, out var newState))
+        {
+            Image stateImg = dropped.GetComponent<Image>();
+            if (stateImg == null) stateImg = dropped.GetComponentInChildren<Image>();
+            if (stateImg != null)
+                stateImg.sprite = data.GetSpriteForState(newState);
+        }
 
         if (!isMelt && cookingEffect != null)
         {

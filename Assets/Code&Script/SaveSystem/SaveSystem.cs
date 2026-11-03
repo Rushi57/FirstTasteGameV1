@@ -26,6 +26,21 @@ public class SaveData
     public List<LevelScoreEntry> levelScores = new List<LevelScoreEntry>();
     public List<string> completedTutorials = new List<string>();
     public bool IsTutorialCompleted(string id) => completedTutorials.Contains(id);
+
+    // ---- Premade ("prep already done") level messages ----
+    [Tooltip("Ingredient lines the player has already been shown.")]
+    public List<string> seenPrepMessages = new List<string>();
+    [Tooltip("Level whose message was shown but not yet resolved (left with no star?).")]
+    public int pendingPrepLevel;
+    public List<string> pendingPrepKeys = new List<string>();
+
+    public bool HasSeenPrep(string key) => seenPrepMessages.Contains(key);
+    public void MarkPrepSeen(string key)
+    {
+        if (!string.IsNullOrEmpty(key) && !seenPrepMessages.Contains(key))
+            seenPrepMessages.Add(key);
+    }
+    public void ForgetPrep(string key) => seenPrepMessages.Remove(key);
     /// <summary>
     /// Records a level's result. By default only overwrites if the new score
     /// is BETTER than any previous attempt (so retrying a level worse than

@@ -13,8 +13,21 @@ MonoBehaviour:
   m_Name: Level8
   m_EditorClassIdentifier: 
   levelNumber: 8
-  levelName: Pancit Pusit
-  recipe: {fileID: 11400000, guid: 7298aa6f145a99d448d898a8f4fed5fc, type: 2}
-  levelPreviewImage: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
-  story: {fileID: 11400000, guid: 1616f76044177554fa734d36ec1bb492, type: 2}
-  reflection: {fileID: 11400000, guid: 1005e31c90ee6f8458d9bf0b77cf4e61, type: 2}
+  levelName: Pancit Canton
+  recipe: {fileID: 11400000, guid: 822ae64ded66e8b44a8bf6a360a0d07e, type: 2}
+  levelPreviewImage: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
+  story: {fileID: 11400000, guid: b3d0985280a8774498cff40e6f80be45, type: 2}
+  reflection: {fileID: 11400000, guid: cf7ee5b15b45ce446bc383e8586b50a7, type: 2}
+  faqDishImage: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
+  faqEntries:
+  - type: 1
+    text: Do you know why Filipinos serve pancit canton on birthdays?
+    answer: In Chinese tradition, long noodles symbolize long life. Filipinos adopted
+      the custom fully, serving pancit at birthdays and anniversaries so that the
+      person being celebrated may enjoy many more years to come.
+  - type: 1
+    text: Do you know why calamansi served at the table rather than mixed in?
+    answer: 'Calamansi is added at the table so each eater can balance their own
+      plate. This is a specifically Filipino practice that reflects our acid-cookery
+      sensibility, visible also in adobo, kinilaw, sisig, and goto. The individual
+      eater, not the cook, finishes the dish. '

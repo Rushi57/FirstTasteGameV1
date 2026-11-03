@@ -16,5 +16,31 @@ MonoBehaviour:
   levelName: Bicol Express
   recipe: {fileID: 11400000, guid: 6bdf8fabffeafed47aa30781a09a77d0, type: 2}
   levelPreviewImage: {fileID: -1156428549729947634, guid: 4c03ffcc0e339f444ae676b3c691bf71, type: 3}
-  story: {fileID: 0}
+  story: {fileID: 11400000, guid: b1419ff3161ade041ae13afc78577469, type: 2}
   reflection: {fileID: 11400000, guid: 8367c5120bbb5ed46939159670f817ab, type: 2}
+  faqDishImage: {fileID: -1156428549729947634, guid: 4c03ffcc0e339f444ae676b3c691bf71, type: 3}
+  faqEntries:
+  - type: 1
+    text: Did you know why is Bicol Express called a Bicolano dish if it was created
+      in Manila?
+    answer: "The specific recipe was devised in a Malate restaurant in the 1970s,
+      often credited to Cely Kalaw. But every ingredient and technique in it is deeply
+      Bicolano. Think of it as a Manila love letter to the Bicol region\u2019s coconut-and-chili
+      tradition."
+  - type: 1
+    text: 'Did you know what is the older Bicolano dish behind Bicol Express? '
+    answer: "The dish draws directly from \u201Csinilihan\u201D, literally \u201Cmade
+      with chili\u201D, a long-attested Bicolano preparation of pork or vegetables
+      simmered in coconut milk and chili. \u201CGulay na lada\u201D is another close
+      cousin, still cooked today across Bicol homes. "
+  - type: 1
+    text: Did you know why  should the coconut cream never be boiled vigorously?
+    answer: "The thick first extraction coconut milk, \u201Ckakang gata\u201D, breaks
+      and turns greasy when boiled hard. Gentle simmering keeps it emulsified and
+      glossy, which is the diagnostic sign of a properly made Bicolano coconut sauce."
+  - type: 1
+    text: Did you know chili always a part of Bicolano cuisine?
+    answer: "The chili pepper came to the Philippines from Mexico through the Manila
+      Galleon trade in the sixteenth century. But Bicolanos adopted it so thoroughly,
+      and so fast, that the regional cuisine\u2019s identity now depends on it. Chili
+      arrived as a foreigner and became a Bicolano. "

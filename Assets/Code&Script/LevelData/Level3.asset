@@ -18,3 +18,29 @@ MonoBehaviour:
   levelPreviewImage: {fileID: -2092983280216000583, guid: cd8c1c291906ae14cb0467a92c526883, type: 3}
   story: {fileID: 11400000, guid: 517459d6b56974c4e9f1198790a575c9, type: 2}
   reflection: {fileID: 11400000, guid: c962e672ec2c0494facf61888600f3ee, type: 2}
+  faqDishImage: {fileID: -2092983280216000583, guid: cd8c1c291906ae14cb0467a92c526883, type: 3}
+  faqEntries:
+  - type: 1
+    text: "Do you know what does the word \u201Csisig\u201D actually mean? "
+    answer: "Lucia \u201CAling Lucing\u201D Cunanan opened a small stall along the
+      Angeles City railroad tracks in 1974. She sourced cheap pork heads from the
+      nearby Clark Air Base commissaries and turned them into the dish we love today."
+  - type: 1
+    text: Do you know who invented modern pork sisig?
+    answer: "In Kapampangan, \u201Csisig\u201D originally referred to anything prepared
+      with sour ingredients. Diego Berga\xF1o\u2019s 1732 Kapampangan dictionary
+      recorded it as a snack of unripe guava or papaya with vinegar and salt, often
+      eaten by pregnant women. "
+  - type: 1
+    text: 'Do you know why is the chopping done on a wooden board rather than in
+      a blender? '
+    answer: The three-stage boil-grill-chop method produces a controlled contrast
+      between the chewy outer skin and the softer interior. Over-mincing in a blender
+      destroys this diagnostic texture, which is why heritage preparations keep the
+      cleaver and the wooden board
+  - type: 1
+    text: ' Do you know if Clark Air Base was really the source of the pork?'
+    answer: 'The base commissaries from 1947 to 1991 were the economic condition
+      that made cheap pork head and ears available in volume to local Angeles City
+      vendors. The peer-reviewed heritage literature documents this as the material
+      foundation of modern sisig. '
