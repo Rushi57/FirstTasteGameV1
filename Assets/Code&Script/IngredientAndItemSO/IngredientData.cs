@@ -1,14 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>Whether this is a cooking ingredient or a utensil/tool.</summary>
 public enum ItemCategory
 {
     Ingredient,
     Utensil
 }
-
-/// <summary>Which sized prefab this item should spawn as.</summary>
 public enum ItemSize
 {
     Small,
@@ -55,18 +52,18 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     public float iconScale = 1f;
 
     [Header("Prep States (optional)")]
-    [Tooltip("Sprite to show for each prep stage, e.g. a different look for Whole vs Sliced vs Minced garlic. Leave empty if this ingredient never changes appearance (e.g. water, a utensil).")]
+    [Tooltip("Sprite to show different look")]
     public List<PrepStateSprite> stateSprites = new List<PrepStateSprite>();
 
     [Header("Pour Animation (optional)")]
-    [Tooltip("If true, dropping this item on a target plays the pitcher pour animation instead of just consuming the item.")]
+    [Tooltip("If true, dropping this item on a target plays")]
     public bool playsPourAnimation = false;
 
-    [Tooltip("Only used when 'Plays Pour Animation' is checked. One PosX/PosY per target (pan, bowl, pitcher...).")]
+    [Tooltip("Only used when Plays Pour Animation")]
     public List<PourPositionEntry> pourPositions = new List<PourPositionEntry>();
 
     [Header("State Change On Drop (optional)")]
-    [Tooltip("When this item is dropped on a matching target (e.g. Wok), its prep state changes and its sprite updates. Leave empty if it never changes.")]
+    [Tooltip("When this item is dropped on a matching target")]
     public List<DropStateChange> dropStateChanges = new List<DropStateChange>();
     public string TutorialId => id;
 
@@ -94,8 +91,6 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
                 return true;
             }
         }
-
-        // No exact match: use the first entry instead of ignoring the list.
         Debug.LogWarning($"[Pour] '{id}' has no pour position for '{targetName}'. Using '{pourPositions[0].targetName}'.");
         position = pourPositions[0].position;
         return true;

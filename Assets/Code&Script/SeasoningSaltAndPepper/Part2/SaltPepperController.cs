@@ -9,16 +9,10 @@ using UnityEngine.UI;
 
 public enum SaltPepperType { Salt, Pepper , CassavaStarch, Achuete, Sugar, PeanutButter }
 
-/// <summary>
-/// Flow: tap Salt/Pepper -> Salt/PepperPanel opens, jar shows salt or pepper
-///       -> player drags a spoon (Tbsp/tsp) onto the jar -> scored against
-///       the recipe -> Close -> if correct, plays the stove-top spoon
-///       animation, then grays out the Cooking Prep row.
-/// </summary>
 public class SaltPepperController : MonoBehaviour
 {
     [Header("Panel")]
-    public GameObject saltPepperPanel;   // Salt/PepperPanel
+    public GameObject saltPepperPanel;   
 
     [Header("Open buttons")]
     public Button saltButton;
@@ -72,7 +66,6 @@ public class SaltPepperController : MonoBehaviour
     public float mlPerTsp = 5f;
     private float pendingTsp;
 
-    //Value Msg
     [Header("Value popup (MessageBorder)")]
     [Tooltip("The MessageBorder object. Leave it inactive in the scene.")]
     public GameObject valueBorder;
@@ -113,14 +106,12 @@ public class SaltPepperController : MonoBehaviour
     {
         var prep = CookingPrepListUI.Instance;
 
-        // Cooking hasn't started (ingredients not gathered yet)
         if (prep == null)
         {
             ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);
             return;
         }
 
-        // Not this seasoning's turn
         string current = prep.CurrentStepId;
         string prefix = $"{type}:";
         if (current == null || !current.StartsWith(prefix, System.StringComparison.Ordinal))
@@ -149,7 +140,7 @@ public class SaltPepperController : MonoBehaviour
         {
             string stepId = $"{currentType}:{PendingId}";
             Color color = GetColor(currentType);
-            float tspToAdd = pendingTsp;                 // capture before it's reset
+            float tspToAdd = pendingTsp;
             SaltPepperType typeAtClose = currentType;
 
             System.Action onDone = () =>
@@ -186,7 +177,7 @@ public class SaltPepperController : MonoBehaviour
         Debug.Log("[SaltPepper] Closed.");
     }
 
-    private string PendingId; // set right before RequestClose reads it
+    private string PendingId;
 
     public void HandleSpoonDropped(SaltPepperSpoonItem spoon, TestDrag drag, GameObject dropped)
     {
@@ -195,7 +186,7 @@ public class SaltPepperController : MonoBehaviour
 
         if (recipe == null)
         {
-            Debug.LogWarning("[SaltPepper] No recipe available (assign Cooking Prep Panel).");
+            
             return;
         }
 
@@ -203,7 +194,6 @@ public class SaltPepperController : MonoBehaviour
 
         if (!TryFindRequirement(recipe, keyword, out int lineIndex, out float requiredTsp))
         {
-            Debug.Log($"[SaltPepper] Recipe has no (remaining) '{currentType}' step - nothing to score.");
             if (penalizeWrongAmount)
                 ScoreManager.Instance?.ReportMistake($"No {currentType} needed right now!", wrongDropPoints, wrongDropHearts);
             else
@@ -213,8 +203,6 @@ public class SaltPepperController : MonoBehaviour
 
         bool correct = Mathf.Abs(spoon.TspValue - requiredTsp) <= 0.05f;
         pendingTsp = requiredTsp;
-
-        Debug.Log($"[SaltPepper] {currentType}: dropped {spoon.Label} ({spoon.TspValue} tsp), recipe wants {requiredTsp:0.###} tsp -> {(correct ? "CORRECT" : "WRONG")}");
 
         if (correct)
         {
@@ -241,12 +229,8 @@ public class SaltPepperController : MonoBehaviour
                 ScoreManager.Instance?.ReportMistake(msg, wrongDropPoints, wrongDropHearts);
             else
                 ShowWrongMessage(msg);
-            // TestDrag bounces the spoon back automatically
         }
     }
-
-
-
     private void ShowWrongMessage(string message)
     {
         if (wrongMessagePanel == null) return;

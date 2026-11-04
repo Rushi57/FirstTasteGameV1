@@ -55,7 +55,7 @@ public class TutorialStep : ScriptableObject
     [Tooltip("Must match the 'Interactable Id' on the TutorialInteractable this step targets (e.g. the drop zone for Drag steps). Leave empty if actionType is None.")]
     public string targetId;
 
-    [Tooltip("DRAG STEPS ONLY: must match the 'Interactable Id' on the TutorialInteractable attached to the draggable item itself, so it stays clickable/draggable while input is blocked. Leave empty for Tap steps.")]
+    [Tooltip("DRAG STEPS ONLY: must match the 'Interactable Id' on the TutorialInteractable attached to the draggable item itself.")]
     public string dragSourceId;
 
     [Header("Input")]

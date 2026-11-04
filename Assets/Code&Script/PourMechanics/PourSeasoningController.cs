@@ -17,10 +17,10 @@ public class PourSeasoningController : MonoBehaviour
     public TutorialInteractable pourTutorial;
     [Header("Panels")]
     public GameObject seasoningPanel;   // PourSeasoningPanel
-    public GameObject pickPanel;        // PickPanel
-    public GameObject pourBoard;        // PourImageBoarder
-    public GameObject spoonScroll;      // TbspMesurementScrolling
-    public GameObject cupScroll;        // CupMesurementPick
+    public GameObject pickPanel;       
+    public GameObject pourBoard;       
+    public GameObject spoonScroll;     
+    public GameObject cupScroll;       
 
     [Header("Seasoning buttons (tap to open)")]
     public Button soyButton;
@@ -176,14 +176,12 @@ public class PourSeasoningController : MonoBehaviour
             if (b != null) b.Clicked -= OnMeasurementClicked;
     }
 
-    // ---------------- Panel flow ----------------
 
     public void OpenFor(SeasoningType seasoning)
     {
         if (isAnimating) return;
 
         var prep = CookingPrepListUI.Instance;
-        // Cooking hasn't started (ingredients not all gathered yet)
         if (prep == null)
         {
             ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);

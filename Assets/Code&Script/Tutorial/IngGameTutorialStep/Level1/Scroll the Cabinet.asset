@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Slide the cabinet to the left to show the utensils.
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 320, y: 399.1}
   actionType: 3

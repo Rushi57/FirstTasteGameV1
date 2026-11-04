@@ -18,7 +18,7 @@ MonoBehaviour:
   levelPreviewImage: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
   story: {fileID: 11400000, guid: 74056453bea06014c90de108d4d9aee2, type: 2}
   reflection: {fileID: 11400000, guid: e22d19aba4ded1f4ebb6ed8b15568959, type: 2}
-  faqDishImage: {fileID: 0}
+  faqDishImage: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
   faqEntries:
   - type: 1
     text: "Do you know why is it called \u201Casado\u201D if the chicken is not roasted?"

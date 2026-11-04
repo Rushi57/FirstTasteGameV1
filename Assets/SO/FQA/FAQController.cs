@@ -8,18 +8,18 @@ using UnityEngine.UI;
 public class FAQController : MonoBehaviour
 {
     [Header("UI")]
-    [SerializeField] TMP_Text dialogText;      // text inside Dialbox
-    [SerializeField] Image dishImage;          // DishImage
-    [SerializeField] GameObject yesNoRoot;     // YesOrNo
+    [SerializeField] TMP_Text dialogText;      
+    [SerializeField] Image dishImage;          
+    [SerializeField] GameObject yesNoRoot;     
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
-    [SerializeField] Button tapAnywhere;       // TapAnywhere (full screen)
+    [SerializeField] Button tapAnywhere;       
 
     [Header("Typing")]
     [SerializeField] float charsPerSecond = 40f;
 
     [Header("Answer Paging")]
-    [SerializeField] bool keepCommas = true;   // show "first, " style endings
+    [SerializeField] bool keepCommas = true;   
 
     public event Action OnFAQFinished;
 
@@ -31,7 +31,6 @@ public class FAQController : MonoBehaviour
     Coroutine typingRoutine;
     Action onTypingDone;
 
-    // Answer paging
     readonly List<string> answerPages = new List<string>();
     int answerPageIndex = -1;
     bool inAnswer;
@@ -43,7 +42,7 @@ public class FAQController : MonoBehaviour
         noButton.onClick.AddListener(OnNo);
     }
 
-    /// Call this when the FAQ should start, passing the current level.
+  
     public void Play(LevelData level)
     {
         if (level == null || level.faqEntries == null || level.faqEntries.Length == 0)
@@ -80,7 +79,7 @@ public class FAQController : MonoBehaviour
     void ShowChoices()
     {
         state = State.Choosing;
-        tapAnywhere.gameObject.SetActive(false); // so it doesn't block Yes/No
+        tapAnywhere.gameObject.SetActive(false); 
         yesNoRoot.SetActive(true);
     }
 
@@ -90,7 +89,7 @@ public class FAQController : MonoBehaviour
         tapAnywhere.gameObject.SetActive(true);
     }
 
-    void OnYes()  // player already knows -> skip the answer
+    void OnYes()
     {
         if (state != State.Choosing) return;
         yesNoRoot.SetActive(false);
@@ -98,7 +97,7 @@ public class FAQController : MonoBehaviour
         ShowNext();
     }
 
-    void OnNo()   // play the answer, one comma-chunk at a time
+    void OnNo() 
     {
         if (state != State.Choosing) return;
         yesNoRoot.SetActive(false);
@@ -120,14 +119,14 @@ public class FAQController : MonoBehaviour
         }
     }
 
-    // ---------- Answer paging ----------
+    
     void ShowNextAnswerPage()
     {
         answerPageIndex++;
         if (answerPageIndex >= answerPages.Count)
         {
             inAnswer = false;
-            ShowNext();            // answer finished -> next dialog
+            ShowNext();          
             return;
         }
         StartTyping(answerPages[answerPageIndex], EnterWaitForTap);
@@ -147,8 +146,6 @@ public class FAQController : MonoBehaviour
             SplitToFit(chunk);
         }
     }
-
-    // If a chunk is too big for the text box, break it at word boundaries.
     void SplitToFit(string chunk)
     {
         if (Fits(chunk)) { answerPages.Add(chunk); return; }
@@ -175,8 +172,6 @@ public class FAQController : MonoBehaviour
         float h = size.y - m.y - m.w;
         return dialogText.GetPreferredValues(s, w, h).y <= h + 0.5f;
     }
-
-    // ---------- Typewriter ----------
     void StartTyping(string content, Action onDone)
     {
         if (typingRoutine != null) StopCoroutine(typingRoutine);

@@ -40,7 +40,7 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 1667a49eed87c3b47bdc0a8a4f9b7850, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 6d69dafb7db6294459954e33cae42e49, type: 2}
+  - ingredient: {fileID: 11400000, guid: ef811ad4419eac144a5558f05c414b37, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
@@ -52,29 +52,19 @@ MonoBehaviour:
   - Turn the stove to high heat
   - Put the wok on the stove
   - Add 1/4 cup of cooking oil
-  - Add the onion
-  - Saute using the spatula
-  - Add the pork
-  - "Saut\xE9 using the spatula"
+  - Add the garlic
+  - Saute until fregrant
+  - Add pork belly
+  - Add chicken liver
+  - Add the chicken stock
+  - 'Add 1/4 cup of soy '
+  - Add 1 tbsp of fish sauce
+  - Put the pan lid to simmer
+  - Add the noodles
+  - Add 1 tbsp of cassava starch
+  - Stir it using the spatula
   - Add the kikiam
-  - "Saut\xE9 using the spatula"
-  - Add the chicken liver
-  - "Saut\xE9 using the spatula"
-  - Add pork bouillon
-  - ' Add water'
-  - Add 1/4 cup of soy sauce
-  - "Saut\xE9 using the spatula"
-  - Cover it with pan lid cook until simmering
-  - Add lomi noodles
-  - Cover it with pan lid until simmer
-  - 'Add cassava 1 tbsp '
-  - Cover it with pan lid until simmer
-  - Add eggs beaten
-  - "Saut\xE9 using the spatula"
-  - Turn the stove to medium heat
-  - Cover it with pan lid until simmer
-  - Add 1/4 tsp of salt
-  - Add 1/4 tsp of pepper
+  - Add the eggs beaten
   cookingStepIds:
   - PorkBelly:Sliced
   - ChickenLiver:Sliced
@@ -84,26 +74,16 @@ MonoBehaviour:
   - 
   - Pan:OnStove
   - Pour:CookingOilCup1_4
-  - Pan:Onion
+  - Pan:Garlic
   - Mix:9
   - Pan:PorkBelly
-  - Mix:11
-  - Pan:Kikiam
-  - Mix:13
   - Pan:ChickenLiver
-  - Mix:15
-  - Pan:PorkBouillon
-  - Pan:Water
+  - Pan:ChickenBroth
   - Pour:SoyCup_1_4
-  - Mix:19
+  - Pour:FishSauceTbsp_1
   - Pan:PanLidSimmer
   - Pan:LomiNoodles
-  - Pan:PanLidSimmer
   - CassavaStarch:Tbsp_1
-  - Pan:PanLidSimmer
+  - Mix:17
+  - Pan:Kikiam
   - Pan:EggBeaten
-  - Mix:26
-  - 
-  - Pan:PanLidSimmer
-  - Salt:Tsp_1_4
-  - Pepper:Tsp_1_4

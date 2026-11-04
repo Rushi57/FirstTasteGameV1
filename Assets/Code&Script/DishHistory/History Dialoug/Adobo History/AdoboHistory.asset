@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AdoboHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Rooted in pre-colonial Austronesian survival techniques where,
+  - text: Rooted in pre colonial Austronesian survival techniques where,
     characterSprite: {fileID: 0}
   - text: families preserved food in acid before refrigeration existed,
     characterSprite: {fileID: 0}

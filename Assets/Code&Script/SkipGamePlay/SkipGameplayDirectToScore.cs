@@ -56,17 +56,13 @@ public class SkipGameplayDirectToScore : MonoBehaviour
         if (_skipped) return;
         _skipped = true;
 
-        // 1) End the tutorial if it's running (hides dialogue, removes the input blocker).
         if (TutorialManager.Instance != null && TutorialManager.Instance.IsActive)
             TutorialManager.Instance.AbortTutorial();
-
-        // 2) Perfect score + full hearts -> GetStarRating() == 3.
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.SetPerfectScore();
         else
             Debug.LogWarning("[SkipGameplay] No ScoreManager.Instance found.");
 
-        // 3) Close any open mini-games / animations and gameplay objects.
         if (dishFinish != null)
         {
             foreach (var p in dishFinish.miniGamePanels)
