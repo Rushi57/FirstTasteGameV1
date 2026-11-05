@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d13c5ab7102c7234b9eedab18fe83e76
+guid: 8c6465ee639289a479c62f3042a30c53
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7863244571002934300
-    second: stove with flame_0
+      213: -4065246754063320844
+    second: V4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -56,7 +56,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -72,7 +74,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -109,17 +111,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stove with flame_0
+      name: V4_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 347
-        height: 289
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4ebe95359b420e290800000000000000
-      internalID: -7863244571002934300
+      spriteID: 4f8feb3ad975597c0800000000000000
+      internalID: -4065246754063320844
       vertices: []
       indices: 
       edges: []
@@ -148,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stove with flame_0: -7863244571002934300
+      V4_0: -4065246754063320844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -86,6 +86,8 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     /// <summary>Raised once the timer runs out and a result has been decided.</summary>
     public event Action<MixResult> OnMixFinished;
+    public event Action OnMixStarted;
+    public bool IsMixing => mixingActive;
 
     private bool isDragging = false;
     private bool mixingActive = false;
@@ -152,6 +154,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         currentAngularSpeed = 0f;
         if (resultLabel != null) resultLabel.text = "";
         UpdateTimerVisual();
+        OnMixStarted?.Invoke();
     }
 
     void Update()

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: a28e1a75a2a7fc74dbe6dd11fc2d457a
+guid: 0c5969103042c164297c5d9a4f26db58
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7957891932872671093
-    second: New Project (5)_0
+      213: -9197236878174203960
+    second: V7_0
+  - first:
+      213: -6137933231217684886
+    second: V7_1
+  - first:
+      213: -4330790132308812853
+    second: V7_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,9 +61,11 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
-  textureType: 2
+  spriteGeometrySubdivision: -1
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -100,12 +108,25 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -113,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: New Project (5)_0
+      name: V7_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 505
-        height: 508
+        x: 122
+        y: 807
+        width: 57
+        height: 84
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +149,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57f72dbdc8c107e60800000000000000
-      internalID: 7957891932872671093
+      spriteID: 8cfcd41d9c9dc5080800000000000000
+      internalID: -9197236878174203960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: V7_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 169
+        width: 694
+        height: 709
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6e44321f3ea1daa0800000000000000
+      internalID: -6137933231217684886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: V7_2
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 738
+        width: 36
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcb57f6f151f5e3c0800000000000000
+      internalID: -4330790132308812853
       vertices: []
       indices: 
       edges: []
@@ -147,7 +212,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      V7_0: -9197236878174203960
+      V7_1: -6137933231217684886
+      V7_2: -4330790132308812853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
