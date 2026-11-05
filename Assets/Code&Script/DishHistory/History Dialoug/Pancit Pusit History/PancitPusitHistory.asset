@@ -13,13 +13,21 @@ MonoBehaviour:
   m_Name: PancitPusitHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Emerging from Cavite City's status as a Spanish naval port starting in
-      1571,
-    characterSprite: {fileID: 0}
-  - text: 'this dark noodle dish combines Mediterranean, '
-    characterSprite: {fileID: 0}
-  - text: squid-ink techniques with local fishery abundance and Chinese stir-fry
-      methods.
-    characterSprite: {fileID: 0}
-  - text: and you draw the ink carefully and time the squid to absolute perfection?
-    characterSprite: {fileID: 0}
+  - text: Did you know?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Squid-ink cooking is one of the oldest culinary signatures of the Mediterranean world. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "Spain has \u201Carroz negro\u201D."
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "Dark as ink, briny as the sea. Pancit pusit, or \u201Cpancit choca\u201D as they call it in Cavite City,"
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: is a three-way conversation on a single plate.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Chinese noodle technique, Spanish squid-ink tradition from the old Manila Bay naval port,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: and the deep Filipino love for fresh squid come together in one wok.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Can you draw the ink carefully, time the squid perfectly,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: and get the noodles to drink in all that dark, briny flavor?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

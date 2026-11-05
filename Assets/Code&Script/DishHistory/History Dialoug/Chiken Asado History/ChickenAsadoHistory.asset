@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: ChickenAsadoHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: "Reflecting the 1565 \u2013 1815 Manila Galleon trade where New World tomatoes
-      and Spanish,"
-    characterSprite: {fileID: 0}
-  - text: braising methods merged with local citrus and Chinese soy,
-    characterSprite: {fileID: 0}
-  - text: ' sauce during three centuries of colonial rule (1565 - 1898),'
-    characterSprite: {fileID: 0}
-  - text: this Kapampangan Sunday classic holds families together.
-    characterSprite: {fileID: 0}
-  - text: ' Can you balance the soy, calamansi, and tomato for the ideal sauce?'
-    characterSprite: {fileID: 0}
+  - text: 'Sweet, salty, tangy, and never actually roasted despite its name.  '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "\u201CPollo asado\u201D came to the Philippines through Spanish friars and Mexican galleon ships, "
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "bringing tomatoes, bay leaves, and the technique of \u201Csofrito\u201D with it."
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: But in Kapampangan kitchens, it became something warmer, sweeter, and distinctly Sunday.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Can you balance the soy, the calamansi,  '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'the tomato, and the sugar for the perfect sauce that holds a family at one table? '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: BatangasLomiHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Born from nineteenth-century Chinese merchant settlement and perfected
-      through generations,
+  - text: Thick, dark, and warming to the bone.
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: during the Batangas coffee boom, this dense noodle bowl represents a proud
-      regional canon.
+  - text: "Few bowls in the Philippines say \u201Ccome inside, sit down, eat\u201D quite like lomi."
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Can you bring the broth to just the right consistency and swirl the egg
-      in at the perfect moment?
+  - text: The city of Lipa in Batangas has turned this Chinese-rooted noodle dish into something distinctly their own,
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: "generous with pork, offal, \u201Cchicharon\u201D, and that signature glossy sauce you cannot find anywhere else."
+    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
+  - text: .Can you bring the broth to just the right thickness and swirl the raw egg in at exactly the right moment?
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}

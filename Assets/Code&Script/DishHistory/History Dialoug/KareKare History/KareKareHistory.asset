@@ -13,25 +13,19 @@ MonoBehaviour:
   m_Name: KareKareHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: "Golden with annatto, thick with peanuts, impossible without \u201Cbagoong\u201D. "
+  - text: 'Golden with annatto, thick with peanuts, '
     characterSprite: {fileID: 0}
-  - text: Kare-kare has been debated by scholars for decades. Is it Kapampangan.
+  - text: "impossible without \u201Cbagoong\u201D. "
     characterSprite: {fileID: 0}
-  - text: Is it Indian, carried by sepoys who stayed after the British left Manila
-      in 1764.
+  - text: Kare-kare has been debated by scholars for decades.
     characterSprite: {fileID: 0}
-  - text: Is it a cousin of Mexican mole brought over by the galleon ships? The honest
-      answer is yes, in different ways.
+  - text: ' Is it Kapampangan, Is it Indian, carried by sepoys who stayed after the British left Manila in 1764, '
     characterSprite: {fileID: 0}
-  - text: "Peanuts and annatto, two of kare-kare\u2019s defining ingredients, are
-      not native to the Philippines."
+  - text: Is it a cousin of Mexican mole brought over by the galleon ships,
     characterSprite: {fileID: 0}
-  - text: 'They traveled from Mexico on galleon ships between 1565 and 1815. '
+  - text: The honest answer is yes, in different ways.
     characterSprite: {fileID: 0}
-  - text: "Many of our \u201Cancient\u201D Filipino dishes actually rely,"
+  - text: Can you build the sauce, time the vegetables,
     characterSprite: {fileID: 0}
-  - text: on ingredients that only reached our shores during the colonial era.
-    characterSprite: {fileID: 0}
-  - text: 'Can you build the sauce, time the vegetables, and remember the one ingredient
-      that must never be forgotten? '
+  - text: and remember the one ingredient that must never be forgotten?
     characterSprite: {fileID: 0}

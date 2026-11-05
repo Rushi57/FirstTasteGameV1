@@ -18,6 +18,7 @@ public class DialogueBoxUI : MonoBehaviour
     public TMP_Text bodyText;
     public Button nextButton;
     public GameObject tapToContinueHint;  // optional "tap anywhere" hint
+    public Button tapAnywhereButton;
 
     [Header("Typewriter")]
     public float charsPerSecond = 40f;
@@ -35,6 +36,7 @@ public class DialogueBoxUI : MonoBehaviour
     private Coroutine typingRoutine;
     private string currentFullLine;
     private bool isTyping;
+    private bool currentShowNext;
 
     public event Action OnNextPressed;
 
@@ -47,6 +49,11 @@ public class DialogueBoxUI : MonoBehaviour
         if (messageBorderImage != null) messageBorderImage.preserveAspect = true;
         if (nextButton != null)
             nextButton.onClick.AddListener(HandleNextClicked);
+        if (tapAnywhereButton != null)
+        {
+            tapAnywhereButton.onClick.AddListener(OnBoxTapped);
+            tapAnywhereButton.gameObject.SetActive(false);
+        }
         Hide();
     }
 
@@ -64,6 +71,8 @@ public class DialogueBoxUI : MonoBehaviour
     public void Hide()
     {
         if (typingRoutine != null) StopCoroutine(typingRoutine);
+        isTyping = false;
+        SetTapAnywhere(false);
         root.SetActive(false);
     }
 
@@ -71,10 +80,17 @@ public class DialogueBoxUI : MonoBehaviour
     public void PlayLine(string line, bool showNextButton)
     {
         currentFullLine = line;
+        currentShowNext = showNextButton;
+        SetTapAnywhere(showNextButton);
+
         if (typingRoutine != null) StopCoroutine(typingRoutine);
         typingRoutine = StartCoroutine(TypeLine(line, showNextButton));
     }
-
+    private void SetTapAnywhere(bool active)
+    {
+        if (tapAnywhereButton != null)
+            tapAnywhereButton.gameObject.SetActive(active);
+    }
     private IEnumerator TypeLine(string line, bool showNextButton)
     {
         isTyping = true;
@@ -100,13 +116,16 @@ public class DialogueBoxUI : MonoBehaviour
     /// <summary>Call this if you want a tap-anywhere-on-box behavior: skip typing, or advance.</summary>
     public void OnBoxTapped()
     {
+        if (!currentShowNext) return;   // required action -> tap anywhere does nothing
+
         if (isTyping)
         {
             // Skip to full text instantly.
-            StopCoroutine(typingRoutine);
+            if (typingRoutine != null) StopCoroutine(typingRoutine);
             bodyText.text = currentFullLine;
             isTyping = false;
             if (nextButton != null) nextButton.gameObject.SetActive(true);
+            if (tapToContinueHint != null) tapToContinueHint.SetActive(true);
         }
         else
         {
@@ -171,6 +190,11 @@ public class DialogueBoxUI : MonoBehaviour
         rt.GetWorldCorners(corners);
         // corners[0] = bottom-left, corners[2] = top-right
         return new Rect(corners[0].x, corners[0].y, corners[2].x - corners[0].x, corners[2].y - corners[0].y);
+    }
+    private void OnDestroy()
+    {
+        if (nextButton != null) nextButton.onClick.RemoveListener(HandleNextClicked);
+        if (tapAnywhereButton != null) tapAnywhereButton.onClick.RemoveListener(OnBoxTapped);
     }
 
 }

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: BatangasGotoHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Uniting centuries-old Chinese congee techniques with Spanish-era cattle
-      ranching traditions,
+  - text: 'A warm bowl on a cold morning. '
     characterSprite: {fileID: 0}
-  - text: 'and heartfelt Filipino care customs this comforting, '
+  - text: ' A quiet dish for the sick, the pregnant, and anyone needing care.'
     characterSprite: {fileID: 0}
-  - text: dish has long served as a remedy for the weary and unwell.
+  - text: Goto has fed Filipino families through long nights and gentle recoveries for generations.
     characterSprite: {fileID: 0}
-  - text: ' Can you coax out that rich, comforting texture we all remember from childhood?'
+  - text: Ox tripe, ginger, long-simmered rice, and the garlic and calamansi finish that makes it unmistakably ours.
+    characterSprite: {fileID: 0}
+  - text: Can you simmer the tripe just tender and coax the rice into that creamy,
+    characterSprite: {fileID: 0}
+  - text: ' comforting consistency we all remember from childhood?'
     characterSprite: {fileID: 0}

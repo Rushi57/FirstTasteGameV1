@@ -28,9 +28,6 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 12ff69ebdc4771e42828e4c12cc94063, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 1eddc5d4b5c245b45ab527b3807d3371, type: 2}
-    quantity: 0
-    unit: 
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
@@ -63,7 +60,7 @@ MonoBehaviour:
   - Add the sliced beef tripe
   - Add the sliced pork intestine
   - Add the sliced kidney
-  - "Saut\xE9 using the spatula"
+  - Saute using the spatula
   - Add 1/2 cup of vinegar
   - Cover it with pan lid until simmer
   - Add 1 tsp of achuete powder
@@ -73,7 +70,7 @@ MonoBehaviour:
   - Cover it with pan lid to simmer
   - Add 1/4 tsp of salt
   - Add 1/4 tsp of pepper
-  - "Saut\xE9 using the spatula"
+  - Saute using the spatula
   cookingStepIds:
   - Garlic:Minced
   - Onion:Minced

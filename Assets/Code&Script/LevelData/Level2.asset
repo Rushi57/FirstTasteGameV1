@@ -21,18 +21,14 @@ MonoBehaviour:
   faqDishImage: {fileID: -6561501872683093162, guid: 17c3e72908bf430439e1a1770d19d6ed, type: 3}
   faqEntries:
   - type: 1
+    text: Did You Know when Antonio Pigafetta chronicled Visayan feasts?
+    answer: "When Antonio Pigafetta chronicled Visayan feasts during Magellan\u2019s 1521 expedition, he recorded that local chieftains served pork cooked with its own blood as a sign of welcome. The dish you just made has been honoring guests for more than five hundred years. "
+  - type: 1
     text: Do you know why is vinegar added so early?
-    answer: 'Vinegar does more than season. It stops the blood from clotting too
-      quickly and tames its mineral intensity. Pre-colonial Filipinos discovered
-      this long before chemistry explained why it works. '
+    answer: 'Vinegar does more than season. It stops the blood from clotting too quickly and tames its mineral intensity. Pre-colonial Filipinos discovered this long before chemistry explained why it works. '
   - type: 1
     text: Do you know what is the classic pairing for dinuguan?
-    answer: "Filipino tradition pairs dinuguan with \u201Cputo\u201D, soft steamed
-      rice cakes. The puto\u2019s gentle sweetness balances the stew\u2019s deep,
-      savory richness in a way few other combinations can."
+    answer: "Filipino tradition pairs dinuguan with \u201Cputo\u201D, soft steamed rice cakes. The puto\u2019s gentle sweetness balances the stew\u2019s deep, savory richness in a way few other combinations can."
   - type: 1
     text: Do you know if dinuguan the same across the Philippines?
-    answer: "The dish wears many names. Ilokanos call it \u201Cdinardaraan\u201D.
-      Kapampangans say \u201Ctid-tad babi\u201D. Cebuanos call it \u201Cdugo-dugo\u201D.
-      In Bulacan, \u201Ctinumis\u201D even adds \u201Cmiswa\u201D noodles. Same spirit,
-      different accents."
+    answer: "The dish wears many names. Ilokanos call it \u201Cdinardaraan\u201D. Kapampangans say \u201Ctid-tad babi\u201D. Cebuanos call it \u201Cdugo-dugo\u201D. In Bulacan, \u201Ctinumis\u201D even adds \u201Cmiswa\u201D noodles. Same spirit, different accents."

@@ -19,7 +19,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     public Sprite lowSprite;
     public Sprite mediumSprite;
     public Sprite highSprite;
-    public TMP_Text heatLabel;
+
 
     [Header("Recipe")]
     public RecipeData recipe;
@@ -114,7 +114,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
 
     private void ApplyVisuals()
     {
-        if (heatLabel != null) heatLabel.text = CurrentHeat.ToString();
+        
         dialUI?.SetVisual(CurrentHeat);
 
         if (stoveImage == null) return;

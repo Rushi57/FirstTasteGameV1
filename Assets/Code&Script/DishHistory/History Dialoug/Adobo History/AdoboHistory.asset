@@ -13,31 +13,19 @@ MonoBehaviour:
   m_Name: AdoboHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Rooted in pre colonial Austronesian survival techniques where,
-    characterSprite: {fileID: 0}
-  - text: families preserved food in acid before refrigeration existed,
-    characterSprite: {fileID: 0}
-  - text: this dish carries a thousand year old heritage that was,
-    characterSprite: {fileID: 0}
-  - text: later documented and named during early Spanish contact.
-    characterSprite: {fileID: 0}
-  - text: Will your careful hand honor this deep tradition?
-    characterSprite: {fileID: 0}
-  - text: "Did you know the word \u201CAdobo\u201D is Spanish,"
-    characterSprite: {fileID: 0}
-  - text: but the cooking method is not. When Spanish friars arrived in the Philippines,
-    characterSprite: {fileID: 0}
-  - text: they used a familiar word for a technique that was already here.
-    characterSprite: {fileID: 0}
-  - text: "The 1613 \u201CVocabulario de la lengua tagala\u201D even recorded,"
-    characterSprite: {fileID: 0}
-  - text: "it as \u201CAdobo de los Naturales\u201D, meaning the adobo of the native people."
-    characterSprite: {fileID: 0}
-  - text: 'What came next was gradual elaboration. '
-    characterSprite: {fileID: 0}
-  - text: "Chinese merchants brought soy sauce \u201CToyo\u201D, "
-    characterSprite: {fileID: 0}
-  - text: which many families now consider essential but which was not part of the oldest recipe.
-    characterSprite: {fileID: 0}
-  - text: Now that's all done, Let's get to cooking!
-    characterSprite: {fileID: 0}
+  - text: 'Every Filipino home knows this scent. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Vinegar meeting garlic, patient simmering in a well-used pot,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'flavors that only grow better by the next day. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: The dish you are about to make was already being cooked long before the,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Spaniards came and gave it the name we know today.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Each household holds its own version, each province its own twist. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Will your careful hand and patient eye honor the recipe that has fed generations of Filipino families?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Let us find out.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

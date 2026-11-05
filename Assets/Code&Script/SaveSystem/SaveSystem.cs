@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>One level's best result so far - score and star rating actually achieved.</summary>
@@ -21,6 +22,7 @@ public class SaveData
     public List<int> unlockedLevels = new List<int>();
     public bool tutorialDone;
     public string lastSaved;
+    public bool congratsShown;
 
     [Tooltip("Per-level score/stars actually achieved by the player - NOT ScoreManager's startingScore, that's just the fresh-attempt default before any deductions.")]
     public List<LevelScoreEntry> levelScores = new List<LevelScoreEntry>();
@@ -89,7 +91,10 @@ public static class GameSession
     public static SaveData Data;          // null = new game
     public static int CurrentSlot = -1;   // NEW: which slot was loaded / last saved
     public static bool HasPendingLoad => Data != null;
-    public static void Clear() { Data = null; CurrentSlot = -1; }
+    public static void Clear() { Data = null; CurrentSlot = -1; PendingSavedSlotMessage = -1; }
+
+    public static int PendingSavedSlotMessage = -1;   // slot to announce in MainMenu
+   
 
     public static SaveData GetOrCreateData()
     {
@@ -166,11 +171,6 @@ public static class SaveSystem
         if (HasSave(slot)) File.Delete(PathFor(slot));
     }
 
-    /// <summary>
-    /// Autosave helper: writes to the slot the player loaded or last saved to.
-    /// If the player has never picked a slot (new game), it does nothing, and the
-    /// data stays in memory (GameSession.Data) until they save manually.
-    /// </summary>
     public static void SaveToCurrentSlot(SaveData data)
     {
         if (GameSession.CurrentSlot < 0)
@@ -180,4 +180,22 @@ public static class SaveSystem
         }
         Save(data, GameSession.CurrentSlot);
     }
+
+    public static int PickAutoSaveSlot()
+    {
+        int lowestSlot = 0;
+        int lowestCount = int.MaxValue;
+
+
+        for(int i = 0; i < SlotCount; i++)
+        {
+            SaveData d = Load(i);
+            if (d == null) return i;
+
+            int count = d.levelScores.Select(e => e.levelNumber).Distinct().Count();
+            if (count < lowestCount) { lowestCount = count; lowestSlot = i; }
+        }
+        return lowestSlot;
+    }
+
 }

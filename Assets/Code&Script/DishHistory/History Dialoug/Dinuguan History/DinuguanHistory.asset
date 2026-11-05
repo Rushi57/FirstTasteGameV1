@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: DinuguanHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: Stemming from pre-colonial Austronesian ritual feasting where nothing from
-      the animal went to waste,
-    characterSprite: {fileID: 0}
-  - text: this rich blood stew was witnessed and recorded by foreign chroniclers
-      across separate centuries,
-    characterSprite: {fileID: 0}
-  - text: including Antonio Pigafetta in 1521, Miguel de Loarca in 1582, and Francisco
-      Ignacio Alcina in 1668.
-    characterSprite: {fileID: 0}
-  - text: Can you balance the vinegar and aromatics to earn its traditional place
-      on your table?
-    characterSprite: {fileID: 0}
+  - text: Dark, rich, and unapologetically Filipino.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "Some call it \u201Cchocolate meat\u201D when introducing it kindly to a visitor,"
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'but this dish is proud of what it is. Its roots run deep into pre colonial feasting, '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'where the whole animal was honored and nothing went to waste. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Pigafetta himself wrote about Filipinos preparing pork and blood together as early as 1521.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Can you balance the vinegar, the aromatics, '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: and the offal to earn this dish its honored place on your table?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

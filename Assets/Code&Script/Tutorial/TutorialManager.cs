@@ -377,9 +377,17 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    // Drop zones (stove, pan, chopping board, etc.) should never pulse/scale.
+    private bool IsDropZone(RectTransform rect)
+    {
+        if (rect == null) return false;
+        return rect.GetComponent<UnityEngine.EventSystems.IDropHandler>() != null;
+    }
+
     private void AddPulse(RectTransform rect)
     {
         if (rect == null) return;
+        if (IsDropZone(rect)) return;
         if (activePulses.Exists(p => p != null && p.enabled && p.transform == rect)) return;
 
         var pulse = rect.gameObject.AddComponent<TutorialPulse>();

@@ -15,11 +15,14 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   dialogueLines:
-  - Lets start the game
-  - Tap the Level Icon
+  - Tap the Level Icon on the map to begin.
+  advanceDelay: 0
+  revertSteps: -1
   dialoguePosition: 1
   customPosition: {x: 0, y: 142}
   actionType: 1
   targetId: 'Level 1 '
   dragSourceId: 
   blockOtherInput: 1
+  revertOnMistake: 1
+  mistakeMessage: Oops, that's not quite right. Let's go over it again!

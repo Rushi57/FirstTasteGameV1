@@ -22,22 +22,13 @@ MonoBehaviour:
   faqEntries:
   - type: 1
     text: Do you know what makes Lipa lomi different from the Metro Manila version?
-    answer: "Lipa lomi is thicker, heavier, and more generous with pork offal, \u201Cchicharon\u201D,
-      and \u201Ckikiam\u201D. The Metro Manila version is lighter and often more
-      sauce-forward, which heritage researchers treat as a departure from the Lipa
-      canon. "
+    answer: "Lipa lomi is thicker, heavier, and more generous with pork offal, \u201Cchicharon\u201D, and \u201Ckikiam\u201D. The Metro Manila version is lighter and often more sauce-forward, which heritage researchers treat as a departure from the Lipa canon. "
   - type: 1
     text: Do you know why is the raw egg added at the very end?
-    answer: The egg cooks in the residual heat of the thick broth, adding silkiness
-      without hardening. Timing matters. Add it too early and the broth loses its
-      gloss. Add it too late and the egg stays raw.
+    answer: The egg cooks in the residual heat of the thick broth, adding silkiness without hardening. Timing matters. Add it too early and the broth loses its gloss. Add it too late and the egg stays raw.
   - type: 1
     text: Do you know why did lomi become a signature of Lipa in particular?
-    answer: 'Lipa was the commercial heart of Batangas during the coffee boom. Chinese
-      retail families settled there and built a panciteria culture that still thrives
-      today, with lomi as its flagship dish. '
+    answer: 'Lipa was the commercial heart of Batangas during the coffee boom. Chinese retail families settled there and built a panciteria culture that still thrives today, with lomi as its flagship dish. '
   - type: 1
     text: Did you know why Is lomi related to pancit?
-    answer: Lomi, pancit canton, pancit bihon, pancit Malabon, and the other noodle
-      dishes of the Philippines all come from the same panciteria tradition carried
-      into the country by Fujianese merchants over the past two centuries.
+    answer: Lomi, pancit canton, pancit bihon, pancit Malabon, and the other noodle dishes of the Philippines all come from the same panciteria tradition carried into the country by Fujianese merchants over the past two centuries.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fe708a44439434293b288fa781b2e3, type: 3}
   m_Name: KareKare
   m_EditorClassIdentifier: 
-  recipeName: '`'
+  recipeName: Kare-kare
   recipeIcon: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
   liquidProfile: {fileID: 11400000, guid: 1cc729af9241ad44c892ce67ec7321d7, type: 2}
   ingredients:
@@ -37,20 +37,12 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 5668f7378e0efe34db47e97d98b33103, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
-    quantity: 0
-    unit: 
-  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
-    quantity: 0
-    unit: 
   cookingInstructions:
   - Chop the beef tripe into sliced
   - Chop the eggplant into sliced
   - Chop the string beans into sliced
   - Chop the banana heart into sliced
   - Chop the pechay into sliced
-  - Chop the garlic into sliced
-  - Chop the onion into sliced
   - Turn the stove to high heat
   - Put the wok in the stove
   - Add water
@@ -78,8 +70,6 @@ MonoBehaviour:
   - LongBean:Sliced
   - BananaHeart:Sliced
   - Pechay:Sliced
-  - Garlic:Sliced
-  - Onion:Sliced
   - 
   - Pan:OnStove
   - Pan:Water
@@ -93,7 +83,7 @@ MonoBehaviour:
   - Pour:AchueteOilCup_1_2
   - PeanutButter:Tbsp_1
   - Pan:Water
-  - Mix:20
+  - Mix:18
   - Pan:Oxtail
   - Pan:BeefTripe
   - Pan:BananaHeart

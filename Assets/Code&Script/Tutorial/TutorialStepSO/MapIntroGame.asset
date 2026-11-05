@@ -17,9 +17,8 @@ MonoBehaviour:
   dialogueLines:
   - "Welcome to First Taste! I\u2019m Kris!"
   - "And I\u2019m thrilled to help you get started in the kitchen."
-  - 'Every great chef starts with a simple step learning to select the right '
-  - ingredients, follow recipes, and master the stove
-  - Grab your apron and take a breath let's prepare your very first dish together
+  - 'Every great cook starts with a simple step: learning to select the right ingredients, follow recipes, and master the stove.'
+  - Grab your apron and take a breath let's prepare your very first dish together!
   advanceDelay: 0
   revertSteps: -1
   dialoguePosition: 1

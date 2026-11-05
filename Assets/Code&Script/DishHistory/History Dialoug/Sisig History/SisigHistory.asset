@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: SisigHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: "Drawing its name from Fray Diego Berga\xF1o\u2019s 1732 Kapampangan dictionary"
-    characterSprite: {fileID: 0}
-  - text: where it originally denoted a sour fruit snack this dish later transformed
-      in 1974 Angeles City,
-    characterSprite: {fileID: 0}
-  - text: 'alongside the post-war economic presence of Clark Air Base. '
-    characterSprite: {fileID: 0}
-  - text: Can you handle the careful chop and the fiery heat?
-    characterSprite: {fileID: 0}
+  - text: 'Hot, sizzling, loud with chili and calamansi. But sisig was not always this.  '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Long before pork face ever hit a cast-iron plate,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Kapampangan women used the word for something very different, a snack of unripe fruit tossed with vinegar and salt. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Then in 1974, a woman named Lucia Cunanan, known to everyone as Aling Lucing, '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: turned leftover pork cuts from Angeles City into the dish the whole country now craves.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: ' Can you handle both the careful chop and the fiery heat?'
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

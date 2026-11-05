@@ -13,17 +13,15 @@ MonoBehaviour:
   m_Name: BicolHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: 'Spicy, creamy, and named after a train. Bicol Express earns its heat honestly, '
-    characterSprite: {fileID: 0}
-  - text: "with \u201Csiling labuyo\u201D and \u201Csiling haba\u201D bringing fire
-      while \u201Cgata\u201D and \u201Cbagoong alamang\u201D bring comfort. "
-    characterSprite: {fileID: 0}
-  - text: The story. A Manila cook in the 1970s renamed an older Bicolano chili-and
-      coconut tradition,
-    characterSprite: {fileID: 0}
-  - text: after the overnight train that carried travelers between Manila and Legazpi.
-    characterSprite: {fileID: 0}
-  - text: Can you balance the heat with the richness,
-    characterSprite: {fileID: 0}
-  - text: "without ever breaking the delicate \r\ncoconut cream?"
-    characterSprite: {fileID: 0}
+  - text: 'Spicy, creamy, and named after a train. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "Bicol Express earns its heat honestly, with \u201Csiling labuyo\u201D and \u201Csiling haba\u201D bringing,"
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "fire while \u201Cgata\u201D and \u201Cbagoong alamang\u201D bring comfort.  "
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: The story, a Manila cook in the 1970s renamed an older Bicolano,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'chili-and coconut tradition after the overnight train that carried travelers between Manila and Legazpi. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: Can you balance the heat with the richness without ever breaking the delicate  coconut cream?
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

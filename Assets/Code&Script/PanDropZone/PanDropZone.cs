@@ -58,6 +58,12 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         public string liquidId;              
         public float ml = 250f;
 
+        [Header("After pour")]
+        [Tooltip("Destroy the dragged ingredient (e.g. Calamansi) when the pour finishes. It will NOT return to the table.")]
+        public bool destroyIngredientAfterPour = false;
+        [Tooltip("Also destroy the pour animation object when finished. Only tick this if the player is used just for this ingredient.")]
+        public bool destroyAnimationAfterPour = false;
+
         [Header("Animation look")]
         public Sprite pitcherSprite;
         public Sprite streamSprite;         
@@ -233,9 +239,24 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (entry != null)
             player.Configure(entry.pitcherSprite, entry.streamSprite, entry.streamColor);
 
+        bool destroyIngredient = entry != null && entry.destroyIngredientAfterPour;
+        bool destroyAnimation = entry != null && entry.destroyAnimationAfterPour;
+
+        // Keep references: the callback runs after the pour ends
+        GameObject ingredientObj = drag != null ? drag.gameObject : null;
+        GameObject animObj = player.gameObject;
+
         bool started = player.Play(() =>
         {
-            if (drag != null) drag.SetLocked(false);
+            if (destroyIngredient)
+            {
+                // consumed: never unlock / return it, just remove it
+                if (ingredientObj != null) Destroy(ingredientObj);
+            }
+            else
+            {
+                if (drag != null) drag.SetLocked(false);
+            }
 
             if (panLiquid != null && entry != null)
                 panLiquid.FinishGradualAdd(entry.liquidId, entry.ml);
@@ -252,11 +273,23 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
+
+            if (destroyAnimation && animObj != null) Destroy(animObj);
         }, data);
 
         if (started)
         {
-            drag.LockAndReturn();
+            if (destroyIngredient)
+            {
+                // Consumed: stays hidden and locked until the callback destroys it.
+                drag.MarkDropHandled();   // OnEndDrag won't send it back to the table
+                drag.SetLocked(true);     // alpha 0, no raycasts, not interactable
+            }
+            else
+            {
+                drag.LockAndReturn();
+            }
+
             if (panLiquid != null && entry != null)
                 panLiquid.BeginGradualAdd(entry.liquidId, entry.ml, entry.fillDelay, entry.fillDuration);
         }

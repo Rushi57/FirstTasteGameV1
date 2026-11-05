@@ -17,10 +17,10 @@ public class PourSeasoningController : MonoBehaviour
     public TutorialInteractable pourTutorial;
     [Header("Panels")]
     public GameObject seasoningPanel;   // PourSeasoningPanel
-    public GameObject pickPanel;       
-    public GameObject pourBoard;       
-    public GameObject spoonScroll;     
-    public GameObject cupScroll;       
+    public GameObject pickPanel;
+    public GameObject pourBoard;
+    public GameObject spoonScroll;
+    public GameObject cupScroll;
 
     [Header("Seasoning buttons (tap to open)")]
     public Button soyButton;
@@ -48,7 +48,7 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite fishSauceGlassSprite;
     public Sprite oysterSauceGlassSprite;
 
-    
+
 
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
@@ -448,7 +448,7 @@ public class PourSeasoningController : MonoBehaviour
         if (!inTutorial && (penalizeWrongMeasurement || success))
             ScoreManager.Instance?.ReportResult(quality);
 
-     
+
 
         if (success)
         {
@@ -477,11 +477,11 @@ public class PourSeasoningController : MonoBehaviour
         }
     }
     private void RefreshCloseButton()
-{
-    if (closeButton == null) return;
-    bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
-    closeButton.interactable = !inTutorial || pendingSuccess;
-}
+    {
+        if (closeButton == null) return;
+        bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+        closeButton.interactable = !inTutorial || pendingSuccess;
+    }
     private static bool IsAchuete(string lower) =>
         lower.Contains("achuete") || lower.Contains("atsuete") || lower.Contains("annatto");
 
