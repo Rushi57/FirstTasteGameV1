@@ -19,16 +19,22 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: e452bfb9a5af07440ae8fa7b15cb5aee, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: c36d7da2cad72da4a9f6172a0bc10b22, type: 2}
+  - ingredient: {fileID: 11400000, guid: 1f0754fa549d13e4a8a549c97cb2cf4c, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 1f0754fa549d13e4a8a549c97cb2cf4c, type: 2}
+  - ingredient: {fileID: 11400000, guid: c36d7da2cad72da4a9f6172a0bc10b22, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: 12ff69ebdc4771e42828e4c12cc94063, type: 2}
     quantity: 0
     unit: 
+  - ingredient: {fileID: 11400000, guid: ef811ad4419eac144a5558f05c414b37, type: 2}
+    quantity: 0
+    unit: 
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
+    quantity: 0
+    unit: 
+  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
@@ -37,40 +43,32 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 56d2413918eb27344b8e1f43468d9a14, type: 2}
-    quantity: 0
-    unit: 
   cookingInstructions:
-  - Chop the garlic minced
-  - Chop the onion minced
-  - Chop the ginger sliced
-  - Chop the beef shanks sliced
-  - Chop the pork kidney sliced
-  - Chop beef tripe to sliced
-  - Chop the beef to sliced
-  - Chop the pork intestine to sliced
-  - Turn the stove to high heat
-  - Put the wok on the stove
-  - Add 1 tsp of cooking oil
-  - Add 1 tsp of cooking oil
-  - Add the minced garlic
-  - Add the julienned ginger
-  - "Saut\xE9 using the spatula"
-  - Add the sliced beef shanks
-  - Add the sliced beef tripe
-  - Add the sliced pork intestine
-  - Add the sliced kidney
-  - Saute using the spatula
-  - Add 1/2 cup of vinegar
-  - Cover it with pan lid until simmer
-  - Add 1 tsp of achuete powder
-  - "Saut\xE9 using the spatula"
-  - Add Water
-  - Turn the stove to medium heat
-  - Cover it with pan lid to simmer
-  - Add 1/4 tsp of salt
-  - Add 1/4 tsp of pepper
-  - Saute using the spatula
+  - Chop the garlic minced.
+  - Chop the onion minced.
+  - Chop the ginger sliced.
+  - Chop the beef shanks sliced.
+  - Chop the pork kidney sliced.
+  - Chop beef tripe to sliced.
+  - Chop the pork intestine to sliced.
+  - Turn the stove to high heat.
+  - Put the wok on the stove.
+  - Add the 1/8 tsp of salt.
+  - Add Water.
+  - Add the sliced beef shanks.
+  - Add the sliced pork intestine.
+  - Add the sliced pork kidney.
+  - Add the minced garlic.
+  - Add the julienned ginger.
+  - Add the onion minced.
+  - Turn the stove to low heat.
+  - Add 1/4 cup glutinous rice.
+  - Add a 1/8 tsp safflower
+  - Add the chicken broth.
+  - Saute using the spatula.
+  - Cover it with pan lid to simmer.
+  - Add the sliced beef tripe.
+  - 'Put the pan lid and simmer '
   cookingStepIds:
   - Garlic:Minced
   - Onion:Minced
@@ -78,27 +76,22 @@ MonoBehaviour:
   - BeefShanks:Sliced
   - PorkKidney:Sliced
   - BeefTripe:Sliced
-  - Beef:Sliced
   - PorkIntestine:Sliced
   - 
   - Pan:OnStove
-  - Pour:CookingOilTsp_1
-  - Pour:CookingOilTsp_1
-  - Pan:Garlic
-  - Pan:Ginger
-  - Mix:14
+  - Salt:Tsp_1_8
+  - Pan:Water
   - Pan:BeefShanks
-  - Pan:BeefTripe
   - Pan:PorkIntestine
   - Pan:PorkKidney
-  - Mix:19
-  - Pour:VinegarCup_1_2
-  - Pan:PanLidSimmer
-  - Achuete:Tsp_1
-  - Mix:23
-  - Pan:Water
+  - Pan:Garlic
+  - Pan:Ginger
+  - Pan:Onion
   - 
+  - GlutinousRice:Cup_1_4
+  - Safflower:Tsp_1_8
+  - Pan:ChickenBroth
+  - Mix:21
+  - Pan:PanLid
+  - Pan:BeefTripe
   - Pan:PanLidSimmer
-  - Salt:Tsp_1_4
-  - Pepper:Tsp_1_4
-  - Mix:29

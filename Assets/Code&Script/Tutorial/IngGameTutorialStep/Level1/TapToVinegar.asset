@@ -17,9 +17,9 @@ MonoBehaviour:
   dialogueLines:
   - Tap the vinegar bottle.
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 211.86, y: 399.9}
   actionType: 1
   targetId: Vinegar
   dragSourceId: 
