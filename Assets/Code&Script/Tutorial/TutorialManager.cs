@@ -46,13 +46,9 @@ public class TutorialManager : MonoBehaviour
 
     public event System.Action OnTutorialReverted;
 
-    private string[] currentLines;          // lines actually being played (may include a mistake message)
+    private string[] currentLines;       
     private string pendingMistakeMessage;
-    // A persisted, comma-separated list of every tutorialId that has ever
-    // run in this game - lets ResetAllTutorials() find and clear every
-    // tutorial's progress from a single static call, even from a scene
-    // (e.g. the main menu) that has no live TutorialManager instance for
-    // most of those ids.
+  
     private const string KnownTutorialIdsKey = "TutorialManager_AllKnownIds";
 
     [Header("UI Refs")]
@@ -320,15 +316,7 @@ public class TutorialManager : MonoBehaviour
         PlayCurrentLine();
     }
 
-    /// <summary>
-    /// Resolves which object(s) should be exempted from the input blocker as
-    /// the "drag source" for this step. If step.dragSourceId is set, resolves
-    /// that one specific object. If it's left blank on a Drag-type step,
-    /// resolves EVERY currently-registered object that has a TestDrag
-    /// component - letting the player pick up whichever draggable item
-    /// exists, without needing to know its exact id ahead of time (useful
-    /// when items are spawned dynamically from ScriptableObject data).
-    /// </summary>
+
     private List<RectTransform> ResolveDragSources(TutorialStep step)
     {
         var result = new List<RectTransform>();
@@ -616,12 +604,12 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        // Always allowed: the dialogue box and the Continue button
+ 
         var allowed = new List<RectTransform> { dialogueBox.RootRect };
-        if (dialogueBox.nextButton != null)
-            allowed.Add(dialogueBox.nextButton.transform as RectTransform);
+        if (dialogueBox.TapAnywhereRect != null)
+            allowed.Add(dialogueBox.TapAnywhereRect);
 
-        // Target and drag sources open up only when NOT locked by a mistake
+  
         if (!lockByMistake)
         {
             if (currentTargetRect != null) allowed.Add(currentTargetRect);

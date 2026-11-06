@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Guide
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Slide the fridge up to see the other ingredients.
+  - Swipe up on the fridge to see more items.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

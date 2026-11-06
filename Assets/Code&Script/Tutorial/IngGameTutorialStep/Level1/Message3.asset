@@ -15,10 +15,9 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - In here the indicator will bounce to left and right.
-  - The color red means bad
-  - The color yellow means good
-  - The color green means very good
+  - Timing is everything!
+  - 'Tap the Cut when the moving indicator hits, '
+  - the Green zone for a Perfect cut (Yellow = Good, Red = Bad)
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

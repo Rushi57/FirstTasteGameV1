@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Guide
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the shelf.
+  - Tap the Shelf to open seasonings
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

@@ -15,13 +15,8 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Keep an eye on the vertical gauge as you stir
-  - 'Green: Very Good timing masterful mix!'
-  - 'Yellow: Good timing nice stirring!'
-  - 'Red: Bad timing keep it out of the red!
-
-'
-  - Grab and rotate the spatula to start the timer
+  - Rotate the spatula depending on the direction of the arrow to stir!
+  - ' Keep your stirring speed steady to keep the vertical gauge inside the Green zone.'
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

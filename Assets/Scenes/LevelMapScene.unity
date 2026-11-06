@@ -1002,7 +1002,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -116.6, y: 0}
-  m_SizeDelta: {x: 180, y: 100}
+  m_SizeDelta: {x: 170, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54552916
 MonoBehaviour:
@@ -1128,7 +1128,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 483.5, y: 113.72}
+  m_SizeDelta: {x: 581.37, y: 150.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61034940
 MonoBehaviour:
@@ -1177,8 +1177,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34
-  m_fontSizeBase: 34
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 26
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 1
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -7759,7 +7759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.89, y: 13.400002}
+  m_AnchoredPosition: {x: 87.889984, y: 13.400009}
   m_SizeDelta: {x: 175.78, y: 83.880005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333409364
@@ -13091,7 +13091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 170.49994, y: -28.5}
+  m_AnchoredPosition: {x: 170.5, y: -28.5}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555697851
@@ -13300,7 +13300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 408.49994, y: -28.5}
+  m_AnchoredPosition: {x: 408.5, y: -28.5}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &561000625
@@ -16250,7 +16250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -628.44995, y: -60}
+  m_AnchoredPosition: {x: -628.4499, y: -60}
   m_SizeDelta: {x: -1246.9, y: 57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699645804
@@ -19650,7 +19650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 289.49994, y: -28.5}
+  m_AnchoredPosition: {x: 289.5, y: -28.5}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &861224346
@@ -25981,8 +25981,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 140}
-  m_SizeDelta: {x: 600, y: 200}
+  m_AnchoredPosition: {x: 61.65, y: 174.83002}
+  m_SizeDelta: {x: 723.29, y: 269.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909886214
 MonoBehaviour:
@@ -26039,10 +26039,9 @@ MonoBehaviour:
   messageBorderImage: {fileID: 909886214}
   nameText: {fileID: 0}
   bodyText: {fileID: 61034940}
-  nextButton: {fileID: 2139367236}
   tapToContinueHint: {fileID: 0}
   tapAnywhereButton: {fileID: 109265611}
-  charsPerSecond: 80
+  charsPerSecond: 40
   adaptivePositioning: 1
   topAnchoredPosition: {x: 0, y: -100}
   bottomAnchoredPosition: {x: 0, y: 100}
@@ -34862,6 +34861,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdea5cc1adb88ed4bbb8dde62b66007c, type: 2}
   - {fileID: 11400000, guid: 4dd4db23cc178a54280dad4e6937d275, type: 2}
   - {fileID: 11400000, guid: 7a8ea1511595446428d2b64910e42ef9, type: 2}
+  - {fileID: 11400000, guid: 93f60faf9e4f16341ac2a131f16378f3, type: 2}
   - {fileID: 11400000, guid: 85826ce1265a27043a98c2a351829289, type: 2}
   - {fileID: 11400000, guid: ec4d88971ac17d5419f3a3669597329d, type: 2}
   - {fileID: 11400000, guid: 40a9f5e61796ff04dacaaae6905e4316, type: 2}
@@ -54401,7 +54401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2022188589
 RectTransform:
   m_ObjectHideFlags: 0
