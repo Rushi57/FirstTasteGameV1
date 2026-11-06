@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class GameOverPanelController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Button tapAnywhereButton;   // the TapAnyWhere button
-    [SerializeField] private GameObject gameOverBorder;  // Replay / Quit panel
-    [SerializeField] private GameObject messageObject;   // "Message" (optional, hidden when border shows)
+    [SerializeField] private Button tapAnywhereButton;   
+    [SerializeField] private GameObject gameOverBorder;  
+    [SerializeField] private GameObject messageObject;   
 
     [Header("Settings")]
     [SerializeField] private float idleSeconds = 30f;

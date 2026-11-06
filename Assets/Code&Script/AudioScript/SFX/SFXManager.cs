@@ -69,7 +69,7 @@ public class SFXManager : MonoBehaviour
 
         loopSource = gameObject.AddComponent<AudioSource>();
         loopSource.outputAudioMixerGroup = sfxGroup;
-        loopSource.loop = true;          // needed for frying/boiling to repeat
+        loopSource.loop = true;          
         loopSource.playOnAwake = false;
 
         stirSource = gameObject.AddComponent<AudioSource>();
@@ -227,10 +227,6 @@ public class SFXManager : MonoBehaviour
     {
         if (flameSource != null && flameSource.isPlaying) flameSource.Stop();
     }
-
-
-
-
 
     public class NoTapSound : MonoBehaviour { }
 }

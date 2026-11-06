@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: -296.7, y: 140}
+  customPosition: {x: -260.2, y: 269.67}
   actionType: 1
   targetId: Stove
   dragSourceId: 

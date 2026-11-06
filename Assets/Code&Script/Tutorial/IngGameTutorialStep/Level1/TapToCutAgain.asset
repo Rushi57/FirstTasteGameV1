@@ -20,7 +20,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 61.14, y: 399.3}
+  customPosition: {x: 272.7, y: 573}
   actionType: 1
   targetId: TapToCutAgain
   dragSourceId: 

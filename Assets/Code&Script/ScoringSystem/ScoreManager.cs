@@ -2,10 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-/// <summary>
-/// Unified quality result every mini-game reports, regardless of its own
-/// internal naming (MixResult, CutQuality, PourResult, etc. all map to this).
-/// </summary>
 public enum ResultQuality
 {
     VeryGood,
@@ -13,13 +9,6 @@ public enum ResultQuality
     Bad
 }
 
-/// <summary>
-/// How many points/hearts each quality tier costs. Exposed in the Inspector
-/// so you can tune balance per-dish without touching code. Defaults assume
-/// score starts at 100 and a recipe has roughly 8-12 gradable actions total -
-/// adjust badPointDeduction so a couple of mistakes are recoverable but a
-/// string of them meaningfully drops your star rating.
-/// </summary>
 [System.Serializable]
 public class ScoreDeductionSettings
 {
@@ -34,10 +23,6 @@ public class ScoreDeductionSettings
     public int badHeartLoss = 1;
 }
 
-/// <summary>
-/// Singleton scoring system every mini-game reports into. Attach to a
-/// persistent GameObject in your kitchen/level scene.
-/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     private static bool InTutorial =>
@@ -57,8 +42,7 @@ public class ScoreManager : MonoBehaviour
     [Header("Star Thresholds (score >= this value)")]
     public int threeStarMinScore = 90;
     public int twoStarMinScore = 75;
-    // Anything below twoStarMinScore = 1 star.
-
+   
     [Header("UI (optional - wire up or leave blank)")]
     public TMP_Text scoreLabel;
     public TMP_Text heartsLabel;
@@ -88,7 +72,6 @@ public class ScoreManager : MonoBehaviour
         StartNewDish();
     }
 
-    /// <summary>Call this when a new dish/level begins, to reset score and hearts.</summary>
     public void StartNewDish()
     {
         CurrentScore = startingScore;
@@ -98,10 +81,7 @@ public class ScoreManager : MonoBehaviour
         RefreshUI();
     }
 
-    /// <summary>
-    /// Every mini-game calls this exactly once per GRADABLE action (not per
-    /// tap/intermediate step - see CuttingMechanic for the multi-cut example).
-    /// </summary>
+ 
     public void ReportResult(ResultQuality quality)
     {
 
@@ -134,7 +114,6 @@ public class ScoreManager : MonoBehaviour
             TriggerGameOver();
     }
 
-    /// <summary>Call when the player tries an action that isn't the current recipe step.</summary>
     public void ReportWrongStep()
     {
         if (IsGameOver || InTutorial) return;
@@ -159,7 +138,7 @@ public class ScoreManager : MonoBehaviour
 
         if (InTutorial)
         {
-            WarningMessageUI.Instance?.Show(message);   // message only, no penalty
+            WarningMessageUI.Instance?.Show(message);   
             return;
         }
 
@@ -167,7 +146,8 @@ public class ScoreManager : MonoBehaviour
         CurrentHearts = Mathf.Max(0, CurrentHearts - hearts);
         Debug.Log($"[ScoreManager] MISTAKE '{message}' | -{points} pts (score now {CurrentScore}) | -{hearts} hearts (hearts now {CurrentHearts})");
 
-        WarningMessageUI.Instance?.Show(message);
+        if (CurrentHearts > 0)
+            WarningMessageUI.Instance?.Show(message);
 
         RefreshUI();
         OnScoreChanged?.Invoke(CurrentScore);
@@ -179,7 +159,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SetPerfectScore()
     {
-        CurrentScore = startingScore;   // 100 >= threeStarMinScore (90)
+        CurrentScore = startingScore;   
         CurrentHearts = startingHearts;
         IsGameOver = false;
         RefreshUI();
@@ -189,6 +169,8 @@ public class ScoreManager : MonoBehaviour
     private void TriggerGameOver()
     {
         IsGameOver = true;
+        WarningMessageUI.Instance?.Hide();
+
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
 
         if (SFXManager.Instance != null) SFXManager.Instance.Play(SFXManager.Instance.gameOverPanel);
@@ -197,7 +179,6 @@ public class ScoreManager : MonoBehaviour
         OnGameOver?.Invoke();
     }
 
-    /// <summary>3/2/1 stars based on CurrentScore against the thresholds above.</summary>
     public int GetStarRating()
     {
         if (CurrentScore >= threeStarMinScore) return 3;
@@ -205,14 +186,7 @@ public class ScoreManager : MonoBehaviour
         return 1;
     }
 
-    /// <summary>
-    /// Call this when a dish is finished (not when it starts!). Saves the
-    /// player's ACTUAL CurrentScore/stars achieved this run into persistent
-    /// SaveData - NOT startingScore, which is only ever the fresh-attempt
-    /// default before any deductions happened.
-    /// </summary>
-    /// <param name="levelNumber">Which level this result belongs to. If omitted, uses LevelSelectionManager.SelectedLevel if available.</param>
-    /// <param name="keepBest">If true (default), only overwrites a previous save if this score is better.</param>
+
     public void SaveDishResult(int levelNumber = -1, bool keepBest = true)
     {
         if (levelNumber < 0)

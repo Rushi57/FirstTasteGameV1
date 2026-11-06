@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class StoryTeller : MonoBehaviour
 {
+
+
+
     [Header("UI")]
     public TMP_Text storyText;
     public Button nextButton;

@@ -28,10 +28,10 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: bc1784fedea200c43a0bd50add6d60dc, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: cefa7188604a264448b36c04e24bdd5c, type: 2}
+  - ingredient: {fileID: 11400000, guid: ef811ad4419eac144a5558f05c414b37, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
+  - ingredient: {fileID: 11400000, guid: cefa7188604a264448b36c04e24bdd5c, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: bce2be24a809d1a428b55929a6faa643, type: 2}
@@ -40,20 +40,16 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: 1667a49eed87c3b47bdc0a8a4f9b7850, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: ef811ad4419eac144a5558f05c414b37, type: 2}
-    quantity: 0
-    unit: 
   cookingInstructions:
   - Chop the pork belly sliced
   - Chop the chicken liver sliced
   - Chop the kikiam sliced
-  - Chop  the onion sliced
   - Chop the garlic sliced
   - Turn the stove to high heat
   - Put the wok on the stove
   - Add 1/4 cup of cooking oil
   - Add the garlic
-  - Saute until fregrant
+  - Saute until fragrant
   - Add pork belly
   - Add chicken liver
   - Add the chicken stock
@@ -69,7 +65,6 @@ MonoBehaviour:
   - PorkBelly:Sliced
   - ChickenLiver:Sliced
   - Kikiam:Sliced
-  - Onion:Sliced
   - Garlic:Sliced
   - 
   - Pan:OnStove
@@ -84,6 +79,6 @@ MonoBehaviour:
   - Pan:PanLidSimmer
   - Pan:LomiNoodles
   - CassavaStarch:Tbsp_1
-  - Mix:18
+  - Mix:17
   - Pan:Kikiam
   - Pan:EggBeaten

@@ -450,7 +450,7 @@ public class TutorialManager : MonoBehaviour
         if (lineIndex < currentLines.Length - 1)
         {
             lineIndex++;
-            PlayCurrentLine();   // ApplyInputBlocker runs here with the lock off
+            PlayCurrentLine();  
         }
         else
         {
@@ -458,7 +458,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    /// <summary>Called by TutorialInteractable when the player performs an action.</summary>
+
     public void NotifyAction(string id, TutorialActionType type)
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
@@ -485,15 +485,15 @@ public class TutorialManager : MonoBehaviour
         advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
     }
 
-    /// <summary>Call when a mechanic starts an animation the tutorial must wait for.</summary>
+   
     public void BeginBusy() => busyCount++;
 
-    /// <summary>Call when that animation finishes.</summary>
+
     public void EndBusy() => busyCount = Mathf.Max(0, busyCount - 1);
 
     private IEnumerator AdvanceWhenReady(TutorialStep step)
     {
-        yield return null;   // let same-frame handlers call BeginBusy first
+        yield return null;   
 
         if (step.advanceDelay > 0f)
             yield return new WaitForSecondsRealtime(step.advanceDelay);
@@ -591,7 +591,7 @@ public class TutorialManager : MonoBehaviour
 
         TutorialStep step = steps[stepIndex];
 
-        // After a mistake the blocker is always on, whatever the step's setting
+    
         bool block = step.blockOtherInput || lockByMistake;
 
         inputBlocker.SetActive(block);
@@ -604,21 +604,18 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
- 
-        var allowed = new List<RectTransform> { dialogueBox.RootRect };
-        if (dialogueBox.TapAnywhereRect != null)
-            allowed.Add(dialogueBox.TapAnywhereRect);
 
-  
-        if (!lockByMistake)
+        var allowed = new List<RectTransform> { dialogueBox.RootRect };
+           
+
+        if (!lockByMistake && waitingForAction)
         {
-            if (currentTargetRect != null) allowed.Add(currentTargetRect);
+            if (currentTargetRect != null) allowed.Add(currentTargetRect);   
             allowed.AddRange(currentSourceRects);
         }
-
         filter.SetAllowedAreas(allowed.ToArray());
     }
-    /// <summary>Makes PlayerPrefs match a loaded save so the two never disagree.</summary>
+ 
     public static void ApplySavedTutorialState(SaveData data)
     {
         ResetAllTutorials();
@@ -629,11 +626,10 @@ public class TutorialManager : MonoBehaviour
             RegisterKnownTutorialId(id);
         }
 
-        // Older saves: tutorialDone only ever meant the map tutorial
         if (data.tutorialDone)
             MarkInPrefs("main_tutorial_MAP");
 
-        // A level 1 result means the player already got through the level 1 tutorial
+       
         if (data.GetLevelResult(1) != null)
         {
             MarkInPrefs("main_tutorial_MAP");
@@ -652,7 +648,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (onlyForLevel > 0 && level != onlyForLevel) return;
 
-        // Already has a result for this level (stars earned)? Never show the tutorial again.
+ 
         SaveData data = GameSession.Data;
         if (data != null && data.GetLevelResult(level) != null)
         {
@@ -660,6 +656,6 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        StartTutorial();   // already returns if completed
+        StartTutorial();  
     }
 }

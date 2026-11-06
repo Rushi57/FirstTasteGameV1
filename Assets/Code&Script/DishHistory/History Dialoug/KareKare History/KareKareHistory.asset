@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - text: 'Golden with annatto, thick with peanuts, '
-    characterSprite: {fileID: 0}
-  - text: "impossible without \u201Cbagoong\u201D. "
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: "impossible without shrimp paste \u201CBagoong\u201D. "
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: Kare-kare has been debated by scholars for decades.
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: ' Is it Kapampangan, Is it Indian, carried by sepoys who stayed after the British left Manila in 1764, '
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: Is it a cousin of Mexican mole brought over by the galleon ships,
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: The honest answer is yes, in different ways.
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: Can you build the sauce, time the vegetables,
-    characterSprite: {fileID: 0}
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: and remember the one ingredient that must never be forgotten?
     characterSprite: {fileID: 0}
