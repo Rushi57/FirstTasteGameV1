@@ -53,23 +53,31 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [System.Serializable]
     public class PourLiquid
     {
-        public string ingredientId;          // must match IngredientData.id (e.g. "Water")
-        public PourAnimationPlayer player;   // leave empty to use the shared Pour Player
-        public string liquidId;              // id used in DishLiquidProfile (e.g. "Water")
+        public string ingredientId;          
+        public PourAnimationPlayer player;   
+        public string liquidId;              
         public float ml = 250f;
+
+        [Header("After pour")]
+        [Tooltip("Destroy the dragged ingredient (e.g. Calamansi) when the pour finishes. It will NOT return to the table.")]
+        public bool destroyIngredientAfterPour = false;
+        [Tooltip("Also destroy the pour animation object when finished. Only tick this if the player is used just for this ingredient.")]
+        public bool destroyAnimationAfterPour = false;
 
         [Header("Animation look")]
         public Sprite pitcherSprite;
-        public Sprite streamSprite;          // use the WHITE stream sprite so the tint is exact
+        public Sprite streamSprite;         
         public Color streamColor = Color.white;
 
         [Header("Fill timing")]
-        public float fillDelay = 0.6f;       // wait for the pitcher to tilt and the stream to start
+        public float fillDelay = 0.6f;       
         public float fillDuration = 1.5f;
     }
 
 
-
+    [Header("State change on drop")]
+    [Tooltip("Matched against 'Target Name' in each ingredient's 'State Change On Drop' list.")]
+    public string targetName = "Pan";
 
     [Header("Pan Liquid")]
     public PanLiquidFill panLiquid;
@@ -96,30 +104,26 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null || drag.IsLocked) return;
 
-        // Spatula: opens the mixing mini-game instead of being added as an ingredient
+        
         if (drag.itemId == spatulaId)
         {
             var prep = CookingPrepListUI.Instance;
 
-            // Spatula is only valid when a Mix step is the current one
+           
             if (prep != null && prep.strictOrder && !prep.IsMixStepCurrent())
             {
-                Debug.Log($"[PrepList] REJECTED spatula - current step is '{prep.CurrentStepId}'");
                 ScoreManager.Instance?.ReportMistake(prep.wrongStepMessage);
                 return;
             }
 
             if (!HeatOk("Spatula")) return;
             CabinetAutoCloser.Instance?.Close();
-
-            SFXManager.Instance?.PlayPotLidClose();   // <-- SFX
-
-            Debug.Log("[PanDrop] Spatula dropped on pan - opening mixing mini-game.");
+            SFXManager.Instance?.PlayPotLidClose();  
             mixingController?.OpenAndConfigure();
             tutorialTag?.ReportDrop();
-            return; // spatula bounces back to its rack via TestDrag
+            return; 
         }
-        //PanLid
+        
         if (drag.itemId == lidId)
         {
             if (!HeatOk("Lid")) return;
@@ -127,17 +131,15 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             var prep = CookingPrepListUI.Instance;
             string current = prep != null ? prep.CurrentStepId : null;
 
-            // Simmer only when the list says the simmer step is next, otherwise treat as boil
+           
             bool isSimmer = current == BoilSimmerController.SimmerStepId;
             string lidStepId = isSimmer ? BoilSimmerController.SimmerStepId
                                         : BoilSimmerController.BoilStepId;
 
             if (prep != null && !prep.TryAccept(lidStepId)) return;
             CabinetAutoCloser.Instance?.Close();
-            SFXManager.Instance?.PlayPotLidClose();   // <-- added, after the step is accepted
+            SFXManager.Instance?.PlayPotLidClose();   
 
-
-            Debug.Log($"[PanDrop] Lid dropped on pan - step '{lidStepId}' - opening Boil/Simmer mini-game.");
             prep?.CompleteStep(lidStepId);
             boilSimmerController?.OpenAndConfigure(isSimmer ? CookMode.Simmer : CookMode.Boil);
             tutorialTag?.ReportDrop();
@@ -161,18 +163,27 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(stepId))
             return;
 
-        // ---------- Pour items (e.g. the water pitcher) ----------
+        
         if (data.playsPourAnimation)
         {
             HandlePour(drag, data, stepId);
             return;
         }
 
-        // ---------- Normal ingredients ----------
+        
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
 
-        // Only the butter melts; everything else browns as usual
+       
         bool isMelt = data.id == meltIngredientId;
+
+       
+        if (data.TryGetStateOnDrop(targetName, out var newState))
+        {
+            Image stateImg = dropped.GetComponent<Image>();
+            if (stateImg == null) stateImg = dropped.GetComponentInChildren<Image>();
+            if (stateImg != null)
+                stateImg.sprite = data.GetSpriteForState(newState);
+        }
 
         if (!isMelt && cookingEffect != null)
         {
@@ -191,9 +202,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         if (isMelt)
         {
-            drag.SnapTo(target);   // land on the pan first
-
-            // Add the component automatically if it isn't on the object yet
+            drag.SnapTo(target);
             MeltAndVanish melt = dropped.GetComponent<MeltAndVanish>();
             if (melt == null) melt = dropped.AddComponent<MeltAndVanish>();
             melt.OnMeltFinished += () => OnIngredientRemoved?.Invoke(data);
@@ -230,9 +239,24 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (entry != null)
             player.Configure(entry.pitcherSprite, entry.streamSprite, entry.streamColor);
 
+        bool destroyIngredient = entry != null && entry.destroyIngredientAfterPour;
+        bool destroyAnimation = entry != null && entry.destroyAnimationAfterPour;
+
+        // Keep references: the callback runs after the pour ends
+        GameObject ingredientObj = drag != null ? drag.gameObject : null;
+        GameObject animObj = player.gameObject;
+
         bool started = player.Play(() =>
         {
-            if (drag != null) drag.SetLocked(false);
+            if (destroyIngredient)
+            {
+                // consumed: never unlock / return it, just remove it
+                if (ingredientObj != null) Destroy(ingredientObj);
+            }
+            else
+            {
+                if (drag != null) drag.SetLocked(false);
+            }
 
             if (panLiquid != null && entry != null)
                 panLiquid.FinishGradualAdd(entry.liquidId, entry.ml);
@@ -249,28 +273,35 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             OnIngredientAdded?.Invoke(data);
             tutorialTag?.ReportDrop();
+
+            if (destroyAnimation && animObj != null) Destroy(animObj);
         }, data);
 
         if (started)
         {
-            drag.LockAndReturn();
+            if (destroyIngredient)
+            {
+                // Consumed: stays hidden and locked until the callback destroys it.
+                drag.MarkDropHandled();   // OnEndDrag won't send it back to the table
+                drag.SetLocked(true);     // alpha 0, no raycasts, not interactable
+            }
+            else
+            {
+                drag.LockAndReturn();
+            }
+
             if (panLiquid != null && entry != null)
                 panLiquid.BeginGradualAdd(entry.liquidId, entry.ml, entry.fillDelay, entry.fillDuration);
         }
     }
 
-    /// <summary>True if heat isn't required, or the stove is on.</summary>
     private bool HeatOk(string what)
     {
         if (!requireHeat) return true;
 
         StoveHeatController s = ResolveStove();
         if (s != null && s.CurrentHeat != StoveHeat.Off) return true;
-
-        Debug.Log($"[PanDrop] '{what}' dropped but the stove isn't heated (stove={(s != null ? s.CurrentHeat.ToString() : "NULL")}) - rejecting.");
-
-        // No hearts/points lost while the tutorial is teaching
-        if (!InTutorial)
+          if (!InTutorial)
             ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
 
         return false;

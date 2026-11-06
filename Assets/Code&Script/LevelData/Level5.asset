@@ -18,3 +18,20 @@ MonoBehaviour:
   levelPreviewImage: {fileID: 1222128613088977701, guid: 9273c5b62e589f049959263daebca091, type: 3}
   story: {fileID: 11400000, guid: 88c6d812f924b934ebd605ab9d92bc7d, type: 2}
   reflection: {fileID: 11400000, guid: 1808c0b24ee6be74c849f955099f66f2, type: 2}
+  faqDishImage: {fileID: 0}
+  faqEntries:
+  - type: 1
+    text: Do you know how is goto different from lugaw and arroz caldo?
+    answer: 'They are three members of the same family. Lugaw is plain rice porridge. Arroz caldo adds chicken, ginger, and sometimes saffron. Goto adds beef tripe. Different proteins, the same comforting technique. '
+  - type: 1
+    text: Do you know why is goto considered a comfort food?
+    answer: 'Rice porridge has been a food of healing in Chinese tradition for centuries. Filipinos adopted it fully and expanded its role, serving goto to the sick, the pregnant, and anyone who needs a bowl of warmth and care. '
+  - type: 1
+    text: "Do you know why does \u201Carroz caldo\u201D have a Spanish name if it is a Chinese dish?"
+    answer: 'Spanish friars and officials gave a Spanish name to a Chinese technique when they encountered it in Philippine kitchens. It is a mirror image of what happened with adobo, where a Spanish name was given to a native Filipino technique. Both patterns are common in Philippine culinary history. '
+  - type: 1
+    text: ' Do you know what is the right way to finish a bowl of goto?'
+    answer: "Toasted garlic, chopped scallion, \u201Cchicharon\u201D, a wedge of calamansi, a slice of boiled egg, and a dash of soy sauce. Each eater balances the salt and acid themselves, which is part of what makes goto so personal"
+  - type: 1
+    text: " Do you know where the word \u201Cgoto\u201D comes"
+    answer: "The word \u201Cgoto\u201D comes from the Hokkien \u201Cg\u016B-t\xF3\u0358\u201D, which literally means \u201Cox stomach\u201D. The name traveled with Chinese merchants who settled in Philippine port cities centuries ago, and the dish became a staple of our panciteria tradition."

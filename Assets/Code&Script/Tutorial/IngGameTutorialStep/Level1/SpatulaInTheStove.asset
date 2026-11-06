@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Drag the spatula in the pan.
+  - Drag the Spatula into the wok.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 218.6, y: 500}
+  customPosition: {x: 271.7, y: 576.5}
   actionType: 2
   targetId: InsidePan
   dragSourceId: Spatula

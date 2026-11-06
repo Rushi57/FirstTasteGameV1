@@ -1,19 +1,14 @@
 using UnityEngine;
 
-/// <summary>
-/// One level's data: which recipe it teaches/tests. Create instances:
-/// right-click in Project window -> Create -> Game -> Level Data.
-/// </summary>
 [CreateAssetMenu(fileName = "LevelData", menuName = "Game/Level Data")]
 public class LevelData : ScriptableObject
 {
-
     [Header("Identity")]
     public int levelNumber;
-    public string levelName; // e.g. "Adobo", "Dinuguan"
+    public string levelName;
 
     [Header("Recipe")]
-    [Tooltip("The recipe this level teaches/tests - drives the ingredients list and TableZone validation once the level scene loads.")]
+    [Tooltip("The recipe this level teaches/tests")]
     public RecipeData recipe;
 
     [Header("Optional")]
@@ -25,5 +20,8 @@ public class LevelData : ScriptableObject
     [Tooltip("Reflection pages shown after finishing this level.")]
     public DishReflectionData reflection;
 
-
+    [Header("FAQ")]
+    [Tooltip("Dish image for the FAQ. If empty, levelPreviewImage is used.")]
+    public Sprite faqDishImage;
+    public FAQEntry[] faqEntries;
 }

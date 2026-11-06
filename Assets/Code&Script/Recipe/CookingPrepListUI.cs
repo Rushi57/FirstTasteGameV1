@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,7 +50,8 @@ public class CookingPrepListUI : MonoBehaviour
     // unique key -> base id
     private readonly Dictionary<string, string> keyToBase = new Dictionary<string, string>();
 
-    
+    public string wrongMeasurementMessage = "Wrong Measurement!\nMinus 1 heart";
+
     // unique key -> instruction text
     private readonly Dictionary<string, string> keyToText = new Dictionary<string, string>();
     public bool HasStep(string id) => occurrences.ContainsKey(id);
@@ -322,5 +324,35 @@ public class CookingPrepListUI : MonoBehaviour
             child.SetParent(null);
             Destroy(child.gameObject);
         }
+    }
+    public bool TryAcceptMeasurement(MeasurementOption chosen)
+    {
+        string text = CurrentStepText;
+        if (!strictOrder || string.IsNullOrEmpty(text)) return true;
+
+        if (!TryGetExpectedMeasurement(text, out MeasurementOption expected))
+            return true; // current step isn't a measuring step
+
+        if (expected == chosen) return true;
+
+        Debug.Log($"[PrepList] REJECTED measurement {chosen} - step expects {expected}");
+        ScoreManager.Instance?.ReportMistake(wrongMeasurementMessage);
+        return false;
+    }
+    private static bool TryGetExpectedMeasurement(string text, out MeasurementOption result)
+    {
+        foreach (MeasurementOption o in System.Enum.GetValues(typeof(MeasurementOption)))
+        {
+            string label = MeasurementTable.Label(o);   // e.g. "1/2 tsp"
+                                                        // (?<![\d/.]) stops "1 cup" matching inside "11 cup" or "1/1 cup"
+            string pattern = @"(?<![\d/.])" + Regex.Escape(label) + @"\b";
+            if (Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase))
+            {
+                result = o;
+                return true;
+            }
+        }
+        result = default;
+        return false;
     }
 }

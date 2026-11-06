@@ -114,6 +114,13 @@ public class ColorPrecisionGame : MonoBehaviour
         yellowStart = 1f - yellowStart;
         if (yellowStart >= 1f) yellowStart -= 1f;
 
+
+        float half = handHalfWidthDeg / 360f;
+        Debug.Log($"[ColorPrecision] point={point:F3} left={Mathf.Repeat(point - half, 1f):F3} right={Mathf.Repeat(point + half, 1f):F3} " +
+                  $"| green {greenStart:F3} to {Mathf.Repeat(greenStart + greenImage.fillAmount, 1f):F3} " +
+                  $"| greenFill={greenImage.fillAmount:F3} greenFillConfig={greenFill:F3} " +
+                  $"| tutorialActive={IsTutorialActive()}");
+
         if (HandHitsSlice(point, greenStart, greenImage.fillAmount, true))
         {
             resultText.text = "VERY GOOD!";

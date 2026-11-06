@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Pork Jowl
+  m_Name: Green Chilie
   m_EditorClassIdentifier: 
-  id: PorkJowl
-  displayName: Pork Jowl
+  id: GreenChili
+  displayName: Green Chilie
   category: 0
-  size: 1
-  icon: {fileID: 1254733247220407415, guid: f845127ee6cce754fa5c31f8fd42f6f0, type: 3}
-  iconScale: 1.1
+  size: 0
+  icon: {fileID: 4633824830846953477, guid: 434ea7f5fcbe7ce48ae12339589a0759, type: 3}
+  iconScale: 0.9
   stateSprites:
   - state: 0
-    sprite: {fileID: 1254733247220407415, guid: f845127ee6cce754fa5c31f8fd42f6f0, type: 3}
+    sprite: {fileID: 4633824830846953477, guid: 434ea7f5fcbe7ce48ae12339589a0759, type: 3}
   - state: 1
-    sprite: {fileID: -3426918139369066666, guid: fadb0e865e03ce940b30ee23ab39962f, type: 3}
-  - state: 2
-    sprite: {fileID: 4600580003547428657, guid: 2ffc0c5ca4c826548a471b3fcb3ec72e, type: 3}
+    sprite: {fileID: 6450375350366382899, guid: 2e0584f7ec5b66e4eb40fe57682453a3, type: 3}
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges: []

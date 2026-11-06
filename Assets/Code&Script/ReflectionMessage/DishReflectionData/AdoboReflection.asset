@@ -15,11 +15,13 @@ MonoBehaviour:
   dishName: Adobo
   dishSprite: {fileID: -2905549093005077656, guid: 41524c236021f9f4894cf6d21896aba9, type: 3}
   pages:
-  - Great work. The pot in front of you carries a technique our ancestors mastered
-    before refrigeration ever reached these shores.
+  - 'Great work! '
+  - 'The pot in front of you carries a technique our ancestors mastered, '
+  - before refrigeration ever reached these shores.
   - "Every family who ever made adobo stretched a day\u2019s catch into a week\u2019s
-    meals using nothing more complicated than vinegar and patience."
-  - "The next time someone calls adobo \u201Cjust\u201D a Filipino dish, you can
-    tell them it \r\nis also a thousand-year-old survival strategy,"
-  - "a cultural bridge between pre-colonial Austronesia and colonial Spain, and a
-    quiet reminder that the oldest kitchen tools we have are time and acid.\r"
+    meals,"
+  - using nothing more complicated than vinegar and patience.
+  - "The next time someone calls adobo \u201Cjust\u201D a Filipino dish,"
+  - you can tell them it is also a thousand-year-old survival strategy.
+  - It is a cultural bridge between pre-colonial Austronesia and colonial,
+  - Spain and a quiet reminder that our oldest kitchen tools are time and acid.

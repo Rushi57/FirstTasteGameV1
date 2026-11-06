@@ -16,8 +16,11 @@ MonoBehaviour:
   displayName: Coconut Milk
   category: 0
   size: 0
-  icon: {fileID: 802756916158895810, guid: 756f1acdb221e0143a86619a9aed1d67, type: 3}
+  icon: {fileID: 823673888495241465, guid: a4d8666071fff924ead8c7d4522099bb, type: 3}
   iconScale: 1
   stateSprites: []
   playsPourAnimation: 1
-  pourPositions: []
+  pourPositions:
+  - targetName: CoconutMilk
+    position: {x: 36.8, y: 6}
+  dropStateChanges: []

@@ -13,26 +13,15 @@ MonoBehaviour:
   m_Name: PancitCantonHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: For this level  Pancit Canton! Let's discover why these noodles have become
-      such a staple.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Let me tell you the history and origin of pancit canton.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Pancit reflects the influence of Chinese immigrants and traders who brought
-      noodle-making traditions to the Philippines.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Over time, Filipino cooks adapted these dishes to local ingredients and
-      tastes, creating many regional varieties.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: Pancit Canton is usually stir-fried with wheat noodles, vegetables, meat,
-      seafood, and savory seasonings.
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: "It is enjoyed as an everyday meal and is especially popular at birthdays
-      and family gatherings.\r"
-    characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: "Did you know?\r"
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: Long noodles are traditionally associated with long life and good fortune,
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: which is why pancit is often served at Filipino birthday celebrations!
-    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'The one dish that must appear at every Filipino birthday party.  '
+    characterSprite: {fileID: 0}
+  - text: 'Long noodles for a long life, a Chinese tradition fully adopted and made our own. '
+    characterSprite: {fileID: 0}
+  - text: Pancit canton gets its name from Guangzhou and its soul from decades of Filipino family kitchens.
+    characterSprite: {fileID: 0}
+  - text: 'Pork, chicken, shrimp, cabbage, snow peas, soy sauce, oyster sauce, '
+    characterSprite: {fileID: 0}
+  - text: 'and that one squeeze of calamansi at the end. '
+    characterSprite: {fileID: 0}
+  - text: Ready to toss it all together without breaking a single noodle?
+    characterSprite: {fileID: 0}

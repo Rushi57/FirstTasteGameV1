@@ -47,12 +47,20 @@ public class MixingSeasoningController : MonoBehaviour
     private void Start()
     {
         if (closeButton != null) closeButton.onClick.AddListener(Close);
-        if (mixingMechanic != null) mixingMechanic.OnMixFinished += HandleMixFinished;
+        if (mixingMechanic != null)
+        {
+            mixingMechanic.OnMixFinished += HandleMixFinished;
+            mixingMechanic.OnMixStarted += HandleMixStarted;   // <-- add
+        }
     }
 
     private void OnDestroy()
     {
-        if (mixingMechanic != null) mixingMechanic.OnMixFinished -= HandleMixFinished;
+        if (mixingMechanic != null)
+        {
+            mixingMechanic.OnMixFinished -= HandleMixFinished;
+            mixingMechanic.OnMixStarted -= HandleMixStarted;   // <-- add
+        }
     }
 
     /// <summary>Call this when the spatula is dropped on the (heated) pan.</summary>
@@ -75,6 +83,7 @@ public class MixingSeasoningController : MonoBehaviour
         challengeActive = true;
 
         mixingPanel.SetActive(true);
+        SetCloseButtonVisible(true);
         mixingMechanic.ResetForNewRound();
         mixingMechanic.ConfigureChallenge(direction, speed);
         configuredDirection = mixingMechanic.requiredDirection;   // the direction actually chosen
@@ -89,6 +98,7 @@ public class MixingSeasoningController : MonoBehaviour
     /// <summary>Restarts the same round in place so the replayed tutorial step can be retried.</summary>
     private void RestartRound()
     {
+        SetCloseButtonVisible(true);
         challengeActive = true;
         mixingMechanic.ResetForNewRound();
         mixingMechanic.ConfigureChallenge(configuredDirection, configuredSpeed);
@@ -97,8 +107,8 @@ public class MixingSeasoningController : MonoBehaviour
 
     private void HandleMixFinished(MixingMechanic.MixResult result)
     {
+        SetCloseButtonVisible(true);
         if (!challengeActive) return;
-
         bool success = result <= minimumSuccess; // VeryGood(0) < Good(1) < Bad(2)
         Debug.Log($"[Mixing] Result: {result} -> {(success ? "PASS" : "FAIL")}");
 
@@ -130,6 +140,8 @@ public class MixingSeasoningController : MonoBehaviour
 
     public void Close()
     {
+        if (mixingMechanic != null && mixingMechanic.IsMixing) return;
+
         // Closing before the mix is finished counts as a tutorial mistake.
         if (InTutorial && challengeActive)
         {
@@ -137,6 +149,7 @@ public class MixingSeasoningController : MonoBehaviour
             TutorialManager.Instance.ReportMistake();
             return;
         }
+        if (mixingMechanic != null && mixingMechanic.IsMixing) return;
 
         mixingPanel.SetActive(false);
         pendingLineIndex = -1;
@@ -178,6 +191,7 @@ public class MixingSeasoningController : MonoBehaviour
     /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
+        SetCloseButtonVisible(true);
         completedLines.Clear();
         pendingLineIndex = -1;
         challengeActive = false;
@@ -190,7 +204,7 @@ public class MixingSeasoningController : MonoBehaviour
     {
         if (arrowChanger == null) return;
 
-        switch(dir)
+        switch (dir)
         {
             case MixingMechanic.MixDirection.Clockwise:
                 arrowChanger.sprite = clockwiseSprite;
@@ -223,5 +237,15 @@ public class MixingSeasoningController : MonoBehaviour
                 : MixingMechanic.MixDirection.Clockwise;
         }
         return lastDirection;
+    }
+
+    private void SetCloseButtonVisible(bool visible)
+    {
+        if (closeButton != null) closeButton.gameObject.SetActive(visible);
+    }
+
+    private void HandleMixStarted()
+    {
+        SetCloseButtonVisible(false);   // timer running: no exit
     }
 }

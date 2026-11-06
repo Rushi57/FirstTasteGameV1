@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Tap the vinegar bottle.
+  - Select the Vinegar.
   advanceDelay: 0
-  revertSteps: 0
+  revertSteps: -1
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 211.86, y: 399.9}
   actionType: 1
   targetId: Vinegar
   dragSourceId: 

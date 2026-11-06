@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: KareKareDishReflection
   m_EditorClassIdentifier: 
   dishName: Kare-Kare
-  dishSprite: {fileID: 0}
+  dishSprite: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
   pages:
-  - Outstanding work. The dish in front of you carries a layered and partly open
-    history.
-  - 'Outstanding work. The dish in front of you carries a layered and partly open
-    history. '
-  - '.The beef came from Spanish era cattle ranching. '
+  - Outstanding work. The dish in front of you carries a layered and partly open history.
+  - 'The beef came from Spanish era cattle ranching. '
   - The bagoong alamang comes from pre-Hispanic Filipino fermentation.
   - 'Whether the specific assembly came from the Kapampangan domestic kitchen, '
-  - ' from Indian sepoys who settled in Cainta after 1764, or from Mexican mole traditions
-    is still argued by scholars today.'
-  - Not every culinary question has a clean answer. Some of the most interesting
-    dishes keep their secrets.
+  - from Indian sepoys who settled in Cainta after 1764,
+  - or from Mexican mole traditions is still argued by scholars today.
+  - 'Not every culinary question has a clean answer. '
+  - Some of the most interesting dishes keep their secrets.

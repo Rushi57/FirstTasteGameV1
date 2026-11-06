@@ -18,6 +18,11 @@ MonoBehaviour:
   size: 0
   icon: {fileID: -6307149016570354395, guid: 76d68c71f00c5394980ce94d94a9ee77, type: 3}
   iconScale: 1
-  stateSprites: []
+  stateSprites:
+  - state: 3
+    sprite: {fileID: 3837942321910696705, guid: a65b387d9dba32e48ba276eb7e0deecd, type: 3}
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges:
+  - targetName: Pan
+    newState: 3

@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Rotate the dial to low.
+  - Rotate the dial to low heat.
   advanceDelay: 0
   revertSteps: -1
   dialoguePosition: 1

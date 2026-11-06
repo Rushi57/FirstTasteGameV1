@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Tap to cut the ingredient.
+  - Tap the Cut button
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 227.7, y: 492.6}
+  customPosition: {x: 278.6, y: 586.3}
   actionType: 1
   targetId: TapToCutBtn
   dragSourceId: 

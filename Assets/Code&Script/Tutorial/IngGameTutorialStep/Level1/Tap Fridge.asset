@@ -15,7 +15,8 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Tap the Fridge icon at the top.
+  - "Let\u2019s start by gathering ingredients. "
+  - Tap the Fridge icon.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

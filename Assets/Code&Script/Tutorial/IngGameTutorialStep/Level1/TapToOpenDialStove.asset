@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Tap the stove to open the stove dial
+  - Tap the stove to open the stove dial.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: -352, y: 140}
+  customPosition: {x: -260.2, y: 269.67}
   actionType: 1
   targetId: Stove
   dragSourceId: 

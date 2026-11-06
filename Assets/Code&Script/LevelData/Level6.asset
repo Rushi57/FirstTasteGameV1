@@ -18,3 +18,20 @@ MonoBehaviour:
   levelPreviewImage: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
   story: {fileID: 11400000, guid: 74056453bea06014c90de108d4d9aee2, type: 2}
   reflection: {fileID: 11400000, guid: e22d19aba4ded1f4ebb6ed8b15568959, type: 2}
+  faqDishImage: {fileID: 6984502848697685410, guid: 49c5fa5aee871174c814dff51b57537d, type: 3}
+  faqEntries:
+  - type: 1
+    text: "Do you know why is it called \u201Casado\u201D if the chicken is not roasted?"
+    answer: "In Spanish, \u201Casado\u201D means roasted. Philippine kitchens of the colonial era could not easily sustain oven roasting, so the name stayed while the method shifted to braising. The word remained, the technique adapted."
+  - type: 1
+    text: 'Do you know why is chicken asado considered a Kapampangan dish? '
+    answer: 'Pampanga was the Spanish colonial culinary heartland of the Philippines. Kapampangan families perfected the sweet-savory-acid balance that defines the regional canon, and the dish became a Sunday and feast-day signature of the province. '
+  - type: 1
+    text: Did you know why the tomato sauce is not Filipino?
+    answer: 'The tomato in your sauce is not Filipino by birth. It traveled from Mexico to Manila on galleon ships between 1565 and 1815, along with chilies, peanuts, maize, and chocolate. The Manila Galleon trade quietly rewrote our entire national pantry. '
+  - type: 1
+    text: 'Do you know why is the tomato considered an exotic ingredient historically? '
+    answer: 'The tomato is a New World plant, native to Mesoamerica. It reached the Philippines only in the sixteenth century through the Manila Galleon trade from Acapulco. Without the galleon trade, there would be no tomato in Filipino cooking. '
+  - type: 1
+    text: "Did you know why chicken asado is not related to the \u201Casado\u201D used in siopao?"
+    answer: "They share a name but little else. Siopao asado is Chinese char siu, called \u201Cch\u0101-sio\u201D in Hokkien, a sweet soy braised pork. Chicken asado is Spanish and Mexican in origin. Two different dishes "

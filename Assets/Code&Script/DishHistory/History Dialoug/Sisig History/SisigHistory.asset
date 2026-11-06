@@ -13,28 +13,15 @@ MonoBehaviour:
   m_Name: SisigHistory
   m_EditorClassIdentifier: 
   lines:
-  - text: 'Listen for that sizzle! We''re heading to Pampanga to discover one of
-      its most famous dishes: sisig!'
-    characterSprite: {fileID: 0}
-  - text: Let me tell you the history and origin of pampanga sisig.
-    characterSprite: {fileID: 0}
-  - text: Sisig has roots in Kapampangan food culture.
-    characterSprite: {fileID: 0}
-  - text: Historical records from the 18th century describe an older sour preparation
-      made with fruits like green papaya or guava.
-    characterSprite: {fileID: 0}
-  - text: The modern chopped-pork version became famous,
-    characterSprite: {fileID: 0}
-  - text: "in Angeles City during the 1970s, particularly through Lucia \u201CAling
-      Lucing\u201D Cunanan."
-    characterSprite: {fileID: 0}
-  - text: Today, sisig commonly features chopped grilled pork, onions, calamansi,
-      chili, and seasonings.
-    characterSprite: {fileID: 0}
-  - text: Its smoky and tangy flavors have helped make it a Filipino favorite.
-    characterSprite: {fileID: 0}
-  - text: Did you know?
+  - text: 'Hot, sizzling, loud with chili and calamansi. But sisig was not always this.  '
     characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: Sisig wasn't always a sizzling pork dish! Its older form was a sour preparation,
-      showing how recipes can change over generations.
-    characterSprite: {fileID: 0}
+  - text: Long before pork face ever hit a cast-iron plate,
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Kapampangan women used the word for something very different, a snack of unripe fruit tossed with vinegar and salt. '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: 'Then in 1974, a woman named Lucia Cunanan, known to everyone as Aling Lucing, '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: turned leftover pork cuts from Angeles City into the dish the whole country now craves.
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: ' Can you handle both the careful chop and the fiery heat?'
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

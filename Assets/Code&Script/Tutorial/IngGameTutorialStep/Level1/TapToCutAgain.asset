@@ -15,11 +15,12 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - 'The task need a minced garlic so tap the cut again '
+  - The task need a minced garlic,
+  - tap Cut again to mince it!
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 61.14, y: 399.3}
+  customPosition: {x: 272.7, y: 573}
   actionType: 1
   targetId: TapToCutAgain
   dragSourceId: 

@@ -15,9 +15,9 @@ MonoBehaviour:
   npcName: Guide
   npcPortrait: {fileID: 0}
   dialogueLines:
-  - Tap the cabinet shelf.
+  - Tap the Shelf to open seasonings
   advanceDelay: 0
-  revertSteps: -1
+  revertSteps: 0
   dialoguePosition: 1
   customPosition: {x: 0, y: 140}
   actionType: 1

@@ -21,3 +21,4 @@ MonoBehaviour:
   stateSprites: []
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges: []

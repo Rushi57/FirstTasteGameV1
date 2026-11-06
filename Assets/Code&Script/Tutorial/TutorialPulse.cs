@@ -4,14 +4,14 @@ using UnityEngine.UI;
 public class TutorialPulse : MonoBehaviour
 {
     [Tooltip("Smallest scale multiplier during the pulse.")]
-    public float minScale = 1.1f;
+    public float minScale = 1f;
     [Tooltip("Largest scale multiplier during the pulse.")]
-    public float maxScale = 1.3f;
+    public float maxScale = 1.2f;
     [Tooltip("How fast the pulsing is.")]
     public float speed = 2.5f;
 
-    private float outlineMin = 4f;
-    private float outlineMax = 8f;
+    private float outlineMin = 5f;
+    private float outlineMax = 10f;
 
     private float appliedFactor = 1f;
     private Image img;

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b1f09cd39ae7b4c9fb13f397e91841, type: 3}
-  m_Name: Green Chili
+  m_Name: Birds Eye Chillies
   m_EditorClassIdentifier: 
-  id: GreenChili
-  displayName: Green Chili
+  id: BirdsEyeChillies
+  displayName: Birds Eye Chillies
   category: 0
   size: 0
-  icon: {fileID: 4633824830846953477, guid: 434ea7f5fcbe7ce48ae12339589a0759, type: 3}
+  icon: {fileID: 4104725166358580763, guid: d830bc221f0c680429f9e9febcdf589f, type: 3}
   iconScale: 0.9
   stateSprites:
   - state: 0
-    sprite: {fileID: 2026457265615168914, guid: e4700472baf842b418fd92ac0c60e721, type: 3}
+    sprite: {fileID: 4104725166358580763, guid: d830bc221f0c680429f9e9febcdf589f, type: 3}
   - state: 1
-    sprite: {fileID: 6450375350366382899, guid: 2e0584f7ec5b66e4eb40fe57682453a3, type: 3}
+    sprite: {fileID: 5605867093865990202, guid: a0a7e25cf75be654d8584e91ca0ac79a, type: 3}
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges: []

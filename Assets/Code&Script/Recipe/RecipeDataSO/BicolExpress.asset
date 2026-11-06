@@ -56,20 +56,20 @@ MonoBehaviour:
   - Turn the stove to medium heat.
   - Put the wok in the stove.
   - Add the chop pork belly
+  - Add the shrimp paste
   - Saute and render the fat
   - Add the choped garlic
   - Add the choped onion
   - Add the choped ginger
   - Saute until brown
-  - Add the bagoong alamang
   - Pour the water
   - Pour the coconut milk
   - Stir the pan
   - Add the green chillies
   - "Add the bird\u2019s eye chillies"
   - Put coconut cream
-  - Add 1 tsp of fish sauce(Manila linage)
-  - Add 1 tsp of sugar(Manila linage)
+  - Add 1 tsp of fish sauce(Manila lineage)
+  - Add 1 tsp of sugar(Manila lineage)
   - Mix it using the spatula
   - Add 1 tbsp of pepper
   - Put the pan lid to simmer
@@ -83,12 +83,12 @@ MonoBehaviour:
   - 
   - Pan:OnStove
   - Pan:PorkBelly
-  - Mix:9
+  - Pan:ShrimpPaste
+  - Mix:10
   - Pan:Garlic
   - Pan:Onion
   - Pan:Ginger
-  - Mix:13
-  - Pan:ShrimpPaste
+  - Mix:14
   - Pan:Water
   - Pan:CoconutMilk
   - Mix:17

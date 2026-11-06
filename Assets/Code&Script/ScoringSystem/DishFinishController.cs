@@ -32,7 +32,6 @@ public class DishFinishController : MonoBehaviour
     [Header("Scoreboard content")]
     public CookingPrepPanelController cookingPrepPanel;   // the same one LevelRecipeLoader fills
     public Image recipeImage;                             // the Image inside RecipeImageHolder
-    public TMP_Text dishTitleLabel;
     private void Start()
     {
         finishButtonPanel.SetActive(false);
@@ -100,7 +99,7 @@ public class DishFinishController : MonoBehaviour
         if (recipe != null)
         {
             if (recipeImage != null) recipeImage.sprite = recipe.recipeIcon;
-            if (dishTitleLabel != null) dishTitleLabel.text = recipe.recipeName;
+           
         }
 
         // Child first (stays hidden while the root is inactive); the root is activated by Show()
@@ -108,7 +107,7 @@ public class DishFinishController : MonoBehaviour
 
         if (reflection != null)
         {
-            // Saves the result, activates FinishCookingGameObject, starts the reflection text
+            
             reflection.Show();
         }
         else

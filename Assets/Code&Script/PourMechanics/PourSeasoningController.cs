@@ -17,10 +17,10 @@ public class PourSeasoningController : MonoBehaviour
     public TutorialInteractable pourTutorial;
     [Header("Panels")]
     public GameObject seasoningPanel;   // PourSeasoningPanel
-    public GameObject pickPanel;        // PickPanel
-    public GameObject pourBoard;        // PourImageBoarder
-    public GameObject spoonScroll;      // TbspMesurementScrolling
-    public GameObject cupScroll;        // CupMesurementPick
+    public GameObject pickPanel;
+    public GameObject pourBoard;
+    public GameObject spoonScroll;
+    public GameObject cupScroll;
 
     [Header("Seasoning buttons (tap to open)")]
     public Button soyButton;
@@ -48,7 +48,7 @@ public class PourSeasoningController : MonoBehaviour
     public Sprite fishSauceGlassSprite;
     public Sprite oysterSauceGlassSprite;
 
-    
+
 
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
@@ -176,14 +176,12 @@ public class PourSeasoningController : MonoBehaviour
             if (b != null) b.Clicked -= OnMeasurementClicked;
     }
 
-    // ---------------- Panel flow ----------------
 
     public void OpenFor(SeasoningType seasoning)
     {
         if (isAnimating) return;
 
         var prep = CookingPrepListUI.Instance;
-        // Cooking hasn't started (ingredients not all gathered yet)
         if (prep == null)
         {
             ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);
@@ -256,19 +254,19 @@ public class PourSeasoningController : MonoBehaviour
     {
         chosenTool = tool;
 
-        pickPanel.SetActive(false);      // 2) close pick panel, open the pour board
-        pourBoard.SetActive(true);
+        pickPanel.SetActive(false);
+        // pourBoard stays hidden until the player actually picks a measurement
         spoonScroll.SetActive(tool == MeasureTool.Spoon);
         cupScroll.SetActive(tool == MeasureTool.Cup);
 
-        // Meter scale = biggest measurement of the chosen tool
         GameObject scroll = tool == MeasureTool.Spoon ? spoonScroll : cupScroll;
         float max = 0f;
         foreach (var b in scroll.GetComponentsInChildren<MeasurementButton>(true))
             max = Mathf.Max(max, b.Ml);
-        pourMechanic?.SetMeterMax(max);
 
-        ClearSelection();
+        ClearSelection();                // also hides pourBoard (edit 3)
+        pourMechanic?.SetMeterMax(max);  // after ClearSelection so it isn't wiped
+
         Debug.Log($"[Pour] Tool chosen: {tool} (meter max {max:0.##} ml)");
     }
 
@@ -332,6 +330,29 @@ public class PourSeasoningController : MonoBehaviour
         Debug.Log("[Pour] Closed.");
     }
 
+
+
+    private void HidePanels()
+    {
+        if (seasoningPanel != null) seasoningPanel.SetActive(false);
+        if (pickPanel != null) pickPanel.SetActive(false);
+        if (pourBoard != null) pourBoard.SetActive(false);
+        if (spoonScroll != null) spoonScroll.SetActive(false);
+        if (cupScroll != null) cupScroll.SetActive(false);
+    }
+
+    /// Hook any extra exit/X button to this.
+    public void CloseAll()
+    {
+        if (pendingSuccess) { RequestClose(); return; }   // let the animation play
+        HidePanels();
+        ClearSelection();
+        pendingSuccess = false;
+        pendingLineIndex = -1;
+        pendingEntry = null;
+    }
+
+
     private Color GetColor(SeasoningType seasoning) => seasoning switch
     {
         SeasoningType.Soy => soyColor,
@@ -346,8 +367,30 @@ public class PourSeasoningController : MonoBehaviour
 
     private void OnMeasurementClicked(MeasurementButton btn)
     {
+        RecipeData recipe = cookingPrepPanel != null ? cookingPrepPanel.currentRecipe : null;
+        if (recipe != null && TryFindRequirement(recipe, currentSeasoning, out _, out float requiredMl))
+        {
+            bool amountCorrect = Mathf.Abs(btn.Ml - requiredMl)
+                                 <= Mathf.Max(0.05f, requiredMl * matchTolerance);
+
+            if (!amountCorrect)
+            {
+                bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+                Debug.Log($"[Pour] Wrong measurement tapped: {btn.Label} ({btn.Ml:0.##} ml), recipe wants {requiredMl:0.##} ml");
+
+                if (!inTutorial && penalizeWrongMeasurement)
+                    ScoreManager.Instance?.ReportMistake("Wrong Measurement!\nMinus 1 heart", 0, 1);
+
+                if (inTutorial) pourTutorial?.ReportMistake();
+                return;   // stay on Cupborder / Tsp/Tbspborder, PourImageBoarder stays hidden
+            }
+        }
+
         selected = btn;
         foreach (var b in allButtons) b.SetSelected(b == btn);
+
+        if (pourBoard != null) pourBoard.SetActive(true);   // only a correct pick reveals the board
+        Canvas.ForceUpdateCanvases();
 
         if (selectedLabel != null)
             selectedLabel.text = $"{btn.Label} ({btn.Ml:0.##} ml)";
@@ -355,8 +398,7 @@ public class PourSeasoningController : MonoBehaviour
         if (pourMechanic != null) pourMechanic.SetTarget(btn.Ml);
 
         ApplyToolVisual(btn.Ml);
-
-        ShowPicker(false);   // <-- auto-close Cupborder / Tsp/Tbspborder
+        ShowPicker(false);
 
         Debug.Log($"[Pour] Selected {btn.Label} = {btn.Ml:0.##} ml");
     }
@@ -449,9 +491,7 @@ public class PourSeasoningController : MonoBehaviour
 
         if (!inTutorial && (penalizeWrongMeasurement || success))
             ScoreManager.Instance?.ReportResult(quality);
-
-     
-
+       
         if (success)
         {
             pendingSuccess = true;
@@ -479,11 +519,11 @@ public class PourSeasoningController : MonoBehaviour
         }
     }
     private void RefreshCloseButton()
-{
-    if (closeButton == null) return;
-    bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
-    closeButton.interactable = !inTutorial || pendingSuccess;
-}
+    {
+        if (closeButton == null) return;
+        bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
+        closeButton.interactable = !inTutorial || pendingSuccess;
+    }
     private static bool IsAchuete(string lower) =>
         lower.Contains("achuete") || lower.Contains("atsuete") || lower.Contains("annatto");
 

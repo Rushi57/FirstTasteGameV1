@@ -1,11 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// Attach to any draggable UI item. Handles the dragging motion.
-/// Also supports LockAndReturn(): send the item back to its origin and hide it
-/// (used while the pour animation plays), then SetLocked(false) to bring it back.
-/// </summary>
+
 public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Tooltip("Identifier for this item, checked by TestDrop to see if it's the correct item for that zone.")]

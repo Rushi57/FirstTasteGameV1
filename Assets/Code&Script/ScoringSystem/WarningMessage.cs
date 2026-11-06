@@ -44,4 +44,14 @@ public class WarningMessageUI : MonoBehaviour
         board.SetActive(false);
         routine = null;
     }
+    public void Hide()
+    {
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        if (board != null) board.SetActive(false);
+    }
 }

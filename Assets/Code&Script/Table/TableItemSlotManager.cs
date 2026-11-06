@@ -1,14 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Tracks which of the table's ItemContainerDropZone slots are currently
-/// occupied, AND validates/accepts ingredients dropped into any of them
-/// against the current recipe - absorbing what TableZoneIngredientReceiver
-/// used to do, now centralized here since the slots themselves are the
-/// drop targets. Each slot gets a thin TableSlotDropHandler that forwards
-/// its drop event here.
-/// </summary>
+
 public class TableItemSlotManager : MonoBehaviour
 {
     [Header("Slots")]
@@ -19,16 +12,16 @@ public class TableItemSlotManager : MonoBehaviour
     [Tooltip("The RecipeIngredientListUI tracking the current recipe's checklist.")]
     public RecipeIngredientListUI ingredientList;
 
-    [Tooltip("The recipe currently being cooked. Set this from wherever you assign/select the recipe (e.g. right after RecipeIngredientListUI.DisplayRecipe()).")]
+    [Tooltip("The recipe currently being cooked.")]
     public RecipeData currentRecipe;
 
     [Header("Always accepted")]
-    [Tooltip("Items that can always be placed on the table, even if the recipe's ingredient list doesn't contain them (e.g. the Bowl). If the recipe DOES list them, they still tick the checklist.")]
+    [Tooltip("Items that still tick the checklist.")]
     public List<IngredientData> alwaysAcceptedItems = new List<IngredientData>();
 
     private readonly Dictionary<RectTransform, GameObject> occupancy = new Dictionary<RectTransform, GameObject>();
 
-    /// <summary>Returns the first empty slot, or null if the table is completely full.</summary>
+   
     public RectTransform GetEmptySlot()
     {
         foreach (var slot in slots)
@@ -54,14 +47,6 @@ public class TableItemSlotManager : MonoBehaviour
     {
         return GetEmptySlot() == null;
     }
-
-    /// <summary>
-    /// Called by TableSlotDropHandler when something is dropped onto one of
-    /// the slots. Validates against the recipe and either accepts (snaps
-    /// into place, marks collected, updates occupancy) or does nothing - if
-    /// nothing is done, TestDrag.OnEndDrag handles snapping the item back to
-    /// where it came from automatically (no extra code needed here for that).
-    /// </summary>
     public bool HandleDrop(RectTransform targetSlot, GameObject droppedObj)
     {
         if (droppedObj == null) return false;
@@ -108,14 +93,6 @@ public class TableItemSlotManager : MonoBehaviour
         return alwaysAcceptedItems != null && alwaysAcceptedItems.Contains(ingredient);
     }
 
-    /// <summary>
-    /// Checks whether the current recipe needs this ingredient, and if so
-    /// marks it collected on the checklist (which may fire
-    /// OnAllIngredientsCollected). Returns true if it was needed/accepted.
-    /// Call this from anywhere an ingredient effectively "arrives" on the
-    /// table - a manual drag-drop (see HandleDrop above) or a direct spawn
-    /// straight into a table slot (see IngredientSpawner).
-    /// </summary>
     public bool TryCollect(IngredientData ingredient)
     {
         if (!RecipeNeeds(ingredient)) return false;
@@ -138,7 +115,7 @@ public class TableItemSlotManager : MonoBehaviour
         if (!occupancy.TryGetValue(slot, out var existing) || existing == null) return false;
         if (existing == dropped) return false;
 
-        // SnapTo parents an item to its slot. If it's no longer a child, it has left.
+        
         if (!existing.activeInHierarchy || existing.transform.parent != slot)
         {
             occupancy.Remove(slot);

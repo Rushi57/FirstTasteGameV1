@@ -13,16 +13,15 @@ MonoBehaviour:
   m_Name: BatangasGotoDishReflection
   m_EditorClassIdentifier: 
   dishName: Batangas Goto
-  dishSprite: {fileID: 0}
+  dishSprite: {fileID: 1222128613088977701, guid: 9273c5b62e589f049959263daebca091, type: 3}
   pages:
-  - Great work. The bowl in front of you is a small act of care. Chinese congee technique,
-    Spanish-era beef, Filipino garnishes,
-  - ' all brought together in a dish that families reach for when someone they love
-    needs comfort.'
-  - The ginger does more than flavour. It warms the body and settles the stomach,
-    which is why goto has been a convalescent food for generations.
-  - 'They are the Lipa canon, documented in peer-reviewed heritage research, and
-    they distinguish a competent lomi from a merely passable one. '
-  - The next time you make a bowl for someone who is unwell,
-  - ' you are doing what Filipino families have been doing with this dish for nearly
-    two centuries.'
+  - Great work! The bowl in front of you is a small act of care.
+  - "Chinese congee technique, \r\nSpanish-era beef, "
+  - 'Filipino garnishes, all brought together in a dish that families reach for when
+    someone they love needs comfort. '
+  - The ginger does more than flavour.
+  - 'The ginger does more than flavour. It warms the body and settles the stomach, '
+  - which is why goto has been a convalescent food for generations.
+  - 'The next time you make a bowl for someone who is unwell, '
+  - you are doing what Filipino families have been doing with this dish for nearly
+    two centuries.

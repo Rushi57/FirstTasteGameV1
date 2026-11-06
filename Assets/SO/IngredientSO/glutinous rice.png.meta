@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d13c5ab7102c7234b9eedab18fe83e76
+guid: 605c2cb80c0baa74d80c730b1f432e41
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7863244571002934300
-    second: stove with flame_0
+      213: 5342246052275966877
+    second: glutinous rice  (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -56,7 +56,9 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationMethod: 0
   spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -109,17 +111,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stove with flame_0
+      name: glutinous rice  (1)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1
-        width: 347
-        height: 289
+        x: 34
+        y: 55
+        width: 221
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4ebe95359b420e290800000000000000
-      internalID: -7863244571002934300
+      spriteID: d9354a8ea78732a40800000000000000
+      internalID: 5342246052275966877
       vertices: []
       indices: 
       edges: []
@@ -148,7 +163,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      stove with flame_0: -7863244571002934300
+      glutinous rice  (1)_0: 5342246052275966877
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

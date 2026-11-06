@@ -4,20 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// The visual NPC dialogue box. Handles typewriter text reveal, portrait,
-/// name, and a "Next" button for lines that don't require a game action.
-/// </summary>
 public class DialogueBoxUI : MonoBehaviour
 {
     [Header("Refs")]
-    public GameObject root;              // whole dialogue box, enable/disable this
-    public Image portraitImage;           // NPC image
-    public Image messageBorderImage;      // message board border
+    public GameObject root;              
+    public Image portraitImage;          
+    public Image messageBorderImage;     
     public TMP_Text nameText;
     public TMP_Text bodyText;
-    public Button nextButton;
-    public GameObject tapToContinueHint;  // optional "tap anywhere" hint
+    public GameObject tapToContinueHint; 
+    public Button tapAnywhereButton;
 
     [Header("Typewriter")]
     public float charsPerSecond = 40f;
@@ -35,18 +31,22 @@ public class DialogueBoxUI : MonoBehaviour
     private Coroutine typingRoutine;
     private string currentFullLine;
     private bool isTyping;
+    private bool currentShowNext;
 
     public event Action OnNextPressed;
 
-    /// <summary>The dialogue box's own rect, so it can be exempted from the input blocker.</summary>
     public RectTransform RootRect => root != null ? root.transform as RectTransform : null;
-
+    public RectTransform TapAnywhereRect =>
+        tapAnywhereButton != null ? tapAnywhereButton.transform as RectTransform : null;
     private void Awake()
     {
         if (portraitImage != null) portraitImage.preserveAspect = true;
         if (messageBorderImage != null) messageBorderImage.preserveAspect = true;
-        if (nextButton != null)
-            nextButton.onClick.AddListener(HandleNextClicked);
+        if (tapAnywhereButton != null)
+        {
+            tapAnywhereButton.onClick.AddListener(OnBoxTapped);
+            tapAnywhereButton.gameObject.SetActive(false);
+        }
         Hide();
     }
 
@@ -64,21 +64,30 @@ public class DialogueBoxUI : MonoBehaviour
     public void Hide()
     {
         if (typingRoutine != null) StopCoroutine(typingRoutine);
+        isTyping = false;
+        SetTapAnywhere(false);
         root.SetActive(false);
     }
 
-    /// <summary>Show a line of dialogue with a typewriter effect. showNextButton controls whether the "Next" button appears once typing finishes.</summary>
     public void PlayLine(string line, bool showNextButton)
     {
         currentFullLine = line;
+        currentShowNext = showNextButton;
+        SetTapAnywhere(showNextButton);
+
         if (typingRoutine != null) StopCoroutine(typingRoutine);
         typingRoutine = StartCoroutine(TypeLine(line, showNextButton));
+    }
+
+    private void SetTapAnywhere(bool active)
+    {
+        if (tapAnywhereButton != null)
+            tapAnywhereButton.gameObject.SetActive(active);
     }
 
     private IEnumerator TypeLine(string line, bool showNextButton)
     {
         isTyping = true;
-        if (nextButton != null) nextButton.gameObject.SetActive(false);
         if (tapToContinueHint != null) tapToContinueHint.SetActive(false);
 
         bodyText.text = "";
@@ -91,40 +100,29 @@ public class DialogueBoxUI : MonoBehaviour
         }
 
         isTyping = false;
-        if (showNextButton && nextButton != null)
-            nextButton.gameObject.SetActive(true);
         if (showNextButton && tapToContinueHint != null)
             tapToContinueHint.SetActive(true);
     }
 
-    /// <summary>Call this if you want a tap-anywhere-on-box behavior: skip typing, or advance.</summary>
     public void OnBoxTapped()
     {
+        if (!currentShowNext) return;  
+
         if (isTyping)
         {
-            // Skip to full text instantly.
-            StopCoroutine(typingRoutine);
+           
+            if (typingRoutine != null) StopCoroutine(typingRoutine);
             bodyText.text = currentFullLine;
             isTyping = false;
-            if (nextButton != null) nextButton.gameObject.SetActive(true);
+            if (tapToContinueHint != null) tapToContinueHint.SetActive(true);
         }
         else
         {
-            HandleNextClicked();
+            OnNextPressed?.Invoke();
         }
     }
 
-    private void HandleNextClicked()
-    {
-        OnNextPressed?.Invoke();
-    }
-
-    /// <summary>
-    /// Positions the dialogue box according to the given DialoguePosition.
-    /// Auto picks whichever preset (Top/Bottom) doesn't overlap target -
-    /// Custom places it at the exact customPosition given, ignoring overlap.
-    /// Safe to call with target == null under Auto (box just stays put).
-    /// </summary>
+   
     public void SetPosition(DialoguePosition position, RectTransform target, Vector2 customPosition)
     {
         if (!adaptivePositioning || RootRect == null) return;
@@ -141,13 +139,7 @@ public class DialogueBoxUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Moves the dialogue box to whichever preset position (top or bottom)
-    /// does NOT overlap the given target - so the box never covers the
-    /// button/item the player actually needs to tap or drag. Call this
-    /// before showing a step's dialogue, once the target is known.
-    /// Safe to call with target == null (just leaves the box where it is).
-    /// </summary>
+
     public void PositionAwayFrom(RectTransform target)
     {
         if (!adaptivePositioning || target == null || RootRect == null) return;
@@ -173,4 +165,8 @@ public class DialogueBoxUI : MonoBehaviour
         return new Rect(corners[0].x, corners[0].y, corners[2].x - corners[0].x, corners[2].y - corners[0].y);
     }
 
+    private void OnDestroy()
+    {
+        if (tapAnywhereButton != null) tapAnywhereButton.onClick.RemoveListener(OnBoxTapped);
+    }
 }
