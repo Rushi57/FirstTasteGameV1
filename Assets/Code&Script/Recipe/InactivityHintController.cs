@@ -132,8 +132,8 @@ public class InactivityHintController : MonoBehaviour
     // True whenever the settings window is anything other than fully closed
     private bool IsSettingsOpen()
     {
-        if (settingsAnimator == null || !settingsAnimator.isActiveAndEnabled) return false;
-        if (settingsAnimator.IsInTransition(0)) return true;   // opening or closing blend
-        return !settingsAnimator.GetCurrentAnimatorStateInfo(0).IsName(settingsClosedState);
+        if (settingsAnimator == null) return false;
+        // Panel is "hidden" when scaled to (almost) zero
+        return settingsAnimator.transform.localScale.x > 0.01f;
     }
 }

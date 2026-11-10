@@ -152,7 +152,7 @@ public class IngredientSpawner : MonoBehaviour
             if (prefabRect != null)
             {
                 Vector2 baseSize = prefabRect.rect.size;
-                float scale = (!usePlate && data.iconScale > 0f) ? data.iconScale : 1f;
+                float scale = data.iconScale > 0f ? data.iconScale : 1f;
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseSize.x * scale);
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, baseSize.y * scale);
             }
@@ -191,6 +191,7 @@ public class IngredientSpawner : MonoBehaviour
         // Get-or-add required UI and drag components
         Image image = go.GetComponent<Image>();
         if (image == null) image = go.AddComponent<Image>();
+        image.sprite = data.icon;          // always the ingredient's own icon
         image.preserveAspect = true;
         image.raycastTarget = true;
 
