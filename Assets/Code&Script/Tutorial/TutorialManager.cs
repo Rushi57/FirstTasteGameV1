@@ -1,6 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
+using UnityEngine.EventSystems;
 /// <summary>
 /// Drives the tutorial: shows dialogue lines in order, waits for the required
 /// player action (if any), highlights the target, blocks other input, then
@@ -10,6 +11,26 @@ using System.Collections;
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
+
+
+    [Header("Speed-run tolerance")]
+    public float bufferWindow = 3f;
+    public float mistakeGraceTime = 0.35f;
+    public float maxBusyWait = 2f;
+    [Tooltip("Only a wrong DRAG/DROP counts as a mistake. Stray taps/holds/scrolls are ignored.")]
+    public bool onlyDragCountsAsMistake = true;
+
+    private struct BufferedAction { public string id; public TutorialActionType type; public float time; }
+    private readonly List<BufferedAction> actionBuffer = new List<BufferedAction>();
+    private float waitingSince;
+    private string lastDoneId;
+    private TutorialActionType lastDoneType;
+    private float lastDoneTime;
+    private float lastNextTime;
+    private bool lastEntryWasRevert;
+
+    public TutorialStep CurrentStep =>
+    (stepIndex >= 0 && stepIndex < steps.Count) ? steps[stepIndex] : null;
 
     [Header("Tutorial Data")]
     [Tooltip("Unique key for this tutorial, in case you have more than one (e.g. per-level tutorials).")]
@@ -159,6 +180,7 @@ public class TutorialManager : MonoBehaviour
         int resumeIndex = resumeFromLastStep ? PlayerPrefs.GetInt(ProgressKey, 0) : 0;
         stepIndex = Mathf.Clamp(resumeIndex, 0, steps.Count - 1) - 1;
         lockByMistake = false;
+        lastEntryWasRevert = false;
         AdvanceStep();
         Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()}");
     }
@@ -170,6 +192,7 @@ public class TutorialManager : MonoBehaviour
         tutorialActive = true;
         stepIndex = -1;
         lockByMistake = false;
+        lastEntryWasRevert = false;
         AdvanceStep();
     }
 
@@ -282,7 +305,7 @@ public class TutorialManager : MonoBehaviour
         }
         lineIndex = 0;
         PlayerPrefs.SetInt(ProgressKey, stepIndex);
-        PlayerPrefs.Save();
+       
         BeginCurrentStep();
     }
 
@@ -368,8 +391,11 @@ public class TutorialManager : MonoBehaviour
     // Drop zones (stove, pan, chopping board, etc.) should never pulse/scale.
     private bool IsDropZone(RectTransform rect)
     {
+
         if (rect == null) return false;
-        return rect.GetComponent<UnityEngine.EventSystems.IDropHandler>() != null;
+        foreach (var h in rect.GetComponents<IDropHandler>())
+            if (!(h is EventTrigger)) return true;  
+        return false;
     }
 
     private void AddPulse(RectTransform rect)
@@ -442,6 +468,8 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleNextPressed()
     {
+        if (Time.unscaledTime - lastNextTime < 0.15f) return;
+        lastNextTime = Time.unscaledTime;
         if (waitingForAction || advanceRoutine != null) return;
 
         lockByMistake = false;   // Oops line dismissed, unlock before the next line plays
@@ -462,22 +490,23 @@ public class TutorialManager : MonoBehaviour
     public void NotifyAction(string id, TutorialActionType type)
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
+        id = id?.Trim();
+        float now = Time.unscaledTime;
 
-        TutorialStep step = steps[stepIndex];
         if (!waitingForAction)
         {
-            Debug.Log($"[TutorialManager] NotifyAction('{id}', {type}) received but not currently waiting for an action - ignored.");
+            actionBuffer.Add(new BufferedAction { id = id, type = type, time = now });
             return;
         }
 
+        TutorialStep step = steps[stepIndex];
+        if (Matches(step, id, type)) { CompleteStep(step); return; }
 
+        if (now - waitingSince < mistakeGraceTime) return;
+        if (id == lastDoneId && type == lastDoneType && now - lastDoneTime < mistakeGraceTime * 2f) return;
+        if (onlyDragCountsAsMistake && type != TutorialActionType.Drag) return;
 
-        if (step.targetId?.Trim() != id || step.actionType != type)
-        {
-            Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match step '{step.name}' (expected '{step.targetId}', {step.actionType}).");
-            HandleMistake(step);
-            return;
-        }
+        HandleMistake(step);
 
         waitingForAction = false;
         ClearPulses();   // stop pulsing while the animation plays
@@ -485,7 +514,8 @@ public class TutorialManager : MonoBehaviour
         advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
     }
 
-   
+    private bool Matches(TutorialStep step, string id, TutorialActionType type)
+     => step.targetId?.Trim() == id && step.actionType == type;
     public void BeginBusy() => busyCount++;
 
 
@@ -493,13 +523,18 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator AdvanceWhenReady(TutorialStep step)
     {
-        yield return null;   
+        yield return null;
 
-        if (step.advanceDelay > 0f)
+        if (step.advanceDelay > 0f && actionBuffer.Count == 0)
             yield return new WaitForSecondsRealtime(step.advanceDelay);
 
-        while (busyCount > 0)
+        float waited = 0f;
+        while (busyCount > 0 && waited < maxBusyWait)
+        {
+            waited += Time.unscaledDeltaTime;
             yield return null;
+        }
+        busyCount = 0;
 
         advanceRoutine = null;
         AdvanceStep();
@@ -518,17 +553,18 @@ public class TutorialManager : MonoBehaviour
     private void GoToStep(int index)
     {
         CancelPendingAdvance();
+        actionBuffer.Clear();
         stepIndex = Mathf.Clamp(index, 0, steps.Count - 1);
         lineIndex = 0;
         waitingForAction = false;
         PlayerPrefs.SetInt(ProgressKey, stepIndex);
-        PlayerPrefs.Save();
         BeginCurrentStep();
     }
 
     public void ReportMistake()
     {
         if (!tutorialActive || !waitingForAction) return;
+        if (Time.unscaledTime - waitingSince < mistakeGraceTime) return;
         HandleMistake(steps[stepIndex]);
     }
 
@@ -537,14 +573,53 @@ public class TutorialManager : MonoBehaviour
         if (!revertOnMistake || !failedStep.revertOnMistake) return;
 
         int back = failedStep.revertSteps >= 0 ? failedStep.revertSteps : stepsToRevert;
+        if (lastEntryWasRevert) back = 0;   // already reverted once: just replay this step
 
         waitingForAction = false;
         pendingMistakeMessage = failedStep.mistakeMessage;
-        Debug.Log($"[TutorialManager] Mistake on step '{failedStep.name}' - reverting {back} step(s).");
-        OnTutorialReverted?.Invoke();
         lockByMistake = !string.IsNullOrEmpty(failedStep.mistakeMessage);
+        lastEntryWasRevert = true;
+
         GoToStep(stepIndex - back);
+        OnTutorialReverted?.Invoke();
     }
+
+    private void CompleteStep(TutorialStep step)
+    {
+        lastEntryWasRevert = false;
+        lastDoneId = step.targetId?.Trim();
+        lastDoneType = step.actionType;
+        lastDoneTime = Time.unscaledTime;
+
+        waitingForAction = false;
+        ClearPulses();
+        CancelPendingAdvance(false);
+        advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
+    }
+
+    private void TryConsumeBuffer()
+    {
+        if (!waitingForAction) return;
+        TutorialStep step = steps[stepIndex];
+        float now = Time.unscaledTime;
+
+        actionBuffer.RemoveAll(b => now - b.time > bufferWindow);
+        int i = actionBuffer.FindIndex(b => Matches(step, b.id, b.type));
+        if (i < 0) { actionBuffer.Clear(); return; }
+
+        actionBuffer.RemoveRange(0, i + 1);
+        CompleteStep(step);
+    }
+
+    public bool IsExpected(string id, TutorialActionType type)
+    {
+        if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return false;
+        id = id?.Trim();
+        if (Matches(steps[stepIndex], id, type)) return true;
+        return advanceRoutine != null && stepIndex + 1 < steps.Count &&
+               Matches(steps[stepIndex + 1], id, type);
+    }
+
 
     private void EndTutorial()
     {
@@ -648,7 +723,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (onlyForLevel > 0 && level != onlyForLevel) return;
 
- 
+
         SaveData data = GameSession.Data;
         if (data != null && data.GetLevelResult(level) != null)
         {
@@ -656,6 +731,8 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        StartTutorial();  
+        StartTutorial();
     }
+    private void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save(); }
+    private void OnDestroy() { PlayerPrefs.Save(); }
 }

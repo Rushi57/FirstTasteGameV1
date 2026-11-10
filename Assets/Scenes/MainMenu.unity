@@ -167,6 +167,7 @@ MonoBehaviour:
   fridgeClose: {fileID: 8300000, guid: f805efa416747c043bfd1da2973c5dd3, type: 3}
   cabinetClose: {fileID: 8300000, guid: 70bf77b22c03b62428e7823b125fabf0, type: 3}
   cabinetOpen: {fileID: 8300000, guid: e02a2540c4024c64091084639f9551ea, type: 3}
+  countHandStart: {fileID: 8300000, guid: 11e90c610e3fca140880385ee0275313, type: 3}
   frying: {fileID: 8300000, guid: eb18ef9bd51b8e74a869efdfcbd61c6d, type: 3}
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
   boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
@@ -835,7 +836,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.225
+  orthographic size: 0.375
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

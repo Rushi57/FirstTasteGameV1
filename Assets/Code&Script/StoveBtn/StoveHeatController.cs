@@ -10,8 +10,8 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     [Header("Dial")]
     [Tooltip("StoveDialGameObject (starts inactive).")]
     public GameObject dialPanel;
-    public StoveDialUI dialUI;             // on DialImage
-    public Button closeButton;             // CloseStoveDial
+    public StoveDialUI dialUI;         
+    public Button closeButton;          
 
     [Header("Visuals (all optional)")]
     public Image stoveImage;
@@ -48,14 +48,54 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         ApplyVisuals();
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.OnTutorialReverted += SyncDialToStep;
+    }
+    private void OnDestroy()
+    {
+        if (TutorialManager.Instance != null)
+            TutorialManager.Instance.OnTutorialReverted -= SyncDialToStep;
     }
 
-    // ---------------- Dial open / close ----------------
+    private void SyncDialToStep()
+    {
+        var step = TutorialManager.Instance?.CurrentStep;
+        if (step == null || tutorialInteractable == null) return;
+
+        string target = step.targetId?.Trim();
+
+        if (step.actionType == TutorialActionType.Tap &&
+            target == tutorialInteractable.ResolvedId)
+        {
+            CloseDial();
+        }
+        else if (step.actionType == TutorialActionType.Drag &&
+                 (target == "StoveLow" || target == "StoveMedium" || target == "StoveHigh"))
+        {
+            SetHeat(StoveHeat.Off);          
+            if (dialPanel != null) dialPanel.SetActive(true);
+            dialUI?.SetVisual(CurrentHeat);
+        }
+    }
+    // Dial open / close
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Ignore clicks that bubble up from the dial itself
-        if (dialPanel != null && dialPanel.activeSelf) return;
+      
+        var hit = eventData.pointerCurrentRaycast.gameObject;
+        if (hit != null && (hit.GetComponentInParent<TestDrag>() != null ||
+                            hit.GetComponentInParent<PanDropZone>() != null))
+            return;
+
+        if (dialPanel != null && dialPanel.activeSelf)
+        {
+
+            var m = TutorialManager.Instance;
+            if (m != null && m.IsActive && tutorialInteractable != null &&
+                m.IsExpected(tutorialInteractable.ResolvedId, TutorialActionType.Tap))
+                tutorialInteractable.ReportTap();
+            return;
+        }
         OpenDial();
     }
 
@@ -63,14 +103,14 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     {
         if (dialPanel == null) return;
 
-        //Block the dial (and so the heat) until Cooking Prep
+        //Block the dial 
         if (CookingPhaseGate.Instance != null && !CookingPhaseGate.Instance.CanUseStove()) return;
+        if (!TutorialAllowsDial()) return;
 
-      
 
         dialPanel.SetActive(true);
         dialUI?.SetVisual(CurrentHeat);
-        tutorialInteractable?.ReportTap();   // see note below
+        tutorialInteractable?.ReportTap();  
     }
 
     public void CloseDial()
@@ -78,7 +118,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         if (dialPanel != null) dialPanel.SetActive(false);
     }
 
-    // ---------------- Heat ---------------- (unchanged except ApplyVisuals)
+    // Heat
 
     public void SetHeat(StoveHeat newHeat)
     {
@@ -89,7 +129,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         Debug.Log($"[Stove] Heat changed: {old} -> {newHeat}");
 
         ApplyVisuals();
-        SFXManager.Instance?.SetFlame(newHeat);   // <-- new: loops on Low/Med/High, stops on Off
+        SFXManager.Instance?.SetFlame(newHeat);  
         if (newHeat == StoveHeat.Off)
             SFXManager.Instance?.StopLoop();
         OnHeatChanged?.Invoke(newHeat);
@@ -104,7 +144,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             confirmRoutine = StartCoroutine(ConfirmHeatRoutine(newHeat));
     }
 
-    // ... keep ConfirmHeatRoutine exactly as it is ...
+
 
     public void ResetStoveProgress()
     {
@@ -150,9 +190,6 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             yield break;
         }
 
-      
-
-        // Find the recipe line that matches the prep list's current step
         for (int i = 0; i < recipe.cookingInstructions.Count; i++)
         {
             if (recipe.GetStepId(i) != currentId) continue;
@@ -184,10 +221,10 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             if (recipe == null) return false;
 
             CookingPrepListUI prepList = CookingPrepListUI.Instance;
-            if (prepList == null) return false;          // tutorial / no list: don't lock
+            if (prepList == null) return false;          
 
             string currentId = prepList.CurrentStepId;
-            if (currentId == null) return true;          // all steps done
+            if (currentId == null) return true;          
 
             for (int i = 0; i < recipe.cookingInstructions.Count; i++)
             {
@@ -206,5 +243,22 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
     private void OnDisable()
     {
         SFXManager.Instance?.StopFlame();
+    }
+
+    private bool TutorialAllowsDial()
+    {
+        var m = TutorialManager.Instance;
+        if (m == null || !m.IsActive) return true;
+        if (tutorialInteractable == null) return true;   
+
+        var step = m.CurrentStep;
+        if (step == null) return true;
+
+        string target = step.targetId?.Trim();
+        if (string.IsNullOrEmpty(target)) return false;  
+
+        if (target == "StoveLow" || target == "StoveMedium" || target == "StoveHigh") return true;
+
+        return m.IsExpected(tutorialInteractable.ResolvedId, TutorialActionType.Tap);
     }
 }

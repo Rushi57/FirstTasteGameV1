@@ -21,17 +21,17 @@ MonoBehaviour:
   faqDishImage: {fileID: 3617996318216318579, guid: 43daaeaa20b7aad4782be6f78eaca094, type: 3}
   faqEntries:
   - type: 1
-    text: "Do you know why is this dish called \u201Cpancit choca\u201D in Cavite? "
+    text: "Did you know why is this dish called \u201Cpancit choca\u201D in Cavite? "
     answer: "\u201CChoca\u201D comes from the Spanish word \u201Cchoco\u201D, meaning cuttlefish or squid. Cavite City was the Spanish naval port of the Philippines for three centuries, which is why its culinary language still carries so much Iberian vocabulary. "
   - type: 1
-    text: 'Do you know why squid-ink cooking is one of the oldest culinary signatures '
+    text: 'Did you know why squid-ink cooking is one of the oldest culinary signatures '
     answer: "Squid-ink cooking is one of the oldest culinary signatures of the Mediterranean world. Spain has \u201Carroz negro\u201D. Italy has pasta \u201Cal nero di seppia\u201D. Cavite City has pancit choca. Same tradition, three different kitchens, one dark delicious thread. "
   - type: 1
-    text: Do you know why does Cavite have so many unique Spanish flavored dishes?
+    text: Did you know why does Cavite have so many unique Spanish flavored dishes?
     answer: 'Cavite City was the Spanish naval shipyard and provisioning port from 1571 until the end of Spanish rule. Three centuries of Spanish, Mexican, Chinese, and Filipino cooks sharing one port town produced a cuisine unlike anywhere else. '
   - type: 1
-    text: Do you know why should the ink come from fresh squid or from a packet?
+    text: Did you know why should the ink come from fresh squid or from a packet?
     answer: 'Cavite heritage cooks prefer fresh squid ink harvested at cleaning time. Commercial squid-ink sachets work in a pinch, but they produce a thinner color and flavor. For heritage preparations, fresh wins every time. '
   - type: 1
-    text: Do you know why you should not cooked the squid a long time?
+    text: Did you know why you should not cooked the squid a long time?
     answer: Squid turns rubbery if cooked for more than a minute at high heat. The Cavite method sears the squid briefly, removes it from the pan, finishes the sauce and noodles, and returns the squid for only a moment at the end.

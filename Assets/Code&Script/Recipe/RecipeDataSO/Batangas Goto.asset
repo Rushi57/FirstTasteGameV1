@@ -44,30 +44,30 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the garlic minced.
-  - Chop the onion minced.
-  - Chop the ginger sliced.
-  - Chop the beef shanks sliced.
-  - Chop the pork kidney sliced.
-  - Chop beef tripe to sliced.
-  - Chop the pork intestine to sliced.
-  - Turn the stove to high heat.
-  - Put the wok on the stove.
-  - Add the 1/8 tsp of salt.
+  - Chop the garlic minced
+  - Chop the onion minced
+  - Chop the ginger sliced
+  - Chop the beef shanks sliced
+  - Chop the pork kidney sliced
+  - Chop beef tripe to sliced
+  - Chop the pork intestine to sliced
+  - Turn the stove to high heat
+  - Put the wok on the stove
+  - Add the 1/8 tsp of salt
   - Add Water.
-  - Add the sliced beef shanks.
-  - Add the sliced pork intestine.
-  - Add the sliced pork kidney.
-  - Add the minced garlic.
-  - Add the julienned ginger.
-  - Add the onion minced.
-  - Turn the stove to low heat.
-  - Add 1/4 cup glutinous rice.
+  - Place the sliced beef shanks in the wok
+  - 'Add the sliced pork intestine '
+  - Add the sliced pork kidney
+  - Add the minced garlic
+  - Add the julienned ginger
+  - Add the onion minced
+  - Turn the stove to low heat
+  - Add 1/4 cup glutinous rice
   - Add a 1/8 tsp safflower
-  - Add the chicken broth.
-  - Saute using the spatula.
-  - Cover it with pan lid to simmer.
-  - Add the sliced beef tripe.
+  - Add the chicken broth
+  - Saute using the spatula
+  - Cover it with pan lid to simmer
+  - Add the sliced beef tripe
   - 'Put the pan lid and simmer '
   cookingStepIds:
   - Garlic:Minced

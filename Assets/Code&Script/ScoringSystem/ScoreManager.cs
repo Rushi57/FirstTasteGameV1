@@ -157,6 +157,12 @@ public class ScoreManager : MonoBehaviour
             TriggerGameOver();
     }
 
+    public void ShowWarning(string message)
+    {
+        if (IsGameOver) return;
+        WarningMessageUI.Instance?.Show(message);
+    }
+
     public void SetPerfectScore()
     {
         CurrentScore = startingScore;   

@@ -13,6 +13,7 @@ public class ColorPrecisionGame : MonoBehaviour
 
     [Header("Settings")]
     public float rotateSpeed = 200f;
+    public float countSoundDelay = 1f;
     public float headstartDelay = 2f;
     public float retryDelay = 1.5f; // how long "BAD!" is shown before restarting
 
@@ -56,8 +57,11 @@ public class ColorPrecisionGame : MonoBehaviour
 
         if (resultText != null) resultText.text = "GET READY!";
 
-        yield return new WaitForSeconds(headstartDelay);
+        yield return new WaitForSeconds(countSoundDelay);     
 
+        SFXManager.Instance?.PlayCountHandStart();           
+
+        yield return new WaitForSeconds(headstartDelay);      
         if (resultText != null) resultText.text = "GO!";
 
         isSpinning = true;

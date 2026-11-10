@@ -29,6 +29,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip fridgeClose;
     public AudioClip cabinetClose;
     public AudioClip cabinetOpen;
+    public AudioClip countHandStart;
 
     
 
@@ -56,6 +57,8 @@ public class SFXManager : MonoBehaviour
     public float lowPitch = 0.9f;
     public float mediumPitch = 1.0f;
     public float highPitch = 1.15f;
+
+    public void PlayCountHandStart() => Play(countHandStart);
 
     void Awake()
     {
@@ -198,8 +201,9 @@ public class SFXManager : MonoBehaviour
         if(flameSource == null)
         {
             flameSource = gameObject.AddComponent<AudioSource>();
-            flameSource.outputAudioMixerGroup = sfxGroup;   // your SFX mixer group field
-            flameSource.clip = stoveFlameSound;             // your flame clip field
+            flameSource.outputAudioMixerGroup = sfxGroup;   
+            flameSource.clip = stoveFlameSound;             
+
             flameSource.loop = true;
             flameSource.playOnAwake = false;
         }

@@ -21,10 +21,10 @@ MonoBehaviour:
   faqDishImage: {fileID: 1016397095208558832, guid: 0204891b3ee766c4691c7d29e7c71ea5, type: 3}
   faqEntries:
   - type: 1
-    text: "Do you know hy is \u201Cbagoong alamang\u201D mandatory for kare-kare? "
+    text: "Did you know why is \u201Cbagoong alamang\u201D mandatory for kare-kare? "
     answer: Because the peanut sauce is intentionally mild, pre-Hispanic fermented shrimp paste ("bagoong") is essential to supply the necessary salt, umami, and indigenous flavor profile.
   - type: 1
-    text: "Did You Know Peanuts and annatto are not native to the \r\nPhilippines."
+    text: "Did you know Peanuts and annatto are not native to the \r\nPhilippines."
     answer: "Peanuts and annatto, two of kare-kare\u2019s defining ingredients, are not native to the Philippines. They traveled from Mexico on galleon ships between 1565 and 1815. Many of our \u201Cancient\u201D Filipino dishes actually rely on ingredients that only reached our shores during the colonial era."
   - type: 1
     text: Did you know why are the vegetables arranged so carefully on the plate?

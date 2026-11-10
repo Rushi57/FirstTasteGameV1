@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 283.8, y: 544.4}
   actionType: 1
   targetId: Cup1_4Btn
   dragSourceId: 

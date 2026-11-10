@@ -4,19 +4,15 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// One instance lives on IngCutPrepScrollObj (chopping steps) and one on
-/// CookingPrepScrollingObj (stove/oil/etc). Only the instance on the ACTIVE
-/// panel is CookingPrepListUI.Instance, so existing mechanics that call
-/// Instance.TryAccept / CompleteStep keep working in each stage.
-///
-/// Repeated step ids (e.g. several "Pan:PanLidSimmer" rows) are supported:
-/// each row gets an internal unique key ("id", "id#2", "id#3", ...), and
-/// CompleteStep(id) ticks the first occurrence that isn't done yet.
-/// </summary>
 public class CookingPrepListUI : MonoBehaviour
 {
     public static CookingPrepListUI Instance { get; private set; }
+
+    [Tooltip("Cut Prep list only: steps can be completed in ANY order (but only steps that exist in the list).")]
+    public bool freeOrder = false;
+
+    [Tooltip("Tick on the Cooking Prep list to show 1. 2. 3. instead of bullets.")]
+    public bool numberedSteps = false;
 
     [Tooltip("The ScrollView's Content transform - rows get spawned as children of this.")]
     public Transform contentContainer;
@@ -91,6 +87,8 @@ public class CookingPrepListUI : MonoBehaviour
         completed.Clear();
         if (recipe == null || stepIndices == null || contentContainer == null || stepRowPrefab == null) return;
 
+        int stepNumber = 0;
+
         foreach (int i in stepIndices)
         {
             if (i < 0 || i >= recipe.cookingInstructions.Count) continue;
@@ -102,8 +100,11 @@ public class CookingPrepListUI : MonoBehaviour
                 Debug.LogWarning("[CookingPrepListUI] stepRowPrefab is missing a CookingPrepStepRowUI component.");
                 continue;
             }
-
-            row.SetText(recipe.cookingInstructions[i]);
+            stepNumber++;
+            if (numberedSteps)
+                row.SetText(recipe.cookingInstructions[i], stepNumber);   // "1. text"
+            else
+                row.SetText(recipe.cookingInstructions[i]);               // "• text"
 
             // Id is built from the ORIGINAL index, so stove order etc. stays correct.
             string id = recipe.GetStepId(i);
@@ -148,7 +149,7 @@ public class CookingPrepListUI : MonoBehaviour
         CurrentKey != null && keyToText.TryGetValue(CurrentKey, out var t) ? t : null;
     public bool IsExpected(string id)
     {
-        if (!strictOrder) return true;
+        if (!strictOrder || freeOrder) return true;
         if (orderedIds.Count == 0) return true;
         string current = CurrentStepId;
         if (current == null) return true;
@@ -175,14 +176,32 @@ public class CookingPrepListUI : MonoBehaviour
     {
         if (!strictOrder || orderedIds.Count == 0) return true;
 
+        if (freeOrder)
+        {
+            // Accept if ANY unfinished cut step belongs to this ingredient.
+            foreach (string key in orderedIds)
+            {
+                if (completed.Contains(key)) continue;
+                string baseId = keyToBase[key];
+                bool isCutStep = baseId.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
+                              || baseId.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
+                if (isCutStep && baseId.StartsWith(ingredientId + ":", System.StringComparison.Ordinal))
+                    return true;
+            }
+
+            Debug.Log($"[PrepList] REJECTED ingredient '{ingredientId}' - no unfinished cut step for it");
+            ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
+            return false;
+        }
+
         string current = CurrentStepId;
         if (current == null) return true;
 
-        bool isCutStep = current.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
-                      || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
-        bool sameIngredient = current.StartsWith(ingredientId + ":", System.StringComparison.Ordinal);
+        bool isCut = current.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
+                  || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
+        bool same = current.StartsWith(ingredientId + ":", System.StringComparison.Ordinal);
 
-        if (isCutStep && sameIngredient) return true;
+        if (isCut && same) return true;
 
         Debug.Log($"[PrepList] REJECTED ingredient '{ingredientId}' on chopping board - current step is '{current}'");
         ScoreManager.Instance?.ReportMistake(wrongStepMessage);
@@ -228,7 +247,7 @@ public class CookingPrepListUI : MonoBehaviour
         StepCompleted?.Invoke(stepId);
 
         string nextKey = CurrentKey;
-        if (nextKey != null && rows.TryGetValue(nextKey, out var nextRow))
+        if (!freeOrder && nextKey != null && rows.TryGetValue(nextKey, out var nextRow))
         {
             float step = Mathf.Abs(
                 ((RectTransform)nextRow.transform).anchoredPosition.y -

@@ -71,6 +71,7 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
     {
         // CHANGED: snap to the pivot object instead of this object
         drag.SnapTo(panSnapPoint);
+        drag.SetDragEnabled(false);
         CurrentPan = dropped;
 
         Debug.Log($"[StoveDrop] Pan placed on stove: {dropped.name}");
@@ -94,6 +95,8 @@ public class StoveDropZone : MonoBehaviour, IDropHandler
 
     public void ResetStove()
     {
+        if (CurrentPan != null)
+            CurrentPan.GetComponent<TestDrag>()?.SetDragEnabled(true);
         CurrentPan = null;
         if (myImage != null) myImage.raycastTarget = true;
         OnStoveReset?.Invoke();

@@ -30,14 +30,17 @@ public class TutorialPulse : MonoBehaviour
     /// <summary>Called by TutorialManager right after AddComponent.</summary>
     public void SetOutline(Material source, float min, float max)
     {
+        if (img == null) img = GetComponent<Image>();
+        if (rt == null) rt = transform as RectTransform;
+
         outlineMin = min;
         outlineMax = max;
 
         RemoveOutline();
-        if (source == null || img == null) return;   // no Image on this object -> scale pulse only
+        if (source == null || img == null) return;  
 
         savedMat = img.material;
-        mat = new Material(source);                  // per-object copy
+        mat = new Material(source);                  
         img.material = mat;
     }
 

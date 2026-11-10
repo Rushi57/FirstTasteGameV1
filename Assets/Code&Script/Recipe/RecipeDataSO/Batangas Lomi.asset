@@ -70,7 +70,7 @@ MonoBehaviour:
   - Pan:OnStove
   - Pour:CookingOilCup1_4
   - Pan:Garlic
-  - Mix:9
+  - Mix:8
   - Pan:PorkBelly
   - Pan:ChickenLiver
   - Pan:ChickenBroth
