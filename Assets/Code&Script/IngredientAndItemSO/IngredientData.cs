@@ -47,6 +47,9 @@ public class IngredientData : ScriptableObject, ITutorialIdentifiable
     [Header("Visual")]
     public Sprite icon;
 
+    [Tooltip("If true, this ingredient is served on a plate while on the table (meat, garlic, etc). Leave off for pitchers, bottles and utensils.")]
+    public bool needsPlate = false;
+
     [Tooltip("Multiplies the prefab's size for this item. 1 = full prefab size, 0.5 = half. Use it to make small things like garlic look smaller than pork or a pitcher.")]
     [Range(0.2f, 1.5f)]
     public float iconScale = 1f;

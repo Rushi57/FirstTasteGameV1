@@ -169,8 +169,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             HandlePour(drag, data, stepId);
             return;
         }
+        //plate is no longer needed.
+        dropped.GetComponent<PlatedItem>()?.RemovePlate();
 
-        
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
 
        

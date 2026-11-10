@@ -11,6 +11,10 @@ using UnityEngine.UI;
 /// so small things like garlic can look smaller than pork or a pitcher while
 /// still using the same prefab.
 ///
+/// If IngredientData.needsPlate is true (and a Plate Sprite is assigned), the
+/// item is served on a plate: the root Image becomes the plate and a child
+/// "Icon" Image shows the ingredient. PlatedItem.RemovePlate() undoes this.
+///
 /// If Slot Manager is assigned, spawns into the first EMPTY table slot
 /// instead of a fixed position - see TableItemSlotManager. Because that
 /// counts as the ingredient effectively "arriving" on the table already,
@@ -24,6 +28,16 @@ public class IngredientSpawner : MonoBehaviour
     public GameObject ingredientLargePrefab; // e.g. IngTestPrefabLarge
     public GameObject utensilSmallPrefab;    // e.g. UtenTestPrefabSmall
     public GameObject utensilLargePrefab;    // e.g. UtenTestPrefabLarge
+
+    [Header("Plate (for ingredients with Needs Plate ticked)")]
+    [Tooltip("Plate sprite used as the container. Leave empty to disable plates entirely.")]
+    public Sprite plateSprite;
+
+    [Tooltip("How big the ingredient icon is relative to the plate.")]
+    [Range(0.3f, 1f)] public float iconSizeOnPlate = 0.75f;
+
+    [Tooltip("Nudge the icon on the plate (x, y) so it sits nicely in the dish.")]
+    public Vector2 iconOffsetOnPlate = new Vector2(0f, 6f);
 
     [Header("Table Slots (preferred)")]
     [Tooltip("If assigned, ingredients spawn into the first empty ItemContainerDropZone slot instead of a fixed spawnParent/spawnPosition.")]
@@ -47,6 +61,16 @@ public class IngredientSpawner : MonoBehaviour
     // Tracks the live spawned object for each IngredientData currently on the table.
     private readonly System.Collections.Generic.Dictionary<IngredientData, GameObject> spawnedItems
         = new System.Collections.Generic.Dictionary<IngredientData, GameObject>();
+
+
+    [Tooltip("Exact plate width in pixels. Height stays at the prefab's height.")]
+    public float plateWidth = 130f;
+
+    [Tooltip("Move the plate relative to the food (x, y).")]
+    public Vector2 plateOffset = Vector2.zero;
+
+    [Tooltip("Off = the plate sprite stretches to fill the new width/height. On = it keeps its original proportions.")]
+    public bool plateKeepAspect = false;
 
     /// <summary>
     /// Spawn a specific ingredient. Hook this up to a UI Button OnClick() 
@@ -111,16 +135,24 @@ public class IngredientSpawner : MonoBehaviour
         GameObject go = Instantiate(prefab, parent);
         go.name = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
         spawnedItems[data] = go;
+
+        // Plate only for ingredients flagged as needing one (meat, garlic, etc).
+        bool usePlate = plateSprite != null
+                        && data.category == ItemCategory.Ingredient
+                        && data.needsPlate;
+
         RectTransform rect = go.transform as RectTransform;
         if (rect != null)
         {
             // Size = the prefab's own size x this ingredient's iconScale.
+            // With a plate, the plate keeps the prefab's size and iconScale
+            // only affects the food on top of it.
             // SetSizeWithCurrentAnchors works whether the anchors are a point or stretched.
             RectTransform prefabRect = prefab.transform as RectTransform;
             if (prefabRect != null)
             {
                 Vector2 baseSize = prefabRect.rect.size;
-                float scale = data.iconScale > 0f ? data.iconScale : 1f;
+                float scale = (!usePlate && data.iconScale > 0f) ? data.iconScale : 1f;
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, baseSize.x * scale);
                 rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, baseSize.y * scale);
             }
@@ -159,9 +191,39 @@ public class IngredientSpawner : MonoBehaviour
         // Get-or-add required UI and drag components
         Image image = go.GetComponent<Image>();
         if (image == null) image = go.AddComponent<Image>();
-        image.sprite = data.icon;
         image.preserveAspect = true;
         image.raycastTarget = true;
+
+        if (usePlate)
+        {
+            // Plate = its own object in the slot, sitting BEHIND the food.
+            // It's not a child of the food, so dragging the food leaves it behind.
+            GameObject plateGO = new GameObject(go.name + " Plate",
+                typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+
+            RectTransform plateRect = (RectTransform)plateGO.transform;
+            plateRect.SetParent(parent, false);
+            Vector2 plateBase = ((RectTransform)prefab.transform).rect.size;
+            plateRect.sizeDelta = new Vector2(plateWidth, plateBase.y);
+            plateRect.anchoredPosition = rect.anchoredPosition;
+            plateRect.SetSiblingIndex(go.transform.GetSiblingIndex());   // behind the food
+
+            plateGO.GetComponent<LayoutElement>().ignoreLayout = true;
+
+            Image plateImg = plateGO.GetComponent<Image>();
+            plateImg.sprite = plateSprite;
+            plateImg.preserveAspect = true;
+            plateImg.raycastTarget = false;
+
+            // Nudge the food up a little so it sits nicely on the plate
+            rect.anchoredPosition += iconOffsetOnPlate;
+
+            go.AddComponent<PlatedItem>().plate = plateGO;
+        }
+        else
+        {
+            image.sprite = data.icon;
+        }
 
         if (go.GetComponent<CanvasGroup>() == null)
             go.AddComponent<CanvasGroup>();
@@ -179,7 +241,7 @@ public class IngredientSpawner : MonoBehaviour
 
         ingredientList?.MarkSpawned(data);
 
-        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}, iconScale={data.iconScale}) into {parent.name}");
+        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}, iconScale={data.iconScale}, plate={usePlate}) into {parent.name}");
     }
 
     private GameObject SelectPrefab(IngredientData data)

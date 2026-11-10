@@ -17,6 +17,7 @@ MonoBehaviour:
   category: 0
   size: 0
   icon: {fileID: -2902970233842926932, guid: 4539ca19abe88e84b8e018ce46e96a84, type: 3}
+  needsPlate: 1
   iconScale: 0.8
   stateSprites:
   - state: 0
@@ -25,3 +26,4 @@ MonoBehaviour:
     sprite: {fileID: -2279974530017531768, guid: 81b684f751758454ba07c6687f925e2a, type: 3}
   playsPourAnimation: 0
   pourPositions: []
+  dropStateChanges: []
