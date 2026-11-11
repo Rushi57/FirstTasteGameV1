@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>One level's best result so far - score and star rating actually achieved.</summary>
 [Serializable]
 public class LevelScoreEntry
 {
@@ -13,7 +12,7 @@ public class LevelScoreEntry
     public int stars;
 }
 
-// Everything you want to remember goes in here. Add or remove fields as needed.
+
 [Serializable]
 public class SaveData
 {
@@ -29,7 +28,7 @@ public class SaveData
     public List<string> completedTutorials = new List<string>();
     public bool IsTutorialCompleted(string id) => completedTutorials.Contains(id);
 
-    // ---- Premade ("prep already done") level messages ----
+    //Premade
     [Tooltip("Ingredient lines the player has already been shown.")]
     public List<string> seenPrepMessages = new List<string>();
     [Tooltip("Level whose message was shown but not yet resolved (left with no star?).")]
@@ -43,12 +42,7 @@ public class SaveData
             seenPrepMessages.Add(key);
     }
     public void ForgetPrep(string key) => seenPrepMessages.Remove(key);
-    /// <summary>
-    /// Records a level's result. By default only overwrites if the new score
-    /// is BETTER than any previous attempt (so retrying a level worse than
-    /// before doesn't erase your best run) - pass keepBest: false if you'd
-    /// rather always save the most recent attempt instead.
-    /// </summary>
+   
     public void SetLevelResult(int levelNumber, int score, int stars, bool keepBest = true)
     {
         LevelScoreEntry entry = levelScores.Find(e => e.levelNumber == levelNumber);
@@ -65,8 +59,6 @@ public class SaveData
             entry.stars = stars;
         }
     }
-
-    /// <summary>Returns the saved result for a level, or null if it's never been completed.</summary>
     public LevelScoreEntry GetLevelResult(int levelNumber)
     {
         return levelScores.Find(e => e.levelNumber == levelNumber);
@@ -83,17 +75,14 @@ public class SaveData
     }
 }
 
-
-
-// Holds the loaded data while switching from MainMenu to MapScene.
 public static class GameSession
 {
-    public static SaveData Data;          // null = new game
-    public static int CurrentSlot = -1;   // NEW: which slot was loaded / last saved
+    public static SaveData Data;          
+    public static int CurrentSlot = -1;  
     public static bool HasPendingLoad => Data != null;
     public static void Clear() { Data = null; CurrentSlot = -1; PendingSavedSlotMessage = -1; }
 
-    public static int PendingSavedSlotMessage = -1;   // slot to announce in MainMenu
+    public static int PendingSavedSlotMessage = -1;   
    
 
     public static SaveData GetOrCreateData()
@@ -105,12 +94,12 @@ public static class GameSession
 
 public static class SaveSystem
 {
-    public const int SlotCount = 5; // must match the number of LoadButtons in your list
+    public const int SlotCount = 5; 
 
     private static string PathFor(int slot) =>
         Path.Combine(Application.persistentDataPath, $"savegame_slot{slot}.json");
 
-    // Old single-file save -> moves into slot 0 so players don't lose it
+    
     private static string LegacyPath => Path.Combine(Application.persistentDataPath, "savegame.json");
     private static void MigrateLegacy()
     {

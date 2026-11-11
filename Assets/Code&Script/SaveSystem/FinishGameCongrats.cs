@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Attach to a controller in MapScene that is ALWAYS ACTIVE (e.g. CodeForUIGameObject).
-// CongratsFinishLevelGameObject can stay inactive.
 public class FinishGameCongrats : MonoBehaviour
 {
-    [SerializeField] private GameObject congratsPanel;     // CongratsFinishLevelGameObject
-    [SerializeField] private Button continueButton;        // Continue button inside the panel
+    [SerializeField] private GameObject congratsPanel;
+    [SerializeField] private Button continueButton;
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private int totalLevels = 10;
     [SerializeField] private int requiredStars = 3;
@@ -18,11 +16,9 @@ public class FinishGameCongrats : MonoBehaviour
 
     private void Start()
     {
-        // Runs every time the map loads (e.g. after finishing a level)
         CheckAndShow();
     }
 
-    // Can also be called right after a level result is saved.
     public void CheckAndShow()
     {
         SaveData data = GameSession.Data;
@@ -59,11 +55,9 @@ public class FinishGameCongrats : MonoBehaviour
         return all;
     }
 
-    // Right-click the component header in the Inspector -> "Test Show Panel"
     [ContextMenu("Test Show Panel")]
     private void TestShowPanel() => congratsPanel.SetActive(true);
 
-    // Right-click -> "Reset Congrats Flag" to test again on the same save
     [ContextMenu("Reset Congrats Flag")]
     private void ResetFlag()
     {
@@ -78,7 +72,7 @@ public class FinishGameCongrats : MonoBehaviour
         int slot = SaveSystem.PickAutoSaveSlot();
         SaveSystem.Save(data, slot);
         GameSession.CurrentSlot = slot;
-        GameSession.PendingSavedSlotMessage = slot;   // MainMenu reads this
+        GameSession.PendingSavedSlotMessage = slot;
 
         congratsPanel.SetActive(false);
         LoadingManager.LoadNextScene(mainMenuSceneName);

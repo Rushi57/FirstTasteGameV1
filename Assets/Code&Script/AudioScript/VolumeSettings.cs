@@ -13,7 +13,7 @@ public class VolumeSettings : MonoBehaviour
 
     void OnEnable()
     {
-        // Show the saved value without triggering the listener
+       
         musicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(MusicKey, 0.8f));
         sfxSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(SfxKey, 0.8f));
 

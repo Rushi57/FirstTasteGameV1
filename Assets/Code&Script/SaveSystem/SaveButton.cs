@@ -7,14 +7,14 @@ using UnityEngine.UI;
 public class SaveButton : MonoBehaviour
 {
     [Header("Panels")]
-    [SerializeField] private GameObject savePanel;            // SaveMessage
-    [SerializeField] private GameObject slotList;             // ScrollSave
-    [SerializeField] private GameObject saveCompleteMessage;  // MessageForSaveComplete
-    [SerializeField] private GameObject confirmationPanel;    // MessageConfirmation
+    [SerializeField] private GameObject savePanel;           
+    [SerializeField] private GameObject slotList;             
+    [SerializeField] private GameObject saveCompleteMessage;  
+    [SerializeField] private GameObject confirmationPanel;   
     [Header("Buttons")]
-    [SerializeField] private Button confirmButton;            // Confirm (inside MessageConfirmation)
-    [SerializeField] private Button cancelButton;             // Cancel (inside MessageConfirmation)
-    [SerializeField] private Button closeButton;              // CloseButton
+    [SerializeField] private Button confirmButton;           
+    [SerializeField] private Button cancelButton;           
+    [SerializeField] private Button closeButton;              
     [Header("Options")]
     [SerializeField] private float completeMessageSeconds = 1f;
     [SerializeField] private bool closePanelAfterSave = false;
@@ -55,9 +55,9 @@ public class SaveButton : MonoBehaviour
         pendingSlot = slot;
 
         if (SaveSystem.HasSave(slot))
-            confirmationPanel.SetActive(true);   // "Replace Save Data" Cancel / Confirm
+            confirmationPanel.SetActive(true);  
         else
-            DoSave(slot);                        // empty slot -> save right away
+            DoSave(slot);                        
     }
 
     private void OnConfirm()

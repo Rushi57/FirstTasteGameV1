@@ -90,10 +90,10 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Header("Wrong drop (no penalty)")]
     public string misdropMessage = "Wrong step!\nFollow the Cooking Prep list.";
 
-    // Shows a warning WITHOUT costing a heart or score.
+  
     private void WarnNoPenalty(string message)
     {
-        // TODO: call your no-penalty message popup here (see note in chat).
+      
         Debug.LogWarning("[PanDrop] " + message.Replace("\n", " "));
     }
 
@@ -114,15 +114,14 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null || drag.IsLocked) return;
 
-        // During a "set aside" step: an ingredient that came from the pan and was released
-        // over the pan again is put back with a warning, NO heart / score penalty.
+       
         {
             RectTransform panRoot = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
             var setAsidePrep = CookingPrepListUI.Instance;
             if (drag.OriginalParent == panRoot && setAsidePrep != null && setAsidePrep.IsSetAsideStepCurrent())
             {
                 drag.ReturnToOrigin();
-                drag.MarkDropHandled();   // OnEndDrag won't treat it as a bad drop
+                drag.MarkDropHandled();   
                 WarnNoPenalty(misdropMessage);
                 return;
             }
@@ -193,7 +192,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             HandlePour(drag, data, stepId);
             return;
         }
-        //plate is no longer needed.
+ 
         dropped.GetComponent<PlatedItem>()?.RemovePlate();
 
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
@@ -242,8 +241,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             drag.SnapTo(target);
 
-            // Released anywhere else after being pulled out: it already returns to the pan.
-            // During a "set aside" step, just warn (no heart, no tutorial mistake).
+          
             drag.OnBadDrop = () =>
             {
                 var p = CookingPrepListUI.Instance;
@@ -252,17 +250,15 @@ public class PanDropZone : MonoBehaviour, IDropHandler
                 if (setAside && drag.OriginalParent == target) WarnNoPenalty(misdropMessage);
             };
 
-            // Strict order: while a "set aside" step is current, only the ingredient
-            // named in that step may be pulled out of the pan.
+       
             drag.CanBeginDrag = () =>
             {
-                // Already left the pan -> no restriction
+          
                 if (drag.transform.parent != target) return true;
 
                 var prep = CookingPrepListUI.Instance;
                 if (prep == null || !prep.strictOrder) return true;
 
-                // Not a "set aside" step -> this rule doesn't apply
                 if (!prep.IsSetAsideStepCurrent()) return true;
 
                 if (prep.CurrentStepMentions(data.id)) return true;
@@ -296,7 +292,6 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         bool destroyIngredient = entry != null && entry.destroyIngredientAfterPour;
         bool destroyAnimation = entry != null && entry.destroyAnimationAfterPour;
 
-        // Keep references: the callback runs after the pour ends
         GameObject ingredientObj = drag != null ? drag.gameObject : null;
         GameObject animObj = player.gameObject;
 
@@ -304,7 +299,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             if (destroyIngredient)
             {
-                // consumed: never unlock / return it, just remove it
+           
                 if (ingredientObj != null) Destroy(ingredientObj);
             }
             else
@@ -335,9 +330,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             if (destroyIngredient)
             {
-                // Consumed: stays hidden and locked until the callback destroys it.
-                drag.MarkDropHandled();   // OnEndDrag won't send it back to the table
-                drag.SetLocked(true);     // alpha 0, no raycasts, not interactable
+            
+                drag.MarkDropHandled();  
+                drag.SetLocked(true);    
             }
             else
             {

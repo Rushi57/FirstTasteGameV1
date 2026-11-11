@@ -53,7 +53,7 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         {
             HandleKnifeDropped(drag);
             drag.ReturnToOrigin();
-            drag.MarkDropHandled();   // stops OnEndDrag from reporting a tutorial mistake
+            drag.MarkDropHandled();  
         }
         else
             HandleIngredientDropped(droppedObj, drag);
@@ -79,7 +79,6 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
-        //Wrong Ingredient or item
         if(CookingPrepListUI.Instance !=  null && !CookingPrepListUI.Instance.TryAcceptIngredientForCutting(data.id))
         {
             return;
@@ -106,11 +105,10 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
-        // Already-finished ingredient (or not the current step): mistake, no panel
         if (CookingPrepListUI.Instance != null &&
             !CookingPrepListUI.Instance.TryAcceptIngredientForCutting(currentIngredientData.id))
         {
-            return;   // popup + heart loss handled by the prep list
+            return;  
         }
 
         choppingCuttingPanel.SetActive(true);
@@ -118,10 +116,9 @@ public class ChoppingBoardDropZone : MonoBehaviour, IDropHandler
         tutorialTag?.ReportDrop();
     }
 
-    // Keeps the ingredient sitting on the board in sync with the cutting panel
     private void HandleStateChanged(IngredientData data, IngredientPrepState state)
     {
-        if (data != currentIngredientData || currentIngredientImage == null) return; // ignore stale data
+        if (data != currentIngredientData || currentIngredientImage == null) return; 
         currentIngredientImage.sprite = data.GetSpriteForState(state);
     }
 

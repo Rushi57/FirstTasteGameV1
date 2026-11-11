@@ -108,13 +108,13 @@ public class SFXManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) => HookAllButtons();
 
-    // Adds the tap sound to every button, including ones in inactive panels
+  
     public void HookAllButtons()
     {
         foreach (var b in FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             b.onClick.RemoveListener(tapAction);
-            if (b.GetComponent<NoTapSound>() != null) continue; // opt-out marker
+            if (b.GetComponent<NoTapSound>() != null) continue; 
             b.onClick.AddListener(tapAction);
         }
     }
@@ -189,7 +189,7 @@ public class SFXManager : MonoBehaviour
         if (clockSource.isPlaying) clockSource.Stop();
     }
 
-    //Stove
+ 
     public void SetFlame(StoveHeat heat)
     {
         if(heat == StoveHeat.Off)

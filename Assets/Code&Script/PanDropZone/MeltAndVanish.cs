@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class MeltAndVanish : MonoBehaviour
 {
     [Header("Timing")]
-    public float delayBeforeMelt = 0.3f;   // sits in the pan for a moment first
+    public float delayBeforeMelt = 0.3f;  
     public float meltDuration = 2.0f;
 
     [Header("Look")]
-    public Vector2 endScale = new Vector2(1.35f, 0.25f);   // wider + flatter
-    public Color meltedTint = new Color(1f, 0.85f, 0.3f, 1f); // golden, oily
-    [Range(0f, 1f)] public float startFadeAt = 0.55f;       // when alpha starts dropping
+    public Vector2 endScale = new Vector2(1.35f, 0.25f);  
+    public Color meltedTint = new Color(1f, 0.85f, 0.3f, 1f); 
+    [Range(0f, 1f)] public float startFadeAt = 0.55f;      
 
     [Header("Optional puddle")]
     [Tooltip("A melted-butter blob sprite. Leave empty to skip.")]
@@ -35,7 +35,7 @@ public class MeltAndVanish : MonoBehaviour
         if (melting) return;
         melting = true;
 
-        // can't be grabbed while melting
+
         var cg = GetComponent<CanvasGroup>();
         if (cg != null) cg.blocksRaycasts = false;
         else img.raycastTarget = false;
@@ -58,22 +58,19 @@ public class MeltAndVanish : MonoBehaviour
             t += Time.deltaTime / meltDuration;
             float k = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(t));
 
-            // squash and spread
             transform.localScale = new Vector3(
                 Mathf.Lerp(startScale.x, startScale.x * endScale.x, k),
                 Mathf.Lerp(startScale.y, startScale.y * endScale.y, k),
                 1f);
 
-            // tint toward golden, then fade out
             Color c = Color.Lerp(startColor, meltedTint, k);
             float fade = Mathf.InverseLerp(startFadeAt, 1f, t);
             c.a = Mathf.Lerp(startColor.a, 0f, fade);
             img.color = c;
 
-            // puddle grows in, then fades with it
             if (puddle != null)
             {
-                float pa = Mathf.Sin(Mathf.Clamp01(t) * Mathf.PI); // in then out
+                float pa = Mathf.Sin(Mathf.Clamp01(t) * Mathf.PI); 
                 puddle.color = new Color(1f, 0.9f, 0.4f, pa * 0.8f);
                 puddle.transform.localScale = Vector3.one * Mathf.Lerp(0.4f, 1.1f, k);
             }
@@ -91,7 +88,7 @@ public class MeltAndVanish : MonoBehaviour
 
         var go = new GameObject("MeltPuddle", typeof(RectTransform), typeof(Image));
         go.transform.SetParent(transform.parent, false);
-        go.transform.SetSiblingIndex(transform.GetSiblingIndex()); // behind the butter
+        go.transform.SetSiblingIndex(transform.GetSiblingIndex()); 
         var rt = (RectTransform)go.transform;
         rt.anchoredPosition = ((RectTransform)transform).anchoredPosition;
         rt.sizeDelta = puddleSize;

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>How well-timed a single cut was.</summary>
+
 public enum CutQuality
 {
     VeryGood,
@@ -11,16 +11,7 @@ public enum CutQuality
     Bad
 }
 
-/// <summary>
-/// Standalone cutting/chopping mini-game, extracted from KitchenManager:
-///  - indicatorArrow bounces left/right within a Red/Yellow/Green meter
-///  - Tapping "Tap To Cut" freezes it and records a CutQuality based on
-///    which zone it landed in, reporting it straight to ScoreManager
-///  - Each cut colors the current "history" circle; tapping "Tap To Cut
-///    Again" adds a fresh gray placeholder circle and restarts the bounce
-///  - Capped at maxCuts (2): Slice = 1st cut, Minced = 2nd cut. After the
-///    2nd cut lands, "Tap To Cut Again" stays inactive - the mini-game is done.
-/// </summary>
+
 public class CuttingMechanic : MonoBehaviour
 {
     [Header("Meter & Indicator")]
@@ -62,23 +53,21 @@ public class CuttingMechanic : MonoBehaviour
     private IngredientData currentIngredient;
     public IngredientPrepState CurrentState { get; private set; } = IngredientPrepState.Whole;
 
-    /// <summary>Raised whenever the ingredient changes prep state (Whole -> Sliced -> Minced).</summary>
     public event System.Action<IngredientData, IngredientPrepState> OnStateChanged;
 
-    /// <summary>Raised once the player has used up all their cuts (cutCount reaches maxCuts).</summary>
     public event System.Action OnCuttingFinished;
 
     private readonly List<Image> activeHistoryCircles = new List<Image>();
 
     private bool isIndicatorMoving;
-    private int movingDirection = 1; // 1 = right, -1 = left
+    private int movingDirection = 1;
     private float minX, maxX;
     private int cutCount;
 
-    /// <summary>How many cuts have landed so far this session (0, 1, or maxCuts).</summary>
+
     public int CutCount => cutCount;
 
-    /// <summary>True once cutCount has reached maxCuts and no more cuts are allowed.</summary>
+
     private bool finishedEarly;
     public bool IsFinished => cutCount >= maxCuts || finishedEarly;
 
@@ -89,11 +78,11 @@ public class CuttingMechanic : MonoBehaviour
     public event System.Action OnCuttingSessionClosed;
     void Awake()
     {
-        if(tutorialInteractable ==  null)
-            tutorialInteractable =tapToCutButton.GetComponent<TutorialInteractable>();
+        if (tutorialInteractable == null)
+            tutorialInteractable = tapToCutButton.GetComponent<TutorialInteractable>();
         tapToCutAgainButton.gameObject.SetActive(false);
 
-        // Travel bounds based on the meter's full background width
+
         float trackWidth = redZone.rect.width;
         minX = -trackWidth / 2f;
         maxX = trackWidth / 2f;
@@ -120,7 +109,7 @@ public class CuttingMechanic : MonoBehaviour
         indicatorArrow.anchoredPosition = pos;
     }
 
-    /// <summary>Call this when the cutting panel opens (e.g. knife dropped on an ingredient).</summary>
+
     public void StartCuttingMinigame()
     {
         cutCount = 0;
@@ -134,8 +123,6 @@ public class CuttingMechanic : MonoBehaviour
         ClearAndInitializeHistoryUI();
     }
 
-    // LINK TO "TapToCut" BUTTON
-    // LINK TO "TapToCut" BUTTON
     public void OnTapToCutClicked()
     {
         if (IsFinished) return;
@@ -143,15 +130,15 @@ public class CuttingMechanic : MonoBehaviour
 
         SFXManager.Instance?.PlayChop();
 
-        // 1. Grade the cut FIRST, while the indicator is still where the player tapped
+
         CutQuality quality = EvaluateCutQuality();
 
-        // 2. RED: record it, but do NOT change the state. The indicator keeps bouncing.
+
         if (quality == CutQuality.Bad)
         {
             UpdateQualityDisplay(quality);
 
-            // Color the current circle red, then add a fresh gray one for the retry
+
             if (activeHistoryCircles.Count > 0)
             {
                 Image currentCircle = activeHistoryCircles[activeHistoryCircles.Count - 1];
@@ -167,11 +154,11 @@ public class CuttingMechanic : MonoBehaviour
             else
             {
                 ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
-            } // -15 pts, -1 heart
-            return; // cutCount, ApplyState, and buttons stay untouched
+            }
+            return;
         }
 
-        // 3. GREEN / YELLOW: check the recipe step is valid
+
         IngredientPrepState targetState = (cutCount == 0)
          ? IngredientPrepState.Sliced
          : IngredientPrepState.Minced;
@@ -179,7 +166,7 @@ public class CuttingMechanic : MonoBehaviour
         lockedFinalState = finalState;
         if (currentIngredient != null && CookingPrepListUI.Instance != null)
         {
-            // A slice on the way to Minced is validated against the Minced step
+
             IngredientPrepState stepState =
                 (targetState == IngredientPrepState.Sliced && finalState == IngredientPrepState.Minced)
                     ? IngredientPrepState.Minced
@@ -189,7 +176,6 @@ public class CuttingMechanic : MonoBehaviour
                 return;
         }
 
-        // 4. Accept the cut
         isIndicatorMoving = false;
         UpdateQualityDisplay(quality);
 
@@ -200,7 +186,7 @@ public class CuttingMechanic : MonoBehaviour
                 currentCircle.color = ColorForQuality(quality);
         }
 
-        ScoreManager.Instance?.ReportResult(ToResultQuality(quality)); // green: 0, yellow: -5 pts
+        ScoreManager.Instance?.ReportResult(ToResultQuality(quality));
         tutorialInteractable?.ReportTap();
         cutCount++;
         ApplyState(targetState);
@@ -214,25 +200,15 @@ public class CuttingMechanic : MonoBehaviour
         }
         else
         {
-            tapToCutAgainButton.gameObject.SetActive(true);   // shown for Sliced-only too
+            tapToCutAgainButton.gameObject.SetActive(true);
         }
     }
 
-    // LINK TO "TapToCutAgain" BUTTON
     public void OnTapToCutAgainClicked()
     {
-        if(IsFinished) return;
+        if (IsFinished) return;
 
-
-
-        // Recipe only wants Sliced: cutting again is a mistake, no mechanic starts
         if (GetFinalState() == IngredientPrepState.Sliced)
-        {
-            ScoreManager.Instance?.ReportMistake("Already sliced!\nMinus 1 heart");
-            return;   // no new circle, indicator stays frozen, state unchanged
-        }
-
-        if (lockedFinalState == IngredientPrepState.Sliced)
         {
             ScoreManager.Instance?.ReportMistake("Already sliced!\nMinus 1 heart");
             return;
@@ -287,13 +263,13 @@ public class CuttingMechanic : MonoBehaviour
     {
         if (colorSavedCutContainer == null) return;
 
-        // Clear out old leftover runtime clones
+
         foreach (Transform child in colorSavedCutContainer)
             Destroy(child.gameObject);
 
         activeHistoryCircles.Clear();
 
-        // Load exactly one gray placeholder to start the first cut
+
         SpawnNewPlaceholderCircle();
     }
 
@@ -312,7 +288,7 @@ public class CuttingMechanic : MonoBehaviour
         if (circleImg != null)
         {
             circleImg.enabled = true;
-            circleImg.color = new Color(0.5f, 0.5f, 0.5f, 1f); // neutral gray until this cut lands
+            circleImg.color = new Color(0.5f, 0.5f, 0.5f, 1f);
             activeHistoryCircles.Add(circleImg);
         }
         else
@@ -321,7 +297,7 @@ public class CuttingMechanic : MonoBehaviour
         }
     }
 
-    /// <summary>Call this when the knife is dropped on an ingredient.</summary>
+
     public void SetIngredient(IngredientData data)
     {
         currentIngredient = data;
@@ -333,7 +309,7 @@ public class CuttingMechanic : MonoBehaviour
         CurrentState = state;
 
         if (stateLabel != null) stateLabel.text = state.ToString();
-        Debug.Log("the cut is "+ CurrentState);
+        Debug.Log("the cut is " + CurrentState);
         if (currentIngredient != null && ingredientImage != null)
         {
             ingredientImage.sprite = currentIngredient.GetSpriteForState(state);
@@ -344,8 +320,6 @@ public class CuttingMechanic : MonoBehaviour
         OnStateChanged?.Invoke(currentIngredient, state);
     }
 
-    
-    /// Minced unless the recipe only wants this ingredient Sliced.
     private IngredientPrepState GetFinalState()
     {
         var list = CookingPrepListUI.Instance;
@@ -355,11 +329,11 @@ public class CuttingMechanic : MonoBehaviour
         bool wantsMinced = list.HasStep($"{currentIngredient.id}:{IngredientPrepState.Minced}");
         return (wantsSliced && !wantsMinced) ? IngredientPrepState.Sliced : IngredientPrepState.Minced;
     }
-    
+
 
     public void OnCloseClicked()
     {
-        if(IsCutIncomplete)
+        if (IsCutIncomplete)
         {
             ScoreManager.Instance?.ReportMistake("Finish the cut first!\nMinus 1 heart");
             return;
