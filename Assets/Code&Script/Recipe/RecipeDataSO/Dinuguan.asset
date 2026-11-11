@@ -44,30 +44,30 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the pork belly into sliced
-  - Chop the pork liver into sliced
-  - Chop the green chili into sliced
-  - Chop the garlic into sliced
-  - Chop the onion into sliced
-  - Chop the ginger into sliced
-  - Turn the stove high heat.
-  - Put the wok in the stove.
-  - 'Add water '
-  - Place the pork belly in the wok
-  - Place the pork liver in the wok
-  - Add the chopped ginger
+  - Slice the pork belly.
+  - Slice the pork liver.
+  - Slice the green chilies.
+  - Slice the garlic.
+  - Slice the onion.
+  - Slice the ginger.
+  - Turn the stove to high heat.
+  - Put the wok on the stove.
+  - Add water.
+  - Add the pork belly.
+  - Add the pork liver.
+  - Add the ginger.
   - Add the garlic
   - Add the onion
-  - Put the pan lid to simmer
-  - Saute the spatula
-  - Add the seasoned pork blood
-  - Put the pan lid to simmer
-  - Stir the wok
-  - Add the green chillies
-  - Add bay leaf
-  - Put the pan lid to simmer
-  - Add 1 tsp of vinegar
-  - Add 1 tsp of salt
+  - Put the wok lid on to simmer.
+  - "Saut\xE9 using the spatula."
+  - Add the seasoned pork blood.
+  - Put the wok lid on to simmer.
+  - Stir the wok.
+  - Add the green chilies.
+  - Add the bay leaf.
+  - Put the pan lid on to simmer.
+  - Add 1 tsp of vinegar.
+  - Add 1 tsp of salt.
   cookingStepIds:
   - PorkBelly:Sliced
   - PorkLiver:Sliced

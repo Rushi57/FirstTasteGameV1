@@ -18,7 +18,7 @@ MonoBehaviour:
   size: 0
   icon: {fileID: -9161645240248954025, guid: decd106c8063ade4793a362f8922a21c, type: 3}
   needsPlate: 1
-  iconScale: 1.1
+  iconScale: 0.9
   stateSprites: []
   playsPourAnimation: 0
   pourPositions: []

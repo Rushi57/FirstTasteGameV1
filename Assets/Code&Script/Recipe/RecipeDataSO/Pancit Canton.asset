@@ -53,39 +53,39 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the pork belly into sliced
-  - Chop the chicken liver into sliced
-  - Chop the kikiam into sliced
-  - Chop the garlic into minced
-  - Chop the onion into sliced
-  - Chop the cabbage into sliced
-  - Chop the carrot  into sliced
-  - Chop the bell peppers into sliced
-  - Chop celery into Sliced
-  - Turn the stove to medium heat
-  - Put the wok in the stove
-  - Add 1 tbsp of cooking oil
-  - Add pork belly in the wok
-  - Add chicken liver
-  - Add the sllice kikiam
-  - Add shrimp
-  - Saute it using the spatula
-  - 'Add the minced garlic '
-  - 'Add the sliced onion '
-  - Saute until translucent
-  - 'Add the sliced carrots '
-  - 'Add the sliced cabbage '
-  - 'Add the sliced bell peppers '
-  - Saute it using the spatula
-  - Add the chicken broth
-  - Add 1/4 cup of soy
-  - Add 1/4 cup of oyster sauce
-  - Add 1 tbsp  of fish sauce
-  - Put the pan lid to simmer
-  - Add 1/8 tsp of pepper
-  - Add pancit canton noodles
-  - stir it using the spatula
-  - Add minced celery into the pan
+  - Slice the pork belly.
+  - Slice the chicken liver.
+  - Slice the kikiam.
+  - Mince the garlic.
+  - Slice the onion.
+  - Slice the cabbage.
+  - Slice the carrots.
+  - Slice the bell peppers.
+  - Slice the celery.
+  - Turn the stove to medium heat.
+  - Put the wok on the stove.
+  - Add 1 tbsp of cooking oil.
+  - Add the pork belly to the wok.
+  - Add the chicken liver.
+  - Add the kikiam.
+  - Add the shrimp.
+  - "Saut\xE9 until translucent."
+  - Add thed garlic.
+  - Add the onion.
+  - "Saut\xE9 until translucent."
+  - Add the carrots.
+  - Add the cabbage.
+  - Add the bell peppers.
+  - "Saut\xE9 using the spatula."
+  - Add the chicken broth.
+  - Add 1/4 cup of soy sauce.
+  - Add 1/4 cup of oyster sauce.
+  - Add 1 tbsp of fish sauce.
+  - Put the lid on the wok to simmer.
+  - Add 1/8 tsp of pepper.
+  - Add the pancit canton noodles.
+  - Stir using the spatula.
+  - Add the chopped celery into the wok.
   cookingStepIds:
   - PorkBelly:Sliced
   - ChickenLiver:Sliced

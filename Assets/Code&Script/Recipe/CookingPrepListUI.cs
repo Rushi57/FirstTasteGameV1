@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -104,7 +104,7 @@ public class CookingPrepListUI : MonoBehaviour
             if (numberedSteps)
                 row.SetText(recipe.cookingInstructions[i], stepNumber);   // "1. text"
             else
-                row.SetText(recipe.cookingInstructions[i]);               // "• text"
+                row.SetText(recipe.cookingInstructions[i]);               // "ï¿½ text"
 
             // Id is built from the ORIGINAL index, so stove order etc. stays correct.
             string id = recipe.GetStepId(i);
@@ -147,6 +147,35 @@ public class CookingPrepListUI : MonoBehaviour
     /// <summary>Instruction text of the first step that isn't completed yet. Null if all done.</summary>
     public string CurrentStepText =>
         CurrentKey != null && keyToText.TryGetValue(CurrentKey, out var t) ? t : null;
+    // ---------------- "Set aside" helpers ----------------
+
+    /// <summary>True when the current step's text contains the words "set aside".</summary>
+    public bool IsSetAsideStepCurrent()
+    {
+        string t = CurrentStepText;
+        return !string.IsNullOrEmpty(t) &&
+               t.IndexOf("set aside", System.StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    /// <summary>
+    /// True when the current step's text names this ingredient. Spaces, case and
+    /// punctuation are ignored, so id "BeefTripe" matches "beef tripe".
+    /// </summary>
+    public bool CurrentStepMentions(string ingredientId)
+    {
+        string t = CurrentStepText;
+        if (string.IsNullOrEmpty(t) || string.IsNullOrEmpty(ingredientId)) return false;
+        return Normalize(t).Contains(Normalize(ingredientId));
+    }
+
+    private static string Normalize(string s)
+    {
+        var sb = new System.Text.StringBuilder(s.Length);
+        foreach (char c in s)
+            if (char.IsLetterOrDigit(c)) sb.Append(char.ToLowerInvariant(c));
+        return sb.ToString();
+    }
+
     public bool IsExpected(string id)
     {
         if (!strictOrder || freeOrder) return true;

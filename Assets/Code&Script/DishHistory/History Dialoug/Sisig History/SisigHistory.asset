@@ -17,7 +17,9 @@ MonoBehaviour:
     characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: Long before pork face ever hit a cast-iron plate,
     characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
-  - text: 'Kapampangan women used the word for something very different, a snack of unripe fruit tossed with vinegar and salt. '
+  - text: 'Kapampangan women used the word for something very different,  '
+    characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
+  - text: a snack of unripe fruit tossed with vinegar and salt.
     characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}
   - text: 'Then in 1974, a woman named Lucia Cunanan, known to everyone as Aling Lucing, '
     characterSprite: {fileID: -8056027616224820867, guid: 783feefcd5809a142b7b39ffbbe1c917, type: 3}

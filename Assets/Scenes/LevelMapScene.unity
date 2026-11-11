@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &16690156
 MonoBehaviour:
@@ -1069,6 +1070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &54552922
 MonoBehaviour:
@@ -3597,7 +3599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -19.65509, y: -14.54805}
+  m_AnchoredPosition: {x: -31.399994, y: -14.54805}
   m_SizeDelta: {x: 35.5, y: 457.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &168565529
@@ -6576,6 +6578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &296550407
 MonoBehaviour:
@@ -11088,13 +11091,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 894833625}
+  - {fileID: 2064775161}
   - {fileID: 1876566961}
   - {fileID: 810553711}
   - {fileID: 699645803}
   - {fileID: 1612756183}
   - {fileID: 864441034}
   - {fileID: 881317332}
-  - {fileID: 2064775161}
   - {fileID: 1764943754}
   - {fileID: 663329906}
   - {fileID: 1346437103}
@@ -17126,6 +17130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &710230492
 MonoBehaviour:
@@ -17672,6 +17677,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746715977}
+  - component: {fileID: 746715979}
+  - component: {fileID: 746715978}
   m_Layer: 5
   m_Name: SetAsideInstruction
   m_TagString: Untagged
@@ -17701,6 +17708,47 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &746715978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746715976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!223 &746715979
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746715976}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 250
+  m_TargetDisplay: 0
 --- !u!1 &750152779
 GameObject:
   m_ObjectHideFlags: 0
@@ -18769,6 +18817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &808738429
 MonoBehaviour:
@@ -19469,7 +19518,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 99, y: 99}
-  m_Spacing: {x: 2, y: 2}
+  m_Spacing: {x: 29, y: 2}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &833414239
@@ -20763,6 +20812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: PanLid
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &873459773
 MonoBehaviour:
@@ -23823,7 +23873,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 213
@@ -26223,6 +26273,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885373789}
   m_CullTransparentMesh: 1
+--- !u!1 &894833624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894833625}
+  - component: {fileID: 894833627}
+  - component: {fileID: 894833626}
+  m_Layer: 5
+  m_Name: TableImg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &894833625
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894833624}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 474853922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 105}
+  m_SizeDelta: {x: 1671.25, y: 289.46}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &894833626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894833624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -2654283496850676497, guid: 2cac0debdbc57894ea28d5f2167bda0b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &894833627
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894833624}
+  m_CullTransparentMesh: 1
 --- !u!1 &895778052
 GameObject:
   m_ObjectHideFlags: 0
@@ -26991,6 +27116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: Spatula
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &931715331
 MonoBehaviour:
@@ -27733,6 +27859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &954195862
 MonoBehaviour:
@@ -27902,13 +28029,15 @@ GameObject:
   - component: {fileID: 968514308}
   - component: {fileID: 968514307}
   - component: {fileID: 968514309}
+  - component: {fileID: 968514310}
+  - component: {fileID: 968514311}
   m_Layer: 5
   m_Name: BackgroudStoryTelling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &968514306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27979,6 +28108,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707e393ac9a8328418a0fefe4f7fb86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!223 &968514310
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968514305}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 600
+  m_TargetDisplay: 0
+--- !u!114 &968514311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968514305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &973146769
 GameObject:
   m_ObjectHideFlags: 0
@@ -30319,6 +30489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &1078057843
 MonoBehaviour:
@@ -35016,7 +35187,7 @@ MonoBehaviour:
     fillDuration: 1.5
   - ingredientId: SquidInk
     player: {fileID: 1205991024}
-    liquidId: Squid Ink
+    liquidId: SquidInk
     ml: 30
     destroyIngredientAfterPour: 0
     destroyAnimationAfterPour: 0
@@ -35059,6 +35230,9 @@ MonoBehaviour:
     fillDelay: 0.6
     fillDuration: 1.5
   oilId: CookingOil
+  misdropMessage: 'Wrong step!
+
+    Follow the Cooking Prep list.'
 --- !u!114 &1199354880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39354,6 +39528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &1358077924
 MonoBehaviour:
@@ -39797,6 +39972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: Pan
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &1371435190
 MonoBehaviour:
@@ -39872,8 +40048,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220.07}
-  m_SizeDelta: {x: 528.6, y: 487}
+  m_AnchoredPosition: {x: 8.66, y: -220.07}
+  m_SizeDelta: {x: 545.93, y: 487}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376176014
 MonoBehaviour:
@@ -40348,6 +40524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &1400753381
 MonoBehaviour:
@@ -47611,6 +47788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &1700199300
 MonoBehaviour:
@@ -49066,7 +49244,7 @@ MonoBehaviour:
     fillSize: {x: 152.05, y: 79.82}
     animSprite: {fileID: 1804999685194917805, guid: 02964bfd0a8223446b6ecbb22103490e, type: 3}
   - tool: 1
-    ml: 85
+    ml: 83
     toolSprite: {fileID: 8630016978415280757, guid: 3e0d09b46a2a7c243bbac34e97bc127d, type: 3}
     fillSprite: {fileID: 0}
     fillPosition: {x: -59.9, y: 19.6}
@@ -50927,7 +51105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0024414062, y: 0}
+  m_AnchoredPosition: {x: -0.002532959, y: 0}
   m_SizeDelta: {x: 0.0050049, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851774298
@@ -51160,7 +51338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -30, y: 166}
+  m_AnchoredPosition: {x: -30, y: 162}
   m_SizeDelta: {x: 144.56, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855128668
@@ -56755,6 +56933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: KnifeObj
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &2053669192
 MonoBehaviour:
@@ -57018,7 +57197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 323.99, y: 106.1001}
+  m_AnchoredPosition: {x: 326.54, y: 163.8}
   m_SizeDelta: {x: 621.72, y: 245.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2064775162
@@ -57250,7 +57429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -57626,6 +57805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 
+  suppressBadDropMistake: 0
   reportMistakeOnBadDrop: 1
 --- !u!114 &2080742249
 MonoBehaviour:

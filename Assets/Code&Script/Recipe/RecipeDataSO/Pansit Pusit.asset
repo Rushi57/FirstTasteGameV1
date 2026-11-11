@@ -25,10 +25,10 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: fba457986da80b84b937d63519b0e377, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 4490bd662194a444ebf7fc8b3ad6e0e4, type: 2}
+  - ingredient: {fileID: 11400000, guid: 0322e7d71d4e4a942ac1cbea9093e222, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: 0322e7d71d4e4a942ac1cbea9093e222, type: 2}
+  - ingredient: {fileID: 11400000, guid: 08d4249f7238c724280ba41d5eb41f67, type: 2}
     quantity: 0
     unit: 
   - ingredient: {fileID: 11400000, guid: 2df5132b6fc319044ad73163fed9fe59, type: 2}
@@ -43,73 +43,62 @@ MonoBehaviour:
   - ingredient: {fileID: 11400000, guid: f2373829e285ee0469f3bc0e8b0e0c53, type: 2}
     quantity: 0
     unit: 
-  - ingredient: {fileID: 11400000, guid: c8224f17839119147b767f8de99715b7, type: 2}
-    quantity: 0
-    unit: 
   - ingredient: {fileID: 11400000, guid: b3c9bd3c65894d24d93d0de19e1d12f8, type: 2}
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the squid into sliced
-  - Chop the garlic into minced
-  - Chop the onion into minced
-  - Chop the cabbage into sliced
-  - Chop the carrot into sliced
-  - Chop the celery into sliced
-  - Chop the birds eye chillie into sliced
-  - Turn the stove to high heat
-  - Put the wok in the stove
-  - Add 1/4 cup of cooking oil
-  - Add minced garlic
-  - Add minced onion
-  - Add bay leaf
-  - Add slice chilies
-  - Saute it using the spatula
-  - 'Add Squid '
-  - Add water
-  - Add 1/4 cup of vinegar
-  - Mix it using the spatula
-  - Add squid ink
-  - Put the pan Lid to simmer
-  - Add the bihon in the wok
-  - Add chop cabbage
-  - Add chop carrot
-  - Add 1/2 cup of oyster sauce
-  - Turn the stove to medium heat
-  - Put the pan lid to simmer
-  - Add 1/8 tsp of salt
-  - Add 1/8 tsp of pepper
-  - Saute it using spatula
-  - Add chop celery for toppings
+  - Slice the squid.
+  - Mince the garlic.
+  - Mince the onion.
+  - Slice the cabbage.
+  - Slice the celery.
+  - Slice the tomato.
+  - Turn the stove to high heat.
+  - Put the wok on the stove.
+  - Add 1/3 cup of cooking oil.
+  - Add the garlic.
+  - Add the bay leaf.
+  - Add onion
+  - Add the tomato.
+  - "Saut\xE9 using the spatula."
+  - Add the squid.
+  - "Saut\xE9 using the spatula until cooked."
+  - Set aside the cooked squid on a plate.
+  - Add the cabbage.
+  - Add water.
+  - Add the squid ink.
+  - Add 1/3 cup of soy sauce.
+  - Add 1 tbsp of fish sauce.
+  - Stir using the spatula.
+  - Put the lid on the pan to simmer.
+  - Add the bihon noodles.
+  - Return the squid to the wok.
+  - Add the celery for toppings
   cookingStepIds:
   - Squid:Sliced
   - Garlic:Minced
   - Onion:Minced
   - Cabbage:Sliced
-  - Carrot:Sliced
   - Celery:Sliced
-  - BirdsEyeChillies:Sliced
+  - Tomato:Sliced
   - 
   - Pan:OnStove
-  - Pour:CookingOilCup_1_4
+  - Pour:CookingOilCup_1_3
   - Pan:Garlic
-  - Pan:Onion
   - Pan:BayLeaf
-  - Pan:BirdsEyeChillies
-  - Mix:14
+  - Pan:Onion
+  - Pan:Tomato
+  - Mix:13
   - Pan:Squid
+  - Mix:15
+  - Bowl:Squid
+  - Pan:Cabbage
   - Pan:Water
-  - Pour:VinegarCup_1_4
-  - Mix:18
   - Pan:SquidInk
+  - Pour:SoyCup_1_3
+  - Pour:FishSauceTbsp_1
+  - Mix:22
   - Pan:PanLidSimmer
   - Pan:Bihon
-  - Pan:Cabbage
-  - Pan:Carrot
-  - Pour:OysterSauceCup_1_4
-  - 
-  - Pan:PanLidSimmer
-  - Salt:Tsp_1_8
-  - Pepper:Tsp_1_8
-  - Mix:29
+  - Pan:Squid
   - Pan:Celery

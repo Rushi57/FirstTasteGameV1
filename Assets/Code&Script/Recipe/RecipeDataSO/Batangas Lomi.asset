@@ -41,26 +41,26 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the pork belly sliced
-  - Chop the chicken liver sliced
-  - Chop the kikiam sliced
-  - Chop the garlic sliced
-  - Turn the stove to high heat
+  - Slice the pork belly.
+  - Slice the chicken liver.
+  - Slice the kikiam.
+  - Slice the garlic.
+  - Turn the stove to high heat.
   - Put the wok on the stove
-  - Add 1/4 cup of cooking oil
-  - Add the garlic
-  - Saute until fragrant
-  - Add pork belly
-  - Add chicken liver
-  - Add the chicken stock
-  - 'Add 1/4 cup of soy '
-  - Add 1 tbsp of fish sauce
-  - Put the pan lid to simmer
-  - Add the noodles
-  - Add 1 tbsp of cassava starch
-  - Stir it using the spatula
-  - Add the kikiam
-  - Add the eggs beaten
+  - Add 1/4 cup of cooking oil.
+  - Add the garlic.
+  - "Saut\xE9 until fragrant."
+  - Add the pork belly.
+  - Add the chicken liver.
+  - Add the chicken broth.
+  - Add 1/4 cup of soy sauce.
+  - Add 1 tbsp of fish sauce.
+  - Put the lid on the wok to simmer.
+  - Add the noodles.
+  - Add 1 tbsp of cassava starch.
+  - Stir using the spatula.
+  - Add the kikiam.
+  - Add the beaten eggs.
   cookingStepIds:
   - PorkBelly:Sliced
   - ChickenLiver:Sliced

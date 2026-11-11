@@ -17,6 +17,22 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private bool dragEnabled = true;
     public void SetDragEnabled(bool enabled) => dragEnabled = enabled;
 
+    /// <summary>
+    /// Optional gate. If set and it returns false, the drag is refused
+    /// (the item simply stays where it is).
+    /// </summary>
+    public System.Func<bool> CanBeginDrag;
+
+    /// <summary>Set by a drop zone for items that sit in it: releasing them anywhere else
+    /// returns them without the tutorial "bad drop" mistake.</summary>
+    public bool suppressBadDropMistake;
+
+    /// <summary>Called when a drag ends without a successful drop (item already returned).</summary>
+    public System.Action OnBadDrop;
+
+    /// <summary>The parent this item had when the current/last drag started.</summary>
+    public Transform OriginalParent => originalParent;
+
 
     [Header("Tutorial")]
     [Tooltip("If true, releasing this item anywhere except its correct drop zone counts as a tutorial mistake.")]
@@ -38,7 +54,7 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isLocked || isDragging || !dragEnabled) return;
-        if (isLocked || isDragging) return;  
+        if (CanBeginDrag != null && !CanBeginDrag()) return;   // wrong order: stays put
         isDragging = true;
 
         wasDroppedSuccessfully = false;
@@ -48,7 +64,7 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         transform.SetParent(canvas.transform, true);
         transform.SetAsLastSibling();
 
-       
+
         canvasGroup.blocksRaycasts = false;
     }
 
@@ -60,16 +76,18 @@ public class TestDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isDragging) return;  
+        if (!isDragging) return;
         isDragging = false;
 
         canvasGroup.blocksRaycasts = !isLocked;
 
         if (!wasDroppedSuccessfully)
         {
-            ReturnToOrigin();   
+            ReturnToOrigin();
 
-            if (reportMistakeOnBadDrop && !isLocked)
+            OnBadDrop?.Invoke();
+
+            if (reportMistakeOnBadDrop && !suppressBadDropMistake && !isLocked)
                 TutorialManager.Instance?.ReportMistake();
         }
     }

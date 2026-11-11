@@ -35,29 +35,29 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the white onion into sliced
-  - Chop the garlic into sliced
-  - Chop the tomato into sliced
-  - Turn on the stove to high heat
-  - Put the wok in the Stove
-  - Add 1 tbsp of cooking oil
-  - Add butter
-  - Add the chicken legs
-  - Mix it using Spatula
-  - Put the sear chicken in the plate
-  - Add the onions in the wok
-  - 'Add the garlic '
+  - Slice the onion.
+  - Slice the garlic.
+  - Slice the tomato.
+  - Turn the stove to high heat.
+  - Put the wok on the stove.
+  - Add 1 tbsp of cooking oil.
+  - Add the butter.
+  - Add the chicken legs.
+  - Mix using the spatula.
+  - Transfer the seared chicken onto a plate.
+  - Add the onions to the wok.
+  - Add the garlic.
   - 'Add the bay leaf '
   - 'Add the chop tomato '
-  - Put the pan lid to simmer
-  - Add 1/4 cup of soy
-  - Add 1/8 tsp of sugar
-  - Mix well using spatula
-  - Return the chicken back to the pan
-  - Put the pan lid to simmer
-  - Add 1/2 tsp of achuete oil
-  - Add 1/8 tsp of salt
-  - Mix using the spatula
+  - Put the lid on the wok to simmer.
+  - Add 1/4 cup of soy sauce.
+  - Add 1/8 tsp of sugar.
+  - Mix well using the spatula.
+  - Return the chicken to the wok.
+  - Put the lid on the wok to simmer.
+  - Add 1/2 tsp of annatto (achuete) oil.
+  - Add 1/8 tsp of salt.
+  - Mix using the spatula.
   cookingStepIds:
   - Onion:Sliced
   - Garlic:Sliced

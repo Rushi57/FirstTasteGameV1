@@ -129,41 +129,64 @@ public class MixingIngredientDisplay : MonoBehaviour
     }
     private void SpawnLiquid()
     {
-        if (liquidSource == null) return;
-
-        Color sum = Color.clear;     // weighted rgb
-        float totalWeight = 0f;
-        float maxAlpha = 0f;
-        Sprite sprite = null;
-        float bestWeight = -1f;
-
-        foreach (Transform child in liquidSource)
+        if (liquidSource == null)
         {
-            if (!child.gameObject.activeInHierarchy) continue;
-            if (!child.TryGetComponent(out Image src) || src.sprite == null) continue;
-            if (src.color.a <= 0.01f) continue;
+            Debug.LogWarning("[MixDisplay] liquidSource is not assigned.");
+            return;
+        }
 
-            // How much of this liquid is there? Filled images use their fill amount.
-            float weight = 1f;
-            if (weightByFill && src.type == Image.Type.Filled)
-                weight = src.fillAmount;
-            if (weight <= 0.01f) continue;
+        Color sum = Color.clear;
+        float totalWeight = 0f, maxAlpha = 0f, bestWeight = -1f;
+        Sprite sprite = null;
+        int checkedCount = 0;
+
+        // includeInactive = false: only active objects, at any depth (includes liquidSource itself)
+        foreach (var src in liquidSource.GetComponentsInChildren<Image>(false))
+        {
+            checkedCount++;
+            if (!src.enabled || src.sprite == null)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': disabled or no sprite"); continue; }
+
+            float alpha = src.color.a * src.canvasRenderer.GetInheritedAlpha();
+            if (alpha <= 0.01f)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': alpha {alpha:0.00}"); continue; }
+
+            float weight = (weightByFill && src.type == Image.Type.Filled) ? src.fillAmount : 1f;
+            if (weight <= 0.01f)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': fill {weight:0.00}"); continue; }
 
             sum += new Color(src.color.r, src.color.g, src.color.b, 0f) * weight;
             totalWeight += weight;
-            maxAlpha = Mathf.Max(maxAlpha, src.color.a);
-
-            // Use the sprite of the most plentiful liquid for the shape
+            maxAlpha = Mathf.Max(maxAlpha, alpha);
             if (weight > bestWeight) { bestWeight = weight; sprite = src.sprite; }
         }
 
-        if (totalWeight <= 0f || sprite == null) return;
+        // Fallback: liquid drawn with SpriteRenderers instead of UI Images
+        if (totalWeight <= 0f)
+        {
+            foreach (var sr in liquidSource.GetComponentsInChildren<SpriteRenderer>(false))
+            {
+                checkedCount++;
+                if (!sr.enabled || sr.sprite == null || sr.color.a <= 0.01f) continue;
+                sum += new Color(sr.color.r, sr.color.g, sr.color.b, 0f);
+                totalWeight += 1f;
+                maxAlpha = Mathf.Max(maxAlpha, sr.color.a);
+                if (sprite == null) sprite = sr.sprite;
+            }
+        }
+
+        if (totalWeight <= 0f || sprite == null)
+        {
+            Debug.Log($"[MixDisplay] No liquid found ({checkedCount} candidates checked under '{liquidSource.name}').");
+            return;
+        }
 
         Color blended = sum / totalWeight;
         blended.a = maxAlpha;
 
         var go = new GameObject("Liquid_Mix", typeof(RectTransform), typeof(Image));
         go.transform.SetParent(displayContainer, false);
+        go.transform.SetAsFirstSibling();   // always behind the ingredients
 
         var rt = (RectTransform)go.transform;
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
