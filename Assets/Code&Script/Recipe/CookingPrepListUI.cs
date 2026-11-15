@@ -35,28 +35,29 @@ public class CookingPrepListUI : MonoBehaviour
     public bool strictOrder = true;
     public string wrongStepMessage = "Wrong Step!\nMinus 1 heart";
 
-    // unique key -> row
+ 
     private readonly Dictionary<string, CookingPrepStepRowUI> rows = new Dictionary<string, CookingPrepStepRowUI>();
-    // unique keys that are done
+ 
     private readonly HashSet<string> completed = new HashSet<string>();
-    // unique keys in list order
+
     private readonly List<string> orderedIds = new List<string>();
-    // base id -> unique keys (in list order)
+  
     private readonly Dictionary<string, List<string>> occurrences = new Dictionary<string, List<string>>();
-    // unique key -> base id
+
     private readonly Dictionary<string, string> keyToBase = new Dictionary<string, string>();
 
     public string wrongMeasurementMessage = "Wrong Measurement!\nMinus 1 heart";
 
-    // unique key -> instruction text
+
     private readonly Dictionary<string, string> keyToText = new Dictionary<string, string>();
     public bool HasStep(string id) => occurrences.ContainsKey(id);
 
-    /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
+
     public event System.Action OnAllStepsComplete;
-
+    public static event System.Action<CookingPrepListUI> IngredientAccepted;
     public static event System.Action<string> StepCompleted;
-
+    public string LastCompletedText { get; private set; }
+    public string LastCompletedStepId { get; private set; }
     private void OnEnable()
     {
         Instance = this;
@@ -69,7 +70,7 @@ public class CookingPrepListUI : MonoBehaviour
         if (cuttingMechanic != null) cuttingMechanic.OnStateChanged -= HandleCutStateChanged;
     }
 
-    /// <summary>Shows every instruction (old behaviour).</summary>
+
     public void DisplaySteps(RecipeData recipe)
     {
         if (recipe == null) { Clear(); return; }
@@ -79,7 +80,7 @@ public class CookingPrepListUI : MonoBehaviour
         DisplaySteps(recipe, all);
     }
 
-    /// <summary>Shows only the instructions at the given indices (cut steps OR cooking steps).</summary>
+
     public void DisplaySteps(RecipeData recipe, List<int> stepIndices)
     {
         Debug.Log($"[PrepList] DisplaySteps called on {name}. Existing children: {(contentContainer != null ? contentContainer.childCount : 0)}", this);
@@ -187,8 +188,11 @@ public class CookingPrepListUI : MonoBehaviour
             ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
             return false;
         }
-
-        if (IsExpected(id)) return true;
+        if (IsExpected(id))
+        {
+            IngredientAccepted?.Invoke(this);
+            return true;
+        }
 
         Debug.Log($"[PrepList] REJECTED '{id}' - current step is '{CurrentStepId}'");
         ScoreManager.Instance?.ReportMistake(wrongStepMessage);
@@ -231,7 +235,7 @@ public class CookingPrepListUI : MonoBehaviour
         return false;
     }
 
-    // ------------------------------------------------
+
 
     private void HandleCutStateChanged(IngredientData data, IngredientPrepState state)
     {

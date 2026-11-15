@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CookingPrepStepRowUI : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class CookingPrepStepRowUI : MonoBehaviour
     private Color originalTextColor;
     private bool originalsCached;
 
+  
     private void Awake()
     {
         CacheOriginals();

@@ -12,6 +12,16 @@ public enum MeasureTool { Spoon, Cup }
 
 public class PourSeasoningController : MonoBehaviour
 {
+    [Header("Shelf")]
+    [Tooltip("TopUtensils. Closed when the correct seasoning is tapped.")]
+    public GameObject shelfToClose;
+
+    private void CloseShelf()
+    {
+        if (shelfToClose != null && shelfToClose.activeInHierarchy)
+            PanelExclusivityManager.Instance.Close(shelfToClose);
+    }
+
     [Header("Tutorial")]
     [Tooltip("The TutorialInteractable on PourButton (id 'PourBtn').")]
     public TutorialInteractable pourTutorial;
@@ -186,7 +196,7 @@ public class PourSeasoningController : MonoBehaviour
             ScoreManager.Instance?.ReportMistake("Gather all ingredients first!", 0, 0);
             return;
         }
-        //Wrong Step Gate
+    
         string prefix = $"Pour:{seasoning}";
         string current = prep.CurrentStepId;
 
@@ -197,7 +207,7 @@ public class PourSeasoningController : MonoBehaviour
         }
 
         currentStepId = current;
-
+        CloseShelf();
         currentSeasoning = seasoning;
         ClearSelection();
         pendingSuccess = false;

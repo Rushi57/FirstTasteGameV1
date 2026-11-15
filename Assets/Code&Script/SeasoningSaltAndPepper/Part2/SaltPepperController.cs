@@ -105,7 +105,15 @@ public class SaltPepperController : MonoBehaviour
 
     private Coroutine valueBorderRoutine;
     private Coroutine wrongMessageRoutine;
+    [Header("Shelf")]
+    [Tooltip("TopUtensils. Closed when the correct seasoning is tapped.")]
+    public GameObject shelfToClose;
 
+    private void CloseShelf()
+    {
+        if (shelfToClose != null && shelfToClose.activeInHierarchy)
+            PanelExclusivityManager.Instance.Close(shelfToClose);
+    }
     private void Start()
     {
       
@@ -173,6 +181,7 @@ public class SaltPepperController : MonoBehaviour
         }
 
         currentType = type;
+        CloseShelf();
         pendingSuccess = false;
         pendingLineIndex = -1;
         if (jarImage != null) jarImage.sprite = GetJarSprite(type);

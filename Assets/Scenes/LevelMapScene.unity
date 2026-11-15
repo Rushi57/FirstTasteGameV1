@@ -16785,7 +16785,7 @@ GameObject:
   - component: {fileID: 700999409}
   - component: {fileID: 700999410}
   m_Layer: 0
-  m_Name: StoryTellingGameObject
+  m_Name: SampleImageIcon (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17745,7 +17745,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 250
@@ -28039,7 +28039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &968514306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28404,7 +28404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMin.x
@@ -34729,6 +34729,7 @@ GameObject:
   - component: {fileID: 1196578810}
   - component: {fileID: 1196578812}
   - component: {fileID: 1196578813}
+  - component: {fileID: 1196578815}
   - component: {fileID: 1196578814}
   m_Layer: 5
   m_Name: UIScriptUI
@@ -34883,6 +34884,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingPanelController
   animator: {fileID: 1163599457}
   panel: {fileID: 546923321}
+--- !u!114 &1196578815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196578807}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bb4b0f3e2102b468d2472a92271403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PanelCloseOnStepComplete
+  cookingPrepList: {fileID: 895778055}
+  panelToClose: {fileID: 367667784}
+  shelfIngredientIds:
+  - Vinegar
+  - Salt
+  - Pepper
+  - Sugar
+  - Soy
+  - CookingOil
+  - Achuete Oil
+  closeDelay: 0.15
 --- !u!1 &1196904755
 GameObject:
   m_ObjectHideFlags: 0
@@ -41668,7 +41692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMin.x
@@ -44578,7 +44602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMin.x
@@ -48549,7 +48573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 834970375611612374, guid: 53a514f2a487a2943a86e8d3dc11cd23, type: 3}
       propertyPath: m_AnchorMin.x
@@ -49178,6 +49202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd6123e1f43ed4478e242614171d839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shelfToClose: {fileID: 367667784}
   pourTutorial: {fileID: 0}
   seasoningPanel: {fileID: 695525250}
   pickPanel: {fileID: 632570434}
@@ -49358,6 +49383,7 @@ MonoBehaviour:
   wrongMessagePanel: {fileID: 25443951}
   wrongMessageText: {fileID: 629023179}
   wrongMessageDuration: 1.5
+  shelfToClose: {fileID: 367667784}
 --- !u!114 &1764943757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51976,7 +52002,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1575073227}
   m_Direction: 2
   m_Value: 0.9999996
-  m_Size: 0.70266956
+  m_Size: 0.7026695
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -57717,7 +57743,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 17.458862, y: 0}
+  m_SizeDelta: {x: 16.104858, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075506865
 MonoBehaviour:
