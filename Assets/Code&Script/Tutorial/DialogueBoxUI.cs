@@ -144,7 +144,7 @@ public class DialogueBoxUI : MonoBehaviour
     {
         if (!adaptivePositioning || target == null || RootRect == null) return;
 
-        // Try top first - if it overlaps, fall back to bottom.
+
         RootRect.anchoredPosition = topAnchoredPosition;
         if (Overlaps(RootRect, target))
             RootRect.anchoredPosition = bottomAnchoredPosition;
@@ -161,7 +161,7 @@ public class DialogueBoxUI : MonoBehaviour
     {
         Vector3[] corners = new Vector3[4];
         rt.GetWorldCorners(corners);
-        // corners[0] = bottom-left, corners[2] = top-right
+
         return new Rect(corners[0].x, corners[0].y, corners[2].x - corners[0].x, corners[2].y - corners[0].y);
     }
 

@@ -21,7 +21,7 @@ public class ScoreboardButtons : MonoBehaviour
 
     public void rePlayBt()
     {
-        Time.timeScale = 1f;   // reset before reloading
+        Time.timeScale = 1f;   
         var tutorial = TutorialManager.Instance;
 
         if (tutorial != null && !tutorial.HasCompletedTutorial())

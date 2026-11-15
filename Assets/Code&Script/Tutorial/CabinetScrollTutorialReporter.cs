@@ -28,7 +28,7 @@ public class CabinetScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, I
 
     private void Update()
     {
-        float x = scrollRect.horizontalNormalizedPosition;      // 0 = left, 1 = right
+        float x = scrollRect.horizontalNormalizedPosition;    
         float progress = utensilsAtEnd ? x : 1f - x;
 
         bool atEnd = progress >= completeThreshold;

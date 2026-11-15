@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Drag the 1 Tsp in the container.
+  - Drag the 1 Tsp in the sugar bowl.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 280.3, y: 209.66}
+  customPosition: {x: 395, y: 504.8}
   actionType: 2
   targetId: PepperJar
   dragSourceId: Tsp_1

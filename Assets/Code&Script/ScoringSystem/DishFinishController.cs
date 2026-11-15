@@ -9,34 +9,34 @@ public class DishFinishController : MonoBehaviour
     public CookingPrepListUI prepList;
 
     [Header("Finish button")]
-    public GameObject finishButtonPanel;    // FinishBtnPanelShow
-    public Button continueButton;           // ContinueBtn
+    public GameObject finishButtonPanel;   
+    public Button continueButton;          
 
     [Header("Level completion reflection")]
-    public LevelCompletionReflection reflection;   // on FinishCookingGameObject
+    public LevelCompletionReflection reflection;  
 
     [Header("Scoreboard")]
-    public GameObject finishCookingRoot;    // FinishCookingGameObject
-    public GameObject scoreBoardPanel;      // ScoreBoardPanel
+    public GameObject finishCookingRoot;   
+    public GameObject scoreBoardPanel;    
 
     [Header("Must ALL be closed before Continue shows")]
-    public GameObject[] miniGamePanels;     // Mixing, Chopping/Cutting, PourSeasoning, Boil/Simmer, Salt/Pepper
-    public GameObject[] animationObjects;   // e.g. Pitcher with water, WaterStream (pour animation)
+    public GameObject[] miniGamePanels;    
+    public GameObject[] animationObjects;  
 
     [Header("Timing")]
-    public float extraDelay = 0.5f;         // short pause after the last mini-game closes
+    public float extraDelay = 0.5f;       
 
     private bool allStepsDone;
     private Coroutine waitRoutine;
 
     [Header("Scoreboard content")]
-    public CookingPrepPanelController cookingPrepPanel;   // the same one LevelRecipeLoader fills
-    public Image recipeImage;                             // the Image inside RecipeImageHolder
+    public CookingPrepPanelController cookingPrepPanel;   
+    public Image recipeImage;                            
     private void Start()
     {
         finishButtonPanel.SetActive(false);
         scoreBoardPanel.SetActive(false);
-        if (finishCookingRoot != null) finishCookingRoot.SetActive(false);   // hidden until Finish is tapped
+        if (finishCookingRoot != null) finishCookingRoot.SetActive(false); 
         continueButton.onClick.AddListener(OnContinue);
 
         if (prepList != null) prepList.OnAllStepsComplete += HandleAllStepsComplete;
@@ -61,11 +61,11 @@ public class DishFinishController : MonoBehaviour
 
     private IEnumerator WaitThenShow()
     {
-        // Wait until nothing is running
+
         yield return new WaitUntil(NothingRunning);
         yield return new WaitForSecondsRealtime(extraDelay);
 
-        // A mini-game could have opened during the delay, so check again
+   
         while (!NothingRunning())
             yield return null;
 
@@ -73,7 +73,7 @@ public class DishFinishController : MonoBehaviour
 
         if (ScoreManager.Instance != null && ScoreManager.Instance.IsGameOver) yield break;
 
-        // Make sure every parent is active, otherwise the panel can't be seen
+
         Transform parent = finishButtonPanel.transform.parent;
         if (parent != null && !parent.gameObject.activeSelf)
             parent.gameObject.SetActive(true);
@@ -102,7 +102,7 @@ public class DishFinishController : MonoBehaviour
            
         }
 
-        // Child first (stays hidden while the root is inactive); the root is activated by Show()
+
         scoreBoardPanel.SetActive(true);
 
         if (reflection != null)
@@ -112,13 +112,12 @@ public class DishFinishController : MonoBehaviour
         }
         else
         {
-            // Fallback: old behaviour if no reflection is assigned
+      
             finishCookingRoot.SetActive(true);
             ScoreManager.Instance?.SaveDishResult();
         }
     }
 
-    // Call this from Retry so the flag resets
     public void ResetFinish()
     {
         allStepsDone = false;

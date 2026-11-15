@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class IngInteractable : MonoBehaviour
 {
-    public List<Button> buttons;   // drag all your buttons here
+    public List<Button> buttons;  
 
     [Header("Hold buttons (reports on click)")]
     public List<Button> holdButtons;
@@ -15,18 +15,17 @@ public class IngInteractable : MonoBehaviour
 
     void Awake()
     {
-        //--Tap Button--
+ 
         foreach (var btn in buttons)
         {
             if (btn == null) continue;
 
             var interactable = btn.GetComponent<TutorialInteractable>();
-            if (interactable == null) continue;   // no interactable = not reported
+            if (interactable == null) continue;  
 
             btn.onClick.AddListener(interactable.ReportTap);
         }
 
-        //--Hold Button
         foreach (var btn in holdButtons)
         {
             if (btn == null) continue;
@@ -47,7 +46,6 @@ public class IngInteractable : MonoBehaviour
         bool isHeld = false;
         float pressStart = 0f;
 
-        //Finger/Mouse goes down 
         var down = new EventTrigger.Entry { eventID = EventTriggerType.PointerDown };
         down.callback.AddListener(_ =>
         {
@@ -56,7 +54,7 @@ public class IngInteractable : MonoBehaviour
         });
         trigger.triggers.Add(down);
 
-        //Finger/mouse released
+     
         var up = new EventTrigger.Entry { eventID = EventTriggerType.PointerUp };
         up.callback.AddListener(_ =>
         {

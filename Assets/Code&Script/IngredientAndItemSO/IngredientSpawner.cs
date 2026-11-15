@@ -61,7 +61,6 @@ public class IngredientSpawner : MonoBehaviour
             return;
         }
 
-        //Not part of the current Recipe
         if (ingredientList != null && !ingredientList.IsInRecipe(data))
         {
             string wrongName = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
@@ -70,7 +69,6 @@ public class IngredientSpawner : MonoBehaviour
         }
 
 
-        // Already on the table? Warn, but do NOT deduct a heart and do NOT spawn a duplicate.
         if (spawnedItems.TryGetValue(data, out GameObject existing))
         {
             if (existing != null)  

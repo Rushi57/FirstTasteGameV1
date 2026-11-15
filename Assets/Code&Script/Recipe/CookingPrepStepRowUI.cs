@@ -43,14 +43,13 @@ public class CookingPrepStepRowUI : MonoBehaviour
         originalsCached = true;
     }
 
-    // Existing calls keep working: bullet is used.
     public void SetText(string instruction)
     {
         if (label != null)
             label.text = bulletPrefix + instruction;
     }
 
-    // New: pass a 1-based step number to get "1. text", "2. text", ...
+
     public void SetText(string instruction, int stepNumber)
     {
         if (label != null)

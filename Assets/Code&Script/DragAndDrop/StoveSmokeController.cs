@@ -8,7 +8,7 @@ public class StoveSmokeController : MonoBehaviour
     public PanDropZone panDropZone;
     public StoveHeatController heatController;
 
-    private int solidCount;   // solid ingredients currently in the pan (oil/water don't count)
+    private int solidCount;  
 
     private void OnEnable()
     {
@@ -47,7 +47,7 @@ public class StoveSmokeController : MonoBehaviour
 
     private void HandleAdded(IngredientData data)
     {
-        if (data != null && data.playsPourAnimation) return;   // oil / water
+        if (data != null && data.playsPourAnimation) return;   
         solidCount++;
         Refresh();
     }
@@ -77,8 +77,6 @@ public class StoveSmokeController : MonoBehaviour
 
         if (shouldSmoke)
         {
-            // isEmitting (not isPlaying): after Stop(StopEmitting) the system still
-            // "plays" while old particles fade, which blocked the restart.
             if (!smoke.isEmitting) smoke.Play();
         }
         else

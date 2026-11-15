@@ -6,23 +6,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// Level-completion dialog. Flow after the player taps Finish:
-///   1. Scoreboard + star message (1/2/3 stars)
-///   2. FAQGame (the FAQ inside the selected LevelData)
-///   3. DishReflection pages
-///   4. Replay / Go to map, then onFinished
 public class LevelCompletionReflection : MonoBehaviour
 {
     private enum Phase { StarMessage, FAQ, Reflection }
 
     [Header("UI References")]
-    [SerializeField] private TMP_Text reflectionText;   // text inside DialogueBox
-    [SerializeField] private Button continueBtn;        // Continue button
-    [SerializeField] private Image dishImage;           // RecipeImageHolder's image
-    // StarHolder has StarRatingDisplay on it. It reads ScoreManager by itself in OnEnable.
+    [SerializeField] private TMP_Text reflectionText;   
+    [SerializeField] private Button continueBtn;       
+    [SerializeField] private Image dishImage;         
+ 
 
     [Header("FAQ")]
-    [SerializeField] private FAQController faqController;   // the FAQController on FAQGame (NOT on this object)
+    [SerializeField] private FAQController faqController; 
 
     [Header("Star messages (element 0 = 1 star, 1 = 2 stars, 2 = 3 stars)")]
     [SerializeField, TextArea(2, 4)]
@@ -42,15 +37,15 @@ public class LevelCompletionReflection : MonoBehaviour
     [Header("Text fitting")]
     [SerializeField] private float minFontSize = 43f;
     [SerializeField] private float maxFontSize = 49f;
-    [SerializeField] private Vector2 textBoxSize = new Vector2(709.37f, 138f);   // Rect W/H of the reflection TMP text
+    [SerializeField] private Vector2 textBoxSize = new Vector2(709.37f, 138f);   
 
     [SerializeField] private GameObject replayOrGotToMap;
 
     [Header("Events")]
-    public UnityEvent onFinished;   // e.g. load LevelMapScene
+    public UnityEvent onFinished; 
 
     [Header("Hide when text finishes")]
-    [SerializeField] private GameObject[] hideOnFinish;   // DialogueBox, ContinueBtn, etc.
+    [SerializeField] private GameObject[] hideOnFinish;  
 
     [Header("Testing")]
     [Tooltip("Only used when no level was selected on the map (e.g. running LevelMapScene directly in the Editor).")]
@@ -61,7 +56,7 @@ public class LevelCompletionReflection : MonoBehaviour
     [SerializeField, Range(0, 3)] private int debugStarOverride = 0;
 
     private DishReflectionData current;
-    private readonly List<string> pages = new List<string>();   // pages of the current phase
+    private readonly List<string> pages = new List<string>();  
     private Phase phase;
     private int pageIndex;
     private bool isTyping;
@@ -73,35 +68,32 @@ public class LevelCompletionReflection : MonoBehaviour
         ConfigureText();
     }
 
-    /// The level the player picked on the map (LevelSelectionManager stays untouched).
-    /// Falls back to Test Level only when nothing was selected.
+ 
     private LevelData GetLevel()
     {
         var selected = LevelSelectionManager.SelectedLevel;
         return selected != null ? selected : testLevel;
     }
 
-    /// Call when the level ends: picks the data from the selected level.
     public void Show()
     {
         Show(FindForSelectedLevel());
     }
 
-    /// Or pass a specific DishReflectionData yourself (can be null: the reflection phase is just skipped).
+ 
     public void Show(DishReflectionData data)
     {
         current = data;
 
-        // Reset anything left over from a previous run
         if (typeRoutine != null) StopCoroutine(typeRoutine);
         isTyping = false;
         if (faqController != null)
         {
             faqController.OnFAQFinished -= HandleFAQFinished;
-            faqController.gameObject.SetActive(false);   // FAQGame must not cover the star message
+            faqController.gameObject.SetActive(false); 
         }
 
-        // Save first so the stars match the saved result
+    
         if (ScoreManager.Instance != null)
             ScoreManager.Instance.SaveDishResult();
 
@@ -111,7 +103,7 @@ public class LevelCompletionReflection : MonoBehaviour
             if (current != null && current.dishSprite != null)
                 dishImage.sprite = current.dishSprite;
             else if (selected != null && selected.recipe != null && selected.recipe.recipeIcon != null)
-                dishImage.sprite = selected.recipe.recipeIcon;   // fallback: recipe icon
+                dishImage.sprite = selected.recipe.recipeIcon; 
         }
 
         gameObject.SetActive(true);
@@ -172,7 +164,7 @@ public class LevelCompletionReflection : MonoBehaviour
 
     private void BeginPages()
     {
-        if (pages.Count == 0)   // nothing to show in this phase -> go straight to the next one
+        if (pages.Count == 0)  
         {
             AdvancePhase();
             return;
@@ -252,7 +244,6 @@ public class LevelCompletionReflection : MonoBehaviour
         reflectionText.fontSizeMax = maxFontSize;
     }
 
-    // True if the text fits the box at the MINIMUM font size (so it never goes below the min)
     private bool Fits(string s)
     {
         float w = textBoxSize.x - reflectionText.margin.x - reflectionText.margin.z;
@@ -271,7 +262,6 @@ public class LevelCompletionReflection : MonoBehaviour
         return preferred.y <= h;
     }
 
-    // Packs as many sentences as fit the box at min size; splits by words only if one sentence is too long.
     private List<string> Slice(string text)
     {
         var result = new List<string>();
@@ -332,9 +322,8 @@ public class LevelCompletionReflection : MonoBehaviour
 
     private void OnContinue()
     {
-        if (phase == Phase.FAQ) return;   // FAQGame is on screen and handles its own taps
+        if (phase == Phase.FAQ) return;   
 
-        // First tap: finish typing the current page
         if (isTyping)
         {
             StopCoroutine(typeRoutine);

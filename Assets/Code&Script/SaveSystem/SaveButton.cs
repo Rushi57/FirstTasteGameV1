@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Attach to SaveBtn in MapScene (SaveBtn must stay ACTIVE; the panel below starts inactive).
 [RequireComponent(typeof(Button))]
 public class SaveButton : MonoBehaviour
 {

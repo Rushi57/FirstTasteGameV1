@@ -69,7 +69,7 @@ public class SaltPepperController : MonoBehaviour
     public Color sugarColor = Color.white;
     public Color peanutButterColor = Color.white;
     public Color glutinousRiceColor = Color.white;
-    public Color safflowerColor = new Color(0.91f, 0.64f, 0.09f); // golden-orange
+    public Color safflowerColor = new Color(0.91f, 0.64f, 0.09f);
 
     [Header("Recipe check")]
     public CookingPrepPanelController cookingPrepPanel;
@@ -85,7 +85,7 @@ public class SaltPepperController : MonoBehaviour
 
     [Header("Pan liquid")]
     public PanLiquidFill panLiquid;
-    public float mlPerTsp = 5f;   // 1 cup = 48 tsp = 240 ml
+    public float mlPerTsp = 5f;  
     private float pendingTsp;
 
     [Header("Value popup (MessageBorder)")]
@@ -108,8 +108,7 @@ public class SaltPepperController : MonoBehaviour
 
     private void Start()
     {
-        // Nested layout (SeasoningPickPanel is a child of Salt/PepperPanel): if Measurement Border
-        // was left empty, find it automatically = the child of Salt/PepperPanel that holds PickCup/PickTbsp.
+      
         if (measurementBorder != null && measurementBorder == seasoningPickPanel)
         {
             Debug.LogWarning("[SaltPepper] Measurement Border is set to SeasoningPickPanel - it must be the 'Border' object. Auto-detecting instead.");
@@ -153,10 +152,7 @@ public class SaltPepperController : MonoBehaviour
         tspAnimation?.Hide();
     }
 
-    // ------------------------------------------------------------------
-    // Flow: ingredient button -> SeasoningPickPanel -> (Cup | Tbsp/Tsp) -> drag onto jar
-    // ------------------------------------------------------------------
-
+  
     public void OpenFor(SaltPepperType type)
     {
         var prep = CookingPrepListUI.Instance;
@@ -182,10 +178,10 @@ public class SaltPepperController : MonoBehaviour
         if (jarImage != null) jarImage.sprite = GetJarSprite(type);
         if (valueBorder != null) valueBorder.SetActive(false);
 
-        // Show the "Cup or Tbsp/Tsp?" choice first.
+   
         if (measurementBorder != null)
         {
-            // SeasoningPickPanel is nested inside Salt/PepperPanel: the parent must stay active.
+   
             saltPepperPanel.SetActive(true);
             measurementBorder.SetActive(false);
         }
@@ -200,7 +196,7 @@ public class SaltPepperController : MonoBehaviour
         }
         else
         {
-            // No choice panel assigned: fall back to the old tsp/tbsp behaviour.
+          
             ChooseTbspTsp();
         }
     }
@@ -216,7 +212,6 @@ public class SaltPepperController : MonoBehaviour
         if (pickTbspTspPanel != null) pickTbspTspPanel.SetActive(!useCup);
         if (valueBorder != null) valueBorder.SetActive(false);
 
-        // Hide the choice panel last so nothing above can turn it back on.
         if (seasoningPickPanel != null) seasoningPickPanel.SetActive(false);
 
         Debug.Log($"[SaltPepper] Opened {currentType} with {(useCup ? "CUP" : "TBSP/TSP")}. Waiting for a drop.");
@@ -352,15 +347,12 @@ public class SaltPepperController : MonoBehaviour
         wrongMessageRoutine = null;
     }
 
-    // ------------------------------------------------------------------
-    // Amount formatting / parsing (cups are stored internally as teaspoons)
-    // ------------------------------------------------------------------
-
+  
     private static string FormatAmount(float tsp)
     {
         const float cup = SpoonMeasurementTable.TspPerCup;
 
-        if (tsp >= cup / 4f - 0.05f)   // 1/4 cup or more -> show in cups
+        if (tsp >= cup / 4f - 0.05f)  
         {
             if (Mathf.Abs(tsp - cup) < 0.05f) return "1 cup";
             if (Mathf.Abs(tsp - cup / 2f) < 0.05f) return "1/2 cup";
@@ -393,7 +385,6 @@ public class SaltPepperController : MonoBehaviour
         return false;
     }
 
-    // Now also understands "cup" / "cups"  (e.g. "add 1/3 cup glutinous rice")
     private static readonly Regex AmountRegex = new Regex(
         @"(\d+\s*/\s*\d+|\d+(?:\.\d+)?)\s*(?:of\s+)?(?:a\s+)?(tablespoons?|tbsp|tbps|teaspoons?|tsp|cups?)\b",
         RegexOptions.IgnoreCase);

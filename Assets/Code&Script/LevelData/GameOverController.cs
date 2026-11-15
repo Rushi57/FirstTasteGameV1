@@ -9,7 +9,7 @@ public class GameMechanicsFreezer : MonoBehaviour
 
     private void Awake()
     {
-        // Used to block touches/drags on anything still visible
+       
         group = GetComponent<CanvasGroup>();
         if (group == null) group = gameObject.AddComponent<CanvasGroup>();
     }
@@ -28,17 +28,16 @@ public class GameMechanicsFreezer : MonoBehaviour
 
     private void Freeze()
     {
-        // Stop input
         group.interactable = false;
         group.blocksRaycasts = false;
 
-        // Deactivating a panel stops its Update, coroutines and timers
+     
         foreach (Transform child in transform)
             child.gameObject.SetActive(false);
 
         foreach (var go in extraToStop)
             if (go != null) go.SetActive(false);
 
-        SFXManager.Instance?.StopLoop();   // stops looping sounds like boiling
+        SFXManager.Instance?.StopLoop(); 
     }
 }

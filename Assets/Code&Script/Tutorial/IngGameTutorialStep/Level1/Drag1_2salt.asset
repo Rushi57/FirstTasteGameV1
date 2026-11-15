@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Drag the 1/2 Tsp in the bowl.
+  - Drag the 1/2 Tsp in the salt bowl.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 282.6, y: 220.2}
+  customPosition: {x: 377.2, y: 448.9}
   actionType: 2
   targetId: PepperJar
   dragSourceId: Tsp_1_2

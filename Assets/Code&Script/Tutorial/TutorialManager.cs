@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-/// <summary>
-/// Drives the tutorial: shows dialogue lines in order, waits for the required
-/// player action (if any), highlights the target, blocks other input, then
-/// advances to the next step. Attach to a persistent GameObject (e.g. in
-/// your UI Canvas) and wire up the refs in the Inspector.
-/// </summary>
+
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
@@ -96,7 +91,7 @@ public class TutorialManager : MonoBehaviour
 
     [Tooltip("Outline material (uses the UI/SpriteOutlineExpand shader). Leave empty for scale-only pulsing.")]
     public Material pulseOutlineMaterial;
-    public float outlineMin = 4f;   // canvas units
+    public float outlineMin = 4f;  
     public float outlineMax = 8f;
 
     private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
@@ -118,13 +113,6 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log($"[TutorialManager] Awake() on '{gameObject.name}' (tutorialId='{tutorialId}'). InputBlocker assigned: {(inputBlocker != null ? inputBlocker.name : "NULL")}, forcing it inactive now.");
 
-        // Safe baseline: InputBlocker should NEVER be active just because the
-        // scene loaded - it should only ever be turned on by an actively
-        // running step (see BeginCurrentStep). This matters most when the
-        // tutorial is already completed: StartTutorial() returns immediately
-        // in that case and never gets a chance to touch InputBlocker, so
-        // without this it would stay stuck at whatever state the scene file
-        // itself was saved with.
         if (inputBlocker != null)
             inputBlocker.SetActive(false);
 
@@ -156,24 +144,19 @@ public class TutorialManager : MonoBehaviour
     public void Unregister(TutorialInteractable interactable)
     {
         if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
-        // Only remove if it's still the one currently registered under that id
-        // (avoids a late-destroying old object wiping out a newer registration).
+        
         if (registry.TryGetValue(interactable.ResolvedId, out var current) && current == interactable)
             registry.Remove(interactable.ResolvedId);
     }
 
-    /// <summary>
-    /// Call this wherever you'd normally start the tutorial (splash screen,
-    /// level load, etc). Safe to call every launch - it no-ops automatically
-    /// if the player already finished it.
-    /// </summary>
+
     public void StartTutorial()
     {
         if (steps.Count == 0) return;
         if (steps.Count == 0) return;
         if (HasCompletedTutorial()) return;
 
-        RegisterAllInteractables();   // pick up everything inside BackGroundImage now that it's active
+        RegisterAllInteractables();  
 
         tutorialActive = true;
 
@@ -185,7 +168,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()}");
     }
 
-    /// <summary>Force-start regardless of saved progress (e.g. a "Replay Tutorial" button).</summary>
+
     public void ForceRestartTutorial()
     {
         ResetProgress();
@@ -201,7 +184,7 @@ public class TutorialManager : MonoBehaviour
         return PlayerPrefs.GetInt(CompletedKey, 0) == 1;
     }
 
-    /// <summary>Clears saved progress/completion for this tutorial id.</summary>
+
     public void ResetProgress()
     {
         PlayerPrefs.DeleteKey(CompletedKey);
@@ -209,7 +192,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary>Adds id to the persisted set of every tutorialId that has ever run, if not already present.</summary>
+
     private static void RegisterKnownTutorialId(string id)
     {
         if (string.IsNullOrEmpty(id)) return;
@@ -224,18 +207,10 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Resets EVERY tutorial this game has ever run (across all scenes) back
-    /// to unseen/unstarted - the opposite of SkipTutorial(). Static, so it
-    /// can be called from anywhere (e.g. a "New Game" button on the main
-    /// menu) without needing a live TutorialManager instance for every
-    /// tutorial. Does NOT touch unrelated PlayerPrefs keys your save system
-    /// might use - only this system's own completed/progress keys.
-    /// </summary>
-    /// 
+  
     private void RegisterAllInteractables()
     {
-        // 'true' includes inactive objects (the old call skipped them)
+   
         foreach (var interactable in FindObjectsByType<TutorialInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             Register(interactable);
     }
@@ -246,7 +221,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         SaveData data = GameSession.GetOrCreateData();
-        data.MarkTutorialCompleted(tutorialId);            // in memory, so any later Save includes it
+        data.MarkTutorialCompleted(tutorialId);            
        
     }
 
@@ -275,13 +250,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"[TutorialManager] Reset {ids.Length} known tutorial(s) for a new game: {existing}");
     }
 
-    /// <summary>
-    /// Marks this tutorial as permanently completed WITHOUT stepping through
-    /// it - so StartTutorial() will no-op on every future call, even if the
-    /// player never actually finished the steps (e.g. they quit out early).
-    /// Also immediately shuts down any active tutorial UI. Call this from
-    /// wherever the player can leave/skip/quit the level (e.g. SceneChanger.QuitInGame).
-    /// </summary>
+ 
     public void SkipTutorial()
     {
         if (!tutorialActive) return;
@@ -290,7 +259,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         if (tutorialActive)
-            EndTutorial(); // also handles hiding UI, clearing pulses/blocker, etc.
+            EndTutorial(); 
 
         Debug.Log($"[TutorialManager] Tutorial '{tutorialId}' marked as skipped/completed - it will not start again.");
     }
@@ -335,7 +304,7 @@ public class TutorialManager : MonoBehaviour
 
         dialogueBox.SetPosition(step.dialoguePosition, targetRect, step.customPosition);
         dialogueBox.Show(step.npcName, step.npcPortrait);
-        ClearPulses(); // no pulsing until PlayCurrentLine decides we're actually waiting for the action
+        ClearPulses(); 
         PlayCurrentLine();
     }
 
@@ -352,7 +321,6 @@ public class TutorialManager : MonoBehaviour
             return result;
         }
 
-        // Wildcard: exempt every registered interactable that's actually draggable.
         foreach (var interactable in registry.Values)
         {
             if (interactable != null && interactable.GetComponent<TestDrag>() != null)
@@ -361,14 +329,7 @@ public class TutorialManager : MonoBehaviour
         return result;
     }
 
-    /// <summary>
-    /// Called whenever something new registers (e.g. a dynamically spawned
-    /// ingredient). If we're currently on a wildcard Drag step (dragSourceId
-    /// left blank) and already waiting for the action, this re-resolves the
-    /// source list and immediately exempts/pulses the newly spawned item -
-    /// without this, an item spawned mid-step would be invisible to the
-    /// blocker/pulse until the NEXT step began.
-    /// </summary>
+
     private void RefreshDragSourcesIfNeeded()
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
@@ -388,7 +349,6 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    // Drop zones (stove, pan, chopping board, etc.) should never pulse/scale.
     private bool IsDropZone(RectTransform rect)
     {
 
@@ -401,7 +361,18 @@ public class TutorialManager : MonoBehaviour
     private void AddPulse(RectTransform rect)
     {
         if (rect == null) return;
-        if (IsDropZone(rect)) return;
+
+
+        bool isJar = rect.GetComponent<SaltPepperJarDropZone>() != null;
+        if (!isJar && IsDropZone(rect)) return;
+
+     
+        if (isJar && rect.GetComponent<UnityEngine.UI.Image>() == null)
+        {
+            var childImage = rect.GetComponentInChildren<UnityEngine.UI.Image>(true);
+            if (childImage != null) rect = childImage.rectTransform;
+        }
+
         if (activePulses.Exists(p => p != null && p.enabled && p.transform == rect)) return;
 
         var pulse = rect.gameObject.AddComponent<TutorialPulse>();
@@ -413,8 +384,8 @@ public class TutorialManager : MonoBehaviour
     {
         foreach (var pulse in activePulses)
         {
-            if (pulse == null) continue;   // already destroyed, skip it
-            pulse.enabled = false;         // runs OnDisable now: restores scale + material
+            if (pulse == null) continue;   
+            pulse.enabled = false;         
             Destroy(pulse);
         }
         activePulses.Clear();
@@ -432,8 +403,7 @@ public class TutorialManager : MonoBehaviour
 
         ApplyInputBlocker();
 
-        // If the player is already supposed to act, pulse now.
-        // Otherwise PlayCurrentLine pulses it when the last line shows.
+  
         if (waitingForAction && pulseTargets)
             AddPulse(currentTargetRect);
     }
@@ -442,8 +412,7 @@ public class TutorialManager : MonoBehaviour
     {
         TutorialStep step = steps[stepIndex];
         bool isLastLine = lineIndex >= currentLines.Length - 1;
-        // Show the "Next" button only if this line doesn't hand off to a
-        // required game action, OR it's not yet the last line.
+    
         bool showNext = !isLastLine || step.actionType == TutorialActionType.None;
 
         dialogueBox.PlayLine(currentLines[lineIndex], showNext);
@@ -451,8 +420,6 @@ public class TutorialManager : MonoBehaviour
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
         tapCount = 0;
 
-        // Only pulse once the player actually needs to perform the action
-        // (Next button gone) - not while they're still reading buildup lines.
         if (waitingForAction && pulseTargets)
         {
             AddPulse(currentTargetRect);
@@ -472,7 +439,7 @@ public class TutorialManager : MonoBehaviour
         lastNextTime = Time.unscaledTime;
         if (waitingForAction || advanceRoutine != null) return;
 
-        lockByMistake = false;   // Oops line dismissed, unlock before the next line plays
+        lockByMistake = false;  
 
         TutorialStep step = steps[stepIndex];
         if (lineIndex < currentLines.Length - 1)
@@ -509,7 +476,7 @@ public class TutorialManager : MonoBehaviour
         HandleMistake(step);
 
         waitingForAction = false;
-        ClearPulses();   // stop pulsing while the animation plays
+        ClearPulses();  
         CancelPendingAdvance(false);
         advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
     }
@@ -573,7 +540,7 @@ public class TutorialManager : MonoBehaviour
         if (!revertOnMistake || !failedStep.revertOnMistake) return;
 
         int back = failedStep.revertSteps >= 0 ? failedStep.revertSteps : stepsToRevert;
-        if (lastEntryWasRevert) back = 0;   // already reverted once: just replay this step
+        if (lastEntryWasRevert) back = 0;  
 
         waitingForAction = false;
         pendingMistakeMessage = failedStep.mistakeMessage;

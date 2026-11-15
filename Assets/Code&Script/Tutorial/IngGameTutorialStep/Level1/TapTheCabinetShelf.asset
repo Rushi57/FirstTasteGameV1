@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: -258.69, y: 101.2}
   actionType: 1
   targetId: CabinetShelf
   dragSourceId: 

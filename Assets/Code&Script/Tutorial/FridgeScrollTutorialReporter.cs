@@ -34,7 +34,7 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
 
     private void Update()
     {
-        // Unity: verticalNormalizedPosition 1 = top, 0 = bottom
+   
         float y = scrollRect.verticalNormalizedPosition;
         float progress = targetAtBottom ? 1f - y : y;
 

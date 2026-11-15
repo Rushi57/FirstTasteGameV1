@@ -16,7 +16,7 @@ public class PourSeasoningController : MonoBehaviour
     [Tooltip("The TutorialInteractable on PourButton (id 'PourBtn').")]
     public TutorialInteractable pourTutorial;
     [Header("Panels")]
-    public GameObject seasoningPanel;   // PourSeasoningPanel
+    public GameObject seasoningPanel;  
     public GameObject pickPanel;
     public GameObject pourBoard;
     public GameObject spoonScroll;
@@ -53,12 +53,12 @@ public class PourSeasoningController : MonoBehaviour
 
     [Header("Spoon fill (TableSpoon > FillSpoonImage)")]
     public Image fillSpoonImage;
-    public Sprite soySpoonFillSprite;        // optional
-    public Sprite vinegarSpoonFillSprite;    // optional
-    public Sprite cookingOilSpoonFillSprite; // optional
+    public Sprite soySpoonFillSprite;        
+    public Sprite vinegarSpoonFillSprite;  
+    public Sprite cookingOilSpoonFillSprite;
     public Sprite achueteOilSpoonFillSprite;
-    public Sprite fishSauceSpoonFillSprite;      // optional
-    public Sprite oysterSauceSpoonFillSprite;    // optional
+    public Sprite fishSauceSpoonFillSprite;   
+    public Sprite oysterSauceSpoonFillSprite;    
 
     [Header("Stove (for frying sound)")]
     public StoveHeatController stove;
@@ -93,12 +93,12 @@ public class PourSeasoningController : MonoBehaviour
     public float nativeSizeMultiplier = 0f;
 
     [Header("Colors (particles + glass + stove animation)")]
-    public Color soyColor = new Color(0.25f, 0.12f, 0.02f, 1f);      // dark brown
-    public Color vinegarColor = new Color(0.85f, 0.85f, 0.6f, 1f);   // pale yellow
-    public Color cookingOilColor = new Color(1f, 0.85f, 0.3f, 1f);   // golden yellow
+    public Color soyColor = new Color(0.25f, 0.12f, 0.02f, 1f);     
+    public Color vinegarColor = new Color(0.85f, 0.85f, 0.6f, 1f);   
+    public Color cookingOilColor = new Color(1f, 0.85f, 0.3f, 1f);   
     public Color achueteOilColor = new Color(0.9f, 0.3f, 0.05f, 1f);
-    public Color fishSauceColor = new Color(0.65f, 0.35f, 0.1f, 1f);     // amber
-    public Color oysterSauceColor = new Color(0.15f, 0.08f, 0.03f, 1f);  // very dark brown
+    public Color fishSauceColor = new Color(0.65f, 0.35f, 0.1f, 1f);     
+    public Color oysterSauceColor = new Color(0.15f, 0.08f, 0.03f, 1f);  
 
 
     [Header("Stove-top pour animation")]
@@ -124,7 +124,7 @@ public class PourSeasoningController : MonoBehaviour
 
     private bool isAnimating;
     private float pendingMl;
-    /// <summary>seasoning, chosen ml, was it fully correct (right amount + good pour).</summary>
+  
     public event Action<SeasoningType, float, bool> OnPourConfirmed;
 
     private SeasoningType currentSeasoning;
@@ -135,7 +135,6 @@ public class PourSeasoningController : MonoBehaviour
 
 
 
-    // Set once a correct pour lands; consumed when the panel is closed
     private MeasurementSprite pendingEntry;
     private bool pendingSuccess;
     private int pendingLineIndex = -1;
@@ -242,7 +241,7 @@ public class PourSeasoningController : MonoBehaviour
         }
 
         seasoningPanel.SetActive(true);
-        pickPanel.SetActive(true);       // 1) player picks spoon or cup first
+        pickPanel.SetActive(true);     
         pourBoard.SetActive(false);
         spoonScroll.SetActive(false);
         cupScroll.SetActive(false);
@@ -255,7 +254,7 @@ public class PourSeasoningController : MonoBehaviour
         chosenTool = tool;
 
         pickPanel.SetActive(false);
-        // pourBoard stays hidden until the player actually picks a measurement
+     
         spoonScroll.SetActive(tool == MeasureTool.Spoon);
         cupScroll.SetActive(tool == MeasureTool.Cup);
 
@@ -264,13 +263,13 @@ public class PourSeasoningController : MonoBehaviour
         foreach (var b in scroll.GetComponentsInChildren<MeasurementButton>(true))
             max = Mathf.Max(max, b.Ml);
 
-        ClearSelection();                // also hides pourBoard (edit 3)
-        pourMechanic?.SetMeterMax(max);  // after ClearSelection so it isn't wiped
+        ClearSelection();              
+        pourMechanic?.SetMeterMax(max); 
 
         Debug.Log($"[Pour] Tool chosen: {tool} (meter max {max:0.##} ml)");
     }
 
-    /// <summary>Hooked to CloseBtn.</summary>
+
     public void RequestClose()
     {
         seasoningPanel.SetActive(false);
@@ -286,7 +285,7 @@ public class PourSeasoningController : MonoBehaviour
 
             if (anim != null)
             {
-                // Show the same spoon/cup the player picked in the stove-top animation
+            
                 if (pendingEntry != null)
                     anim.SetSprite(pendingEntry.animSprite != null ? pendingEntry.animSprite : pendingEntry.toolSprite);
                 anim.SetColor(tintAnimation ? color : Color.white);
@@ -301,7 +300,7 @@ public class PourSeasoningController : MonoBehaviour
                     completedLines.Add(lineIndex);
                     CookingPrepListUI.Instance?.CompleteStep(stepId);
                     if (panLiquid != null)
-                        panLiquid.FinishGradualAdd(seasoning.ToString(), ml);   // was AddLiquid
+                        panLiquid.FinishGradualAdd(seasoning.ToString(), ml); 
                     StartFryingIfOil(seasoning);
                     Debug.Log($"[Pour] '{stepId}' completed after animation.");
 
@@ -341,10 +340,10 @@ public class PourSeasoningController : MonoBehaviour
         if (cupScroll != null) cupScroll.SetActive(false);
     }
 
-    /// Hook any extra exit/X button to this.
+   
     public void CloseAll()
     {
-        if (pendingSuccess) { RequestClose(); return; }   // let the animation play
+        if (pendingSuccess) { RequestClose(); return; } 
         HidePanels();
         ClearSelection();
         pendingSuccess = false;
@@ -382,14 +381,14 @@ public class PourSeasoningController : MonoBehaviour
                     ScoreManager.Instance?.ReportMistake("Wrong Measurement!\nMinus 1 heart", 0, 1);
 
                 if (inTutorial) pourTutorial?.ReportMistake();
-                return;   // stay on Cupborder / Tsp/Tbspborder, PourImageBoarder stays hidden
+                return;  
             }
         }
 
         selected = btn;
         foreach (var b in allButtons) b.SetSelected(b == btn);
 
-        if (pourBoard != null) pourBoard.SetActive(true);   // only a correct pick reveals the board
+        if (pourBoard != null) pourBoard.SetActive(true);   
         Canvas.ForceUpdateCanvases();
 
         if (selectedLabel != null)
@@ -403,8 +402,6 @@ public class PourSeasoningController : MonoBehaviour
         Debug.Log($"[Pour] Selected {btn.Label} = {btn.Ml:0.##} ml");
     }
 
-    /// <summary>Swaps the cup/spoon sprite for the picked measurement and makes
-    /// FillSpoonImage match its size. FillSpoonImage's color is left untouched.</summary>
     private MeasurementSprite FindEntry(float ml)
     {
         foreach (var e in measurementSprites)
@@ -439,7 +436,7 @@ public class PourSeasoningController : MonoBehaviour
         {
             if (entry.fillSprite != null) fillSpoonImage.sprite = entry.fillSprite;
 
-            // Place/size the liquid circle inside the bowl of this spoon/cup.
+        
             RectTransform fr = fillSpoonImage.rectTransform;
             if (fr.parent == toolImage.rectTransform)
             {
@@ -503,14 +500,11 @@ public class PourSeasoningController : MonoBehaviour
         OnPourConfirmed?.Invoke(currentSeasoning, selected.Ml, success);
         if (!success && !amountCorrect)
         {
-            // Wrong measurement: the player has to pick a different one,
-            // so reset and reopen the picker (Cupborder / Tsp/Tbspborder).
+           
             ClearSelection();
             ShowPicker(true);
         }
-        // If the amount was right but the pour was bad (released on red),
-        // do nothing here: selection, target, zones and Tbps_Tsp_CupImage stay,
-        // and PourMechanic resets the meter when the player presses Pour again.
+      
 
         if (inTutorial)
         {
@@ -556,7 +550,7 @@ public class PourSeasoningController : MonoBehaviour
             }
             else
             {
-                if (isAchuete) continue;              // don't let CookingOil/others steal achuete lines
+                if (isAchuete) continue;          
                 if (!lower.Contains(keyword)) continue;
             }
 
@@ -600,15 +594,12 @@ public class PourSeasoningController : MonoBehaviour
         return true;
     }
 
-
-
-    /// <summary>Call on Retry / new dish, next to the other reset calls.</summary>
     public void ResetProgress()
     {
         if (isAnimating)
         {
             isAnimating = false;
-            TutorialManager.Instance?.EndBusy();   // callback will never fire after Hide()
+            TutorialManager.Instance?.EndBusy();  
         }
 
         if (panLiquid != null) panLiquid.Clear();

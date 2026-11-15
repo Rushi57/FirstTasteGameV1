@@ -10,11 +10,11 @@ public class SceneChanger : MonoBehaviour
     public TutorialInteractable tutorialTagLevelPlay;
     [Tooltip("Seconds to wait after reporting the tutorial tap before loading the next scene, so the player has time to see the tutorial react (dialogue update, pulse stopping) before the scene changes.")]
     public float tutorialTapDelay = 1.5f;
-    // Generic method to load any scene by name through the LoadingScene
+
     public void NewGame(string sceneName)
     {
         TutorialManager.ResetAllTutorials();
-        StoryTeller.ResetAllFlags();      // <-- new
+        StoryTeller.ResetAllFlags();      
         GameSession.Clear();
         LoadingManager.LoadNextScene(sceneName);
         SFXManager.Instance.Play(SFXManager.Instance.tapButtonTest);

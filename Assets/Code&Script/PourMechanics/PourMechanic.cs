@@ -4,11 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-/// <summary>
-/// Put this on PourButton. Hold to pour, release to grade.
-/// The target amount is set by PourSeasoningController from the
-/// measurement the player picked.
-/// </summary>
 public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public enum PourResult { Perfect, Good, Overflow, TooLittle }
@@ -52,11 +47,11 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private bool pourSoundPlaying;
 
 
-    private float meterMaxMl;   // biggest measurement of the chosen tool
+    private float meterMaxMl;   
     private float TopMl => (meterMaxMl > 0f ? meterMaxMl : targetMl) * meterTopMultiplyer;
     private float GreenHalfMl => Mathf.Max(targetMl * greenZoneWidth, TopMl * minZoneHalfHeight);
     private float YellowHalfMl => Mathf.Max(targetMl * yellowZoneWidth, TopMl * minZoneHalfHeight);
-    /// <summary>Raised on release: meter result and the amount poured in ml.</summary>
+
     public event Action<PourResult, float> OnPourFinished;
 
     private float targetMl;
@@ -71,7 +66,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         UpdateVisuals();
     }
 
-    /// <summary>Called when the player picks a measurement.</summary>
+
     public void SetTarget(float ml)
     {
         targetMl = ml;
@@ -106,7 +101,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             return;
         }
 
-        if (hasResult) ResetPour();   // a new attempt starts from empty
+        if (hasResult) ResetPour();  
 
         isPouring = true;
         if (pourParticles != null) pourParticles.Play();
@@ -215,7 +210,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (zone == null) return;
 
-        // X: centered with a fixed width (same as RedZone). Y: stretched between lo..hi of the meter.
+       
         zone.anchorMin = new Vector2(0.5f, Mathf.Clamp01(lo));
         zone.anchorMax = new Vector2(0.5f, Mathf.Clamp01(hi));
         zone.pivot = new Vector2(0.5f, 0.5f);
@@ -246,7 +241,7 @@ public class PourMechanic : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             pourSoundPlaying = true;
             SFXManager.Instance.StartPour();
         }
-        // Glass has fully returned to its original position: stop
+
         else if (!isPouring && pourSoundPlaying && Mathf.Approximately(glassAngle, glassIdleAngle))
         {
             pourSoundPlaying = false;

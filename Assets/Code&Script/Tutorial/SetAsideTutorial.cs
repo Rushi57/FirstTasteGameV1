@@ -2,16 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Shows the "use the bowl to set aside..." message ONCE, only when the
-/// Cooking Prep panel opens for the target recipe (Chicken Asado).
-/// The "already seen" flag is saved in PlayerPrefs, so it never shows again,
-/// even after finishing the game and replaying.
-///
-/// IMPORTANT: put this script on an object that is ALWAYS ACTIVE
-/// (e.g. the same object as CookingPrepPanelController),
-/// NOT on the SetAsideInstruction object itself (it starts inactive).
-/// </summary>
+
 public class SetAsideTutorial : MonoBehaviour
 {
     [Header("Target dish")]
@@ -44,14 +35,13 @@ public class SetAsideTutorial : MonoBehaviour
         if (continueButton != null) continueButton.onClick.RemoveListener(Hide);
     }
 
-    /// <summary>Call this when the Cooking Prep panel is shown.</summary>
     public void TryShow(RecipeData currentRecipe)
     {
         if (currentRecipe == null || targetRecipe == null) return;
-        if (currentRecipe != targetRecipe) return;   // not Chicken Asado
-        if (HasSeen()) return;                       // already shown once
+        if (currentRecipe != targetRecipe) return;   
+        if (HasSeen()) return;                     
 
-        MarkSeen();                                  // save immediately so it never repeats
+        MarkSeen();                                 
         instructionObject.SetActive(true);
 
         if (autoHideSeconds > 0f)
@@ -82,7 +72,7 @@ public class SetAsideTutorial : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary>For testing: right-click the component header > Reset Tutorial.</summary>
+
     [ContextMenu("Reset Tutorial")]
     public void ResetTutorial()
     {

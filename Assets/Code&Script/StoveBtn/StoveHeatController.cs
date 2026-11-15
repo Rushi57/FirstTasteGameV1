@@ -77,7 +77,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
             dialUI?.SetVisual(CurrentHeat);
         }
     }
-    // Dial open / close
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -118,7 +118,7 @@ public class StoveHeatController : MonoBehaviour, IPointerClickHandler
         if (dialPanel != null) dialPanel.SetActive(false);
     }
 
-    // Heat
+
 
     public void SetHeat(StoveHeat newHeat)
     {

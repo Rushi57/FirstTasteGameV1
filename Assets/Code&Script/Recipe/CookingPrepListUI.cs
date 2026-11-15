@@ -102,16 +102,15 @@ public class CookingPrepListUI : MonoBehaviour
             }
             stepNumber++;
             if (numberedSteps)
-                row.SetText(recipe.cookingInstructions[i], stepNumber);   // "1. text"
+                row.SetText(recipe.cookingInstructions[i], stepNumber); 
             else
-                row.SetText(recipe.cookingInstructions[i]);               // "� text"
+                row.SetText(recipe.cookingInstructions[i]);            
 
-            // Id is built from the ORIGINAL index, so stove order etc. stays correct.
             string id = recipe.GetStepId(i);
             Debug.Log($"[PrepList] row {i} -> id = '{id}'");
             if (!string.IsNullOrEmpty(id))
             {
-                // Repeated ids get a unique internal key so rows don't overwrite each other.
+              
                 if (!occurrences.TryGetValue(id, out var list))
                     occurrences[id] = list = new List<string>();
 
@@ -131,7 +130,6 @@ public class CookingPrepListUI : MonoBehaviour
 
     // ---------------- Step gate ----------------
 
-    /// <summary>Unique key of the first step (in list order) that isn't completed yet. Null if all done.</summary>
     private string CurrentKey
     {
         get
@@ -142,14 +140,13 @@ public class CookingPrepListUI : MonoBehaviour
         }
     }
 
-    /// <summary>Base id of the first step (in list order) that isn't completed yet. Null if all done.</summary>
     public string CurrentStepId => CurrentKey != null ? keyToBase[CurrentKey] : null;
-    /// <summary>Instruction text of the first step that isn't completed yet. Null if all done.</summary>
+
     public string CurrentStepText =>
         CurrentKey != null && keyToText.TryGetValue(CurrentKey, out var t) ? t : null;
     // ---------------- "Set aside" helpers ----------------
 
-    /// <summary>True when the current step's text contains the words "set aside".</summary>
+ 
     public bool IsSetAsideStepCurrent()
     {
         string t = CurrentStepText;
@@ -157,10 +154,7 @@ public class CookingPrepListUI : MonoBehaviour
                t.IndexOf("set aside", System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
-    /// <summary>
-    /// True when the current step's text names this ingredient. Spaces, case and
-    /// punctuation are ignored, so id "BeefTripe" matches "beef tripe".
-    /// </summary>
+
     public bool CurrentStepMentions(string ingredientId)
     {
         string t = CurrentStepText;
@@ -207,7 +201,7 @@ public class CookingPrepListUI : MonoBehaviour
 
         if (freeOrder)
         {
-            // Accept if ANY unfinished cut step belongs to this ingredient.
+     
             foreach (string key in orderedIds)
             {
                 if (completed.Contains(key)) continue;
@@ -244,11 +238,10 @@ public class CookingPrepListUI : MonoBehaviour
         Debug.Log($"[PrepList] cut event received: {(data != null ? data.id : "null")}:{state}");
         if (data == null || state == IngredientPrepState.Whole) return;
         string id = $"{data.id}:{state}";
-        if (!occurrences.ContainsKey(id)) return;   // intermediate state (e.g. Sliced on the way to Minced)
+        if (!occurrences.ContainsKey(id)) return; 
         CompleteStep(id);
     }
 
-    /// <summary>Call from ANY mechanic when it finishes.</summary>
     public void CompleteStep(string stepId)
     {
         if (!occurrences.TryGetValue(stepId, out var keys))
@@ -257,7 +250,7 @@ public class CookingPrepListUI : MonoBehaviour
             return;
         }
 
-        // First not-yet-completed occurrence of this id.
+
         string key = keys.Find(k => !completed.Contains(k));
         if (key == null)
         {
@@ -379,7 +372,7 @@ public class CookingPrepListUI : MonoBehaviour
         if (!strictOrder || string.IsNullOrEmpty(text)) return true;
 
         if (!TryGetExpectedMeasurement(text, out MeasurementOption expected))
-            return true; // current step isn't a measuring step
+            return true; 
 
         if (expected == chosen) return true;
 
@@ -391,8 +384,8 @@ public class CookingPrepListUI : MonoBehaviour
     {
         foreach (MeasurementOption o in System.Enum.GetValues(typeof(MeasurementOption)))
         {
-            string label = MeasurementTable.Label(o);   // e.g. "1/2 tsp"
-                                                        // (?<![\d/.]) stops "1 cup" matching inside "11 cup" or "1/1 cup"
+            string label = MeasurementTable.Label(o);
+                                                        
             string pattern = @"(?<![\d/.])" + Regex.Escape(label) + @"\b";
             if (Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase))
             {

@@ -51,7 +51,7 @@ public class MixingIngredientDisplay : MonoBehaviour
 
         SpawnLiquid();
 
-        // 1. Collect whatever is on the pan right now
+     
         var items = new List<Item>();
         foreach (Transform child in ingredientAnchorSource)
         {
@@ -75,10 +75,9 @@ public class MixingIngredientDisplay : MonoBehaviour
 
         if (items.Count == 0) return;
 
-        // 2. Biggest first so small ones fill the gaps
         items.Sort((a, b) => (b.size.x * b.size.y).CompareTo(a.size.x * a.size.y));
 
-        // 3. Spawn, all centered 
+     
         for (int i = 0; i < items.Count; i++)
         {
             var item = items[i];

@@ -18,8 +18,8 @@ public class StoryTeller : MonoBehaviour
     public Button tapAnywhereButton;
 
     [Header("Panels")]
-    public GameObject storyPanel;  // BackgroudStoryTelling
-    public GameObject gamePanel;   // BackGroundImage (all mini-games)
+    public GameObject storyPanel; 
+    public GameObject gamePanel;   
 
     [Header("Story")]
     public DishStorySO fallbackStory;
@@ -28,14 +28,14 @@ public class StoryTeller : MonoBehaviour
     [Header("Text fitting")]
     public float minFontSize = 42f;
     public float maxFontSize = 50f;
-    public Vector2 textBoxSize = new Vector2(701f, 165f);   // Rect W/H of the story TMP text
+    public Vector2 textBoxSize = new Vector2(701f, 165f);   
 
     [Header("Enable after story")]
     public GameObject[] enableAfterStory;
     [Header("After story")]
     public TutorialManager tutorialManager;
 
-    // One "page" = one chunk of text shown in the dialogue box
+
     class Page
     {
         public string text;
@@ -47,7 +47,7 @@ public class StoryTeller : MonoBehaviour
     DishStorySO currentStory;
     int index;
     bool isTyping;
-    bool isReplay;              // true when opened from HistoryBtn
+    bool isReplay;            
     Coroutine typingRoutine;
 
     void Awake()
@@ -95,12 +95,12 @@ public class StoryTeller : MonoBehaviour
 
         if (HasSeenStory())
         {
-            // Not first time for this dish -> go straight to gameplay
+         
             ShowGameplay(startTutorial: true);
         }
         else
         {
-            // First time for this dish -> story is mandatory
+        
             isReplay = false;
             OpenStoryPanel();
         }
@@ -111,15 +111,14 @@ public class StoryTeller : MonoBehaviour
     {
         if (currentStory == null || pages.Count == 0) return;
         isReplay = true;
-        Time.timeScale = 0f;   // pause gameplay while reading (typing uses realtime)
+        Time.timeScale = 0f;  
         OpenStoryPanel();
     }
 
-    // ---------- Seen flag (per dish) ----------
     string StoryKey()
     {
         LevelData level = LevelSelectionManager.SelectedLevel;
-        // Use a unique id. If LevelData has a levelId/dishName field, use that instead of .name
+      
         string id = level != null ? level.name : "fallback";
         return "StorySeen_" + id;
     }
@@ -145,7 +144,7 @@ public class StoryTeller : MonoBehaviour
     void OpenStoryPanel()
     {
         if (storyPanel != null) storyPanel.SetActive(true);
-        if (!isReplay && gamePanel != null) gamePanel.SetActive(false); // first time: hide games
+        if (!isReplay && gamePanel != null) gamePanel.SetActive(false); 
         ShowLine(0);
     }
 
@@ -196,7 +195,7 @@ public class StoryTeller : MonoBehaviour
         storyText.fontSizeMax = maxFontSize;
     }
 
-    // True if the text fits the box at the MINIMUM font size (so it never goes below 42)
+   
     bool Fits(string s)
     {
         float w = textBoxSize.x - storyText.margin.x - storyText.margin.z;
@@ -215,7 +214,7 @@ public class StoryTeller : MonoBehaviour
         return preferred.y <= h;
     }
 
-    // Packs as many sentences as fit the box at min size; splits by words only if one sentence is too long.
+
     List<string> Slice(string text)
     {
         var result = new List<string>();
@@ -279,7 +278,7 @@ public class StoryTeller : MonoBehaviour
         isTyping = false;
     }
 
-    // Tapping anywhere completes the current line first, then advances.
+
     void OnNext()
     {
         if (isTyping)
@@ -301,7 +300,7 @@ public class StoryTeller : MonoBehaviour
     {
         if (isReplay)
         {
-            // Just close the story and resume; no tutorial restart
+       
             isReplay = false;
             ShowGameplay(startTutorial: false);
             return;
@@ -331,7 +330,6 @@ public class StoryTeller : MonoBehaviour
             foreach (string key in index.Split('|'))
                 PlayerPrefs.DeleteKey(key);
 
-        // Safety net for flags saved before the index existed
         for (int i = 1; i <= 10; i++)
         {
             PlayerPrefs.DeleteKey("StorySeen_Level" + i);

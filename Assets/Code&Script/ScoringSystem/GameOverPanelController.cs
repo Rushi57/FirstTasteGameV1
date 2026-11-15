@@ -20,7 +20,7 @@ public class GameOverPanelController : MonoBehaviour
             tapAnywhereButton.onClick.AddListener(ShowBorder);
     }
 
-    // Runs every time ScoreManager calls gameOverPanel.SetActive(true)
+
     private void OnEnable()
     {
         borderShown = false;
@@ -35,7 +35,6 @@ public class GameOverPanelController : MonoBehaviour
     {
         if (borderShown) return;
 
-        // unscaledDeltaTime so it still works if Time.timeScale = 0 on game over
         idleTimer += Time.unscaledDeltaTime;
         if (idleTimer >= idleSeconds)
             ShowBorder();
@@ -49,7 +48,6 @@ public class GameOverPanelController : MonoBehaviour
         if (gameOverBorder != null) gameOverBorder.SetActive(true);
         if (messageObject != null) messageObject.SetActive(false);
 
-        // Turn off the full-screen tap button so it doesn't block Replay/Quit
         if (tapAnywhereButton != null) tapAnywhereButton.gameObject.SetActive(false);
     }
 

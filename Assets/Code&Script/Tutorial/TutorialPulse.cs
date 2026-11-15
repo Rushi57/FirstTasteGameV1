@@ -25,9 +25,6 @@ public class TutorialPulse : MonoBehaviour
         rt = transform as RectTransform;
     }
 
-
-
-    /// <summary>Called by TutorialManager right after AddComponent.</summary>
     public void SetOutline(Material source, float min, float max)
     {
         if (img == null) img = GetComponent<Image>();
@@ -59,8 +56,7 @@ public class TutorialPulse : MonoBehaviour
     {
         float t = (Mathf.Sin(Time.unscaledTime * speed) + 1f) * 0.5f;
 
-        // Remove last frame's factor, apply this frame's. Works even if the
-        // object was reparented (and its local scale changed) in between.
+
         float factor = Mathf.Lerp(minScale, maxScale, t);
         transform.localScale = transform.localScale / appliedFactor * factor;
         appliedFactor = factor;

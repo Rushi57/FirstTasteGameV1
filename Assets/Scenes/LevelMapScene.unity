@@ -1130,7 +1130,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 581.37, y: 150.93}
+  m_SizeDelta: {x: 430.58, y: 114.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61034940
 MonoBehaviour:
@@ -13726,6 +13726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPanel: {fileID: 2036536619}
+  tutorialInteractable: {fileID: 1196904760}
 --- !u!1 &561837936
 GameObject:
   m_ObjectHideFlags: 0
@@ -20289,6 +20290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPanel: {fileID: 2058872718}
+  tutorialInteractable: {fileID: 727404638}
 --- !u!1 &861685385
 GameObject:
   m_ObjectHideFlags: 0
@@ -26563,8 +26565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 61.65, y: 174.83002}
-  m_SizeDelta: {x: 723.29, y: 269.67}
+  m_AnchoredPosition: {x: -27.25, y: 201.78003}
+  m_SizeDelta: {x: 545.5, y: 215.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909886214
 MonoBehaviour:
@@ -28037,7 +28039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &968514306
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29178,6 +29180,7 @@ GameObject:
   - component: {fileID: 1029109665}
   - component: {fileID: 1029109664}
   - component: {fileID: 1029109666}
+  - component: {fileID: 1029109667}
   m_Layer: 5
   m_Name: Boil/SimmerPanel
   m_TagString: Untagged
@@ -29270,6 +29273,21 @@ MonoBehaviour:
   requireWholeHead: 1
   greenFill: 0.12
   yellowFill: 0.25
+--- !u!114 &1029109667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029109662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2e0ca79a761774290759aa9218550c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StopButtonGate
+  game: {fileID: 1029109666}
+  stopButton: {fileID: 1059088775}
+  tutorialTarget: {fileID: 1059088778}
 --- !u!1 &1029866639
 GameObject:
   m_ObjectHideFlags: 0
@@ -52206,6 +52224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPanel: {fileID: 367667784}
+  tutorialInteractable: {fileID: 0}
 --- !u!1 &1883766950
 GameObject:
   m_ObjectHideFlags: 0
@@ -57197,7 +57216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 326.54, y: 163.8}
+  m_AnchoredPosition: {x: 326.54004, y: 163.79999}
   m_SizeDelta: {x: 621.72, y: 245.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2064775162

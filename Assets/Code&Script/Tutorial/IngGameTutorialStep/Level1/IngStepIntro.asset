@@ -16,9 +16,11 @@ MonoBehaviour:
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
   - Welcome to the kitchen!
-  - Always check the Recipe Checklist on the right side of the screen for your steps
+  - 'Always check the Recipe Checklist, '
+  - on the right side of the screen for your steps
   - See the hearts at the top?
-  - "you have 5 lives. Make too many mistakes, and it\u2019s game over!"
+  - 'you have 5 lives. '
+  - "Make too many mistakes, and it\u2019s game over!"
   advanceDelay: 0
   revertSteps: -1
   dialoguePosition: 1

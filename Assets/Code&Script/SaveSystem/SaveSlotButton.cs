@@ -4,12 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Put this on each LoadButton / LoadButton (1) ... in the ScrollSave Content.
 [RequireComponent(typeof(Button))]
 public class SaveSlotButton : MonoBehaviour
 {
-    [SerializeField] private TMP_Text label; // auto-found if left empty
-    [SerializeField] private int totalLevels = 10; // how many level icons you have
+    [SerializeField] private TMP_Text label;
+    [SerializeField] private int totalLevels = 10; 
 
     private int slotIndex;
 
@@ -36,7 +35,7 @@ public class SaveSlotButton : MonoBehaviour
             return;
         }
 
-        // Count each level that has a saved result (distinct, so a level is never counted twice)
+       
         int unlocked = d.levelScores.Select(e => e.levelNumber).Distinct().Count();
         unlocked = Mathf.Clamp(unlocked, 0, totalLevels);
 
