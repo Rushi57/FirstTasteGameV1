@@ -35272,6 +35272,10 @@ MonoBehaviour:
     fillDelay: 0.6
     fillDuration: 1.5
   oilId: CookingOil
+  boilingLiquidIds:
+  - Water
+  - ChickenBroth
+  - BeefBroth
   misdropMessage: 'Wrong step!
 
     Follow the Cooking Prep list.'
@@ -35501,7 +35505,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 820b55705527f874ca2af0b7eb2b19a3, type: 2}
   - {fileID: 11400000, guid: d6ade18f3f5314943b312f9e29d85d3f, type: 2}
   - {fileID: 11400000, guid: b7ed53bb6bbe4d9439a55ae1925aebb4, type: 2}
-  - {fileID: 11400000, guid: 93f60faf9e4f16341ac2a131f16378f3, type: 2}
   - {fileID: 11400000, guid: e9f3b8648723e0344a43f70b8a4b85a7, type: 2}
   - {fileID: 11400000, guid: e4f69745f18f77243a4af98aa9916318, type: 2}
   - {fileID: 11400000, guid: d5828d584d653684cbdf95766ce946e6, type: 2}
@@ -35510,18 +35513,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b533141ded741764fb43c43ab1a500e2, type: 2}
   - {fileID: 11400000, guid: d6ade18f3f5314943b312f9e29d85d3f, type: 2}
   - {fileID: 11400000, guid: b7ed53bb6bbe4d9439a55ae1925aebb4, type: 2}
-  - {fileID: 11400000, guid: 93f60faf9e4f16341ac2a131f16378f3, type: 2}
   - {fileID: 11400000, guid: 0a55f5d3c61c03b46858443a6afad276, type: 2}
   - {fileID: 11400000, guid: d5828d584d653684cbdf95766ce946e6, type: 2}
   - {fileID: 11400000, guid: fb6c0752ae287a84981bbc4f93b3bae7, type: 2}
   - {fileID: 11400000, guid: bdea5cc1adb88ed4bbb8dde62b66007c, type: 2}
   - {fileID: 11400000, guid: d499a9671af15c44f979ae6e6b16bcd6, type: 2}
   - {fileID: 11400000, guid: 7a8ea1511595446428d2b64910e42ef9, type: 2}
+  - {fileID: 11400000, guid: d5828d584d653684cbdf95766ce946e6, type: 2}
   - {fileID: 11400000, guid: 947a87edf55b24d4085556ef424f8bef, type: 2}
   - {fileID: 11400000, guid: bdea5cc1adb88ed4bbb8dde62b66007c, type: 2}
   - {fileID: 11400000, guid: d488515f5f3912746a5e867b2ae96446, type: 2}
   - {fileID: 11400000, guid: 7a8ea1511595446428d2b64910e42ef9, type: 2}
-  - {fileID: 11400000, guid: 93f60faf9e4f16341ac2a131f16378f3, type: 2}
   - {fileID: 11400000, guid: da85a54acc7a972479b0096104a0e321, type: 2}
   - {fileID: 11400000, guid: a32a3599d2600b74e94e9e80a43279b5, type: 2}
   - {fileID: 11400000, guid: 85826ce1265a27043a98c2a351829289, type: 2}
@@ -35539,7 +35541,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdea5cc1adb88ed4bbb8dde62b66007c, type: 2}
   - {fileID: 11400000, guid: 4dd4db23cc178a54280dad4e6937d275, type: 2}
   - {fileID: 11400000, guid: 7a8ea1511595446428d2b64910e42ef9, type: 2}
-  - {fileID: 11400000, guid: 93f60faf9e4f16341ac2a131f16378f3, type: 2}
   - {fileID: 11400000, guid: 85826ce1265a27043a98c2a351829289, type: 2}
   - {fileID: 11400000, guid: ec4d88971ac17d5419f3a3669597329d, type: 2}
   - {fileID: 11400000, guid: 40a9f5e61796ff04dacaaae6905e4316, type: 2}

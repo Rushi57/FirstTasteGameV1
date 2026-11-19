@@ -87,6 +87,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Tooltip("The ingredient id of the cooking oil (must match IngredientData.id).")]
     public string oilId = "CookingOil";
 
+    [Tooltip("Ingredient ids that make the pan play the BOILING sound (Water, ChickenBroth, BeefBroth, etc). Must match IngredientData.id.")]
+    public List<string> boilingLiquidIds = new List<string> { "Water", "ChickenBroth", "BeefBroth" };
+
     [Header("Wrong drop (no penalty)")]
     public string misdropMessage = "Wrong step!\nFollow the Cooking Prep list.";
 
@@ -314,9 +317,19 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
 
-            if (data.id == "Water") liquidSound = PanSound.Boiling;
-            else if (data.id == oilId) liquidSound = PanSound.Frying;
-            else hasIngredient = true;
+            if (IsBoilingLiquid(data.id))
+            {
+                liquidSound = PanSound.Boiling;
+                hasIngredient = true;   
+            }
+            else if (data.id == oilId)
+            {
+                liquidSound = PanSound.Frying;
+            }
+            else
+            {
+                hasIngredient = true;
+            }
 
             UpdatePanSound();
 
@@ -381,5 +394,13 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (clip == null) return;
 
         sfx.PlayLoop(clip);
+    }
+    private bool IsBoilingLiquid(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return false;
+
+        if (boilingLiquidIds != null && boilingLiquidIds.Contains(id)) return true;
+
+        return id.IndexOf("Broth", System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 }
