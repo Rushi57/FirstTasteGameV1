@@ -48,7 +48,6 @@ public class SaltPepperSpoonItem : MonoBehaviour
     public float TspValue => SpoonMeasurementTable.TspValue(measurement);
     public string Label => SpoonMeasurementTable.Label(measurement);
 
-    /// <summary>The spoon's home slot (its Container), cached before any dragging can move it.</summary>
     public RectTransform HomeParent { get; private set; }
 
     private void Awake()

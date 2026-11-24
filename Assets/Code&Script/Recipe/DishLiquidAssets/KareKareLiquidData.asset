@@ -24,7 +24,7 @@ MonoBehaviour:
     opacity: 0.45
   - id: AchueteOil
     color: {r: 0.8392157, g: 0.2901961, b: 0.08235294, a: 0}
-    strength: 0.3
+    strength: 1.5
     opacity: 0.8
   - id: PeanutButter
     color: {r: 0.7764706, g: 0.54901963, b: 0.2627451, a: 0}
@@ -35,6 +35,10 @@ MonoBehaviour:
     strength: 0
     opacity: 1
   - id: Water
-    color: {r: 1, g: 1, b: 1, a: 0}
-    strength: 6.07
-    opacity: 0.507
+    color: {r: 0.91764706, g: 0.9490196, b: 0.9607843, a: 0}
+    strength: 0.3
+    opacity: 0.3
+  - id: CookingOil
+    color: {r: 1, g: 0.8235294, b: 0.24705882, a: 0}
+    strength: 0.3
+    opacity: 0.4

@@ -16,11 +16,11 @@ MonoBehaviour:
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
   - Rotate the spatula depending on the direction of the arrow to stir!
-  - ' Keep your stirring speed steady to keep the vertical gauge inside the Green zone.'
+  - Keep your stirring and keep the vertical gauge inside the Green zone.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: -273.7, y: 74}
+  customPosition: {x: 405.3, y: 510}
   actionType: 4
   targetId: MiniGameSpatula
   dragSourceId: 

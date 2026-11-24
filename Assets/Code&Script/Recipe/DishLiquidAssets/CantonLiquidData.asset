@@ -20,7 +20,7 @@ MonoBehaviour:
   liquids:
   - id: CookingOil
     color: {r: 1, g: 0.8235294, b: 0.24705882, a: 0}
-    strength: 0.3
+    strength: 0.4
     opacity: 0.4
   - id: BrothChicken
     color: {r: 0.8509804, g: 0.7176471, b: 0.47843137, a: 0}

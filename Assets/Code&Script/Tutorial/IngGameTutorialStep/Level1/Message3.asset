@@ -21,7 +21,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: 386.3, y: 499.8}
   actionType: 0
   targetId: 
   dragSourceId: 

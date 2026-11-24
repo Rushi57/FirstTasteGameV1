@@ -2,16 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// Put on BowlDropZone. Accepts any IngredientData (up to maxItems) and arranges
-/// them inside the bowl:
-///   1 item  -> center
-///   2 items -> first slides to the right, second goes on the left
-///   3 items -> right, left, top-center
-///   4 items -> right, left, top-right, top-left
-/// Each drop is validated against the Cooking Prep list (strict order),
-/// and ticks the step when it is correct.
-/// </summary>
 public class SetAsideBowlZone : MonoBehaviour, IDropHandler
 {
     [Header("Placement")]
@@ -29,9 +19,9 @@ public class SetAsideBowlZone : MonoBehaviour, IDropHandler
     public float scaleSpeed = 14f;
 
     [Header("Layout (in anchor local units)")]
-    public float sideOffsetX = 35f;   // left/right distance from center
-    public float topOffsetY = 18f;    // raised row for the 3rd/4th item
-    public float moveSpeed = 14f;     // slide speed when re-arranging
+    public float sideOffsetX = 35f;  
+    public float topOffsetY = 18f;    
+    public float moveSpeed = 14f;    
 
     [Header("Step matching")]
     [Tooltip("Step id = prefix + IngredientData.id. Check the console line " +
@@ -80,21 +70,21 @@ public class SetAsideBowlZone : MonoBehaviour, IDropHandler
         if (items.Count >= maxItems)
         {
             ScoreManager.Instance?.ReportMistake(bowlFullMessage);
-            return;   // TestDrag sends it back to where it came from
+            return;   
         }
 
-        // Cooking Prep gate: wrong item / wrong order is rejected here (and costs a heart)
+       
         string stepId = stepIdPrefix + data.id;
         var prep = CookingPrepListUI.Instance;
         if (prep != null && !prep.TryAccept(stepId)) return;
 
-        // Accept
+      
         RectTransform rt = (RectTransform)dropped.transform;
         var entry = new Entry { rt = rt, data = data, originalScale = rt.localScale };
 
-        drag.SnapTo(Anchor);                 // lands in the center...
+        drag.SnapTo(Anchor);             
         
-        items.Add(entry);                    // ...then slides to its slot in LateUpdate
+        items.Add(entry);                 
 
         prep?.CompleteStep(stepId);
         OnIngredientAdded?.Invoke(data);
@@ -104,7 +94,7 @@ public class SetAsideBowlZone : MonoBehaviour, IDropHandler
 
     private void LateUpdate()
     {
-        // Drop anything the player dragged back out of the bowl
+      
         for (int i = items.Count - 1; i >= 0; i--)
         {
             Entry e = items[i];
@@ -136,7 +126,7 @@ public class SetAsideBowlZone : MonoBehaviour, IDropHandler
         switch (count)
         {
             case 1:
-                return Vector2.zero;                                  // center
+                return Vector2.zero;                             
             case 2:
                 return index == 0 ? new Vector2(x, 0) : new Vector2(-x, 0);
             case 3:
@@ -151,7 +141,7 @@ public class SetAsideBowlZone : MonoBehaviour, IDropHandler
         }
     }
 
-    /// <summary>Call when a recipe resets / restarts.</summary>
+
     public void ClearAll()
     {
         foreach (var e in items)

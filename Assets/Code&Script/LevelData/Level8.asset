@@ -21,14 +21,14 @@ MonoBehaviour:
   faqDishImage: {fileID: -5301141561006818690, guid: 020008d08eaed8a45af6c282c0f2afdb, type: 3}
   faqEntries:
   - type: 1
-    text: Do you know why Filipinos serve pancit canton on birthdays?
+    text: Did you know why Filipinos serve pancit canton on birthdays?
     answer: In Chinese tradition, long noodles symbolize long life. Filipinos adopted the custom fully, serving pancit at birthdays and anniversaries so that the person being celebrated may enjoy many more years to come.
   - type: 1
-    text: "Do you know what is the word \u201Ccanton\u201D refers to"
+    text: "Did you know what is the word \u201Ccanton\u201D refers to"
     answer: "The word \u201Ccanton\u201D refers to Guangzhou, the historic port city of southern China. The \u201Ccanton noodle\u201D took its name from the city, and when it arrived in Philippine panciterias, it brought along the Cantonese stir-fry technique that still defines the dish today. "
   - type: 1
-    text: Do you know why calamansi served at the table rather than mixed in?
+    text: Did you know why calamansi served at the table rather than mixed in?
     answer: 'Calamansi is added at the table so each eater can balance their own plate. This is a specifically Filipino practice that reflects our acid-cookery sensibility, visible also in adobo, kinilaw, sisig, and goto. The individual eater, not the cook, finishes the dish. '
   - type: 1
-    text: Do you know why the noodles shoud never be cut?
+    text: Did you know why the noodles shoud never be cut?
     answer: Cutting the noodles is believed to shorten the life of the person being celebrated. Many Filipino families still observe this old rule, letting diners twirl their long noodles rather than chop them.

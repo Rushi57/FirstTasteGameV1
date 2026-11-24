@@ -2,17 +2,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// Attach to LoadGameBtn in MainMenu.
+
 [RequireComponent(typeof(Button))]
 public class LoadGameButton : MonoBehaviour
 {
     [SerializeField] private string mapSceneName = "MapScene";
 
     [Header("Load Panel")]
-    [SerializeField] private GameObject noSavePanel;      // LoadGameMainMenuPanel
-    [SerializeField] private Animator noSaveAnimator;     // Animator on LoadMainMenuBorder
-    [SerializeField] private GameObject noSaveText;       // Text (TMP) "No Save Data!"
-    [SerializeField] private GameObject slotList;         // ScrollSave
+    [SerializeField] private GameObject noSavePanel;
+    [SerializeField] private Animator noSaveAnimator;
+    [SerializeField] private GameObject noSaveText;
+    [SerializeField] private GameObject slotList;
     [SerializeField] private string openTrigger = "MainMenuAnimOpen";
     [SerializeField] private string closeTrigger = "MainMenuAnimClose";
 
@@ -25,12 +25,10 @@ public class LoadGameButton : MonoBehaviour
             slots[i].Setup(i, OnSlotClicked);
     }
 
-    // Wire to LoadGameBtn's OnClick()
     public void OnLoadClicked()
     {
         bool anySave = SaveSystem.AnySaveExists();
 
-        // No saves at all -> only the "No Save Data!" text. Otherwise -> the slot list.
         noSaveText.SetActive(!anySave);
         slotList.SetActive(anySave);
         if (anySave) foreach (var s in slots) s.Refresh();
@@ -46,7 +44,7 @@ public class LoadGameButton : MonoBehaviour
     private void OnSlotClicked(int slot)
     {
         SaveData data = SaveSystem.Load(slot);
-        if (data == null) return; // empty slot: nothing to load
+        if (data == null) return;
 
         GameSession.Data = data;
         GameSession.CurrentSlot = slot;
@@ -54,7 +52,6 @@ public class LoadGameButton : MonoBehaviour
         LoadingManager.LoadNextScene(mapSceneName);
     }
 
-    // Wire to CloseBtn's OnClick()
     public void OnCloseClicked()
     {
         if (noSaveAnimator != null)

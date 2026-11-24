@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CookingPrepStepRowUI : MonoBehaviour
 {
@@ -12,8 +13,12 @@ public class CookingPrepStepRowUI : MonoBehaviour
     [Tooltip("The green check object (CheckImage) inside the CheckBox. Shown only when the step is done.")]
     public GameObject checkMark;
 
-    [Tooltip("Prefix shown before each step's text, e.g. a bullet character.")]
+    [Header("Prefix")]
+    [Tooltip("Used when the row is NOT numbered (e.g. the Ingredient Cut list).")]
     public string bulletPrefix = "• ";
+
+    [Tooltip("Format for numbered rows. {0} = the step number.")]
+    public string numberFormat = "{0}. ";
 
     [Header("Completed Look")]
     public Color completedBackground = new Color(0.45f, 0.45f, 0.45f, 1f);
@@ -24,6 +29,7 @@ public class CookingPrepStepRowUI : MonoBehaviour
     private Color originalTextColor;
     private bool originalsCached;
 
+  
     private void Awake()
     {
         CacheOriginals();
@@ -43,6 +49,13 @@ public class CookingPrepStepRowUI : MonoBehaviour
     {
         if (label != null)
             label.text = bulletPrefix + instruction;
+    }
+
+
+    public void SetText(string instruction, int stepNumber)
+    {
+        if (label != null)
+            label.text = string.Format(numberFormat, stepNumber) + instruction;
     }
 
     public void SetCompleted(bool done)

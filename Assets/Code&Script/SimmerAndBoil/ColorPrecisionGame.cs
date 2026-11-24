@@ -13,8 +13,9 @@ public class ColorPrecisionGame : MonoBehaviour
 
     [Header("Settings")]
     public float rotateSpeed = 200f;
+    public float countSoundDelay = 1f;
     public float headstartDelay = 2f;
-    public float retryDelay = 1.5f; // how long "BAD!" is shown before restarting
+    public float retryDelay = 1.5f; 
 
     [Header("Hit Detection")]
     [Tooltip("Half the arrow head's width, in degrees. 0 = only the tip line counts.")]
@@ -23,19 +24,22 @@ public class ColorPrecisionGame : MonoBehaviour
     public bool requireWholeHead = true;
 
     [Header("Zone Sizes (fraction of the circle)")]
-    [Range(0.02f, 0.5f)] public float greenFill = 0.12f;   // 0.12 = 43°
-    [Range(0.02f, 0.6f)] public float yellowFill = 0.25f;  // 0.25 = 90°
+    [Range(0.02f, 0.5f)] public float greenFill = 0.12f;   
+    [Range(0.02f, 0.6f)] public float yellowFill = 0.25f; 
 
     private bool isSpinning = false;
     private bool canStop = false;
     private Coroutine activeRoutine;
     public event System.Action OnSucceeded;
+    public event System.Action OnRoundStarting;
+    public event System.Action OnHandReleased;
+    public event System.Action OnHandStopped;
+    public bool CanStop => canStop;
     private void OnEnable()
     {
         StartRound();
     }
 
-    // Single entry point so routines never overlap
     private void StartRound()
     {
         if (activeRoutine != null) StopCoroutine(activeRoutine);
@@ -56,8 +60,11 @@ public class ColorPrecisionGame : MonoBehaviour
 
         if (resultText != null) resultText.text = "GET READY!";
 
-        yield return new WaitForSeconds(headstartDelay);
+        yield return new WaitForSeconds(countSoundDelay);     
 
+        SFXManager.Instance?.PlayCountHandStart();           
+
+        yield return new WaitForSeconds(headstartDelay);      
         if (resultText != null) resultText.text = "GO!";
 
         isSpinning = true;
@@ -69,12 +76,11 @@ public class ColorPrecisionGame : MonoBehaviour
 
     private IEnumerator RetryAfterBad(string message)
     {
-        // Input stays locked (canStop is already false)
+
         if (resultText != null) resultText.text = message;
 
         yield return new WaitForSeconds(retryDelay);
 
-        // Restart the whole mechanic (re-randomizes slices + headstart)
         activeRoutine = null;
         StartRound();
     }
@@ -94,6 +100,7 @@ public class ColorPrecisionGame : MonoBehaviour
         canStop = false;
         isSpinning = false;
         SFXManager.Instance?.StopClock();
+        OnHandStopped?.Invoke();
 
         float angle = hand.localEulerAngles.z;
         if (angle < 0) angle += 360;
@@ -144,7 +151,7 @@ public class ColorPrecisionGame : MonoBehaviour
     {
         if (IsTutorialActive())
         {
-            // Tutorial: no deduction, just try again
+         
             TutorialManager.Instance.ReportMistake();
             
 
@@ -154,17 +161,13 @@ public class ColorPrecisionGame : MonoBehaviour
         }
         else
         {
-            // Normal play: deduct points + heart, then retry
+    
             ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
-
-            // If the heart loss ended the game and this object was
-            // disabled, the coroutine below simply won't run.
             if (gameObject.activeInHierarchy)
                 activeRoutine = StartCoroutine(RetryAfterBad("BAD!"));
         }
     }
 
-    // TODO: connect this to your real tutorial system
     private bool IsTutorialActive()
     {
         return TutorialManager.Instance != null && TutorialManager.Instance.IsActive;

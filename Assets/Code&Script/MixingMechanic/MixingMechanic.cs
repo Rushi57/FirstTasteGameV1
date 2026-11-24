@@ -84,7 +84,6 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     [Tooltip("If assigned, the tutorial is told when the mix timer fills up.")]
     public TutorialInteractable tutorialInteractable;
 
-    /// <summary>Raised once the timer runs out and a result has been decided.</summary>
     public event Action<MixResult> OnMixFinished;
     public event Action OnMixStarted;
     public bool IsMixing => mixingActive;
@@ -101,7 +100,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private float lastDragTime;
     private Image spatulaImage;
     private Color spatulaOriginalColor;
-    private float directionSign; // smoothed -1..1 (raw, before invertDirection is applied)
+    private float directionSign; 
 
     private float targetAngle;
     private float visualAngle;
@@ -122,10 +121,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         PickNextDirection();
     }
 
-    /// <summary>Call before the player grabs the spatula: sets this round's required direction/speed and moves the pivot.</summary>
+
     public void ConfigureChallenge(MixDirection direction, float targetIdealSpeed)
     {
-        // If nobody asked for a specific direction, alternate CW / CCW every round
+ 
         if (direction == MixDirection.Any)
         {
             direction = lastPickedDirection == MixDirection.Clockwise
@@ -142,9 +141,6 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         Debug.Log($"[Mixing] Challenge configured: direction={direction}, idealSpeed={targetIdealSpeed}");
     }
-
-    /// <summary>Moves the pivot (and therefore the spatula, which orbits it) to a new spot.</summary>
-   
 
     public void BeginMixing()
     {
@@ -183,7 +179,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     private void OnDisable()
     {
-        SFXManager.Instance?.StopStir();    // <-- add
+        SFXManager.Instance?.StopStir(); 
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -200,8 +196,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         SFXManager.Instance?.StartStir();
         lastAngle = GetAngleFromPivot(eventData);
         lastDragTime = Time.time;
-        directionSign = 0f; // fresh read each grab
-
+        directionSign = 0f; 
         if (spatula != null)
             orbitRadius = orbitRadiusOverride > 0f ? orbitRadiusOverride : spatula.anchoredPosition.magnitude;
 
@@ -268,7 +263,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         float sign = invertDirection ? -directionSign : directionSign;
 
         if (requiredDirection == MixDirection.Clockwise) return sign < -directionConfidence;
-        return sign > directionConfidence; // CounterClockwise
+        return sign > directionConfidence;
     }
 
     private void UpdateIndicator()
@@ -279,28 +274,28 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         {
             if (!IsDirectionOk())
             {
-                // Wrong direction - push up toward the bad end
+              
                 targetVelocity = -driftSpeed * wrongDirectionMultiplier;
             }
             else
             {
-                float speedError = currentAngularSpeed - idealSpeed; // + too fast, - too slow
+                float speedError = currentAngularSpeed - idealSpeed;
 
                 if (Mathf.Abs(speedError) <= greenTolerance)
                 {
-                    // Correct speed - ease back toward center
+         
                     targetVelocity = Mathf.Abs(indicatorY) < 1f ? 0f : -Mathf.Sign(indicatorY) * driftSpeed;
                 }
                 else
                 {
-                    // Too fast pushes up, too slow pushes down
+                
                     targetVelocity = Mathf.Sign(speedError) * driftSpeed;
                 }
             }
         }
         else
         {
-            // Not rotating = too slow, drift to the bottom
+      
             targetVelocity = -driftSpeed;
         }
 
@@ -331,8 +326,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         if (timerText != null)
         {
             float remaining = Mathf.Max(0f, mixDuration - elapsedTime);
-            timerText.text = Mathf.CeilToInt(remaining).ToString();   // e.g. "8", "7", ... "0"
-                                                                      // For a decimal countdown instead: remaining.ToString("0.0") + "s"
+            timerText.text = Mathf.CeilToInt(remaining).ToString();  
         }
     }
 
@@ -353,7 +347,7 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             p.y = 0f;
             indicator.anchoredPosition = p;
         }
-        //UpdateTimerVisual();
+      
 
         if (spatulaImage != null)
         {
@@ -422,9 +416,9 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         {
             bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
             if (inTutorial && result == MixResult.Bad)
-                tutorialInteractable.ReportMistake();        // red = mistake, revert
+                tutorialInteractable.ReportMistake();       
             else
-                tutorialInteractable.ReportTimerComplete();  // green/yellow = advance
+                tutorialInteractable.ReportTimerComplete(); 
         }
     }
 
@@ -445,11 +439,10 @@ public class MixingMechanic : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         float lo = Mathf.Min(minMixDuration, maxMixDuration);
         float hi = Mathf.Max(minMixDuration, maxMixDuration);
 
-        // Whole seconds so the countdown text looks clean (8, 9, 10, 11 or 12).
         mixDuration = UnityEngine.Random.Range(Mathf.CeilToInt(lo), Mathf.FloorToInt(hi) + 1);
 
 
-        UpdateTimerVisual();   // so the text shows the new starting number right away
+        UpdateTimerVisual();
     }
 
     private void OnEnable()

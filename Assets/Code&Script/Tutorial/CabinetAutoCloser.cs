@@ -24,7 +24,7 @@ public class CabinetAutoCloser : MonoBehaviour
     private void OnStepCompleted(string stepId)
     {
         if (!closeOnAnyStep && System.Array.IndexOf(closeOnStepIds, stepId) < 0) return;
-        Close();   // only one close, no extra coroutine here
+        Close();  
     }
 
     public void Close()
@@ -41,9 +41,9 @@ public class CabinetAutoCloser : MonoBehaviour
         if (cabinetMain != null)
         {
             if (PanelExclusivityManager.Instance != null)
-                PanelExclusivityManager.Instance.Close(cabinetMain);  // clears currentOpen + SetActive(false)
+                PanelExclusivityManager.Instance.Close(cabinetMain);
             else
-                cabinetMain.SetActive(false);                         // fallback if no manager in scene
+                cabinetMain.SetActive(false);                   
         }
 
         closeRoutine = null;

@@ -1,21 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Put on each LevelIcon in the map scene. Shows a check marker
-/// when the level has been finished with enough stars.
-/// </summary>
 public class LevelIconCompletionMarker : MonoBehaviour
 {
     [Header("Which level this icon represents")]
     public LevelData level;
 
     [Header("Option A: swap the icon's sprite")]
-    public Image iconImage;          // the Image showing the "?" icon
-    public Sprite completedSprite;   // drag "check marker" here
+    public Image iconImage;        
+    public Sprite completedSprite;   
 
     [Header("Option B: show an overlay instead (optional)")]
-    public GameObject checkOverlay;  // a child object with the check image
+    public GameObject checkOverlay;  
 
     [Header("Rules")]
     public int minStarsToComplete = 2;

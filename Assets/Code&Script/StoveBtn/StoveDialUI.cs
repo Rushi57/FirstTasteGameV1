@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// Put this on DialImage (the rotating knob). Drag to rotate, snaps to Off/Low/Medium/High.
+
 [RequireComponent(typeof(RectTransform))]
 public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -13,7 +13,7 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private RectTransform knob;
     private Canvas canvas;
-    private float currentAngle;   // clockwise from top, 0-360
+    private float currentAngle;   
 
     private float lastRawAngle;
 
@@ -40,7 +40,7 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         interactables = GetComponents<TutorialInteractable>();
     }
 
-    /// Called by the stove so the knob matches the current heat.
+ 
     public void SetVisual(StoveHeat heat)
     {
         if (knob == null) knob = (RectTransform)transform;
@@ -64,16 +64,15 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         int step = Mathf.Clamp(Mathf.RoundToInt(currentAngle / 90f), 0, 3);
         StoveHeat heat = (StoveHeat)step;
 
-        // Heat step already completed: reject any change, snap back, cost a heart.
         if (stove != null && stove.IsHeatLocked && heat != stove.CurrentHeat)
         {
             bool inTutorial = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
             if (!inTutorial)
                 ScoreManager.Instance?.ReportMistake("Don't change the heat!\nMinus 1 heart");
             Debug.Log($"Released -> {heat}, locked={stove?.IsHeatLocked}, current={stove?.CurrentHeat}");
-            SetVisual(stove.CurrentHeat);   // knob back to the real heat
+            SetVisual(stove.CurrentHeat);   
             lastRawAngle = currentAngle;
-            return;                         // SetHeat is never called
+            return;                         
         }
 
         currentAngle = step * 90f;
@@ -85,9 +84,10 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (stove != null) stove.SetHeat(heat);
 
         bool tutorialRunning = TutorialManager.Instance != null && TutorialManager.Instance.IsActive;
-        if (tutorialRunning && heat != previous)
+        if (tutorialRunning && heat != StoveHeat.Off)
         {
-            if (ReportToTutorial(heat))
+           
+            if (ReportToTutorial(heat, mistakeIfNoMatch: heat != previous))
                 stove?.CloseDial();
         }
     }
@@ -101,16 +101,16 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         Vector2 center = RectTransformUtility.WorldToScreenPoint(cam, knob.position);
         Vector2 dir = e.position - center;
-        if (dir.sqrMagnitude < 4f) return;   // finger on the exact center, ignore
+        if (dir.sqrMagnitude < 4f) return;   
 
-        float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;   // 0 = up, clockwise positive
+        float angle = Mathf.Atan2(-dir.x, dir.y) * Mathf.Rad2Deg;   
         if (angle < 0f) angle += 360f;
 
 
-        //Hard Stop
-        if (lastRawAngle > 180f && angle < 90f)       // clockwise past High
+    
+        if (lastRawAngle > 180f && angle < 90f)      
             angle = 270f;
-        else if (lastRawAngle < 90f && angle > 270f)  // counter-clockwise past Off
+        else if (lastRawAngle < 90f && angle > 270f) 
             angle = 0f;
 
         lastRawAngle = angle;
@@ -125,32 +125,37 @@ public class StoveDialUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         knob.localRotation = Quaternion.Euler(0f, 0f, counterClockwiseAngle + angleOffset);
     }
-    private bool ReportToTutorial(StoveHeat heat)
+    private bool ReportToTutorial(StoveHeat heat, bool mistakeIfNoMatch)
     {
-        if (heat == StoveHeat.Off) return false;
-
+        var tm = TutorialManager.Instance;
         string wantedId = "Stove" + heat;
 
-        foreach (var t in interactables)
+     
+        if (tm != null && tm.IsExpected(wantedId, TutorialActionType.Drag))
         {
-            if (t.ResolvedId == wantedId)
+            foreach (var t in interactables)
             {
-                t.ReportDrop();
-                return true;
+                if (t.ResolvedId == wantedId)
+                {
+                    t.ReportDrop();
+                    return true;
+                }
             }
         }
 
-        if (stove != null) stove.SetHeat(StoveHeat.Off);
-        SetVisual(StoveHeat.Off);
-        TutorialManager.Instance?.ReportMistake();
-        return false;
+        if (mistakeIfNoMatch)
+        {
+            if (stove != null) stove.SetHeat(StoveHeat.Off);
+            SetVisual(StoveHeat.Off);
+            tm?.ReportMistake();
+        }
+        return false;   
     }
 
     private void UpdateTickSound(float previousAngle)
     {
         if (SFXManager.Instance == null) return;
 
-        // Only play if the knob actually moved
         if (Mathf.Abs(currentAngle - previousAngle) > 0.5f)
         {
             lastMoveTime = Time.unscaledTime;

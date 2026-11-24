@@ -6,7 +6,7 @@ public class MobilePauseHandler : MonoBehaviour
     private float previousTimeScale = 1f;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ResetStatics() => instance = null; // needed if domain reload is disabled
+    static void ResetStatics() => instance = null; 
 
     void Awake()
     {

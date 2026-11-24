@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,10 @@ public class DashboardStarDisplay : MonoBehaviour
 {
     public Image starImage;
     public Sprite noStar, oneStar, twoStar, threeStars;
+
+    [Header("Title")]
+    public TMP_Text titleText;
+    public string lockedTitle = "???";
 
     private void Start()
     {
@@ -24,5 +29,7 @@ public class DashboardStarDisplay : MonoBehaviour
             3 => threeStars,
             _ => noStar
         };
+        if (titleText != null)
+            titleText.text = stars > 0 ? level.levelName : lockedTitle;
     }
 }

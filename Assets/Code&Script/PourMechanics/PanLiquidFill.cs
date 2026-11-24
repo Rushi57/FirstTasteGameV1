@@ -39,7 +39,7 @@ public class PanLiquidFill : MonoBehaviour
         reduction = Mathf.Clamp01(t);
         if (blob == null || amounts.Count == 0) return;
         if (routine != null) { StopCoroutine(routine); routine = null; }
-        blob.color = GetMix();   // applied directly, safe to call every frame
+        blob.color = GetMix();  
     }
 
     private void Awake()
@@ -48,13 +48,11 @@ public class PanLiquidFill : MonoBehaviour
         Clear();
     }
 
-    // Called from PourSeasoningController (no change needed there)
     public void AddLiquid(SeasoningType type, Color unused, float ml)
     {
         AddLiquidById(type.ToString(), ml);
     }
 
-    // Call this wherever the player adds water
     public void AddWater(float ml)
     {
         AddLiquidById("Water", ml);
@@ -85,7 +83,7 @@ public class PanLiquidFill : MonoBehaviour
         gradualBegun = false;
         if (routine != null) StopCoroutine(routine);
         amounts.Clear();
-        reduction = 0f;          // new
+        reduction = 0f;         
         if (blob == null) return;
         Color c = blob.color; c.a = 0f; blob.color = c;
         blob.transform.localScale = baseScale * 0.5f;
@@ -101,7 +99,7 @@ public class PanLiquidFill : MonoBehaviour
         foreach (var kv in amounts)
         {
             var s = profile.Get(kv.Key);
-            if (s == null) continue;                       // this dish ignores that liquid
+            if (s == null) continue;                
             float w = kv.Value * s.strength;
             total += kv.Value;
             weightSum += w;
@@ -113,7 +111,7 @@ public class PanLiquidFill : MonoBehaviour
         Color tint = new Color(rgb.x / weightSum, rgb.y / weightSum, rgb.z / weightSum);
         float tintOpacity = opacityW / weightSum;
 
-        // average strength per ml: lots of water lowers it, so the base shows through
+   
         float influence = 1f - Mathf.Exp(-profile.sensitivity * (weightSum / total));
 
         Color result = Color.Lerp(profile.baseColor, tint, influence);
@@ -156,7 +154,7 @@ public class PanLiquidFill : MonoBehaviour
     }
     private Coroutine evaporateRoutine;
 
-    /// <summary>Slowly removes up to 'ml' of liquid 'id' over 'seconds'.</summary>
+   
     public void StartEvaporate(string id, float ml, float seconds)
     {
         if (blob == null || !amounts.ContainsKey(id)) return;
@@ -172,7 +170,7 @@ public class PanLiquidFill : MonoBehaviour
 
     private IEnumerator EvaporateRoutine(string id, float ml, float seconds)
     {
-        // Stop any blend animation so we control the visuals directly
+    
         if (routine != null) { StopCoroutine(routine); routine = null; }
 
         float rate = ml / Mathf.Max(0.01f, seconds);
@@ -187,7 +185,7 @@ public class PanLiquidFill : MonoBehaviour
             if (left <= 0.01f) amounts.Remove(id);
             else amounts[id] = left;
 
-            // Apply directly each frame
+    
             blob.color = GetMix();
             blob.transform.localScale = baseScale * GetTargetScale();
 
@@ -212,7 +210,7 @@ public class PanLiquidFill : MonoBehaviour
 
         if (!gradualBegun)
         {
-            AddLiquidById(id, ml);      // fallback if the gradual fill never started
+            AddLiquidById(id, ml);    
             return;
         }
 
@@ -235,7 +233,7 @@ public class PanLiquidFill : MonoBehaviour
     private void ApplyInstant(float grow)
     {
         blob.color = GetMix();
-        Color c = blob.color; c.a *= grow; blob.color = c;   // fade in
+        Color c = blob.color; c.a *= grow; blob.color = c; 
         blob.transform.localScale = Vector3.Lerp(baseScale * 0.5f, baseScale * GetTargetScale(), grow);
         if (animateFillAmount) blob.fillAmount = grow;
     }
@@ -246,7 +244,7 @@ public class PanLiquidFill : MonoBehaviour
 
         if(routine != null) { StopCoroutine(routine); routine = null; }
 
-        bool first = blob.color.a < 0.01f;   // pan was empty before this pour
+        bool first = blob.color.a < 0.01f;  
         float rate = ml / duration;
 
         while (pouringAdded < ml)

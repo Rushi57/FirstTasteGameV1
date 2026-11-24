@@ -29,6 +29,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip fridgeClose;
     public AudioClip cabinetClose;
     public AudioClip cabinetOpen;
+    public AudioClip countHandStart;
 
     
 
@@ -56,6 +57,8 @@ public class SFXManager : MonoBehaviour
     public float lowPitch = 0.9f;
     public float mediumPitch = 1.0f;
     public float highPitch = 1.15f;
+
+    public void PlayCountHandStart() => Play(countHandStart);
 
     void Awake()
     {
@@ -105,13 +108,13 @@ public class SFXManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) => HookAllButtons();
 
-    // Adds the tap sound to every button, including ones in inactive panels
+  
     public void HookAllButtons()
     {
         foreach (var b in FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             b.onClick.RemoveListener(tapAction);
-            if (b.GetComponent<NoTapSound>() != null) continue; // opt-out marker
+            if (b.GetComponent<NoTapSound>() != null) continue; 
             b.onClick.AddListener(tapAction);
         }
     }
@@ -186,7 +189,7 @@ public class SFXManager : MonoBehaviour
         if (clockSource.isPlaying) clockSource.Stop();
     }
 
-    //Stove
+ 
     public void SetFlame(StoveHeat heat)
     {
         if(heat == StoveHeat.Off)
@@ -198,8 +201,9 @@ public class SFXManager : MonoBehaviour
         if(flameSource == null)
         {
             flameSource = gameObject.AddComponent<AudioSource>();
-            flameSource.outputAudioMixerGroup = sfxGroup;   // your SFX mixer group field
-            flameSource.clip = stoveFlameSound;             // your flame clip field
+            flameSource.outputAudioMixerGroup = sfxGroup;   
+            flameSource.clip = stoveFlameSound;             
+
             flameSource.loop = true;
             flameSource.playOnAwake = false;
         }

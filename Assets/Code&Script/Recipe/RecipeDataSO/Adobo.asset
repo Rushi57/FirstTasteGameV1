@@ -29,22 +29,22 @@ MonoBehaviour:
     quantity: 0
     unit: 
   cookingInstructions:
-  - Chop the pork belly into sliced.
-  - Chop the garlic into minced.
+  - Slice the pork belly.
+  - Mince the garlic.
   - Turn the stove to high heat.
-  - Place the wok on the stove.
-  - Add the pork belly.
+  - Place the wok on the stove
+  - 'Place the pork belly in the wok '
   - Add 1 tbsp of vinegar.
-  - Add the minced garlic.
+  - Place the minced garlic in the wok
   - Add water.
   - Add 1/4 cup of soy sauce.
-  - Add the bay leaf.
-  - Add the 1/2 tbsp of peppercorns.
-  - Add the 1/2 tsp of salt.
+  - Place the bay leaf in the wok.
+  - Add 1/2 tbsp of peppercorns.
+  - Add 1/2 tsp of salt.
   - Turn the stove to medium heat.
   - Cover the wok with the lid and bring to a boil.
   - Turn the stove to low heat.
-  - Cover to simmer.
+  - Cover and simmer.
   - Add 1 tsp of sugar.
   - Mix well.
   cookingStepIds:

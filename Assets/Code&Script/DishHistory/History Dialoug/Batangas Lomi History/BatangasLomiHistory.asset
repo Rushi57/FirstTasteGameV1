@@ -21,5 +21,5 @@ MonoBehaviour:
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
   - text: "generous with pork, offal, \u201Cchicharon\u201D, and that signature glossy sauce you cannot find anywhere else."
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}
-  - text: .Can you bring the broth to just the right thickness and swirl the raw egg in at exactly the right moment?
+  - text: Can you bring the broth to just the right thickness and swirl the raw egg in at exactly the right moment?
     characterSprite: {fileID: -511706578061346315, guid: ae71825725b21a3459805439433622ee, type: 3}

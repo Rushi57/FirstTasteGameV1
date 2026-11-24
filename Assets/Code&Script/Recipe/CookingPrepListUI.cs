@@ -1,22 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// One instance lives on IngCutPrepScrollObj (chopping steps) and one on
-/// CookingPrepScrollingObj (stove/oil/etc). Only the instance on the ACTIVE
-/// panel is CookingPrepListUI.Instance, so existing mechanics that call
-/// Instance.TryAccept / CompleteStep keep working in each stage.
-///
-/// Repeated step ids (e.g. several "Pan:PanLidSimmer" rows) are supported:
-/// each row gets an internal unique key ("id", "id#2", "id#3", ...), and
-/// CompleteStep(id) ticks the first occurrence that isn't done yet.
-/// </summary>
 public class CookingPrepListUI : MonoBehaviour
 {
     public static CookingPrepListUI Instance { get; private set; }
+
+    [Tooltip("Cut Prep list only: steps can be completed in ANY order (but only steps that exist in the list).")]
+    public bool freeOrder = false;
+
+    [Tooltip("Tick on the Cooking Prep list to show 1. 2. 3. instead of bullets.")]
+    public bool numberedSteps = false;
 
     [Tooltip("The ScrollView's Content transform - rows get spawned as children of this.")]
     public Transform contentContainer;
@@ -39,28 +35,29 @@ public class CookingPrepListUI : MonoBehaviour
     public bool strictOrder = true;
     public string wrongStepMessage = "Wrong Step!\nMinus 1 heart";
 
-    // unique key -> row
+ 
     private readonly Dictionary<string, CookingPrepStepRowUI> rows = new Dictionary<string, CookingPrepStepRowUI>();
-    // unique keys that are done
+ 
     private readonly HashSet<string> completed = new HashSet<string>();
-    // unique keys in list order
+
     private readonly List<string> orderedIds = new List<string>();
-    // base id -> unique keys (in list order)
+  
     private readonly Dictionary<string, List<string>> occurrences = new Dictionary<string, List<string>>();
-    // unique key -> base id
+
     private readonly Dictionary<string, string> keyToBase = new Dictionary<string, string>();
 
     public string wrongMeasurementMessage = "Wrong Measurement!\nMinus 1 heart";
 
-    // unique key -> instruction text
+
     private readonly Dictionary<string, string> keyToText = new Dictionary<string, string>();
     public bool HasStep(string id) => occurrences.ContainsKey(id);
 
-    /// <summary>Fires once every auto-completable step in THIS list is done.</summary>
+
     public event System.Action OnAllStepsComplete;
-
+    public static event System.Action<CookingPrepListUI> IngredientAccepted;
     public static event System.Action<string> StepCompleted;
-
+    public string LastCompletedText { get; private set; }
+    public string LastCompletedStepId { get; private set; }
     private void OnEnable()
     {
         Instance = this;
@@ -73,7 +70,7 @@ public class CookingPrepListUI : MonoBehaviour
         if (cuttingMechanic != null) cuttingMechanic.OnStateChanged -= HandleCutStateChanged;
     }
 
-    /// <summary>Shows every instruction (old behaviour).</summary>
+
     public void DisplaySteps(RecipeData recipe)
     {
         if (recipe == null) { Clear(); return; }
@@ -83,13 +80,15 @@ public class CookingPrepListUI : MonoBehaviour
         DisplaySteps(recipe, all);
     }
 
-    /// <summary>Shows only the instructions at the given indices (cut steps OR cooking steps).</summary>
+
     public void DisplaySteps(RecipeData recipe, List<int> stepIndices)
     {
         Debug.Log($"[PrepList] DisplaySteps called on {name}. Existing children: {(contentContainer != null ? contentContainer.childCount : 0)}", this);
         Clear();
         completed.Clear();
         if (recipe == null || stepIndices == null || contentContainer == null || stepRowPrefab == null) return;
+
+        int stepNumber = 0;
 
         foreach (int i in stepIndices)
         {
@@ -102,15 +101,17 @@ public class CookingPrepListUI : MonoBehaviour
                 Debug.LogWarning("[CookingPrepListUI] stepRowPrefab is missing a CookingPrepStepRowUI component.");
                 continue;
             }
+            stepNumber++;
+            if (numberedSteps)
+                row.SetText(recipe.cookingInstructions[i], stepNumber); 
+            else
+                row.SetText(recipe.cookingInstructions[i]);            
 
-            row.SetText(recipe.cookingInstructions[i]);
-
-            // Id is built from the ORIGINAL index, so stove order etc. stays correct.
             string id = recipe.GetStepId(i);
             Debug.Log($"[PrepList] row {i} -> id = '{id}'");
             if (!string.IsNullOrEmpty(id))
             {
-                // Repeated ids get a unique internal key so rows don't overwrite each other.
+              
                 if (!occurrences.TryGetValue(id, out var list))
                     occurrences[id] = list = new List<string>();
 
@@ -130,7 +131,6 @@ public class CookingPrepListUI : MonoBehaviour
 
     // ---------------- Step gate ----------------
 
-    /// <summary>Unique key of the first step (in list order) that isn't completed yet. Null if all done.</summary>
     private string CurrentKey
     {
         get
@@ -141,14 +141,39 @@ public class CookingPrepListUI : MonoBehaviour
         }
     }
 
-    /// <summary>Base id of the first step (in list order) that isn't completed yet. Null if all done.</summary>
     public string CurrentStepId => CurrentKey != null ? keyToBase[CurrentKey] : null;
-    /// <summary>Instruction text of the first step that isn't completed yet. Null if all done.</summary>
+
     public string CurrentStepText =>
         CurrentKey != null && keyToText.TryGetValue(CurrentKey, out var t) ? t : null;
+    // ---------------- "Set aside" helpers ----------------
+
+ 
+    public bool IsSetAsideStepCurrent()
+    {
+        string t = CurrentStepText;
+        return !string.IsNullOrEmpty(t) &&
+               t.IndexOf("set aside", System.StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+
+    public bool CurrentStepMentions(string ingredientId)
+    {
+        string t = CurrentStepText;
+        if (string.IsNullOrEmpty(t) || string.IsNullOrEmpty(ingredientId)) return false;
+        return Normalize(t).Contains(Normalize(ingredientId));
+    }
+
+    private static string Normalize(string s)
+    {
+        var sb = new System.Text.StringBuilder(s.Length);
+        foreach (char c in s)
+            if (char.IsLetterOrDigit(c)) sb.Append(char.ToLowerInvariant(c));
+        return sb.ToString();
+    }
+
     public bool IsExpected(string id)
     {
-        if (!strictOrder) return true;
+        if (!strictOrder || freeOrder) return true;
         if (orderedIds.Count == 0) return true;
         string current = CurrentStepId;
         if (current == null) return true;
@@ -163,8 +188,11 @@ public class CookingPrepListUI : MonoBehaviour
             ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
             return false;
         }
-
-        if (IsExpected(id)) return true;
+        if (IsExpected(id))
+        {
+            IngredientAccepted?.Invoke(this);
+            return true;
+        }
 
         Debug.Log($"[PrepList] REJECTED '{id}' - current step is '{CurrentStepId}'");
         ScoreManager.Instance?.ReportMistake(wrongStepMessage);
@@ -175,32 +203,49 @@ public class CookingPrepListUI : MonoBehaviour
     {
         if (!strictOrder || orderedIds.Count == 0) return true;
 
+        if (freeOrder)
+        {
+     
+            foreach (string key in orderedIds)
+            {
+                if (completed.Contains(key)) continue;
+                string baseId = keyToBase[key];
+                bool isCutStep = baseId.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
+                              || baseId.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
+                if (isCutStep && baseId.StartsWith(ingredientId + ":", System.StringComparison.Ordinal))
+                    return true;
+            }
+
+            Debug.Log($"[PrepList] REJECTED ingredient '{ingredientId}' - no unfinished cut step for it");
+            ScoreManager.Instance?.ReportMistake("Wrong Ingredient!\nMinus 1 heart");
+            return false;
+        }
+
         string current = CurrentStepId;
         if (current == null) return true;
 
-        bool isCutStep = current.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
-                      || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
-        bool sameIngredient = current.StartsWith(ingredientId + ":", System.StringComparison.Ordinal);
+        bool isCut = current.EndsWith(":" + IngredientPrepState.Sliced, System.StringComparison.Ordinal)
+                  || current.EndsWith(":" + IngredientPrepState.Minced, System.StringComparison.Ordinal);
+        bool same = current.StartsWith(ingredientId + ":", System.StringComparison.Ordinal);
 
-        if (isCutStep && sameIngredient) return true;
+        if (isCut && same) return true;
 
         Debug.Log($"[PrepList] REJECTED ingredient '{ingredientId}' on chopping board - current step is '{current}'");
         ScoreManager.Instance?.ReportMistake(wrongStepMessage);
         return false;
     }
 
-    // ------------------------------------------------
+
 
     private void HandleCutStateChanged(IngredientData data, IngredientPrepState state)
     {
         Debug.Log($"[PrepList] cut event received: {(data != null ? data.id : "null")}:{state}");
         if (data == null || state == IngredientPrepState.Whole) return;
         string id = $"{data.id}:{state}";
-        if (!occurrences.ContainsKey(id)) return;   // intermediate state (e.g. Sliced on the way to Minced)
+        if (!occurrences.ContainsKey(id)) return; 
         CompleteStep(id);
     }
 
-    /// <summary>Call from ANY mechanic when it finishes.</summary>
     public void CompleteStep(string stepId)
     {
         if (!occurrences.TryGetValue(stepId, out var keys))
@@ -209,7 +254,7 @@ public class CookingPrepListUI : MonoBehaviour
             return;
         }
 
-        // First not-yet-completed occurrence of this id.
+
         string key = keys.Find(k => !completed.Contains(k));
         if (key == null)
         {
@@ -228,7 +273,7 @@ public class CookingPrepListUI : MonoBehaviour
         StepCompleted?.Invoke(stepId);
 
         string nextKey = CurrentKey;
-        if (nextKey != null && rows.TryGetValue(nextKey, out var nextRow))
+        if (!freeOrder && nextKey != null && rows.TryGetValue(nextKey, out var nextRow))
         {
             float step = Mathf.Abs(
                 ((RectTransform)nextRow.transform).anchoredPosition.y -
@@ -331,7 +376,7 @@ public class CookingPrepListUI : MonoBehaviour
         if (!strictOrder || string.IsNullOrEmpty(text)) return true;
 
         if (!TryGetExpectedMeasurement(text, out MeasurementOption expected))
-            return true; // current step isn't a measuring step
+            return true; 
 
         if (expected == chosen) return true;
 
@@ -343,8 +388,8 @@ public class CookingPrepListUI : MonoBehaviour
     {
         foreach (MeasurementOption o in System.Enum.GetValues(typeof(MeasurementOption)))
         {
-            string label = MeasurementTable.Label(o);   // e.g. "1/2 tsp"
-                                                        // (?<![\d/.]) stops "1 cup" matching inside "11 cup" or "1/1 cup"
+            string label = MeasurementTable.Label(o);
+                                                        
             string pattern = @"(?<![\d/.])" + Regex.Escape(label) + @"\b";
             if (Regex.IsMatch(text, pattern, RegexOptions.IgnoreCase))
             {

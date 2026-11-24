@@ -21,12 +21,12 @@ public class WarningMessageUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this) Instance = null;   // don't leave a dead reference behind
+        if (Instance == this) Instance = null;  
     }
 
     public void Show(string message)
     {
-        if (!isActiveAndEnabled || board == null) return;   // can't run a coroutine if inactive
+        if (!isActiveAndEnabled || board == null) return; 
 
         if (messageText != null) messageText.text = message;
 

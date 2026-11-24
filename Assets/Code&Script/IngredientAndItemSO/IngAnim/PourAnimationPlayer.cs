@@ -4,14 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Code-driven pour animation - no Animator needed.
-/// Position priority when playing:
-///   1. Position passed in (e.g. from IngredientData.pourPositions)
-///   2. pourTarget's anchoredPosition (if assigned)
-///   3. The pitcher's position as set up in the scene
-/// It slides in from an offset, tilts, holds, tilts back, slides out, then hides.
-/// </summary>
+
 public class PourAnimationPlayer : MonoBehaviour
 {
     [Header("References")]
@@ -57,10 +50,8 @@ public class PourAnimationPlayer : MonoBehaviour
     {
         if (pitcher == null) return;
 
-        // Remember the pose you set up in the scene, then hide it.
-        pourPosition = pitcher.anchoredPosition;
 
-        // An Animator would fight this script, so switch it off if one exists.
+        pourPosition = pitcher.anchoredPosition;
         Animator anim = pitcher.GetComponent<Animator>();
         if (anim != null) anim.enabled = false;
 
@@ -68,10 +59,6 @@ public class PourAnimationPlayer : MonoBehaviour
         if (pourEffect != null) pourEffect.SetActive(false);
     }
 
-    /// <summary>
-    /// Plays the pour at the position stored on the ingredient (IngredientData.pourPositions).
-    /// Falls back to pourTarget, then the scene position, if the ingredient has none.
-    /// </summary>
     public bool Play(Action onFinished, IngredientData data, string targetName = "Pan")
     {
         Vector2? pos = null;
@@ -80,7 +67,6 @@ public class PourAnimationPlayer : MonoBehaviour
         return Play(onFinished, pos);
     }
 
-    /// <summary>Returns false if already playing. onFinished fires after the pitcher is hidden again.</summary>
     public bool Play(Action onFinished, Vector2? positionOverride = null)
     {
         if (IsPlaying || pitcher == null) return false;
@@ -106,36 +92,32 @@ public class PourAnimationPlayer : MonoBehaviour
         pitcher.localRotation = Quaternion.identity;
         pitcher.gameObject.SetActive(true);
 
-        // 1. Slide in over the target
+
         yield return Tween(moveInTime, t =>
             pitcher.anchoredPosition = Vector2.LerpUnclamped(offscreen, pourPos, t));
 
-        // 2. Tilt to the pour angle (no stream yet)
         yield return Tween(tiltTime, t =>
             pitcher.localRotation = Quaternion.Euler(0f, 0f, Mathf.LerpUnclamped(0f, pourAngle, t)));
 
-        // 2b. Idle at full tilt before the water comes out
+ 
         if (idleBeforePour > 0f) yield return new WaitForSeconds(idleBeforePour);
 
-        // 3. Stream runs only while the pitcher is held at the pour angle
+     
         if (pourEffect != null) pourEffect.SetActive(true);
         SFXManager.Instance?.StartPour();
         yield return new WaitForSeconds(holdTime);
         if (pourEffect != null) pourEffect.SetActive(false);
         SFXManager.Instance?.StopPour();
 
-        // 3b. Idle at full tilt after the water stops
         if (idleAfterPour > 0f) yield return new WaitForSeconds(idleAfterPour);
 
-        // 4. Tilt back
         yield return Tween(tiltBackTime, t =>
             pitcher.localRotation = Quaternion.Euler(0f, 0f, Mathf.LerpUnclamped(pourAngle, 0f, t)));
 
-        // 5. Slide out
+
         yield return Tween(moveOutTime, t =>
             pitcher.anchoredPosition = Vector2.LerpUnclamped(pourPos, offscreen, t));
 
-        // Reset and hide (back to the original scene pose)
         pitcher.localRotation = Quaternion.identity;
         pitcher.anchoredPosition = pourPosition;
         pitcher.gameObject.SetActive(false);

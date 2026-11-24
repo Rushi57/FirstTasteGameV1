@@ -167,6 +167,7 @@ MonoBehaviour:
   fridgeClose: {fileID: 8300000, guid: f805efa416747c043bfd1da2973c5dd3, type: 3}
   cabinetClose: {fileID: 8300000, guid: 70bf77b22c03b62428e7823b125fabf0, type: 3}
   cabinetOpen: {fileID: 8300000, guid: e02a2540c4024c64091084639f9551ea, type: 3}
+  countHandStart: {fileID: 8300000, guid: 11e90c610e3fca140880385ee0275313, type: 3}
   frying: {fileID: 8300000, guid: eb18ef9bd51b8e74a869efdfcbd61c6d, type: 3}
   boilingLiquid: {fileID: 8300000, guid: 8151007baabfe374aa6aca179d0d21f8, type: 3}
   boilingWater: {fileID: 8300000, guid: 0be13e12b3c55f443a4d3880f6e96901, type: 3}
@@ -835,7 +836,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.225
+  orthographic size: 0.22467773
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2955,10 +2956,10 @@ RectTransform:
   - {fileID: 1871273981}
   m_Father: {fileID: 1701073546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
-  m_SizeDelta: {x: 200, y: 500}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275874173
 MonoBehaviour:
@@ -2973,12 +2974,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 1
+    m_Left: 60
     m_Right: 1
     m_Top: 1
     m_Bottom: 1
-  m_ChildAlignment: 1
-  m_Spacing: 30
+  m_ChildAlignment: 3
+  m_Spacing: -150
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -3149,7 +3150,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 741.5, y: 343.5}
+  m_SizeDelta: {x: 627.5, y: 269.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341953844
 MonoBehaviour:
@@ -3171,7 +3172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Kyle M. Domagas \nReymark R. Coronado\nAdrian Gabriel S. Pechardo\nEduard Johnson R. Sagun\nDr. Ni\xF1a Ana Marie Jocelyn Sales"
+  m_text: "Kyle M. Domagas \nEduard Johnson R. Sagun\nDr. Ni\xF1a Ana Marie Jocelyn Sales"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
   m_sharedMaterial: {fileID: 3211506966235453190, guid: 75d5ca19c0d6942499a3c383a80de180, type: 2}
@@ -3208,10 +3209,10 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -3.15
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 9.4
+  m_lineSpacing: 12.06
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

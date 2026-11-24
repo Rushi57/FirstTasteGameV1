@@ -52,6 +52,14 @@ public class TutorialInteractable : MonoBehaviour
     {
         TutorialManager.Instance?.ReportMistake();
     }
+    public bool TryUse(TutorialActionType type, bool reportMistakeIfBlocked = true)
+    {
+        var m = TutorialManager.Instance;
+        if (m == null || !m.IsActive) return true;
+        if (m.IsExpected(ResolvedId, type)) return true;
+        if (reportMistakeIfBlocked) m.ReportMistake();
+        return false;
+    }
 }
 
 public interface ITutorialIdentifiable

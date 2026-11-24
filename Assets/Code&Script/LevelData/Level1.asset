@@ -24,11 +24,11 @@ MonoBehaviour:
     text: "Did you know the word \u201Cadobo\u201D is a Spanish "
     answer: "The word \u201Cadobo\u201D is Spanish but the cooking method is not. When Spanish friars arrived in the Philippines, they used a familiar word for a technique that was already here. The 1613 \u201CVocabulario de la lengua tagala\u201D even recorded it as \u201Cadobo de los naturales\u201D, meaning the adobo of the native people."
   - type: 1
-    text: Do you want to know why is vinegar added so early in the cooking process?
+    text: Did you know why is vinegar added so early in the cooking process?
     answer: Long before Spanish contact in 1521, pre-colonial Filipinos practiced an Austronesian culinary tradition of cooking meat and fish in acid and salt to preserve food against the tropical heat without refrigeration.
   - type: 1
-    text: "Do you know the regional variations of adobo, reflect the dish\u2019s history across the Philippines?"
+    text: "Did you know the regional variations of adobo, reflect the dish\u2019s history across the Philippines?"
     answer: As the ancient native technique adapted over centuries, different regions developed distinct styles Bicol added indigenous coconut milk, Ilocos maintained a dry and dark profile, and Pampanga leaned toward sweetness.
   - type: 1
-    text: Do you know why should you not stir the pot during the first simmer?
+    text: Did you know why should you not stir the pot during the first simmer?
     answer: 'Stirring raw vinegar into hot meat produces a harsh, acrid flavour. Letting the pot simmer undisturbed allows the vinegar to mellow before it integrates with the rest of the dish. This is a technique Filipino cooks have followed for generations. '

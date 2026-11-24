@@ -6,7 +6,7 @@ public class DishStorySO : ScriptableObject
     [System.Serializable]
     public class StoryLine
     {
-        [TextArea(3, 10)] public string text;     // sliced automatically if too long
+        [TextArea(3, 10)] public string text;    
         public Sprite characterSprite;
     }
 

@@ -28,8 +28,8 @@ public class InactivityHintController : MonoBehaviour
     private float idleTimer;
     private string lastReason = "";
 
-    public Animator settingsAnimator;                          // Animator on GameSettingsPanel
-    public string settingsClosedState = "IngSettingCloseIdle"; // resting "closed" state
+    public Animator settingsAnimator;                          
+    public string settingsClosedState = "IngSettingCloseIdle";
     private void Awake()
     {
         if (inactiveMessagePanel != null)
@@ -121,7 +121,6 @@ public class InactivityHintController : MonoBehaviour
         return null;
     }
 
-    // Logs only when the reason CHANGES, so the Console doesn't flood.
     private void Report(string reason)
     {
         if (!debugLogs || reason == lastReason) return;
@@ -129,11 +128,11 @@ public class InactivityHintController : MonoBehaviour
         Debug.Log($"[InactivityHint] {reason}");
     }
 
-    // True whenever the settings window is anything other than fully closed
+
     private bool IsSettingsOpen()
     {
-        if (settingsAnimator == null || !settingsAnimator.isActiveAndEnabled) return false;
-        if (settingsAnimator.IsInTransition(0)) return true;   // opening or closing blend
-        return !settingsAnimator.GetCurrentAnimatorStateInfo(0).IsName(settingsClosedState);
+        if (settingsAnimator == null) return false;
+     
+        return settingsAnimator.transform.localScale.x > 0.01f;
     }
 }

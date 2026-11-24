@@ -15,8 +15,7 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Greate now you finish gathering the ingredient lets prepare it first before proceeding
-    to cooking.
+  - Great now you finish gathering the ingredient lets prepare it first before proceeding to cooking.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1

@@ -15,11 +15,11 @@ MonoBehaviour:
   npcName: Kris
   npcPortrait: {fileID: -7389084174688729969, guid: 36aebacc85b77f2429e51c82da84d1b2, type: 3}
   dialogueLines:
-  - Time your Stop  in the Green zone again
+  - Time your Stop in the Green zone again.
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 298.17, y: 558.7}
+  customPosition: {x: 391.7, y: 501.9}
   actionType: 1
   targetId: Simmer/BoilStopBtn
   dragSourceId: 

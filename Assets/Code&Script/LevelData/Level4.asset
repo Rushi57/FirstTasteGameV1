@@ -21,13 +21,13 @@ MonoBehaviour:
   faqDishImage: {fileID: -1575645233659276657, guid: 29a9f3ed434cc434f92c83e2bb501c94, type: 3}
   faqEntries:
   - type: 1
-    text: Do you know what makes Lipa lomi different from the Metro Manila version?
+    text: Did you know what makes Lipa lomi different from the Metro Manila version?
     answer: "Lipa lomi is thicker, heavier, and more generous with pork offal, \u201Cchicharon\u201D, and \u201Ckikiam\u201D. The Metro Manila version is lighter and often more sauce-forward, which heritage researchers treat as a departure from the Lipa canon. "
   - type: 1
-    text: Do you know why is the raw egg added at the very end?
+    text: Did you know why is the raw egg added at the very end?
     answer: The egg cooks in the residual heat of the thick broth, adding silkiness without hardening. Timing matters. Add it too early and the broth loses its gloss. Add it too late and the egg stays raw.
   - type: 1
-    text: Do you know why did lomi become a signature of Lipa in particular?
+    text: Did you know why did lomi become a signature of Lipa in particular?
     answer: 'Lipa was the commercial heart of Batangas during the coffee boom. Chinese retail families settled there and built a panciteria culture that still thrives today, with lomi as its flagship dish. '
   - type: 1
     text: Did you know why Is lomi related to pancit?

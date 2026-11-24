@@ -3,11 +3,6 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-/// <summary>
-/// Put this on CupImage, TbpsImage, and the salt/pepper spoon animation
-/// objects (all children of AnimationGameObject, all inactive by default).
-/// No Animator needed - this rotates the RectTransform directly on the Z axis.
-/// </summary>
 public class PourAnimationController : MonoBehaviour
 {
     [Header("Rotation (degrees, Z axis)")]
@@ -16,11 +11,11 @@ public class PourAnimationController : MonoBehaviour
 
     [Header("Timing (seconds)")]
     public float tiltDuration = 0.35f;
-    public float holdDuration = 0.4f;   // pause at full tilt before returning
+    public float holdDuration = 0.4f;  
     public float returnDuration = 0.35f;
 
     [Header("Liquid sprites")]
-    public Sprite seasoningStreamSprite;   // white version
+    public Sprite seasoningStreamSprite;  
    
 
     [Header("Easing")]
@@ -53,7 +48,6 @@ public class PourAnimationController : MonoBehaviour
         if (image != null) image.color = color;
     }
 
-    /// <summary>Swaps the sprite shown during the pour (e.g. 1 tsp / 1/2 tbsp / 1 cup).</summary>
     public void SetSprite(Sprite sprite)
     {
         if (sprite == null) return;
@@ -61,7 +55,7 @@ public class PourAnimationController : MonoBehaviour
         if (image != null) image.sprite = sprite;
     }
 
-    /// <summary>Activates this object, resets to Idle, tints it, then tilts -> holds -> returns.</summary>
+
     public void PlayPourAnimation(Color color, Action onComplete, bool hideAfter = true)
     {
         SetBusy(true);
@@ -86,7 +80,6 @@ public class PourAnimationController : MonoBehaviour
         if (holdDuration > 0f)
             yield return new WaitForSeconds(holdDuration);
 
-        // Pour is over: stop the stream before the cup tilts back
         returning = true;
         if (liquidImage != null)
         {
@@ -144,7 +137,7 @@ public class PourAnimationController : MonoBehaviour
         {
             liquidImage.rectTransform.rotation = Quaternion.identity;
 
-            if (!returning)   // only drive the fill while tilting in
+            if (!returning)  
             {
                 float tiltProgress = Mathf.InverseLerp(idleAngle, tiltAngle, z);
                 liquidImage.fillAmount = Mathf.Clamp01((tiltProgress - 0.6f) / 0.4f);
@@ -173,7 +166,7 @@ public class PourAnimationController : MonoBehaviour
     }
   
 
-    // Idempotent: never double-counts, never leaks
+   
     private void SetBusy(bool on)
     {
         if (on == busyRegistered) return;
@@ -182,5 +175,5 @@ public class PourAnimationController : MonoBehaviour
         else TutorialManager.Instance?.EndBusy();
     }
 
-    private void OnDisable() => SetBusy(false);   // covers parent deactivation / scene changes
+    private void OnDisable() => SetBusy(false);  
 }

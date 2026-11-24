@@ -1,29 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Spawns an IngredientData as a draggable UI item by instantiating the
-/// matching prefab (small/large, ingredient/utensil), then wires up its
-/// Image, TestDrag, and TutorialInteractable so it's immediately usable -
-/// no manual Hierarchy setup, no matter which of the 4 prefabs gets picked.
-///
-/// Each spawned item is sized as: (prefab's own size) x (IngredientData.iconScale),
-/// so small things like garlic can look smaller than pork or a pitcher while
-/// still using the same prefab.
-///
-/// If Slot Manager is assigned, spawns into the first EMPTY table slot
-/// instead of a fixed position - see TableItemSlotManager. Because that
-/// counts as the ingredient effectively "arriving" on the table already,
-/// this also runs the recipe check right away (TableItemSlotManager.TryCollect)
-/// rather than waiting for a drag-drop that will never happen for it.
-/// </summary>
+
 public class IngredientSpawner : MonoBehaviour
 {
     [Header("Prefabs - one per category/size combination")]
-    public GameObject ingredientSmallPrefab; // e.g. IngTestPrefabSmall
-    public GameObject ingredientLargePrefab; // e.g. IngTestPrefabLarge
-    public GameObject utensilSmallPrefab;    // e.g. UtenTestPrefabSmall
-    public GameObject utensilLargePrefab;    // e.g. UtenTestPrefabLarge
+    public GameObject ingredientSmallPrefab; 
+    public GameObject ingredientLargePrefab; 
+    public GameObject utensilSmallPrefab;   
+    public GameObject utensilLargePrefab;  
+
+    [Header("Plate (for ingredients with Needs Plate ticked)")]
+    [Tooltip("Plate sprite used as the container. Leave empty to disable plates entirely.")]
+    public Sprite plateSprite;
+
+    [Tooltip("How big the ingredient icon is relative to the plate.")]
+    [Range(0.3f, 1f)] public float iconSizeOnPlate = 0.75f;
+
+    [Tooltip("Nudge the icon on the plate (x, y) so it sits nicely in the dish.")]
+    public Vector2 iconOffsetOnPlate = new Vector2(0f, 6f);
 
     [Header("Table Slots (preferred)")]
     [Tooltip("If assigned, ingredients spawn into the first empty ItemContainerDropZone slot instead of a fixed spawnParent/spawnPosition.")]
@@ -44,14 +39,20 @@ public class IngredientSpawner : MonoBehaviour
 
     private int spawnCount = 0;
 
-    // Tracks the live spawned object for each IngredientData currently on the table.
     private readonly System.Collections.Generic.Dictionary<IngredientData, GameObject> spawnedItems
         = new System.Collections.Generic.Dictionary<IngredientData, GameObject>();
 
-    /// <summary>
-    /// Spawn a specific ingredient. Hook this up to a UI Button OnClick() 
-    /// and drag your IngredientData ScriptableObject into the inspector slot!
-    /// </summary>
+
+    [Tooltip("Exact plate width in pixels. Height stays at the prefab's height.")]
+    public float plateWidth = 130f;
+
+    [Tooltip("Move the plate relative to the food (x, y).")]
+    public Vector2 plateOffset = Vector2.zero;
+
+    [Tooltip("Off = the plate sprite stretches to fill the new width/height. On = it keeps its original proportions.")]
+    public bool plateKeepAspect = false;
+
+
     public void SpawnIngredient(IngredientData data)
     {
         if (data == null)
@@ -60,7 +61,6 @@ public class IngredientSpawner : MonoBehaviour
             return;
         }
 
-        //Not part of the current Recipe
         if (ingredientList != null && !ingredientList.IsInRecipe(data))
         {
             string wrongName = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
@@ -69,16 +69,15 @@ public class IngredientSpawner : MonoBehaviour
         }
 
 
-        // Already on the table? Warn, but do NOT deduct a heart and do NOT spawn a duplicate.
         if (spawnedItems.TryGetValue(data, out GameObject existing))
         {
-            if (existing != null)   // Unity-null check: false if it was destroyed
+            if (existing != null)  
             {
                 string itemName = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
                 WarningMessageUI.Instance?.Show($"{itemName} is already on the table");
                 return;
             }
-            spawnedItems.Remove(data);   // stale entry, item was removed
+            spawnedItems.Remove(data);   
         }
 
 
@@ -111,11 +110,16 @@ public class IngredientSpawner : MonoBehaviour
         GameObject go = Instantiate(prefab, parent);
         go.name = string.IsNullOrEmpty(data.displayName) ? data.name : data.displayName;
         spawnedItems[data] = go;
+
+      
+        bool usePlate = plateSprite != null
+                        && data.category == ItemCategory.Ingredient
+                        && data.needsPlate;
+
         RectTransform rect = go.transform as RectTransform;
         if (rect != null)
         {
-            // Size = the prefab's own size x this ingredient's iconScale.
-            // SetSizeWithCurrentAnchors works whether the anchors are a point or stretched.
+            
             RectTransform prefabRect = prefab.transform as RectTransform;
             if (prefabRect != null)
             {
@@ -128,15 +132,15 @@ public class IngredientSpawner : MonoBehaviour
 
             if (targetSlot != null)
             {
-                // Slot-based spawning: center inside the slot.
+               
                 rect.anchoredPosition = Vector2.zero;
             }
             else if (spawnParent.GetComponent<LayoutGroup>() == null)
             {
-                // Fallback fixed-position spawning with manual offset.
+             
                 rect.anchoredPosition = spawnPosition + spawnSpacing * spawnCount;
             }
-            // If spawnParent has a Layout Group, leave positioning to it.
+          
         }
 
         spawnCount++;
@@ -148,20 +152,46 @@ public class IngredientSpawner : MonoBehaviour
             occupant.slotManager = slotManager;
             occupant.slot = targetSlot;
 
-            // Spawning straight into a table slot IS the ingredient arriving
-            // on the table - run the same recipe check a manual drag-drop
-            // would have triggered, so the checklist/panel switch still works.
+         
             bool wasNeeded = slotManager.TryCollect(data);
             if (!wasNeeded)
                 Debug.Log($"[IngredientSpawner] '{data.displayName}' spawned onto the table but isn't needed by the current recipe.");
         }
-
-        // Get-or-add required UI and drag components
         Image image = go.GetComponent<Image>();
         if (image == null) image = go.AddComponent<Image>();
-        image.sprite = data.icon;
+        image.sprite = data.icon;        
         image.preserveAspect = true;
         image.raycastTarget = true;
+
+        if (usePlate)
+        {
+            
+            GameObject plateGO = new GameObject(go.name + " Plate",
+                typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+
+            RectTransform plateRect = (RectTransform)plateGO.transform;
+            plateRect.SetParent(parent, false);
+            Vector2 plateBase = ((RectTransform)prefab.transform).rect.size;
+            plateRect.sizeDelta = new Vector2(plateWidth, plateBase.y);
+            plateRect.anchoredPosition = rect.anchoredPosition;
+            plateRect.SetSiblingIndex(go.transform.GetSiblingIndex());   
+
+            plateGO.GetComponent<LayoutElement>().ignoreLayout = true;
+
+            Image plateImg = plateGO.GetComponent<Image>();
+            plateImg.sprite = plateSprite;
+            plateImg.preserveAspect = true;
+            plateImg.raycastTarget = false;
+
+       
+            rect.anchoredPosition += iconOffsetOnPlate;
+
+            go.AddComponent<PlatedItem>().plate = plateGO;
+        }
+        else
+        {
+            image.sprite = data.icon;
+        }
 
         if (go.GetComponent<CanvasGroup>() == null)
             go.AddComponent<CanvasGroup>();
@@ -174,12 +204,12 @@ public class IngredientSpawner : MonoBehaviour
         if (interactable == null) interactable = go.AddComponent<TutorialInteractable>();
         interactable.sourceData = data;
 
-        // Re-register with TutorialManager now that sourceData is assigned
+ 
         TutorialManager.Instance?.Register(interactable);
 
         ingredientList?.MarkSpawned(data);
 
-        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}, iconScale={data.iconScale}) into {parent.name}");
+        Debug.Log($"[IngredientSpawner] Spawned '{data.displayName}' (id='{data.id}', category={data.category}, size={data.size}, iconScale={data.iconScale}, plate={usePlate}) into {parent.name}");
     }
 
     private GameObject SelectPrefab(IngredientData data)

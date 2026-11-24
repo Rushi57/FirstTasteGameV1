@@ -7,6 +7,9 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
 {
     [SerializeField] private TutorialInteractable interactable;
 
+    [Tooltip("Drag the 'Content' object here (it needs a CanvasGroup).")]
+    [SerializeField] private CanvasGroup contentGroup;
+
     [SerializeField, Range(0f, 1f)] private float completeThreshold = 0.9f;
 
     [Tooltip("ON = target section is at the bottom (normalized y = 0, player swipes up). OFF = target section is at the top (y = 1).")]
@@ -19,8 +22,6 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
     private bool reported;
     private bool dragging;
 
-
-
     private void Awake()
     {
         scrollRect = GetComponent<ScrollRect>();
@@ -29,12 +30,19 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
 
     private void OnEnable() { reported = false; dragging = false; }
 
+    private void OnDisable()
+    {
+      
+        if (contentGroup != null) contentGroup.blocksRaycasts = true;
+    }
+
     public void OnBeginDrag(PointerEventData e) => dragging = true;
     public void OnEndDrag(PointerEventData e) => dragging = false;
 
     private void Update()
     {
-        // Unity: verticalNormalizedPosition 1 = top, 0 = bottom
+        UpdateItemLock();
+
         float y = scrollRect.verticalNormalizedPosition;
         float progress = targetAtBottom ? 1f - y : y;
 
@@ -51,5 +59,17 @@ public class FridgeScrollTutorialReporter : MonoBehaviour, IBeginDragHandler, IE
             reported = true;
             if (interactable != null) interactable.ReportScroll();
         }
+    }
+
+    private void UpdateItemLock()
+    {
+        if (contentGroup == null || interactable == null) return;
+
+        var m = TutorialManager.Instance;
+        bool scrollStepActive = m != null && m.IsActive &&
+                                m.IsExpected(interactable.ResolvedId, TutorialActionType.Scroll);
+
+        // Items can't be tapped while the player is supposed to be scrolling
+        contentGroup.blocksRaycasts = !scrollStepActive;
     }
 }

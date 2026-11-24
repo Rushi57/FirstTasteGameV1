@@ -12,7 +12,7 @@ public class PanCookingEffect : MonoBehaviour
     [Header("Timing (seconds at speed 1)")]
     public float secondsToCook = 20f;
     public bool canBurn = true;
-    public float secondsToBurn = 25f;   // extra time after fully cooked
+    public float secondsToBurn = 25f; 
 
     [Header("Tints (multiplied with the sprite)")]
     public Color cookedTint = new Color(0.78f, 0.50f, 0.30f, 1f);
@@ -34,7 +34,7 @@ public class PanCookingEffect : MonoBehaviour
         Debug.Log($"[Cook] Tracking '{img.name}'");
     }
 
-    /// <summary>Stop cooking this image and keep its current color (e.g. when set aside in the bowl).</summary>
+
     public void Untrack(Image img)
     {
         if (img == null) return;
@@ -76,7 +76,7 @@ public class PanCookingEffect : MonoBehaviour
         }
     }
 
-    /// <summary>0 = raw, 1 = perfectly cooked, above 1 = overcooked.</summary>
+ 
     public float GetDoneness(Image img)
     {
         foreach (var i in items)
@@ -84,7 +84,7 @@ public class PanCookingEffect : MonoBehaviour
         return 0f;
     }
 
-    /// <summary>Call on Retry / new dish.</summary>
+
     public void ResetCooking()
     {
         foreach (var i in items)

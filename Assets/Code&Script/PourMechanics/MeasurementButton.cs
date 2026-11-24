@@ -5,13 +5,13 @@ using TMPro;
 
 public enum MeasurementOption
 {
-    // Spoon scroll
+
     Tsp_1_8, Tsp_1_4, Tsp_1_2, Tsp_1, Tbsp_1_2, Tbsp_1,
-    // Cup scroll
+
     Cup_1_4, Cup_1_3, Cup_1_2, Cup_1
 }
 
-/// <summary>Single source of truth for your measurement chart.</summary>
+
 public static class MeasurementTable
 {
     public static string Label(MeasurementOption o) => o switch

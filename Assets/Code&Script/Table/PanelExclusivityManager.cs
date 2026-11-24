@@ -9,7 +9,7 @@ public class PanelExclusivityManager : MonoBehaviour
     public class PanelEntry
     {
         public GameObject panel;
-        public string displayName;   // e.g. "Fridge", "Cabinet", "Shelf"
+        public string displayName;  
     }
 
     [Header("Shared warning UI (same one CookingStepGate uses)")]
@@ -31,13 +31,13 @@ public class PanelExclusivityManager : MonoBehaviour
         Instance = this;
     }
 
-    /// Returns true if the panel may open.
+  
     public bool TryOpen(GameObject panel)
     {
         if (currentOpen != null && !currentOpen.activeInHierarchy)
             currentOpen = null;
 
-        // Catch panels that were opened without TryOpen
+     
         if (currentOpen == null && panelNames != null)
         {
             foreach (var entry in panelNames)

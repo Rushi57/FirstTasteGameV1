@@ -53,9 +53,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [System.Serializable]
     public class PourLiquid
     {
-        public string ingredientId;          
-        public PourAnimationPlayer player;   
-        public string liquidId;              
+        public string ingredientId;
+        public PourAnimationPlayer player;
+        public string liquidId;
         public float ml = 250f;
 
         [Header("After pour")]
@@ -66,11 +66,11 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         [Header("Animation look")]
         public Sprite pitcherSprite;
-        public Sprite streamSprite;         
+        public Sprite streamSprite;
         public Color streamColor = Color.white;
 
         [Header("Fill timing")]
-        public float fillDelay = 0.6f;       
+        public float fillDelay = 0.6f;
         public float fillDuration = 1.5f;
     }
 
@@ -86,6 +86,19 @@ public class PanDropZone : MonoBehaviour, IDropHandler
     [Header("Cooking Sound")]
     [Tooltip("The ingredient id of the cooking oil (must match IngredientData.id).")]
     public string oilId = "CookingOil";
+
+    [Tooltip("Ingredient ids that make the pan play the BOILING sound (Water, ChickenBroth, BeefBroth, etc). Must match IngredientData.id.")]
+    public List<string> boilingLiquidIds = new List<string> { "Water", "ChickenBroth", "BeefBroth" };
+
+    [Header("Wrong drop (no penalty)")]
+    public string misdropMessage = "Wrong step!\nFollow the Cooking Prep list.";
+
+  
+    private void WarnNoPenalty(string message)
+    {
+      
+        Debug.LogWarning("[PanDrop] " + message.Replace("\n", " "));
+    }
 
     private enum PanSound { Frying, Boiling }
     private PanSound liquidSound = PanSound.Frying;
@@ -104,12 +117,25 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         TestDrag drag = dropped.GetComponent<TestDrag>();
         if (drag == null || drag.IsLocked) return;
 
-        
+       
+        {
+            RectTransform panRoot = ingredientAnchor != null ? ingredientAnchor : transform as RectTransform;
+            var setAsidePrep = CookingPrepListUI.Instance;
+            if (drag.OriginalParent == panRoot && setAsidePrep != null && setAsidePrep.IsSetAsideStepCurrent())
+            {
+                drag.ReturnToOrigin();
+                drag.MarkDropHandled();   
+                WarnNoPenalty(misdropMessage);
+                return;
+            }
+        }
+
+
         if (drag.itemId == spatulaId)
         {
             var prep = CookingPrepListUI.Instance;
 
-           
+
             if (prep != null && prep.strictOrder && !prep.IsMixStepCurrent())
             {
                 ScoreManager.Instance?.ReportMistake(prep.wrongStepMessage);
@@ -118,12 +144,12 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             if (!HeatOk("Spatula")) return;
             CabinetAutoCloser.Instance?.Close();
-            SFXManager.Instance?.PlayPotLidClose();  
+            SFXManager.Instance?.PlayPotLidClose();
             mixingController?.OpenAndConfigure();
             tutorialTag?.ReportDrop();
-            return; 
+            return;
         }
-        
+
         if (drag.itemId == lidId)
         {
             if (!HeatOk("Lid")) return;
@@ -131,14 +157,14 @@ public class PanDropZone : MonoBehaviour, IDropHandler
             var prep = CookingPrepListUI.Instance;
             string current = prep != null ? prep.CurrentStepId : null;
 
-           
+
             bool isSimmer = current == BoilSimmerController.SimmerStepId;
             string lidStepId = isSimmer ? BoilSimmerController.SimmerStepId
                                         : BoilSimmerController.BoilStepId;
 
             if (prep != null && !prep.TryAccept(lidStepId)) return;
             CabinetAutoCloser.Instance?.Close();
-            SFXManager.Instance?.PlayPotLidClose();   
+            SFXManager.Instance?.PlayPotLidClose();
 
             prep?.CompleteStep(lidStepId);
             boilSimmerController?.OpenAndConfigure(isSimmer ? CookMode.Simmer : CookMode.Boil);
@@ -156,27 +182,28 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         if (!HeatOk(data.id)) return;
 
-      
+
 
         string stepId = $"Pan:{data.id}";
 
         if (CookingPrepListUI.Instance != null && !CookingPrepListUI.Instance.TryAccept(stepId))
             return;
 
-        
+
         if (data.playsPourAnimation)
         {
             HandlePour(drag, data, stepId);
             return;
         }
+ 
+        dropped.GetComponent<PlatedItem>()?.RemovePlate();
 
-        
         Debug.Log($"[PanDrop] Added '{data.id}' to the pan -> completing '{stepId}'");
 
-       
+
         bool isMelt = data.id == meltIngredientId;
 
-       
+
         if (data.TryGetStateOnDrop(targetName, out var newState))
         {
             Image stateImg = dropped.GetComponent<Image>();
@@ -216,6 +243,32 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         else
         {
             drag.SnapTo(target);
+
+          
+            drag.OnBadDrop = () =>
+            {
+                var p = CookingPrepListUI.Instance;
+                bool setAside = p != null && p.IsSetAsideStepCurrent();
+                drag.suppressBadDropMistake = setAside;
+                if (setAside && drag.OriginalParent == target) WarnNoPenalty(misdropMessage);
+            };
+
+       
+            drag.CanBeginDrag = () =>
+            {
+          
+                if (drag.transform.parent != target) return true;
+
+                var prep = CookingPrepListUI.Instance;
+                if (prep == null || !prep.strictOrder) return true;
+
+                if (!prep.IsSetAsideStepCurrent()) return true;
+
+                if (prep.CurrentStepMentions(data.id)) return true;
+
+                ScoreManager.Instance?.ReportMistake(prep.wrongStepMessage);
+                return false;
+            };
         }
         tutorialTag?.ReportDrop();
     }
@@ -242,7 +295,6 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         bool destroyIngredient = entry != null && entry.destroyIngredientAfterPour;
         bool destroyAnimation = entry != null && entry.destroyAnimationAfterPour;
 
-        // Keep references: the callback runs after the pour ends
         GameObject ingredientObj = drag != null ? drag.gameObject : null;
         GameObject animObj = player.gameObject;
 
@@ -250,7 +302,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             if (destroyIngredient)
             {
-                // consumed: never unlock / return it, just remove it
+           
                 if (ingredientObj != null) Destroy(ingredientObj);
             }
             else
@@ -265,9 +317,19 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
             CookingPrepListUI.Instance?.CompleteStep(stepId);
 
-            if (data.id == "Water") liquidSound = PanSound.Boiling;
-            else if (data.id == oilId) liquidSound = PanSound.Frying;
-            else hasIngredient = true;
+            if (IsBoilingLiquid(data.id))
+            {
+                liquidSound = PanSound.Boiling;
+                hasIngredient = true;   
+            }
+            else if (data.id == oilId)
+            {
+                liquidSound = PanSound.Frying;
+            }
+            else
+            {
+                hasIngredient = true;
+            }
 
             UpdatePanSound();
 
@@ -281,9 +343,9 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         {
             if (destroyIngredient)
             {
-                // Consumed: stays hidden and locked until the callback destroys it.
-                drag.MarkDropHandled();   // OnEndDrag won't send it back to the table
-                drag.SetLocked(true);     // alpha 0, no raycasts, not interactable
+            
+                drag.MarkDropHandled();  
+                drag.SetLocked(true);    
             }
             else
             {
@@ -301,7 +363,7 @@ public class PanDropZone : MonoBehaviour, IDropHandler
 
         StoveHeatController s = ResolveStove();
         if (s != null && s.CurrentHeat != StoveHeat.Off) return true;
-          if (!InTutorial)
+        if (!InTutorial)
             ScoreManager.Instance?.ReportResult(ResultQuality.Bad);
 
         return false;
@@ -332,5 +394,13 @@ public class PanDropZone : MonoBehaviour, IDropHandler
         if (clip == null) return;
 
         sfx.PlayLoop(clip);
+    }
+    private bool IsBoilingLiquid(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return false;
+
+        if (boilingLiquidIds != null && boilingLiquidIds.Contains(id)) return true;
+
+        return id.IndexOf("Broth", System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 }

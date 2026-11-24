@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// Put this on the JarImageSalt/Pepper object. Needs Raycast Target ON.
-/// Forwards any dropped spoon to SaltPepperController for scoring.
-/// </summary>
 public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
 {
     public SaltPepperController controller;
@@ -21,7 +17,7 @@ public class SaltPepperJarDropZone : MonoBehaviour, IDropHandler
 
         var spoon = dropped.GetComponent<SaltPepperSpoonItem>();
         var drag = dropped.GetComponent<TestDrag>();
-        if (spoon == null || drag == null) return; // not a spoon, bounces back on its own
+        if (spoon == null || drag == null) return; 
 
         controller?.HandleSpoonDropped(spoon, drag, dropped);
         tutorialTag?.ReportDrop();

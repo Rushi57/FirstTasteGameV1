@@ -3,11 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-/// <summary>
-/// Populates the scrolling "Ingredients :" list from a RecipeData and tracks
-/// which ingredients have been spawned (grayed out) and/or collected (placed
-/// on the table).
-/// </summary>
 public class RecipeIngredientListUI : MonoBehaviour
 {
     [Tooltip("The ScrollView's Content transform - rows get spawned as children of this.")]
@@ -26,10 +21,9 @@ public class RecipeIngredientListUI : MonoBehaviour
     private bool hasFiredAllCollected = false;
     private bool hasFiredAllSpawned = false;
 
-    /// <summary>Fires once, when every ingredient has been placed on the table.</summary>
     public System.Action OnAllIngredientsCollected;
 
-    /// <summary>Fires once, when every ingredient row has been grayed out (spawned).</summary>
+  
     public System.Action OnAllIngredientsSpawned;
 
     private ScrollRect scrollRect;
@@ -66,7 +60,7 @@ public class RecipeIngredientListUI : MonoBehaviour
 
     private IEnumerator ScrollToTop()
     {
-        // Destroy() in Clear() and the layout rebuild both finish by end of frame
+     
         yield return new WaitForEndOfFrame();
 
         if (contentContainer == null) yield break;
@@ -82,7 +76,7 @@ public class RecipeIngredientListUI : MonoBehaviour
         scrollRect.verticalNormalizedPosition = 1f; // 1 = top
     }
 
-    /// <summary>Grays out the row for this ingredient. Call right after IngredientSpawner spawns it.</summary>
+
     public void MarkSpawned(IngredientData ingredient)
     {
         if (ingredient == null) return;
@@ -104,7 +98,6 @@ public class RecipeIngredientListUI : MonoBehaviour
         }
     }
 
-    /// <summary>Marks the row as collected. Call once it's correctly placed on the table.</summary>
     public void MarkCollected(IngredientData ingredient)
     {
         if (ingredient == null) return;

@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class SettingPanelController : MonoBehaviour
 {
-    [SerializeField] Animator animator;   // SettingPanel's Animator
+    [SerializeField] Animator animator;   
     [SerializeField] GameObject panel;
 
-    // Must match your state names exactly (check in the Animator window)
+
     const string OpenIdle = "SettingAnimationOPENIdle";
     const string CloseIdle = "SettingAnimationCLOSEIdle";
 
@@ -19,14 +19,14 @@ public class SettingPanelController : MonoBehaviour
 
     public void Open()
     {
-        if (isBusy || isOpen) return;     // ignore spam taps
+        if (isBusy || isOpen) return;   
         panel.SetActive(true);
         StartCoroutine(Play("OpenSetting", "CloseSetting", OpenIdle, true));
     }
 
     public void Close()
     {
-        if (isBusy || !isOpen) return;    // ignore Exit while still opening
+        if (isBusy || !isOpen) return;   
         StartCoroutine(Play("CloseSetting", "OpenSetting", CloseIdle, false));
       
     }
@@ -38,7 +38,7 @@ public class SettingPanelController : MonoBehaviour
         animator.ResetTrigger(set);
         animator.SetTrigger(set);
 
-        // Wait until the Animator has actually reached the idle state
+     
         float timeout = 3f;
         while (timeout > 0f)
         {

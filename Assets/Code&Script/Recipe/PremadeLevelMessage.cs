@@ -6,23 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Shows the "prep is already done" message when a level scene starts.
-///
-/// Rules:
-///  1. Skipped if the selected level already has 2+ stars (hideAtStars).
-///  2. Each ingredient line is shown only once (Beef Tripe shows in Goto, then
-///     is skipped in Kare-Kare). Saved in SaveData when shown, so a scene
-///     reload / retry never repeats it, and each save slot has its own flags.
-///  3. Only ingredients that are in the level's RecipeData get a line.
-///  4. If nothing new is left to say, the panel does not open.
-///  5. EXIT RULE: if the player leaves the level (back to the map, backgrounds
-///     the app or quits) with fewer than resetOnExitBelowStars stars, the lines
-///     that level showed are forgotten, so they show again next time.
-///
-/// Put this on an object that is ALWAYS ACTIVE (e.g. PanelManager), not on
-/// UIPremadeMessagePerLevel itself (that object starts disabled).
-/// </summary>
 public class PremadeLevelMessage : MonoBehaviour
 {
     [System.Serializable]
@@ -90,7 +73,7 @@ public class PremadeLevelMessage : MonoBehaviour
     [Header("Debug")]
     public bool debugLogs = true;
 
-    // Used by the static scene-change handler.
+
     private static string s_levelScene = "";
     private static int s_resetBelowStars = 1;
 
@@ -105,18 +88,14 @@ public class PremadeLevelMessage : MonoBehaviour
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Any scene other than the level scene (map, main menu) = the player left the level.
-        // Reloading the same level scene (Replay) does NOT count.
+       
         if (scene.name != s_levelScene) ResolvePending();
     }
 
-    /// <summary>
-    /// If the last level that showed a message ended with too few stars, forget
-    /// the lines it showed so they appear again next time.
-    /// </summary>
+
     private static void ResolvePending()
     {
-        SaveData data = GameSession.Data;   // do not create data just to check
+        SaveData data = GameSession.Data;  
         if (data == null || data.pendingPrepLevel <= 0) return;
 
         int level = data.pendingPrepLevel;
@@ -153,13 +132,12 @@ public class PremadeLevelMessage : MonoBehaviour
         if (tapAnywhereButton != null) tapAnywhereButton.onClick.RemoveListener(OnTap);
     }
 
-    // Mobile: leaving the app usually pauses it instead of quitting.
     private void OnApplicationPause(bool paused) { if (paused) ResolvePending(); }
     private void OnApplicationQuit() { ResolvePending(); }
 
     private IEnumerator Start()
     {
-        // Wait a frame so the level loader and other panels finish their setup first.
+       
         yield return null;
         TryShow();
     }
@@ -173,7 +151,6 @@ public class PremadeLevelMessage : MonoBehaviour
             return;
         }
 
-        // A different level was left unresolved earlier: settle it first.
         SaveData data = GameSession.GetOrCreateData();
         if (data.pendingPrepLevel > 0 && data.pendingPrepLevel != level.levelNumber) ResolvePending();
 
@@ -184,7 +161,6 @@ public class PremadeLevelMessage : MonoBehaviour
             return;
         }
 
-        // Build the message from this recipe's ingredients, skipping lines already seen.
         var newKeys = new List<string>();
         var sb = new StringBuilder();
         if (!string.IsNullOrEmpty(intro)) sb.AppendLine(intro);
@@ -211,10 +187,9 @@ public class PremadeLevelMessage : MonoBehaviour
 
         if (!string.IsNullOrEmpty(outro)) sb.Append(outro);
 
-        // Mark as seen NOW so a reload or retry never repeats it.
+      
         foreach (string key in newKeys) data.MarkPrepSeen(key);
 
-        // Remember what this level showed, in case the player leaves with no star.
         if (data.pendingPrepLevel != level.levelNumber)
         {
             data.pendingPrepLevel = level.levelNumber;
@@ -260,7 +235,6 @@ public class PremadeLevelMessage : MonoBehaviour
         if (text.Length > 0) pages.Add(text);
     }
 
-    /// <summary>Tap anywhere: next part, or close after the last part.</summary>
     private void OnTap()
     {
         if (pageIndex + 1 < pages.Count)
@@ -302,7 +276,7 @@ public class PremadeLevelMessage : MonoBehaviour
         if (debugLogs) Debug.Log($"[PremadeLevelMessage] {msg}");
     }
 
-    /// <summary>Testing: right-click the component header > Reset Seen Messages.</summary>
+
     [ContextMenu("Reset Seen Messages")]
     private void ResetSeen()
     {

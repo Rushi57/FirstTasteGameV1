@@ -16,7 +16,6 @@ public enum TutorialActionType
     TripleTap
 }
 
-/// <summary>Where the dialogue box should sit for this step.</summary>
 public enum DialoguePosition
 {
     [InspectorName("Auto (avoid overlapping target)")]
@@ -24,10 +23,6 @@ public enum DialoguePosition
     Custom
 }
 
-/// <summary>
-/// Data-only description of one tutorial step. Create these as assets:
-/// Right click in Project window -> Create -> Tutorial -> Step
-/// </summary>
 [CreateAssetMenu(fileName = "TutorialStep", menuName = "Tutorial/Step")]
 public class TutorialStep : ScriptableObject
 {

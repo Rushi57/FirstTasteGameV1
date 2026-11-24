@@ -19,7 +19,7 @@ MonoBehaviour:
   advanceDelay: 0
   revertSteps: 0
   dialoguePosition: 1
-  customPosition: {x: 0, y: 140}
+  customPosition: {x: -303.52, y: 478.5}
   actionType: 1
   targetId: CabinetId
   dragSourceId: 

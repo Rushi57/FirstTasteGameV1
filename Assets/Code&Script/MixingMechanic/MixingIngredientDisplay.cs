@@ -5,18 +5,17 @@ using UnityEngine.UI;
 public class MixingIngredientDisplay : MonoBehaviour
 {
     [Header("Source (stove pan)")]
-    [SerializeField] private Transform ingredientAnchorSource;   // IngredientAnchoringPoint under Pan
+    [SerializeField] private Transform ingredientAnchorSource;   
 
     [Header("Target (mixing panel)")]
-    [SerializeField] private RectTransform displayContainer;     // WhatInsideOfAchorPointandLiquid
+    [SerializeField] private RectTransform displayContainer;    
     [SerializeField] private bool hideContainerBackground = true;
 
     [Header("Mix sizes (by IngredientData.size)")]
     [SerializeField] private Vector2 smallMixSize = new Vector2(130, 70);
     [SerializeField] private Vector2 largeMixSize = new Vector2(200, 145);
-    [SerializeField] private bool useIconScale = true;           // lets garlic etc. be smaller via iconScale
-    [SerializeField] private Vector2 defaultSize = new Vector2(130, 70);  // fallback if no IngredientData found
-
+    [SerializeField] private bool useIconScale = true;       
+    [SerializeField] private Vector2 defaultSize = new Vector2(130, 70);
     [Header("Auto-fit (for dishes with many ingredients)")]
     [SerializeField, Range(0.3f, 1f)] private float minScale = 0.55f;
     [SerializeField, Range(0.8f, 0.95f)] private float shrinkStep = 0.9f;
@@ -26,9 +25,9 @@ public class MixingIngredientDisplay : MonoBehaviour
     [SerializeField] private int placementAttempts = 40;
 
     [Header("Liquid (from the stove pan)")]
-    [SerializeField] private Transform liquidSource;                  // LiquidEffect under Pan
+    [SerializeField] private Transform liquidSource;               
     [SerializeField] private Vector2 liquidSize = new Vector2(260, 150);
-    [SerializeField] private bool weightByFill = true;   // more liquid poured = stronger color in the mix
+    [SerializeField] private bool weightByFill = true;  
 
     private readonly List<GameObject> spawned = new();
 
@@ -52,7 +51,7 @@ public class MixingIngredientDisplay : MonoBehaviour
 
         SpawnLiquid();
 
-        // 1. Collect whatever is on the pan right now
+     
         var items = new List<Item>();
         foreach (Transform child in ingredientAnchorSource)
         {
@@ -76,10 +75,9 @@ public class MixingIngredientDisplay : MonoBehaviour
 
         if (items.Count == 0) return;
 
-        // 2. Biggest first so small ones fill the gaps
         items.Sort((a, b) => (b.size.x * b.size.y).CompareTo(a.size.x * a.size.y));
 
-        // 3. Spawn, all centered at (0,0). Biggest first = drawn first = sits at the back
+     
         for (int i = 0; i < items.Count; i++)
         {
             var item = items[i];
@@ -90,7 +88,7 @@ public class MixingIngredientDisplay : MonoBehaviour
             rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.pivot = new Vector2(0.5f, 0.5f);
             rt.sizeDelta = FitToPlayArea(item.size);
-            rt.anchoredPosition = Vector2.zero;       // exact center
+            rt.anchoredPosition = Vector2.zero;      
             rt.localRotation = Quaternion.identity;
             rt.localScale = Vector3.one;
 
@@ -106,7 +104,7 @@ public class MixingIngredientDisplay : MonoBehaviour
        
     }
 
-    // Never let a single image be bigger than the play area
+ 
     private Vector2 FitToPlayArea(Vector2 size)
     {
         float k = Mathf.Min(1f, playAreaSize.x / size.x, playAreaSize.y / size.y);
@@ -119,7 +117,6 @@ public class MixingIngredientDisplay : MonoBehaviour
         spawned.Clear();
     }
 
-    // Green box in the Scene view (select MixingDashBoard) showing the safe play area
     private void OnDrawGizmosSelected()
     {
         if (displayContainer == null) return;
@@ -129,41 +126,63 @@ public class MixingIngredientDisplay : MonoBehaviour
     }
     private void SpawnLiquid()
     {
-        if (liquidSource == null) return;
-
-        Color sum = Color.clear;     // weighted rgb
-        float totalWeight = 0f;
-        float maxAlpha = 0f;
-        Sprite sprite = null;
-        float bestWeight = -1f;
-
-        foreach (Transform child in liquidSource)
+        if (liquidSource == null)
         {
-            if (!child.gameObject.activeInHierarchy) continue;
-            if (!child.TryGetComponent(out Image src) || src.sprite == null) continue;
-            if (src.color.a <= 0.01f) continue;
+            Debug.LogWarning("[MixDisplay] liquidSource is not assigned.");
+            return;
+        }
 
-            // How much of this liquid is there? Filled images use their fill amount.
-            float weight = 1f;
-            if (weightByFill && src.type == Image.Type.Filled)
-                weight = src.fillAmount;
-            if (weight <= 0.01f) continue;
+        Color sum = Color.clear;
+        float totalWeight = 0f, maxAlpha = 0f, bestWeight = -1f;
+        Sprite sprite = null;
+        int checkedCount = 0;
+
+        foreach (var src in liquidSource.GetComponentsInChildren<Image>(false))
+        {
+            checkedCount++;
+            if (!src.enabled || src.sprite == null)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': disabled or no sprite"); continue; }
+
+            float alpha = src.color.a * src.canvasRenderer.GetInheritedAlpha();
+            if (alpha <= 0.01f)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': alpha {alpha:0.00}"); continue; }
+
+            float weight = (weightByFill && src.type == Image.Type.Filled) ? src.fillAmount : 1f;
+            if (weight <= 0.01f)
+            { Debug.Log($"[MixDisplay] skip '{src.name}': fill {weight:0.00}"); continue; }
 
             sum += new Color(src.color.r, src.color.g, src.color.b, 0f) * weight;
             totalWeight += weight;
-            maxAlpha = Mathf.Max(maxAlpha, src.color.a);
-
-            // Use the sprite of the most plentiful liquid for the shape
+            maxAlpha = Mathf.Max(maxAlpha, alpha);
             if (weight > bestWeight) { bestWeight = weight; sprite = src.sprite; }
         }
 
-        if (totalWeight <= 0f || sprite == null) return;
+       
+        if (totalWeight <= 0f)
+        {
+            foreach (var sr in liquidSource.GetComponentsInChildren<SpriteRenderer>(false))
+            {
+                checkedCount++;
+                if (!sr.enabled || sr.sprite == null || sr.color.a <= 0.01f) continue;
+                sum += new Color(sr.color.r, sr.color.g, sr.color.b, 0f);
+                totalWeight += 1f;
+                maxAlpha = Mathf.Max(maxAlpha, sr.color.a);
+                if (sprite == null) sprite = sr.sprite;
+            }
+        }
+
+        if (totalWeight <= 0f || sprite == null)
+        {
+            Debug.Log($"[MixDisplay] No liquid found ({checkedCount} candidates checked under '{liquidSource.name}').");
+            return;
+        }
 
         Color blended = sum / totalWeight;
         blended.a = maxAlpha;
 
         var go = new GameObject("Liquid_Mix", typeof(RectTransform), typeof(Image));
         go.transform.SetParent(displayContainer, false);
+        go.transform.SetAsFirstSibling();   
 
         var rt = (RectTransform)go.transform;
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);

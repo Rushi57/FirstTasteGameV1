@@ -1,15 +1,31 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
-/// <summary>
-/// Drives the tutorial: shows dialogue lines in order, waits for the required
-/// player action (if any), highlights the target, blocks other input, then
-/// advances to the next step. Attach to a persistent GameObject (e.g. in
-/// your UI Canvas) and wire up the refs in the Inspector.
-/// </summary>
+using UnityEngine.EventSystems;
+
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
+
+
+    [Header("Speed-run tolerance")]
+    public float bufferWindow = 3f;
+    public float mistakeGraceTime = 0.35f;
+    public float maxBusyWait = 2f;
+    [Tooltip("Only a wrong DRAG/DROP counts as a mistake. Stray taps/holds/scrolls are ignored.")]
+    public bool onlyDragCountsAsMistake = true;
+
+    private struct BufferedAction { public string id; public TutorialActionType type; public float time; }
+    private readonly List<BufferedAction> actionBuffer = new List<BufferedAction>();
+    private float waitingSince;
+    private string lastDoneId;
+    private TutorialActionType lastDoneType;
+    private float lastDoneTime;
+    private float lastNextTime;
+    private bool lastEntryWasRevert;
+
+    public TutorialStep CurrentStep =>
+    (stepIndex >= 0 && stepIndex < steps.Count) ? steps[stepIndex] : null;
 
     [Header("Tutorial Data")]
     [Tooltip("Unique key for this tutorial, in case you have more than one (e.g. per-level tutorials).")]
@@ -75,7 +91,7 @@ public class TutorialManager : MonoBehaviour
 
     [Tooltip("Outline material (uses the UI/SpriteOutlineExpand shader). Leave empty for scale-only pulsing.")]
     public Material pulseOutlineMaterial;
-    public float outlineMin = 4f;   // canvas units
+    public float outlineMin = 4f;  
     public float outlineMax = 8f;
 
     private readonly List<TutorialPulse> activePulses = new List<TutorialPulse>();
@@ -97,13 +113,6 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log($"[TutorialManager] Awake() on '{gameObject.name}' (tutorialId='{tutorialId}'). InputBlocker assigned: {(inputBlocker != null ? inputBlocker.name : "NULL")}, forcing it inactive now.");
 
-        // Safe baseline: InputBlocker should NEVER be active just because the
-        // scene loaded - it should only ever be turned on by an actively
-        // running step (see BeginCurrentStep). This matters most when the
-        // tutorial is already completed: StartTutorial() returns immediately
-        // in that case and never gets a chance to touch InputBlocker, so
-        // without this it would stay stuck at whatever state the scene file
-        // itself was saved with.
         if (inputBlocker != null)
             inputBlocker.SetActive(false);
 
@@ -135,41 +144,38 @@ public class TutorialManager : MonoBehaviour
     public void Unregister(TutorialInteractable interactable)
     {
         if (interactable == null || string.IsNullOrEmpty(interactable.ResolvedId)) return;
-        // Only remove if it's still the one currently registered under that id
-        // (avoids a late-destroying old object wiping out a newer registration).
+        
         if (registry.TryGetValue(interactable.ResolvedId, out var current) && current == interactable)
             registry.Remove(interactable.ResolvedId);
     }
 
-    /// <summary>
-    /// Call this wherever you'd normally start the tutorial (splash screen,
-    /// level load, etc). Safe to call every launch - it no-ops automatically
-    /// if the player already finished it.
-    /// </summary>
+
     public void StartTutorial()
     {
         if (steps.Count == 0) return;
         if (steps.Count == 0) return;
         if (HasCompletedTutorial()) return;
 
-        RegisterAllInteractables();   // pick up everything inside BackGroundImage now that it's active
+        RegisterAllInteractables();  
 
         tutorialActive = true;
 
         int resumeIndex = resumeFromLastStep ? PlayerPrefs.GetInt(ProgressKey, 0) : 0;
         stepIndex = Mathf.Clamp(resumeIndex, 0, steps.Count - 1) - 1;
         lockByMistake = false;
+        lastEntryWasRevert = false;
         AdvanceStep();
         Debug.Log($"[Tutorial] id='{tutorialId}' completed={HasCompletedTutorial()}");
     }
 
-    /// <summary>Force-start regardless of saved progress (e.g. a "Replay Tutorial" button).</summary>
+
     public void ForceRestartTutorial()
     {
         ResetProgress();
         tutorialActive = true;
         stepIndex = -1;
         lockByMistake = false;
+        lastEntryWasRevert = false;
         AdvanceStep();
     }
 
@@ -178,7 +184,7 @@ public class TutorialManager : MonoBehaviour
         return PlayerPrefs.GetInt(CompletedKey, 0) == 1;
     }
 
-    /// <summary>Clears saved progress/completion for this tutorial id.</summary>
+
     public void ResetProgress()
     {
         PlayerPrefs.DeleteKey(CompletedKey);
@@ -186,7 +192,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    /// <summary>Adds id to the persisted set of every tutorialId that has ever run, if not already present.</summary>
+
     private static void RegisterKnownTutorialId(string id)
     {
         if (string.IsNullOrEmpty(id)) return;
@@ -201,18 +207,10 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Resets EVERY tutorial this game has ever run (across all scenes) back
-    /// to unseen/unstarted - the opposite of SkipTutorial(). Static, so it
-    /// can be called from anywhere (e.g. a "New Game" button on the main
-    /// menu) without needing a live TutorialManager instance for every
-    /// tutorial. Does NOT touch unrelated PlayerPrefs keys your save system
-    /// might use - only this system's own completed/progress keys.
-    /// </summary>
-    /// 
+  
     private void RegisterAllInteractables()
     {
-        // 'true' includes inactive objects (the old call skipped them)
+   
         foreach (var interactable in FindObjectsByType<TutorialInteractable>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             Register(interactable);
     }
@@ -223,7 +221,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         SaveData data = GameSession.GetOrCreateData();
-        data.MarkTutorialCompleted(tutorialId);            // in memory, so any later Save includes it
+        data.MarkTutorialCompleted(tutorialId);            
        
     }
 
@@ -252,13 +250,7 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"[TutorialManager] Reset {ids.Length} known tutorial(s) for a new game: {existing}");
     }
 
-    /// <summary>
-    /// Marks this tutorial as permanently completed WITHOUT stepping through
-    /// it - so StartTutorial() will no-op on every future call, even if the
-    /// player never actually finished the steps (e.g. they quit out early).
-    /// Also immediately shuts down any active tutorial UI. Call this from
-    /// wherever the player can leave/skip/quit the level (e.g. SceneChanger.QuitInGame).
-    /// </summary>
+ 
     public void SkipTutorial()
     {
         if (!tutorialActive) return;
@@ -267,7 +259,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         if (tutorialActive)
-            EndTutorial(); // also handles hiding UI, clearing pulses/blocker, etc.
+            EndTutorial(); 
 
         Debug.Log($"[TutorialManager] Tutorial '{tutorialId}' marked as skipped/completed - it will not start again.");
     }
@@ -282,7 +274,7 @@ public class TutorialManager : MonoBehaviour
         }
         lineIndex = 0;
         PlayerPrefs.SetInt(ProgressKey, stepIndex);
-        PlayerPrefs.Save();
+       
         BeginCurrentStep();
     }
 
@@ -312,7 +304,7 @@ public class TutorialManager : MonoBehaviour
 
         dialogueBox.SetPosition(step.dialoguePosition, targetRect, step.customPosition);
         dialogueBox.Show(step.npcName, step.npcPortrait);
-        ClearPulses(); // no pulsing until PlayCurrentLine decides we're actually waiting for the action
+        ClearPulses(); 
         PlayCurrentLine();
     }
 
@@ -329,7 +321,6 @@ public class TutorialManager : MonoBehaviour
             return result;
         }
 
-        // Wildcard: exempt every registered interactable that's actually draggable.
         foreach (var interactable in registry.Values)
         {
             if (interactable != null && interactable.GetComponent<TestDrag>() != null)
@@ -338,14 +329,7 @@ public class TutorialManager : MonoBehaviour
         return result;
     }
 
-    /// <summary>
-    /// Called whenever something new registers (e.g. a dynamically spawned
-    /// ingredient). If we're currently on a wildcard Drag step (dragSourceId
-    /// left blank) and already waiting for the action, this re-resolves the
-    /// source list and immediately exempts/pulses the newly spawned item -
-    /// without this, an item spawned mid-step would be invisible to the
-    /// blocker/pulse until the NEXT step began.
-    /// </summary>
+
     private void RefreshDragSourcesIfNeeded()
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
@@ -365,17 +349,30 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    // Drop zones (stove, pan, chopping board, etc.) should never pulse/scale.
     private bool IsDropZone(RectTransform rect)
     {
+
         if (rect == null) return false;
-        return rect.GetComponent<UnityEngine.EventSystems.IDropHandler>() != null;
+        foreach (var h in rect.GetComponents<IDropHandler>())
+            if (!(h is EventTrigger)) return true;  
+        return false;
     }
 
     private void AddPulse(RectTransform rect)
     {
         if (rect == null) return;
-        if (IsDropZone(rect)) return;
+
+
+        bool isJar = rect.GetComponent<SaltPepperJarDropZone>() != null;
+        if (!isJar && IsDropZone(rect)) return;
+
+     
+        if (isJar && rect.GetComponent<UnityEngine.UI.Image>() == null)
+        {
+            var childImage = rect.GetComponentInChildren<UnityEngine.UI.Image>(true);
+            if (childImage != null) rect = childImage.rectTransform;
+        }
+
         if (activePulses.Exists(p => p != null && p.enabled && p.transform == rect)) return;
 
         var pulse = rect.gameObject.AddComponent<TutorialPulse>();
@@ -387,8 +384,8 @@ public class TutorialManager : MonoBehaviour
     {
         foreach (var pulse in activePulses)
         {
-            if (pulse == null) continue;   // already destroyed, skip it
-            pulse.enabled = false;         // runs OnDisable now: restores scale + material
+            if (pulse == null) continue;   
+            pulse.enabled = false;         
             Destroy(pulse);
         }
         activePulses.Clear();
@@ -406,8 +403,7 @@ public class TutorialManager : MonoBehaviour
 
         ApplyInputBlocker();
 
-        // If the player is already supposed to act, pulse now.
-        // Otherwise PlayCurrentLine pulses it when the last line shows.
+  
         if (waitingForAction && pulseTargets)
             AddPulse(currentTargetRect);
     }
@@ -416,8 +412,7 @@ public class TutorialManager : MonoBehaviour
     {
         TutorialStep step = steps[stepIndex];
         bool isLastLine = lineIndex >= currentLines.Length - 1;
-        // Show the "Next" button only if this line doesn't hand off to a
-        // required game action, OR it's not yet the last line.
+    
         bool showNext = !isLastLine || step.actionType == TutorialActionType.None;
 
         dialogueBox.PlayLine(currentLines[lineIndex], showNext);
@@ -425,8 +420,6 @@ public class TutorialManager : MonoBehaviour
         waitingForAction = isLastLine && step.actionType != TutorialActionType.None;
         tapCount = 0;
 
-        // Only pulse once the player actually needs to perform the action
-        // (Next button gone) - not while they're still reading buildup lines.
         if (waitingForAction && pulseTargets)
         {
             AddPulse(currentTargetRect);
@@ -442,9 +435,11 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleNextPressed()
     {
+        if (Time.unscaledTime - lastNextTime < 0.15f) return;
+        lastNextTime = Time.unscaledTime;
         if (waitingForAction || advanceRoutine != null) return;
 
-        lockByMistake = false;   // Oops line dismissed, unlock before the next line plays
+        lockByMistake = false;  
 
         TutorialStep step = steps[stepIndex];
         if (lineIndex < currentLines.Length - 1)
@@ -462,30 +457,32 @@ public class TutorialManager : MonoBehaviour
     public void NotifyAction(string id, TutorialActionType type)
     {
         if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return;
+        id = id?.Trim();
+        float now = Time.unscaledTime;
 
-        TutorialStep step = steps[stepIndex];
         if (!waitingForAction)
         {
-            Debug.Log($"[TutorialManager] NotifyAction('{id}', {type}) received but not currently waiting for an action - ignored.");
+            actionBuffer.Add(new BufferedAction { id = id, type = type, time = now });
             return;
         }
 
+        TutorialStep step = steps[stepIndex];
+        if (Matches(step, id, type)) { CompleteStep(step); return; }
 
+        if (now - waitingSince < mistakeGraceTime) return;
+        if (id == lastDoneId && type == lastDoneType && now - lastDoneTime < mistakeGraceTime * 2f) return;
+        if (onlyDragCountsAsMistake && type != TutorialActionType.Drag) return;
 
-        if (step.targetId?.Trim() != id || step.actionType != type)
-        {
-            Debug.LogWarning($"[TutorialManager] NotifyAction('{id}', {type}) did NOT match step '{step.name}' (expected '{step.targetId}', {step.actionType}).");
-            HandleMistake(step);
-            return;
-        }
+        HandleMistake(step);
 
         waitingForAction = false;
-        ClearPulses();   // stop pulsing while the animation plays
+        ClearPulses();  
         CancelPendingAdvance(false);
         advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
     }
 
-   
+    private bool Matches(TutorialStep step, string id, TutorialActionType type)
+     => step.targetId?.Trim() == id && step.actionType == type;
     public void BeginBusy() => busyCount++;
 
 
@@ -493,13 +490,18 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator AdvanceWhenReady(TutorialStep step)
     {
-        yield return null;   
+        yield return null;
 
-        if (step.advanceDelay > 0f)
+        if (step.advanceDelay > 0f && actionBuffer.Count == 0)
             yield return new WaitForSecondsRealtime(step.advanceDelay);
 
-        while (busyCount > 0)
+        float waited = 0f;
+        while (busyCount > 0 && waited < maxBusyWait)
+        {
+            waited += Time.unscaledDeltaTime;
             yield return null;
+        }
+        busyCount = 0;
 
         advanceRoutine = null;
         AdvanceStep();
@@ -518,17 +520,18 @@ public class TutorialManager : MonoBehaviour
     private void GoToStep(int index)
     {
         CancelPendingAdvance();
+        actionBuffer.Clear();
         stepIndex = Mathf.Clamp(index, 0, steps.Count - 1);
         lineIndex = 0;
         waitingForAction = false;
         PlayerPrefs.SetInt(ProgressKey, stepIndex);
-        PlayerPrefs.Save();
         BeginCurrentStep();
     }
 
     public void ReportMistake()
     {
         if (!tutorialActive || !waitingForAction) return;
+        if (Time.unscaledTime - waitingSince < mistakeGraceTime) return;
         HandleMistake(steps[stepIndex]);
     }
 
@@ -537,14 +540,53 @@ public class TutorialManager : MonoBehaviour
         if (!revertOnMistake || !failedStep.revertOnMistake) return;
 
         int back = failedStep.revertSteps >= 0 ? failedStep.revertSteps : stepsToRevert;
+        if (lastEntryWasRevert) back = 0;  
 
         waitingForAction = false;
         pendingMistakeMessage = failedStep.mistakeMessage;
-        Debug.Log($"[TutorialManager] Mistake on step '{failedStep.name}' - reverting {back} step(s).");
-        OnTutorialReverted?.Invoke();
         lockByMistake = !string.IsNullOrEmpty(failedStep.mistakeMessage);
+        lastEntryWasRevert = true;
+
         GoToStep(stepIndex - back);
+        OnTutorialReverted?.Invoke();
     }
+
+    private void CompleteStep(TutorialStep step)
+    {
+        lastEntryWasRevert = false;
+        lastDoneId = step.targetId?.Trim();
+        lastDoneType = step.actionType;
+        lastDoneTime = Time.unscaledTime;
+
+        waitingForAction = false;
+        ClearPulses();
+        CancelPendingAdvance(false);
+        advanceRoutine = StartCoroutine(AdvanceWhenReady(step));
+    }
+
+    private void TryConsumeBuffer()
+    {
+        if (!waitingForAction) return;
+        TutorialStep step = steps[stepIndex];
+        float now = Time.unscaledTime;
+
+        actionBuffer.RemoveAll(b => now - b.time > bufferWindow);
+        int i = actionBuffer.FindIndex(b => Matches(step, b.id, b.type));
+        if (i < 0) { actionBuffer.Clear(); return; }
+
+        actionBuffer.RemoveRange(0, i + 1);
+        CompleteStep(step);
+    }
+
+    public bool IsExpected(string id, TutorialActionType type)
+    {
+        if (!tutorialActive || stepIndex < 0 || stepIndex >= steps.Count) return false;
+        id = id?.Trim();
+        if (Matches(steps[stepIndex], id, type)) return true;
+        return advanceRoutine != null && stepIndex + 1 < steps.Count &&
+               Matches(steps[stepIndex + 1], id, type);
+    }
+
 
     private void EndTutorial()
     {
@@ -648,7 +690,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (onlyForLevel > 0 && level != onlyForLevel) return;
 
- 
+
         SaveData data = GameSession.Data;
         if (data != null && data.GetLevelResult(level) != null)
         {
@@ -656,6 +698,8 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        StartTutorial();  
+        StartTutorial();
     }
+    private void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save(); }
+    private void OnDestroy() { PlayerPrefs.Save(); }
 }

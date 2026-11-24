@@ -1,24 +1,18 @@
 using UnityEngine;
 
-/// <summary>
-/// Drives the three prep stages:
-///   1. Ingredient Prep     (IngredientPrepScrollingObj) - until every row is grayed out
-///   2. Ingredient Cut Prep (IngCutPrepScrollObj)        - chop/slice/mince steps
-///   3. Cooking Prep        (CookingPrepScrollingObj)    - stove, oil, pan, etc.
-/// </summary>
 public class CookingPrepPanelController : MonoBehaviour
 {
     [Header("Source")]
     public RecipeIngredientListUI ingredientList;
 
     [Header("Panels to swap")]
-    public GameObject ingredientPrepPanel;    // IngredientPrepScrollingObj
-    public GameObject ingredientCutPrepPanel; // IngCutPrepScrollObj
-    public GameObject cookingPrepPanel;       // CookingPrepScrollingObj
+    public GameObject ingredientPrepPanel;    
+    public GameObject ingredientCutPrepPanel; 
+    public GameObject cookingPrepPanel;       
 
     [Header("List UIs (one per panel)")]
-    public CookingPrepListUI cutPrepListUI;     // on IngCutPrepScrollObj
-    public CookingPrepListUI cookingPrepListUI; // on CookingPrepScrollingObj
+    public CookingPrepListUI cutPrepListUI;     
+    public CookingPrepListUI cookingPrepListUI; 
 
     [Tooltip("The recipe currently being cooked.")]
     public RecipeData currentRecipe;
@@ -27,7 +21,7 @@ public class CookingPrepPanelController : MonoBehaviour
     public PanLiquidFill panLiquid;
 
     [Header("Tutorial")]
-    public SetAsideTutorial setAsideTutorial;   // drag GameMechanicsGameObject here
+    public SetAsideTutorial setAsideTutorial;  
 
     private void OnEnable()
     {
@@ -45,7 +39,6 @@ public class CookingPrepPanelController : MonoBehaviour
             cutPrepListUI.OnAllStepsComplete -= HandleAllCutsDone;
     }
 
-    /// <summary>Call when a recipe starts so the player begins on Ingredient Prep.</summary>
     public void ResetToIngredientStage()
     {
         SetPanels(true, false, false);
@@ -53,7 +46,7 @@ public class CookingPrepPanelController : MonoBehaviour
         ApplyLiquidProfile();
     }
 
-    // Stage 1 -> 2
+
     private void HandleAllIngredientsSpawned()
     {
         SetPanels(false, true, false);
@@ -63,14 +56,14 @@ public class CookingPrepPanelController : MonoBehaviour
         var prepIndices = currentRecipe.GetPrepStepIndices();
         if (prepIndices.Count == 0)
         {
-            HandleAllCutsDone(); // nothing to cut
+            HandleAllCutsDone();
             return;
         }
 
         cutPrepListUI?.DisplaySteps(currentRecipe, prepIndices);
     }
 
-    // Stage 2 -> 3
+
     private void HandleAllCutsDone()
     {
         SetPanels(false, false, true);
@@ -79,7 +72,6 @@ public class CookingPrepPanelController : MonoBehaviour
         if (currentRecipe != null)
             cookingPrepListUI?.DisplaySteps(currentRecipe, currentRecipe.GetCookingStepIndices());
 
-        // One-time Chicken Asado bowl tutorial
         if (setAsideTutorial != null)
             setAsideTutorial.TryShow(currentRecipe);
         else
@@ -99,6 +91,6 @@ public class CookingPrepPanelController : MonoBehaviour
         if (currentRecipe != null && currentRecipe.liquidProfile != null)
             panLiquid.SetProfile(currentRecipe.liquidProfile);
         else
-            panLiquid.Clear();   // dish has no profile: keep the pan empty
+            panLiquid.Clear();  
     }
 }
